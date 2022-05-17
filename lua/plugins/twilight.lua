@@ -1,4 +1,11 @@
-require("twilight").setup {
+local present, twilight = pcall(require, "twilight")
+
+if not present then
+  return
+end
+
+
+local config = {
     dimming = {
         alpha = 0.25, -- amount of dimming
         -- we try to get the foreground from the highlight groups or fallback color
@@ -14,3 +21,5 @@ require("twilight").setup {
     },
     exclude = {} -- exclude these filetypes
 }
+
+twilight.setup(config)

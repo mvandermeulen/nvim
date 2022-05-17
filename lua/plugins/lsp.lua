@@ -5,6 +5,14 @@
 -- Updated: 02-05-2022
 --]]
 
+local present, lsp_configuration = pcall(require, "config.core.lsp")
+
+if not present then
+  return
+end
+
+
+
 local nvim_lsp = require 'lspconfig'
 
 -- detect python venv
