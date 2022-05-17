@@ -1,0 +1,16 @@
+plugin
+plugin/
+lua/_plugins
+lua/_plugins/
+lua/lsp
+lua/lsp/
+lua/user
+lua/user/
+lua/utils
+lua/utils/
+lua/helpers
+lua/helpers/
+__luasnippets
+install
+snippets
+
