@@ -17,4 +17,4 @@ require('workspaces').setup {
   },
 }
 
-require('telescope').load_extension 'workspaces'
+require('telescope').load_extension('workspaces')

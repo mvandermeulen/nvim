@@ -57,7 +57,7 @@ nvim_tree.setup {
   git = { enable = true, ignore = true, timeout = 500 },
   filters = {
     dotfiles = false,
-    custom = { '.git', 'node_modules', '.cache', '__pycache__', '.nvim', '.is_root_directory', '.DS_Store' },
+    custom = { '^.git$', 'node_modules', '.cache', '__pycache__', '.nvim', '.is_root_directory', '.DS_Store' },
   },
   -- filters = { dotfiles = false }, -- this option hides files and folders starting with a dot `.`
   -- git = { ignore = true },
