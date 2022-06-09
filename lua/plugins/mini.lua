@@ -7,7 +7,12 @@ require("mini.surround").setup({
 
     -- Pattern to match function name in 'function call' surrounding
     -- By default it is a string of letters, '_' or '.'
-    funname_pattern = "[%w_%.]+",
+    -- funname_pattern = "[%w_%.]+",
+		-- NOTE: Commented out funname_pattern due to being deprecated.
+		-- (mini.surround) `config.funname_pattern` is deprecated. If you explicitly supply its default value,
+		-- remove it from `config`. If not, manually modifying `f` surrounding in `config.custom_surroundings`.
+		-- See `:h MiniSurround.config`.
+
 
     -- Module mappings. Use `''` (empty string) to disable one.
     mappings = {
@@ -21,4 +26,12 @@ require("mini.surround").setup({
     }
 })
 
-require("mini.comment").setup({})
+-- require("mini.comment").setup({})
+
+
+require("mini.cursorword").setup({
+	delay = 300,
+})
+
+
+

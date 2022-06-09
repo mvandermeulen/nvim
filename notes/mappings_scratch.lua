@@ -12,11 +12,7 @@ keymap('n', '<Leader>vt', ':vsp | terminal<CR>') -- space + vt to open terminal 
 keymap('n', '<Leader>sp', ':sp | terminal<CR>') -- space + sp to open terminal on split
 keymap('t', '<Esc>', '<C-\\><C-n>') -- scape to exit edit mode on terminal
 keymap('n', '<Leader>sr', ':source %<CR>') -- space + sr to source %
-keymap('n', '<Leader>bd', ':Bdelete!<CR>')
 
--- Navigate buffers
-keymap('n', '<S-l>', ':bnext<CR>')
-keymap('n', '<S-h>', ':bprevious<CR>')
 
 -- Move text up and down
 keymap('n', '<A-j>', '<Esc>:m .+1<CR>')
@@ -27,8 +23,6 @@ keymap('n', '<Leader>ff', '<cmd>Telescope find_files<CR>') -- Find files using T
 keymap('n', '<Leader>fg', '<cmd>Telescope live_grep<CR>') -- Live grep on filesystem
 keymap('n', '<Leader>fb', '<cmd>Telescope buffers<CR>') -- More about this later
 keymap('n', '<Leader>fh', '<cmd>Telescope help_tags<CR>') -- Help tags
-
--- TELESCOPE FILE EXPLORER
 keymap('n', '<Leader>fd', '<cmd>Telescope file_browser<CR>') -- Open file explorer
 
 -- LSP
@@ -43,15 +37,6 @@ keymap('n', '<C-n>', ':NvimTreeToggle<CR>')
 keymap('n', '<Leader>r', ':NvimTreeRefresh<CR>')
 keymap('n', '<Laeder>n', ':NvimTreeFindFile<CR>')
 
--- Split Movement
-utils.map('n', '<C-h>', '<C-w>h')
-utils.map('n', '<C-j>', '<C-w>j')
-utils.map('n', '<C-k>', '<C-w>k')
-utils.map('n', '<C-l>', '<C-w>l')
-
--- Easier Splits
-utils.map('n', '<Leader>v', ':vsplit<CR>', opts)
-utils.map('n', '<Leader>h', ':split<CR>', opts)
 
 -- Custom
 keymap('n', '<esc><esc>', '<cmd>nohlsearch<cr>', opts)
@@ -80,7 +65,6 @@ keymap(
   opts
 )
 keymap('n', '<C-t>', '<cmd>lua vim.lsp.buf.document_symbol()<cr>', opts)
-keymap('n', '<C-s>', '<cmd>vsplit<cr>', opts)
 keymap('n', '<C-z>', '<cmd>ZenMode<cr>', opts)
 keymap('n', '<c-n>', ':e ~/Notes/<cr>', opts)
 
@@ -172,3 +156,64 @@ map_tele('n', '<leader>zen', 'edit_neovim')
 map_tele('n', '<leader>zed', 'edit_dotfiles')
 map_tele('n', '<leader>zez', 'edit_zsh')
 map_tele('n', '<leader>zep', 'installed_plugins')
+
+
+
+
+
+
+
+
+
+-- Manage plugins faster
+map('n', '<LEADER>1', ':luafile %<CR>', nor)
+map('n', '<LEADER>2', ':PackerUpdate<CR>', nor)
+map('n', '<LEADER>3', ':PackerInstall<CR>', nor)
+map('n', '<LEADER>4', ':PackerClean<CR>', nor)
+
+-- Paste smoothly
+map('v', '<LEADER>p', '"_dP', nor)
+-- Yank into clipboard
+map('n', '<LEADER>y', '"+y', nor)
+map('v', '<LEADER>y', '"+y', nor)
+map('n', '<LEADER>Y', 'gg"+yG', nor)
+-- Delete elegantly
+map('n', '<LEADER>d', '"_d', nor)
+map('v', '<LEADER>d', '"_d', nor)
+
+-- Fuzzy Finder
+map('n', '<LEADER>pp', [[<CMD>lua require'telescope.builtin'.builtin{}<CR>]],
+    nor)
+map('n', '<LEADER>sf', ':Telescope find_files<CR>', nor)
+map('n', '<LEADER>sl', ':Telescope live_grep<CR>', nor)
+map('n', '<LEADER>sg', ':Telescope git_files<CR>', nor)
+map('n', '<LEADER>so', [[<CMD>lua require('telescope.builtin').oldfiles()<CR>]],
+    nor)
+map('n', '<LEADER>sh',
+    [[<CMD>lua require('telescope.builtin').help_tags()<CR>]], nor)
+map('n', '<LEADER>sd', [[<CMD>lua require('m.finder').search_dotfiles()<CR>]],
+    nor)
+map('n', '<LEADER>ds', [[<CMD>lua require('m.finder').search_dotfiles()<CR>]],
+    nor)
+map('n', '<LEADER>/',
+    [[<CMD>lua require'telescope.builtin'.current_buffer_fuzzy_find{}<CR>]], nor)
+map('n', '<LEADER>cs',
+    [[<CMD>lua require'telescope.builtin'.colorscheme{}<CR>]], nor)
+map('n', '<LEADER>b', [[<CMD>lua require('telescope.builtin').buffers()<CR>]],
+    nor)
+-- File tree
+map('n', '<LEADER>t', ':Lexplore<CR>', nor)
+-- map('n', '<LEADER>abc<CR>', 'iabcdefghijklmnopqrstuvwxyz<Esc>', nor)
+map('n', '<LEADER>abc<CR>',
+    'i#include "/Users/astrlux/stdc++.h"<CR>using namespace std;<Esc>o', nor)
+map('n', '<LEADER>pn',
+    ':silent !pushd ~/notes; git add .; git commit -am \'changes\'; git push; popd;<CR>',
+    nor)
+
+
+
+
+
+
+
+

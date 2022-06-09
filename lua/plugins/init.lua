@@ -89,6 +89,13 @@ return packer.startup(function()
   -----------------------------------------------
   use { 'wbthomason/packer.nvim', opt = true }
   use 'lewis6991/impatient.nvim'
+  use {
+    'norcalli/nvim-terminal.lua',
+    config = function()
+      require('terminal').setup()
+    end,
+  } -- for displaying terminal colors in the pane_contents previewer with telescope-tmux
+  use { 'tami5/sqlite.lua' }
 
   -----------------------------------------------
   -- FZF
@@ -110,13 +117,20 @@ return packer.startup(function()
     { 'nvim-telescope/telescope-node-modules.nvim' },
     { 'nvim-telescope/telescope-live-grep-raw.nvim' },
     { 'KaiSpencer/telescope-tmuxp.nvim' },
+    { 'tom-anders/telescope-vim-bookmarks.nvim' },
+    { 'TC72/telescope-tele-tabby.nvim' },
+    { 'camgraff/telescope-tmux.nvim' },
+    { 'nvim-telescope/telescope-frecency.nvim' },
+    { 'chip/telescope-software-licenses.nvim' },
+    { 'cljoly/telescope-repo.nvim' },
+    { 'nvim-telescope/telescope-z.nvim' },
+    { 'LinArcX/telescope-changes.nvim' },
+    { 'LinArcX/telescope-ports.nvim' },
+    -- { 'da-moon/telescope-toggleterm.nvim' },
   }
   use { 'nvim-telescope/telescope.nvim', requires = telescope_depends, config = gc 'telescope' }
   use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
-  puse('tom-anders/telescope-vim-bookmarks.nvim', 'telescope-vim-bookmarks')
   puse('sudormrfbin/cheatsheet.nvim', 'cheatsheet')
-  puse('TC72/telescope-tele-tabby.nvim', 'telescope-tele-tabby')
-  puse('camgraff/telescope-tmux.nvim', 'telescope-tmux', { { 'norcalli/nvim-terminal.lua' } })
   --use({ "", config = gc("") })
 
   -----------------------------------------------
@@ -243,7 +257,14 @@ return packer.startup(function()
   -- use { 'akinsho/nvim-toggleterm.lua', keys = toggleterm_keys, config = gc 'toggleterm' }
   use { 'numToStr/FTerm.nvim', config = gc 'fterm' }
   use { 'waylonwalker/Telegraph.nvim' }
+  use {
+    'tknightz/telescope-termfinder.nvim',
+    config = function()
+      require('telescope').load_extension("termfinder")
+    end,
+  } -- for displaying terminal colors in the pane_contents previewer with telescope-tmux
   --use({ "da-moon/telescope-toggleterm.nvim", config = gc("telescope-toggleterm") })
+	use { 'jedrzejboczar/toggletasks.nvim', requires = { 'nvim-lua/plenary.nvim', 'akinsho/toggleterm.nvim', 'nvim-telescope/telescope.nvim' }, config = gc('toggletasks') }
 
   -----------------------------------------------
   -- Search highlighting
@@ -311,16 +332,48 @@ return packer.startup(function()
   --------------------
   -- Colorschemes
   --------------------
+  use { 'rktjmp/lush.nvim' }
   use { 'EdenEast/nightfox.nvim', config = gc 'nightfox' }
-  -- use({ "catppuccin/nvim", as = "catppuccin", config =  gc("catppuccin") })
+  -- use({ "catppuccin/nvim", as = "catppuccin" })
+  use({ "catppuccin/nvim", as = "catppuccin", config =  gc("catppuccin") })
   use { 'folke/tokyonight.nvim' }
   use { 'rebelot/kanagawa.nvim' }
   use { 'marko-cerovac/material.nvim' }
-  use { 'ellisonleao/gruvbox.nvim' }
+  -- use { 'ellisonleao/gruvbox.nvim' }
   use { 'eddyekofo94/gruvbox-flat.nvim' }
   use { 'shaunsingh/nord.nvim' }
   use { 'navarasu/onedark.nvim' }
   use { 'olimorris/onedarkpro.nvim' }
+  -- use { 'z4yw0o/nightwolf.nvim' }
+  use { 'savq/melange' }
+  use { 'rmehri01/onenord.nvim' }
+  use { 'Yagua/nebulous.nvim' }
+  use { 'andersevenrud/nordic.nvim' }
+  use { 'kvrohit/substrata.nvim' }
+  use { 'Domeee/mosel.nvim' }
+  use { 'teloe/drip.nvim' }
+  use({ 'rose-pine/neovim', as = 'rose-pine', tag = 'v1.*' })
+  use { 'sainnhe/gruvbox-material' }
+  use { 'Mofiqul/dracula.nvim' }
+  use { 'shaeinst/roshnivim-cs' }
+  use { 'rafamadriz/neon' }
+  use { 'clpi/cyu.lua' }
+  use { 'glepnir/zephyr-nvim' }
+  use { 'sam4llis/nvim-tundra' }
+  use { 'lmburns/kimbox' }
+  use { 'lvim-tech/lvim-colorscheme' }
+  use { 'mcchrish/zenbones.nvim' }
+  use { 'Mofiqul/vscode.nvim' }
+  use { 'decaycs/decay.nvim', as = 'decay' }
+  use { 'yashguptaz/calvera-dark.nvim' }
+  use { 'ishan9299/nvim-solarized-lua' }
+  use { 'NTBBloodbath/doom-one.nvim' }
+  use { 'shaunsingh/solarized.nvim' }
+  use { 'Mofiqul/adwaita.nvim' }
+  use { 'metalelf0/jellybeans-nvim' }
+  use { 'Murtaza-Udaipurwala/gruvqueen' }
+  use { 'daschw/leaf.nvim' }
+
 
   -----------------------------------------------
   -- Integrations
@@ -335,6 +388,7 @@ return packer.startup(function()
   use { 'nathom/filetype.nvim' } -- Lua filtype.vim is much faster
   use { 'nacro90/numb.nvim', config = gc 'numb' } -- Peek line contents
   use { 'numToStr/Comment.nvim', config = gc 'comment' } -- Peek line contents
+  use { 'jiaoshijie/undotree' } -- Peek line contents
 
   --use({ "", config = gc("") })
   --use({ "", config = gc("") })

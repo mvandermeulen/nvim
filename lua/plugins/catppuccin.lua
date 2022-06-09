@@ -1,4 +1,15 @@
-require("catppuccin").setup {
+--[[
+-- Catppuccin Colorscheme
+-- Updated: 06-06-2022
+--]]
+local name = 'catppuccin'
+local status, catppuccin = pcall(require, name)
+if not status then
+  vim.notify(string.format('Failed to configure plugin: %s', name))
+  return
+end
+
+catppuccin.setup {
   transparent_background = false,
   term_colors = true,
   styles = {
@@ -29,10 +40,10 @@ require("catppuccin").setup {
     cmp = true,
     lsp_saga = false,
     gitgutter = false,
-    gitsigns = false,
+    gitsigns = true,
     telescope = true,
     nvimtree = {
-      enabled = false,
+      enabled = true,
       show_root = false,
       transparent_panel = false,
     },
@@ -43,28 +54,28 @@ require("catppuccin").setup {
     },
     which_key = true,
     indent_blankline = {
-      enabled = false,
-      colored_indent_levels = false,
+      enabled = true,
+      colored_indent_levels = true,
     },
     dashboard = false,
-    neogit = false,
+    neogit = true,
     vim_sneak = false,
     fern = false,
     barbar = false,
-    bufferline = false,
+    bufferline = true,
     markdown = true,
-    lightspeed = false,
+    lightspeed = true,
     ts_rainbow = false,
     hop = false,
     notify = true,
     telekasten = false,
-    symbols_outline = false,
+    symbols_outline = true,
   },
 }
 
 local c = require("catppuccin.api.colors").get_colors()
 
-require("catppuccin").remap {
+catppuccin.remap {
   -- remove italics
   ErrorMsg = { fg = c.red, style = "bold" },
   TSProperty = { fg = c.yellow, style = "NONE" },
@@ -116,3 +127,9 @@ require("catppuccin").remap {
   -- luasnip
   LuasnipChoice = { fg = c.peach, style = "italic" },
 }
+
+
+
+-- vim.cmd("colorscheme catppuccin")
+
+

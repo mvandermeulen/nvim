@@ -14,14 +14,16 @@ local actions = require 'telescope.actions'
 local action_layout = require 'telescope.actions.layout'
 -- local icons = require 'helpers.icons'
 
---telescope.load_extension("zoxide")
-telescope.load_extension 'projects'
-telescope.load_extension 'fzf'
-telescope.load_extension 'heading'
-telescope.load_extension 'file_browser'
-telescope.load_extension 'notify'
 
+-----------------------------------------------
+-- Telescope Setup
+-----------------------------------------------
 telescope.setup {
+  extensions = {
+      tele_tabby = {
+          use_highlighter = true,
+      }
+  },
   defaults = {
     file_ignore_patterns = { 'node_modules', '.terraform', '%.jpg', '%.png' },
     vimgrep_arguments = {
@@ -93,3 +95,33 @@ telescope.setup {
     set_env = { ['COLORTERM'] = 'truecolor' }, -- default = nil,
   },
 }
+
+-----------------------------------------------
+-- Telescope Toggleterm Setup
+-----------------------------------------------
+-- require("telescope-toggleterm").setup {
+--    telescope_mappings = {
+--       -- <ctrl-c> : kill the terminal buffer (default) .
+--       ["<C-c>"] = require("telescope-toggleterm").actions.exit_terminal,
+--    },
+-- }
+
+-----------------------------------------------
+-- Load Extensions
+-----------------------------------------------
+--telescope.load_extension("zoxide")
+telescope.load_extension('projects')
+telescope.load_extension('fzf')
+telescope.load_extension('heading')
+telescope.load_extension('file_browser')
+telescope.load_extension('notify')
+telescope.load_extension('vim_bookmarks')
+telescope.load_extension('frecency')
+telescope.load_extension('software-licenses')
+telescope.load_extension('repo')
+telescope.load_extension('z')
+telescope.load_extension('changes')
+telescope.load_extension('ports')
+-- telescope.load_extension('toggleterm')
+
+

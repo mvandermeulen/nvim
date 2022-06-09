@@ -71,7 +71,8 @@ configs.setup {
     --},
   },
   --indent = {enable = true},
-  indent = { enable = true, disable = { 'python', 'css' } },
+  -- indent = { enable = true, disable = { 'python', 'css' } },
+  indent = { enable = true, disable = { 'css' } },
   autopairs = { { enable = true } },
   autotag = {
     enable = true,
