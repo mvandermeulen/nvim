@@ -2,7 +2,7 @@ local M = {}
 
 M.mappings = {
   ["name"] = " Buffers",
-  ["<leader>b"] = {
+  ["b"] = {
     ["name"] = "﬘ Bufferline",
     ["i"] = { "<CMD>BufferLinePick<CR>", " Pick buffer" },
     ["n"] = { "<CMD>BufferLineMoveNext<CR>", " Move next" },
@@ -35,8 +35,8 @@ M.mappings = {
   },
   ["<Tab>"] = { "<CMD>BufferLineCycleNext<CR>", " Next" },
   ["<S-Tab>"] = { "<CMD>BufferLineCyclePrev<CR>", " Previous" },
-  ["<C-t>"] = { "<CMD>tabnew<CR>", " New tab" },
-  ["<C-b>"] = { "<CMD>enew<CR>", " New buffer" },
+  -- ["<C-t>"] = { "<CMD>tabnew<CR>", " New tab" },
+  -- ["<C-b>"] = { "<CMD>enew<CR>", " New buffer" },
   ["<leader>q"] = { "<CMD>lua require('utils').delete_buffer()<CR>", " Delete" },
   ["<leader>B"] = {
     ["name"] = "ﴵ Tabs",

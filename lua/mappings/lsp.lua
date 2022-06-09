@@ -30,6 +30,7 @@ M.setup = function(client, buffer)
       ["t"] = { "<CMD>lua lsb.type_definition()<CR>", " Type definition" },
       ["r"] = { "<CMD>lua lsb.references()<CR>", " References" },
     },
+    i = { '<cmd>LspInfo<cr>', 'Info' },
     ["w"] = {
       ["name"] = " Workspaces",
       ["a"] = { "<CMD>lua lsb.add_workspace_folder()<CR>", " Add workspace" },
@@ -38,23 +39,23 @@ M.setup = function(client, buffer)
     },
   }
 
-  if bo.filetype == "java" then
-    mappings["j"] = {
-      ["name"] = " JDT Options",
-      ["c"] = { "<CMD>JDTCompile<CR>", " Compile" },
-      ["r"] = { "<CMD>JDTSetRuntime<CR>", "ﰌ Set runtime" },
-      ["c"] = { "<CMD>JDTUpdateProjectConfig<CR>", "ﮮ Update project config" },
-      ["j"] = { "<CMD>JDTJol<CR>", " JOL" },
-      ["b"] = { "<CMD>JDTBytecode<CR>", " View bytecode" },
-      ["s"] = { "<CMD>JDTJshell<CR>", " JShell" },
-      ["o"] = { "<CMD>JDTOrganizeImports<CR>", " Organize imports" },
-      ["v"] = { "<CMD>JDTExtractVariable<CR>", " Extract variable" },
-      ["k"] = { "<CMD>JDTExtractConstant<CR>", " Extract constant" },
-      ["V"] = { "<CMD>JDTExtractVariableTrue<CR>", " Extract variable" },
-      ["K"] = { "<CMD>JDTExtractConstantTrue<CR>", "﴾ Extract constant" },
-      ["M"] = { "<CMD>JDTExtractMethod<CR>", " Extract function" },
-    }
-  end
+  -- if bo.filetype == "java" then
+  --   mappings["j"] = {
+  --     ["name"] = " JDT Options",
+  --     ["c"] = { "<CMD>JDTCompile<CR>", " Compile" },
+  --     ["r"] = { "<CMD>JDTSetRuntime<CR>", "ﰌ Set runtime" },
+  --     ["c"] = { "<CMD>JDTUpdateProjectConfig<CR>", "ﮮ Update project config" },
+  --     ["j"] = { "<CMD>JDTJol<CR>", " JOL" },
+  --     ["b"] = { "<CMD>JDTBytecode<CR>", " View bytecode" },
+  --     ["s"] = { "<CMD>JDTJshell<CR>", " JShell" },
+  --     ["o"] = { "<CMD>JDTOrganizeImports<CR>", " Organize imports" },
+  --     ["v"] = { "<CMD>JDTExtractVariable<CR>", " Extract variable" },
+  --     ["k"] = { "<CMD>JDTExtractConstant<CR>", " Extract constant" },
+  --     ["V"] = { "<CMD>JDTExtractVariableTrue<CR>", " Extract variable" },
+  --     ["K"] = { "<CMD>JDTExtractConstantTrue<CR>", "﴾ Extract constant" },
+  --     ["M"] = { "<CMD>JDTExtractMethod<CR>", " Extract function" },
+  --   }
+  -- end
 
   local options = {
     mode = "n",

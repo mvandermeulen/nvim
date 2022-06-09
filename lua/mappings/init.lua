@@ -5,6 +5,11 @@
 -- Updated: 29-04-2022
 --]]
 
+
+-----------------------------------------------
+-- Helpers
+-----------------------------------------------
+
 default_options = { noremap = true, silent = true }
 expr_options = { noremap = true, expr = true, silent = true }
 
@@ -17,14 +22,25 @@ local function map(mode, lhs, rhs, opts)
 	vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
+require("helpers.unimpaired")
+
 -----------------------------------------------
--- Normal Mode
+-- Map Leader Key & Local Leader
+-----------------------------------------------
+
+map("n", "<Space>", "<NOP>", default_options) -- map the leader key
+vim.g.mapleader = " "
+
+require("mappings.local")
+
+
+-----------------------------------------------
+-- Mappings: NORMAL mode
 -----------------------------------------------
 
 -------------------------------
 -- Standard Keys
 -------------------------------
-
 map("n", ";", ":") -- Remap semicolon for commands
 map("n", ";;", ";") -- Remap semicolon for commands
 map("n", "0", "^") -- use 0 to go to first char of line
@@ -33,87 +49,82 @@ map("n", "N", "Nzz", default_options) -- center search results
 map("n", "k", "v:count == 0 ? 'gk' : 'k'", expr_options) -- Deal with visual line wraps
 map("n", "j", "v:count == 0 ? 'gj' : 'j'", expr_options) -- Deal with visual line wraps
 map("n", "<ESC>", ":nohlsearch<Bar>:echo<CR>", default_options) -- Cancel search highlighting with ESC
--- Resizing panes
+
+
+-------------------------------
+-- Arrow Keys
+-------------------------------
 map("n", "<Left>", ":vertical resize +1<CR>", default_options)
 map("n", "<Right>", ":vertical resize -1<CR>", default_options)
 map("n", "<Up>", ":resize -1<CR>", default_options)
 map("n", "<Down>", ":resize +1<CR>", default_options)
 
+
+-------------------------------
+-- Function Keys
+-------------------------------
 map("n", "<F13>", ":NvimTreeToggle<cr>", default_options)
 map("n", "<F14>", ":Twilight<CR>", default_options)
 map("n", "<F16>", ":ZenMode<CR>", default_options)
+
 
 -------------------------------
 -- Leader Keys
 -------------------------------
 
-map("n", "<Space>", "<NOP>", default_options) -- map the leader key
-vim.g.mapleader = " "
---vim.g.maplocalleader = "\\"
-vim.g.maplocalleader = ","
+-- NOTE: These should be mapped in the which-key plugin configuration
 
 -- Easier save/open/close
 --keymap("n", "<Leader>w", ":w<CR>")                                      -- write with w
 --keymap("n", "<Leader>q", ":q<CR>")                                      -- quit with q
 --keymap("n", "<Leader>qq", ":q!<CR>")                                    -- space + qq to force quit
 --map('n', '<leader>j', [[<cmd>m-2|j<cr>]])                                 -- Join line above at end of current
-map("n", "<localleader>1", "1gt", default_options)
-map("n", "<localleader>2", "2gt", default_options)
-map("n", "<localleader>3", "3gt", default_options)
-map("n", "<localleader>4", "4gt", default_options)
-map("n", "<localleader>5", "5gt", default_options)
-map("n", "<localleader>6", "6gt", default_options)
-map("n", "<localleader>7", "7gt", default_options)
-map("n", "<localleader>8", "8gt", default_options)
-map("n", "<localleader>9", "9gt", default_options)
-map("n", "<localleader>pp", ":set paste<CR>", default_options)
-map("n", "<localleader>po", ":set nopaste<CR>", default_options)
+-- map("n", "<leader><leader>M", ":lua require'telegraph'.telegraph({how='tmux_popup', cmd='man '})<Left><Left><Left>", default_options)
 
 -------------------------------
 -- Keys w Modifiers
 -------------------------------
-
--- Buffer switching.
 map("n", "<TAB>", ":bnext<CR>", default_options)
 map("n", "<S-TAB>", ":bprevious<CR>", default_options)
+
 
 --------------------
 -- Shift Modifier
 --------------------
--- Remap arrow keys
-map("n", "<S-Left>", ":tabprev<CR>")
-map("n", "<S-Right>", ":tabnext<CR>")
-map("n", "<S-Up>", ":bnext<CR>")
-map("n", "<S-Down>", ":bprev<CR>")
-map("n", "<S-H>", "gT")
-map("n", "<S-L>", "gt")
+map("n", "<S-Left>", ":tabnext<CR>")
+map("n", "<S-Right>", ":tabprev<CR>")
+map("n", "<S-Up>", ":BufferLineCyclePrev<CR>")
+map("n", "<S-Down>", ":BufferLineCycleNext<CR>")
+map("n", "<S-H>", "gt")
+map("n", "<S-L>", "gT")
+map("n", "<S-CR>", ":Twilight<CR>", default_options)
+map("n", "<S-Space>", ":ZenMode<CR>", default_options)
+
 
 --------------------
 -- Meta Modifier
 --------------------
--- Move lines
 map("n", "<M-j>", [[<cmd>m.+1<cr>==]])
 map("n", "<M-k>", [[<cmd>m.-2<cr>==]])
 map("i", "<M-j>", [[<esc><cmd>m.+1<cr>==]])
 map("i", "<M-k>", [[<esc><cmd>m.-2<cr>==]])
--- Resize with arrows
 map("n", "<M-S-Up>", ":resize -2<CR>")
 map("n", "<M-S-Down>", ":resize +2<CR>")
 map("n", "<M-S-Left>", ":vertical resize -2<CR>")
 map("n", "<M-S-Right>", ":vertical resize +2<CR>")
 
+
 --------------------
 -- Ctrl Modifier
 --------------------
--- Speed up viewport scrolling
-map("n", "<C-e>", "2<C-e>")
-map("n", "<C-y>", "2<C-y>")
-
-map("n", "<C-CR>", ":NvimTreeToggle<CR>", default_options)
-map("n", "<S-CR>", ":Twilight<CR>", default_options)
-map("n", "<S-Space>", ":ZenMode<CR>", default_options)
-
+-- map("n", "<C-e>", "2<C-e>")
+-- map("n", "<C-y>", "2<C-y>")
+-- map("n", "<C-U>", "<Esc>viwUi", default_options) -- Capitalize word on letter
 map("n", "<C-S>", ":w<CR>") -- write with w
+map("n", "<C-T>", "<cmd>lua require('telescope').extensions.tele_tabby.list()<CR>") -- write with w
+map("n", "<C-CR>", ":NvimTreeToggle<CR>", default_options)
+
+
 -- Term
 --map('t', '<Esc>', '<C-\\><C-n>')
 
@@ -176,7 +187,7 @@ map("n", "<C-S>", ":w<CR>") -- write with w
 --map("n", "", "")
 
 -----------------------------------------------
--- Visual Mode
+-- Mappings: VISUAL Mode
 -----------------------------------------------
 
 -- better indenting
@@ -191,7 +202,7 @@ map("v", "K", ":move '<-2<CR>gv-gv", default_options)
 map("v", "J", ":move '>+1<CR>gv-gv", default_options)
 
 -----------------------------------------------
--- Insert Mode
+-- Mappings: INSERT Mode
 -----------------------------------------------
 
 function EscapePair()
@@ -215,12 +226,13 @@ function EscapePair()
 	end
 end
 
-map("i", "<C-l>", "<cmd>lua EscapePair()<CR>", default_options)
+map("i", "<C-L>", "<cmd>lua EscapePair()<CR>", default_options)
 
 -------------------------------
 -- Keys w Modifiers
 -------------------------------
 
--- Capitalize word on letter
-map("i", "<c-u>", "<Esc>viwUi", default_options)
-map("n", "<c-u>", "<Esc>viwUi", default_options)
+map("i", "<C-U>", "<Esc>viwUi", default_options)
+
+
+
