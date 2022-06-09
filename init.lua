@@ -11,6 +11,7 @@ vim.g.mapleader = ' '
 vim.g.log_level = 'warn' -- Use this for global debugging
 -- place for personal utility & configuration options
 _G.my = {}
+_G.my.ui = { theme = 'rose-pine', bg = 'dark' }
 
 -----------------------------------------------
 -- Faster startup
@@ -29,6 +30,11 @@ require 'plugins'
 require 'settings'
 -- Vim mappings, see lua/config/which.lua for more mappings
 require 'mappings'
+
+
+
+vim.cmd(string.format('set background=%s', _G.my.ui.bg))
+vim.cmd(string.format('colorscheme %s', _G.my.ui.theme))
 
 --require('core_config.lsp')
 --require('core_config.keymaps')

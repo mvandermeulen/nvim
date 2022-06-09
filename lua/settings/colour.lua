@@ -6,7 +6,7 @@
 --]]
 
 
-vim.opt.background='dark'
+vim.opt.background='light'
 
 if vim.fn.has("termguicolors") == 1 then
   vim.go.t_8f = "[[38;2;%lu;%lu;%lum"

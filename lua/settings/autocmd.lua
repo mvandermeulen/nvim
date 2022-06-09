@@ -22,18 +22,18 @@ autocmd('TextYankPost', {
 })
 
 -- Remove whitespace on save
-autocmd('BufWritePre', {
-  pattern = '*',
-  command = ":%s/\\s\\+$//e"
-})
+-- autocmd('BufWritePre', {
+--   pattern = '*',
+--   command = ":%s/\\s\\+$//e"
+-- })
 
--- Don't auto commenting new lines
+-- Don't auto comment new lines
 autocmd('BufEnter', {
   pattern = '*',
   command = 'set fo-=c fo-=r fo-=o'
 })
 
--- Disable line lenght marker
+-- Disable line length marker
 augroup('setLineLength', { clear = true })
 autocmd('Filetype', {
   group = 'setLineLength',
@@ -108,7 +108,7 @@ function hide_statusline(types)
       vim.opt.cursorline = false
       break
     else
-      vim.opt.laststatus = 2
+      vim.opt.laststatus = 3
       vim.opt.ruler = true
       vim.opt.cursorline = true
     end

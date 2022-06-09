@@ -7,9 +7,9 @@ vim.opt.softtabstop = 2 -- 2 spaces inserted for <tab> when editing a file, also
 vim.opt.expandtab = true -- Use spaces instead of tabs
 vim.opt.shiftwidth = 2 -- Shift 2 spaces when tab
 vim.opt.shiftround = true -- Round indent
---vim.opt.autoindent = true                          --
---vim.opt.smartindent = true                          -- Insert indents automatically
-vim.opt.cindent = true
+vim.opt.autoindent = true                          --
+vim.opt.smartindent = true                          -- Insert indents automatically
+-- vim.opt.cindent = true
 
 -- Undo
 vim.opt.undolevels = 1000

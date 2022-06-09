@@ -1,7 +1,7 @@
-local vo = vim.opt_local
-vo.tabstop = 4
-vo.shiftwidth = 4
-vo.softtabstop = 4
+vim.o.shiftwidth=4
+vim.o.tabstop=4
+vim.o.softtabstop=4
+vim.o.expandtab=true
 
 local wk = require("which-key")
 default_options = { noremap = true, silent = true }
