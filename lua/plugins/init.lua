@@ -335,7 +335,7 @@ return packer.startup(function()
   use { 'rktjmp/lush.nvim' }
   use { 'EdenEast/nightfox.nvim', config = gc 'nightfox' }
   -- use({ "catppuccin/nvim", as = "catppuccin" })
-  use({ "catppuccin/nvim", as = "catppuccin", config =  gc("catppuccin") })
+  --[[ use({ "catppuccin/nvim", as = "catppuccin", config =  gc("catppuccin") }) ]]
   use { 'folke/tokyonight.nvim' }
   use { 'rebelot/kanagawa.nvim' }
   use { 'marko-cerovac/material.nvim' }

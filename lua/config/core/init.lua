@@ -1,9 +1,9 @@
 -- Global Object
-_G.G = {}
+_G.vdm = {}
 
-G.cache = {}
+vdm.cache = {}
 
-G.style = {
+vdm.style = {
   icons = {
     lsp = {
       error = '✗',
@@ -128,7 +128,7 @@ G.style = {
 ---@param haystack T[]
 ---@param matcher fun(arg: T):boolean
 ---@return T
-function G.find(haystack, matcher)
+function vdm.find(haystack, matcher)
   local found
   for _, needle in ipairs(haystack) do
     if matcher(needle) then
@@ -164,7 +164,7 @@ end
 ---@param name string
 ---@param commands Autocommand[]
 ---@return number
-function G.augroup(name, commands)
+function vdm.augroup(name, commands)
   local id = vim.api.nvim_create_augroup(name, { clear = true })
   for _, autocmd in ipairs(commands) do
     local is_callback = type(autocmd.command) == 'function'
@@ -191,7 +191,7 @@ end
 ---@param name any
 ---@param rhs string|fun(args: CommandArgs)
 ---@param opts table
-function G.command(name, rhs, opts)
+function vdm.command(name, rhs, opts)
   opts = opts or {}
   vim.api.nvim_create_user_command(name, rhs, opts)
 end

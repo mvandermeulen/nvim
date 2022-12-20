@@ -12,7 +12,7 @@ end
 
 bufferline.setup {
   options = {
-    mode = 'tabs',
+    -- mode = 'tabs',
     numbers = function(opts)
       return string.format('%s', opts.raise(opts.id)) -- :h bufferline-numbers
     end,
@@ -20,7 +20,7 @@ bufferline.setup {
     right_mouse_command = 'bdelete! %d', -- can be a string | function, see "Mouse actions"
     left_mouse_command = 'buffer %d', -- can be a string | function, see "Mouse actions"
     middle_mouse_command = nil, -- can be a string | function, see "Mouse actions"
-    indicator_icon = ' ',
+    indicator = { icon = ' ', },
     buffer_close_icon = '',
     modified_icon = '●',
     close_icon = '',

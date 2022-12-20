@@ -73,60 +73,62 @@ catppuccin.setup {
   },
 }
 
-local c = require("catppuccin.api.colors").get_colors()
+-- local c = require("catppuccin.utils.colors").get_colors()
+-- local c = require("catppuccin.palettes").get_palette()
+-- require("catppuccin.lib.highlighter").syntax({})
 
-catppuccin.remap {
-  -- remove italics
-  ErrorMsg = { fg = c.red, style = "bold" },
-  TSProperty = { fg = c.yellow, style = "NONE" },
-  TSInclude = { fg = c.teal, style = "NONE" },
-  TSOperator = { fg = c.sky, style = "bold" },
-  TSKeywordOperator = { fg = c.sky, style = "bold" },
-  TSPunctSpecial = { fg = c.maroon, style = "bold" },
-  TSFloat = { fg = c.peach, style = "bold" },
-  TSNumber = { fg = c.peach, style = "bold" },
-  TSBoolean = { fg = c.peach, style = "bold" },
-  TSConditional = { fg = c.mauve, style = "bold" },
-  TSRepeat = { fg = c.mauve, style = "bold" },
-  TSException = { fg = c.peach, style = "NONE" },
-  TSConstBuiltin = { fg = c.lavender, style = "NONE" },
-  TSFuncBuiltin = { fg = c.peach, style = "NONE" },
-  TSTypeBuiltin = { fg = c.yellow, style = "NONE" },
-  TSVariableBuiltin = { fg = c.teal, style = "NONE" },
-  TSFunction = { fg = c.blue, style = "NONE" },
-  TSParameter = { fg = c.rosewater, style = "NONE" },
-  TSKeywordFunction = { fg = c.maroon, style = "NONE" },
-  TSKeyword = { fg = c.red, style = "NONE" },
-  TSMethod = { fg = c.blue, style = "NONE" },
-  TSNamespace = { fg = c.rosewater, style = "NONE" },
-  TSStringRegex = { fg = c.peach, style = "NONE" },
-  TSVariable = { fg = c.white, style = "NONE" },
-  TSTagAttribute = { fg = c.mauve, style = "NONE" },
-  TSURI = { fg = c.rosewater, style = "underline" },
-  TSLiteral = { fg = c.teal, style = "NONE" },
-  TSEmphasis = { fg = c.maroon, style = "NONE" },
-  TSStringEscape = { fg = c.pink, style = "NONE" },
-  bashTSFuncBuiltin = { fg = c.red, style = "NONE" },
-  bashTSParameter = { fg = c.yellow, style = "NONE" },
-  typescriptTSProperty = { fg = c.lavender, style = "NONE" },
-  cssTSProperty = { fg = c.yellow, style = "NONE" },
+-- catppuccin.remap {
+--   -- remove italics
+--   ErrorMsg = { fg = c.red, style = "bold" },
+--   TSProperty = { fg = c.yellow, style = "NONE" },
+--   TSInclude = { fg = c.teal, style = "NONE" },
+--   TSOperator = { fg = c.sky, style = "bold" },
+--   TSKeywordOperator = { fg = c.sky, style = "bold" },
+--   TSPunctSpecial = { fg = c.maroon, style = "bold" },
+--   TSFloat = { fg = c.peach, style = "bold" },
+--   TSNumber = { fg = c.peach, style = "bold" },
+--   TSBoolean = { fg = c.peach, style = "bold" },
+--   TSConditional = { fg = c.mauve, style = "bold" },
+--   TSRepeat = { fg = c.mauve, style = "bold" },
+--   TSException = { fg = c.peach, style = "NONE" },
+--   TSConstBuiltin = { fg = c.lavender, style = "NONE" },
+--   TSFuncBuiltin = { fg = c.peach, style = "NONE" },
+--   TSTypeBuiltin = { fg = c.yellow, style = "NONE" },
+--   TSVariableBuiltin = { fg = c.teal, style = "NONE" },
+--   TSFunction = { fg = c.blue, style = "NONE" },
+--   TSParameter = { fg = c.rosewater, style = "NONE" },
+--   TSKeywordFunction = { fg = c.maroon, style = "NONE" },
+--   TSKeyword = { fg = c.red, style = "NONE" },
+--   TSMethod = { fg = c.blue, style = "NONE" },
+--   TSNamespace = { fg = c.rosewater, style = "NONE" },
+--   TSStringRegex = { fg = c.peach, style = "NONE" },
+--   TSVariable = { fg = c.white, style = "NONE" },
+--   TSTagAttribute = { fg = c.mauve, style = "NONE" },
+--   TSURI = { fg = c.rosewater, style = "underline" },
+--   TSLiteral = { fg = c.teal, style = "NONE" },
+--   TSEmphasis = { fg = c.maroon, style = "NONE" },
+--   TSStringEscape = { fg = c.pink, style = "NONE" },
+--   bashTSFuncBuiltin = { fg = c.red, style = "NONE" },
+--   bashTSParameter = { fg = c.yellow, style = "NONE" },
+--   typescriptTSProperty = { fg = c.lavender, style = "NONE" },
+--   cssTSProperty = { fg = c.yellow, style = "NONE" },
 
-  -- alpha
-  AlphaButton = { fg = c.blue },
-  AlphaButtonShortcut = { fg = c.peach },
-  AlphaCol1 = { fg = c.red },
-  AlphaCol2 = { fg = c.rosewater },
-  AlphaCol3 = { fg = c.yellow },
-  AlphaCol4 = { fg = c.green },
-  AlphaCol5 = { fg = c.sky },
-  AlphaQuote = { fg = c.lavender, style = "italic" },
+--   -- alpha
+--   AlphaButton = { fg = c.blue },
+--   AlphaButtonShortcut = { fg = c.peach },
+--   AlphaCol1 = { fg = c.red },
+--   AlphaCol2 = { fg = c.rosewater },
+--   AlphaCol3 = { fg = c.yellow },
+--   AlphaCol4 = { fg = c.green },
+--   AlphaCol5 = { fg = c.sky },
+--   AlphaQuote = { fg = c.lavender, style = "italic" },
 
-  -- scnvim
-  SCNvimEval = { fg = c.black0, bg = c.lavender },
+--   -- scnvim
+--   SCNvimEval = { fg = c.black0, bg = c.lavender },
 
-  -- luasnip
-  LuasnipChoice = { fg = c.peach, style = "italic" },
-}
+--   -- luasnip
+--   LuasnipChoice = { fg = c.peach, style = "italic" },
+-- }
 
 
 

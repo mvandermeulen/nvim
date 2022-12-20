@@ -28,7 +28,7 @@ nvim_tree.setup {
   },
   -- filters = { dotfiles = false }, -- this option hides files and folders starting with a dot `.`
   -- git = { ignore = true },
-  update_to_buf_dir = { enable = true, auto_open = true },
+  -- update_to_buf_dir = { enable = true, auto_open = true },
   -- update the focused file on `BufEnter`, un-collapses the folders recursively until it finds the file
   update_focused_file = {
     enable = true,
@@ -92,7 +92,8 @@ nvim_tree.setup {
     number = false,
     relativenumber = false,
     width = math.floor(vim.fn.winwidth(0) * 0.18), -- Finding 15% of windows width.
-    auto_resize = true,
+    adaptive_size = true,
+    -- auto_resize = true,
     preserve_window_proportions = false,
     side = 'left', -- side of the tree, can be one of 'left' | 'right' | 'top' | 'bottom'
     mappings = {
