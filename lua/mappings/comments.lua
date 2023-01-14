@@ -1,7 +1,7 @@
 local M = {}
 
 M.mappings = {
-  ["<C-_>"] = { "<CMD>lua require('Comment.api').toggle_current_linewise()<CR>", "Comment line" },
+  ["<C-/>"] = { "<Plug>(comment_toggle_linewise_current)", "Comment Line" },
 }
 
 M.options = {

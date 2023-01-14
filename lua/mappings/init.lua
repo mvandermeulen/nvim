@@ -123,6 +123,9 @@ map("n", "<M-S-Right>", ":vertical resize +2<CR>")
 map("n", "<C-S>", ":w<CR>") -- write with w
 map("n", "<C-T>", "<cmd>lua require('telescope').extensions.tele_tabby.list()<CR>") -- write with w
 map("n", "<C-CR>", ":NvimTreeToggle<CR>", default_options)
+map("n", "<C-/>", "<Plug>(comment_toggle_linewise_current)", default_options)
+map("n", "<C-->", "<Plug>(comment_toggle_linewise_current)", default_options)
+map("n", "<C-\\>", "<Plug>(comment_toggle_linewise_current)", default_options)
 
 
 -- Term

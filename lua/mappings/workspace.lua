@@ -8,12 +8,12 @@ M.mappings = {
   p = { "<cmd>lua require('telescope').extensions.projects.projects()<cr>", 'Projects' },
 }
 
-M.options = {
-  mode = "n",
-  silent = true,
-  noremap = true,
-  prefix = "<leader>/",
-  nowait = true,
-}
+--[[ M.options = { ]]
+--[[   mode = "n", ]]
+--[[   silent = true, ]]
+--[[   noremap = true, ]]
+--[[   prefix = "<leader>/", ]]
+--[[   nowait = true, ]]
+--[[ } ]]
 
 return M

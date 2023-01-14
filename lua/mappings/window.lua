@@ -17,13 +17,13 @@ M.mappings = {
   },
 }
 
-M.options = {
-  mode = "n",
-  silent = true,
-  noremap = true,
-  prefix = "<leader>/",
-  nowait = true,
-}
+--[[ M.options = { ]]
+--[[   mode = "n", ]]
+--[[   silent = true, ]]
+--[[   noremap = true, ]]
+--[[   prefix = "<leader>/", ]]
+--[[   nowait = true, ]]
+--[[ } ]]
 
 return M
 

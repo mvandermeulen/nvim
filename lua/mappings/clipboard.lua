@@ -8,12 +8,12 @@ M.mappings = {
     -- t = { '<cmd>lua require("neoclip").toggle()', 'Toggle Clipboard Recording' },
 }
 
-M.options = {
-  mode = "n",
-  silent = true,
-  noremap = true,
-  prefix = "<leader><leader>",
-  nowait = false,
-}
+--[[ M.options = { ]]
+--[[   mode = "n", ]]
+--[[   silent = true, ]]
+--[[   noremap = true, ]]
+--[[   prefix = "<leader><leader>", ]]
+--[[   nowait = false, ]]
+--[[ } ]]
 
 return M

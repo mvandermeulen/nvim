@@ -16,7 +16,7 @@ M.options = {
   mode = "n",
   silent = true,
   noremap = true,
-  prefix = "<leader><leader>",
+  prefix = "<leader>",
   nowait = false,
 }
 
