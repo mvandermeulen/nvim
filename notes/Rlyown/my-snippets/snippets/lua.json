@@ -1,0 +1,7 @@
+{
+  "Pcall Condition": {
+    "prefix": "pcall",
+    "body": "local $1_status_ok, $1 = pcall(${2:require}, \"$3\")\nif not $1_status_ok then\n\treturn\nend",
+    "description": "pcall with condition"
+  }
+}

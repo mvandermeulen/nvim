@@ -1,0 +1,55 @@
+{
+  "numpy": {
+    "prefix": ["impn"],
+    "body": [
+			"import numpy as np",
+			"$0"
+    ],
+    "description": "import numpy"
+  },
+
+  "matplotlib": {
+    "prefix": ["impm"],
+    "body": [
+			"import matplotlib.pyplot as plt",
+			"$0"
+    ],
+    "description": "import matplotlib"
+  },
+
+  "pandas": {
+    "prefix": ["impp"],
+    "body": [
+			"import pandas as pd",
+			"$0"
+    ],
+    "description": "import pandas"
+  },
+
+  "seaborn": {
+    "prefix": ["imps"],
+    "body": [
+			"import seaborn as sns",
+			"$0"
+    ],
+    "description": "import seaborn"
+  },
+
+  "ifmain": {
+    "prefix": ["ifname"],
+    "body": [
+			"if __name__ == '__main__':",
+			"\t$0"
+    ],
+    "description": "if __name__"
+  },
+
+  "Spuer": {
+    "prefix": ["super"],
+    "body": [
+			"super().__init__()",
+			"$0"
+    ],
+    "description": "super"
+  }
+}

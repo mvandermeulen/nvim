@@ -13,6 +13,6 @@
 #__luasnippets
 #install
 #snippets
-notes/
+#notes/
 plugin/packer_compiled.lua
 
