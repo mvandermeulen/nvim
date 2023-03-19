@@ -1,6 +1,0 @@
-{
-  "class": {
-    "prefix": ["class"],
-    "body": ["class ${1:Name} {", "\t$2", "\t${3:public:}", "\t$4", "}"]
-  }
-}
