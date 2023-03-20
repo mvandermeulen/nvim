@@ -7,7 +7,7 @@
 
 -- local icons = require "helpers.icons"
 
-vim.g.symbols_outline = {
+local opts = {
 	highlight_hovered_item = true,
 	show_guides = true,
 	auto_preview = true,
@@ -59,3 +59,5 @@ vim.g.symbols_outline = {
 		TypeParameter = { icon = "𝙏", hl = "TSParameter" },
 	},
 }
+
+require("symbols-outline").setup(opts)

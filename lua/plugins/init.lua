@@ -126,6 +126,8 @@ return packer.startup(function()
     { 'nvim-telescope/telescope-z.nvim' },
     { 'LinArcX/telescope-changes.nvim' },
     { 'LinArcX/telescope-ports.nvim' },
+    { 'neanias/telescope-lines.nvim' },
+    { 'nyarthan/telescope-code-actions.nvim' },
     -- { 'da-moon/telescope-toggleterm.nvim' },
   }
   use { 'nvim-telescope/telescope.nvim', requires = telescope_depends, config = gc 'telescope' }
@@ -187,6 +189,7 @@ return packer.startup(function()
       { 'hrsh7th/cmp-path' }, -- path completions
       { 'hrsh7th/cmp-cmdline' }, -- cmdline completions
       { 'hrsh7th/cmp-calc' },
+      { 'hrsh7th/cmp-nvim-lua' },
       --{ "lukas-reineke/cmp-rg" },
     },
     config = gc 'cmp',
@@ -226,9 +229,24 @@ return packer.startup(function()
   -----------------------------------------------
   -- LSP Configuration
   -----------------------------------------------
-  use { 'neovim/nvim-lspconfig', config = gc 'lsp' }
-  use { 'williamboman/nvim-lsp-installer' } -- simple to use language server installer
-  use { 'ray-x/lsp_signature.nvim', require = { 'neovim/nvim-lspconfig' }, config = gc 'lsp-signature' }
+
+
+  use { 'SmiteshP/nvim-navic', requires = 'neovim/nvim-lspconfig' }
+  use {
+    'williamboman/mason.nvim',
+    requires = {
+      {'neovim/nvim-lspconfig'},
+      {'williamboman/mason-lspconfig.nvim'},
+      {'jose-elias-alvarez/null-ls.nvim'},
+      {'jay-babu/mason-null-ls.nvim'},
+      {'WhoIsSethDaniel/mason-tool-installer.nvim'},
+    },
+    config = gc 'mason',
+  }
+
+  --[[ use { 'neovim/nvim-lspconfig', config = gc 'lsp' } ]]
+  --[[ use { 'williamboman/nvim-lsp-installer' } -- simple to use language server installer ]]
+  use { 'ray-x/lsp_signature.nvim', requires = { 'neovim/nvim-lspconfig' }, config = gc 'lsp-signature' }
   use { 'onsails/lspkind-nvim', requires = { 'famiu/bufdelete.nvim' } }
   pluse('jose-elias-alvarez/null-ls.nvim', 'null-ls') -- for formatters and linters
   use { 'rmagatti/goto-preview', config = gc 'goto-preview' }
@@ -290,11 +308,9 @@ return packer.startup(function()
 
   -- Project/Session manaagement and navigation.
   pluse('ThePrimeagen/harpoon', 'harpoon')
-  --use({ "pranavrao145/harpoon-tmux", config = gc("") })
   use { 'ahmedkhalf/project.nvim', config = gc 'project' }
   use { 'natecraddock/sessions.nvim', config = gc 'sessions' }
   use { 'natecraddock/workspaces.nvim', config = gc 'workspaces' }
-  --pluse('jedrzejboczar/possession.nvim', 'harpoon')
   use { 'folke/persistence.nvim', event = 'BufReadPre', module = 'persistence', config = gc 'persistence' }
 
   -----------------------------------------------
@@ -302,6 +318,8 @@ return packer.startup(function()
   -----------------------------------------------
   use { 'cuducos/yaml.nvim', ft = { 'yaml' } }
   puse('ray-x/go.nvim', 'go')
+  use { 'ray-x/web-tools.nvim', config = gc 'webtools' }
+
 
   -----------------------------------------------
   -- UI Plugins
@@ -388,7 +406,8 @@ return packer.startup(function()
   use { 'nathom/filetype.nvim' } -- Lua filtype.vim is much faster
   use { 'nacro90/numb.nvim', config = gc 'numb' } -- Peek line contents
   use { 'numToStr/Comment.nvim', config = gc 'comment' } -- Peek line contents
-  use { 'jiaoshijie/undotree' } -- Peek line contents
+  pluse('jiaoshijie/undotree', 'undotree')
+  --[[ use { 'jiaoshijie/undotree', config = gc 'undotree' } -- Peek line contents ]]
 
   --use({ "", config = gc("") })
   --use({ "", config = gc("") })

@@ -20,9 +20,18 @@ local action_layout = require 'telescope.actions.layout'
 -----------------------------------------------
 telescope.setup {
   extensions = {
-      tele_tabby = {
-          use_highlighter = true,
-      }
+    tele_tabby = {
+        use_highlighter = true,
+    },
+    repo = {
+      list = {
+        search_dirs = {
+          "~/projects",
+          "~/resources",
+          "~/Documents/2023",
+        },
+      },
+    },
   },
   defaults = {
     file_ignore_patterns = { 'node_modules', '.terraform', '%.jpg', '%.png' },
@@ -122,6 +131,8 @@ telescope.load_extension('repo')
 telescope.load_extension('z')
 telescope.load_extension('changes')
 telescope.load_extension('ports')
+telescope.load_extension('lines')
+-- telescope.load_extension('telescope-code-actions')
 -- telescope.load_extension('toggleterm')
 
 
