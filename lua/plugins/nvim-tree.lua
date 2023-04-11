@@ -13,7 +13,7 @@ end
 nvim_tree.setup {
   disable_netrw = true, -- disables netrw completely
   hijack_netrw = true, -- hijack netrw window on startup
-  open_on_setup = false, -- open the tree when running this setup function
+  --[[ open_on_setup = false, -- open the tree when running this setup function ]]
   open_on_tab = false, -- opens the tree when changing/opening a new tab if the tree wasn't previously opened
   hijack_cursor = true, -- hijack the cursor in the tree to put it at the start of the filename
   update_cwd = true, -- updates the root directory of the tree on `DirChanged` (when your run `:cd` usually)
