@@ -9,11 +9,6 @@ if not status_ok then
   return
 end
 
-local status_gps_ok, gps = pcall(require, 'nvim-gps')
-if not status_gps_ok then
-  return
-end
-
 local navic_status, navic = pcall(require, 'nvim-navic')
 if not navic_status then
 	return
@@ -60,15 +55,6 @@ local spaces = function()
   return '␉' .. vim.api.nvim_buf_get_option(0, 'shiftwidth')
 end
 
-local nvim_gps = function()
-  local gps_location = gps.get_location()
-  if gps_location == 'error' then
-    return ''
-  else
-    return gps.get_location()
-  end
-end
-
 vim.opt.laststatus = 3
 
 lualine.setup {
@@ -104,7 +90,17 @@ lualine.setup {
     -- lualine_x = { "encoding", "fileformat", "filetype" },
     -- lualine_x = { diagnostics, spaces, 'encoding', 'fileformat', filetype },
     lualine_x = { spaces, 'fileformat', 'encoding', filetype },
-    lualine_y = { { nvim_gps, cond = hide_in_width } },
+    --[[ lualine_y = { { nvim_gps, cond = hide_in_width } }, ]]
+    lualine_y = {
+      {
+        function()
+          return navic.get_location()
+        end,
+        cond = function()
+          return navic.is_available()
+        end
+      },
+    },
     lualine_z = { location, diagnostics },
   },
   inactive_sections = {
