@@ -150,7 +150,6 @@ return packer.startup(function()
     run = ':TSUpdate',
   }
   use { 'romgrk/nvim-treesitter-context', config = gc 'treesitter-context' }
-  use { 'SmiteshP/nvim-gps', requires = { 'nvim-treesitter/nvim-treesitter' }, config = gc 'gps' } -- simple status line component that shows context of the current cursor position in file
   use { 'JoosepAlviste/nvim-ts-context-commentstring' }
 
   -----------------------------------------------
