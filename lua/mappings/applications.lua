@@ -1,10 +1,17 @@
 local M = {}
 
+
+local undotree_mappings = {
+    name = ' Undotree',
+    o = { '<cmd>lua require("undotree").open()<cr>', ' Open' },
+    c = { '<cmd>lua require("undotree").close()<cr>', ' Close' },
+    t = { '<cmd>lua require("undotree").toggle()<cr>', ' Toggle' },
+}
+
+
 M.mappings = {
     name = '󰣆 Applications',
-    --[[ a = { '<cmd>lua require("neoclip").start()', '' }, ]]
-    --[[ b = { '<cmd>lua require("neoclip").pause()', '' }, ]]
-    u = { '<cmd>lua require("undotree").toggle()<cr>', ' Undotree' },
+    u = undotree_mappings,
 }
 
 --[[ M.options = { ]]
@@ -16,4 +23,3 @@ M.mappings = {
 --[[ } ]]
 
 return M
-
