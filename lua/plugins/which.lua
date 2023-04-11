@@ -70,6 +70,7 @@ local setup = {
     position = 'bottom', -- bottom, top
     margin = { 1, 0, 1, 0 }, -- extra window margin [top, right, bottom, left]
     padding = { 2, 2, 2, 2 }, -- extra window padding [top, right, bottom, left]
+    winblend = 30,
   },
   layout = {
     height = { min = 4, max = 25 }, -- min and max height of the columns
@@ -191,6 +192,7 @@ local mappings = {
   m = require('mappings.misc').mappings,
   p = require('mappings.packer').mappings,
   s = require('mappings.search').mappings,
+  S = require('mappings.settings').mappings,
   t = require('mappings.terminal').mappings,
   T = require('mappings.treesitter').mappings,
   w = require('mappings.window').mappings,
