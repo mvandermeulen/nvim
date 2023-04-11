@@ -205,15 +205,16 @@ return packer.startup(function()
   -----------------------------------------------
   local diff_plugin_cmds = { 'DiffviewOpen', 'DiffviewClose', 'DiffviewToggleFiles', 'DiffviewFocusFiles' }
   use { 'sindrets/diffview.nvim', cmd = diff_plugin_cmds, config = gc 'diffview' } -- Diff plugin (requirement for Neogit)
-  use { 'f-person/git-blame.nvim', config = gc 'git-blame' }
+  --[[ use { 'f-person/git-blame.nvim', config = gc 'git-blame' } ]]
   pluse('tanvirtin/vgit.nvim', 'vgit')
   use { 'TimUntersberger/neogit', requires = { 'nvim-lua/plenary.nvim' }, cmd = 'Neogit', config = gc 'neogit' }
-  use {
-    'lewis6991/gitsigns.nvim',
-    requires = { 'nvim-lua/plenary.nvim' },
-    event = 'BufReadPre',
-    config = gc 'gitsigns',
-  }
+  pluse('lewis6991/gitsigns.nvim', 'gitsigns')
+  --[[ use { ]]
+  --[[   'lewis6991/gitsigns.nvim', ]]
+  --[[   requires = { 'nvim-lua/plenary.nvim' }, ]]
+  --[[   event = 'BufReadPre', ]]
+  --[[   config = gc 'gitsigns', ]]
+  --[[ } ]]
 
   -- Buffer Plugins
   use {
