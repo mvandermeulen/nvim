@@ -137,6 +137,7 @@ local mappings = {
   ['/'] = { '<Plug>(comment_toggle_linewise_current)', 'Comment' },
   --[[ ['/'] = { '<cmd>lua require("Comment.api").toggle_current_linewise()<CR>', 'Comment' }, ]]
   --["R"] = { '<cmd>lua require("renamer").rename()<cr>', "Rename" },
+  a = require('mappings.applications').mappings,
   b = {
     name = 'Buffers',
     b = {
