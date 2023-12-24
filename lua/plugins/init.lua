@@ -121,7 +121,6 @@ return packer.startup(function()
     { 'TC72/telescope-tele-tabby.nvim' },
     { 'camgraff/telescope-tmux.nvim' },
     { 'nvim-telescope/telescope-frecency.nvim' },
-    { 'chip/telescope-software-licenses.nvim' },
     { 'cljoly/telescope-repo.nvim' },
     { 'nvim-telescope/telescope-z.nvim' },
     { 'LinArcX/telescope-changes.nvim' },
@@ -153,31 +152,7 @@ return packer.startup(function()
   use { 'JoosepAlviste/nvim-ts-context-commentstring' }
 
   -----------------------------------------------
-  -- Clipboard
-  -----------------------------------------------
-  use { 'tversteeg/registers.nvim' } -- Show register content in popup
-  local neoclip_depends = { { 'tami5/sqlite.lua', module = 'sqlite' }, { 'nvim-telescope/telescope.nvim' } }
-  use { 'AckslD/nvim-neoclip.lua', requires = neoclip_depends, config = gc 'neoclip' } -- Clipboard manager for neovim with persistent history between sessions powered by sqlite.lua
-
-  -----------------------------------------------
-  -- File Management
-  -----------------------------------------------
-  use { 'kyazdani42/nvim-tree.lua', config = gc 'nvim-tree' }
-
-  -----------------------------------------------
-  -- Window Management & Navigation
-  -----------------------------------------------
-  use { 'https://gitlab.com/yorickpeterse/nvim-window.git', config = gc 'nvim-window' }
-  use { 'numToStr/Navigator.nvim', config = gc 'navigator' } -- Smoothly navigate between neovim splits and tmux panes
-  use {
-    'luukvbaal/stabilize.nvim',
-    config = function()
-      require('stabilize').setup()
-    end,
-  } -- Better handling of window open/close events
-
-  -----------------------------------------------
-  -- Completion Plugins
+  -- Completion
   -----------------------------------------------
   use { 'windwp/nvim-autopairs', config = gc 'autopairs' } -- Pair completion ie. parentheses
   use {
@@ -193,44 +168,28 @@ return packer.startup(function()
     },
     config = gc 'cmp',
   }
-  --use "saadparwaiz1/cmp_luasnip" -- snippet completions
+  --------------------
+  -- AI
+  --------------------
+  use {
+    'jackMort/ChatGPT.nvim',
+    requires = {
+      'MunifTanjim/nui.nvim',
+      'nvim-lua/plenary.nvim',
+      'nvim-telescope/telescope.nvim'
+    },
+    config = gc 'chatgpt',
+  }
 
+  --------------------
   -- Snippets
+  --------------------
   use { 'rafamadriz/friendly-snippets' }
   use { 'L3MON4D3/LuaSnip', requires = 'saadparwaiz1/cmp_luasnip', config = gc 'luasnip' }
 
   -----------------------------------------------
-  -- Git Plugins
-  -----------------------------------------------
-  local diff_plugin_cmds = { 'DiffviewOpen', 'DiffviewClose', 'DiffviewToggleFiles', 'DiffviewFocusFiles' }
-  use { 'sindrets/diffview.nvim', cmd = diff_plugin_cmds, config = gc 'diffview' } -- Diff plugin (requirement for Neogit)
-  --[[ use { 'f-person/git-blame.nvim', config = gc 'git-blame' } ]]
-  pluse('tanvirtin/vgit.nvim', 'vgit')
-  use { 'TimUntersberger/neogit', requires = { 'nvim-lua/plenary.nvim' }, cmd = 'Neogit', config = gc 'neogit' }
-  pluse('lewis6991/gitsigns.nvim', 'gitsigns')
-  --[[ use { ]]
-  --[[   'lewis6991/gitsigns.nvim', ]]
-  --[[   requires = { 'nvim-lua/plenary.nvim' }, ]]
-  --[[   event = 'BufReadPre', ]]
-  --[[   config = gc 'gitsigns', ]]
-  --[[ } ]]
-
-  -- Buffer Plugins
-  use {
-    'akinsho/bufferline.nvim',
-    tag = 'v2.*',
-    requires = 'kyazdani42/nvim-web-devicons',
-    event = 'BufReadPre',
-    config = gc 'bufferline',
-  }
-  --use({ "romgrk/barbar.nvim", requires = { "kyazdani42/nvim-web-devicons" }, config = gc("barbar") })
-  use 'famiu/bufdelete.nvim'
-
-  -----------------------------------------------
   -- LSP Configuration
   -----------------------------------------------
-
-
   use { 'SmiteshP/nvim-navic', requires = 'neovim/nvim-lspconfig' }
   use {
     'williamboman/mason.nvim',
@@ -243,36 +202,86 @@ return packer.startup(function()
     },
     config = gc 'mason',
   }
-
-  --[[ use { 'neovim/nvim-lspconfig', config = gc 'lsp' } ]]
-  --[[ use { 'williamboman/nvim-lsp-installer' } -- simple to use language server installer ]]
   use { 'ray-x/lsp_signature.nvim', requires = { 'neovim/nvim-lspconfig' }, config = gc 'lsp-signature' }
   use { 'onsails/lspkind-nvim', requires = { 'famiu/bufdelete.nvim' } }
   pluse('jose-elias-alvarez/null-ls.nvim', 'null-ls') -- for formatters and linters
   use { 'rmagatti/goto-preview', config = gc 'goto-preview' }
   use { 'simrat39/symbols-outline.nvim', cmd = { 'SymbolsOutline' }, config = gc 'symbols' }
+  --------------------
+  -- Language Specific
+  --------------------
+  use { 'cuducos/yaml.nvim', ft = { 'yaml' } }
+  puse('ray-x/go.nvim', 'go')
+  use { 'ray-x/web-tools.nvim', config = gc 'webtools' }
 
   -----------------------------------------------
-  -- Terminal & Command Plugins
+  -- File Management
   -----------------------------------------------
-  -- local toggleterm_keys = {
-  --   '<C-n>',
-  --   '<leader>t1',
-  --   '<leader>t2',
-  --   '<leader>t3',
-  --   '<leader>t4',
-  --   '<leader>tn',
-  --   '<leader>tu',
-  --   '<leader>tp',
-  --   '<leader>tf',
-  --   '<leader>tt',
-  --   '<leader>th',
-  --   '<leader>tv',
-  --   '<leader>gl',
-  --   '<leader>gt',
-  -- }
+  use { 'kyazdani42/nvim-tree.lua', config = gc 'nvim-tree' }
+  use { 'jghauser/mkdir.nvim' } -- Makes directories on save if required. Not Lua
+  puse('nathom/filetype.nvim', 'filetype') -- Lua filtype.vim is much faster
+  pluse('jiaoshijie/undotree', 'undotree')
+
+  --------------------
+  -- Git
+  --------------------
+  local diff_plugin_cmds = { 'DiffviewOpen', 'DiffviewClose', 'DiffviewToggleFiles', 'DiffviewFocusFiles' }
+  use { 'sindrets/diffview.nvim', cmd = diff_plugin_cmds, config = gc 'diffview' } -- Diff plugin (requirement for Neogit)
+  pluse('tanvirtin/vgit.nvim', 'vgit')
+  use { 'TimUntersberger/neogit', requires = { 'nvim-lua/plenary.nvim' }, cmd = 'Neogit', config = gc 'neogit' }
+  pluse('lewis6991/gitsigns.nvim', 'gitsigns')
+
+  --------------------
+  -- Managing Projects
+  --------------------
+  pluse('ThePrimeagen/harpoon', 'harpoon')
+  use { 'ahmedkhalf/project.nvim', config = gc 'project' }
+  use { 'natecraddock/sessions.nvim', config = gc 'sessions' }
+  use { 'natecraddock/workspaces.nvim', config = gc 'workspaces' }
+  use { 'folke/persistence.nvim', event = 'BufReadPre', module = 'persistence', config = gc 'persistence' }
+
+  -----------------------------------------------
+  -- Windows & Buffers
+  -----------------------------------------------
+  use { 'https://gitlab.com/yorickpeterse/nvim-window.git', config = gc 'nvim-window' }
+  use { 'numToStr/Navigator.nvim', config = gc 'navigator' } -- Smoothly navigate between neovim splits and tmux panes
+  use {
+    'luukvbaal/stabilize.nvim',
+    config = function()
+      require('stabilize').setup()
+    end,
+  } -- Better handling of window open/close events
+
+  --------------------
+  -- Buffer Management
+  --------------------
+  use {
+    'akinsho/bufferline.nvim',
+    tag = 'v2.*',
+    requires = 'kyazdani42/nvim-web-devicons',
+    event = 'BufReadPre',
+    config = gc 'bufferline',
+  }
+  use 'famiu/bufdelete.nvim'
+
+  -----------------------------------------------
+  -- Navigation
+  -----------------------------------------------
+  use { 'ggandor/lightspeed.nvim', event = 'BufReadPre' }
+  --------------------
+  -- Bookmarks
+  --------------------
+  puse('chentoast/marks.nvim', 'marks')
+  --------------------
+  -- Mappings
+  --------------------
+  use { 'folke/which-key.nvim', config = gc 'which' }
+
+
+  -----------------------------------------------
+  -- Terminal & Commands/Tasks
+  -----------------------------------------------
   use { 'akinsho/nvim-toggleterm.lua', config = gc 'toggleterm' }
-  -- use { 'akinsho/nvim-toggleterm.lua', keys = toggleterm_keys, config = gc 'toggleterm' }
   use { 'numToStr/FTerm.nvim', config = gc 'fterm' }
   use { 'waylonwalker/Telegraph.nvim' }
   use {
@@ -281,51 +290,20 @@ return packer.startup(function()
       require('telescope').load_extension("termfinder")
     end,
   } -- for displaying terminal colors in the pane_contents previewer with telescope-tmux
-  --use({ "da-moon/telescope-toggleterm.nvim", config = gc("telescope-toggleterm") })
 	use { 'jedrzejboczar/toggletasks.nvim', requires = { 'nvim-lua/plenary.nvim', 'akinsho/toggleterm.nvim', 'nvim-telescope/telescope.nvim' }, config = gc('toggletasks') }
 
   -----------------------------------------------
-  -- Search highlighting
+  -- Clipboard
   -----------------------------------------------
-  use { 'RRethy/vim-illuminate', event = 'CursorHold' }
-  use { 'ironhouzi/starlite-nvim' }
-  use {
-    'folke/todo-comments.nvim',
-    requires = 'nvim-lua/plenary.nvim',
-    cmd = { 'TodoTrouble', 'TodoTelescope' },
-    event = 'BufReadPost',
-    config = gc 'todo',
-  } -- Searching/highlighting of comments such as TODO, HACK, BUG
-  use { 'rhysd/conflict-marker.vim' } -- Highlight, jump and resolve conflict markers quickly. ie. Diff conflicts
-
-  -----------------------------------------------
-  -- Navigation
-  -----------------------------------------------
-  use { 'ggandor/lightspeed.nvim', event = 'BufReadPre' }
-  local scrollkeys = { '<C-u>', '<C-d>', '<C-b>', '<C-f>', '<C-e>', 'zt', 'zz', 'zb' }
-  use { 'karb94/neoscroll.nvim', keys = scrollkeys, config = gc 'neoscroll' } -- Better scrolling
-  use { 'folke/which-key.nvim', config = gc 'which' }
-
-  -- Project/Session manaagement and navigation.
-  pluse('ThePrimeagen/harpoon', 'harpoon')
-  use { 'ahmedkhalf/project.nvim', config = gc 'project' }
-  use { 'natecraddock/sessions.nvim', config = gc 'sessions' }
-  use { 'natecraddock/workspaces.nvim', config = gc 'workspaces' }
-  use { 'folke/persistence.nvim', event = 'BufReadPre', module = 'persistence', config = gc 'persistence' }
-
-  -----------------------------------------------
-  -- Language Plugins
-  -----------------------------------------------
-  use { 'cuducos/yaml.nvim', ft = { 'yaml' } }
-  puse('ray-x/go.nvim', 'go')
-  use { 'ray-x/web-tools.nvim', config = gc 'webtools' }
+  use { 'tversteeg/registers.nvim' } -- Show register content in popup
+  local neoclip_depends = { { 'tami5/sqlite.lua', module = 'sqlite' }, { 'nvim-telescope/telescope.nvim' } }
+  use { 'AckslD/nvim-neoclip.lua', requires = neoclip_depends, config = gc 'neoclip' } -- Clipboard manager for neovim with persistent history between sessions powered by sqlite.lua
 
 
   -----------------------------------------------
   -- UI Plugins
   -----------------------------------------------
   puse('rcarriga/nvim-notify', 'notify')
-  puse('chentoast/marks.nvim', 'marks')
   use { 'MunifTanjim/nui.nvim' }
   use {
     'nvim-lualine/lualine.nvim',
@@ -348,12 +326,25 @@ return packer.startup(function()
   } -- Show troubleshooting window with relevant lists
   use { 'gennaro-tedesco/nvim-jqx' } -- Work with JSON in the quickfix window
   --------------------
+  -- Highlighting
+  --------------------
+  use { 'RRethy/vim-illuminate', event = 'CursorHold' }
+  use { 'ironhouzi/starlite-nvim' }
+  use {
+    'folke/todo-comments.nvim',
+    requires = 'nvim-lua/plenary.nvim',
+    cmd = { 'TodoTrouble', 'TodoTelescope' },
+    event = 'BufReadPost',
+    config = gc 'todo',
+  } -- Searching/highlighting of comments such as TODO, HACK, BUG
+  use { 'rhysd/conflict-marker.vim' } -- Highlight, jump and resolve conflict markers quickly. ie. Diff conflicts
+  --------------------
   -- Colorschemes
   --------------------
   use { 'rktjmp/lush.nvim' }
   use { 'EdenEast/nightfox.nvim', config = gc 'nightfox' }
   -- use({ "catppuccin/nvim", as = "catppuccin" })
-  --[[ use({ "catppuccin/nvim", as = "catppuccin", config =  gc("catppuccin") }) ]]
+  -- use({ "catppuccin/nvim", as = "catppuccin", config =  gc("catppuccin") })
   use { 'folke/tokyonight.nvim' }
   use { 'rebelot/kanagawa.nvim' }
   use { 'marko-cerovac/material.nvim' }
@@ -391,6 +382,8 @@ return packer.startup(function()
   use { 'metalelf0/jellybeans-nvim' }
   use { 'Murtaza-Udaipurwala/gruvqueen' }
   use { 'daschw/leaf.nvim' }
+  use { 'daltonmenezes/aura-theme', rtp = 'packages/neovim' }
+  use { 'AlexvZyl/nordic.nvim', as = 'alexvzyl-nordic' }
 
 
   -----------------------------------------------
@@ -402,11 +395,8 @@ return packer.startup(function()
   -- General Plugins
   -----------------------------------------------
   use { 'echasnovski/mini.nvim', branch = 'stable', config = gc 'mini' } -- Swiss army knife generic plugin.
-  use { 'jghauser/mkdir.nvim' } -- Makes directories on save if required. Not Lua
-  use { 'nathom/filetype.nvim' } -- Lua filtype.vim is much faster
   use { 'nacro90/numb.nvim', config = gc 'numb' } -- Peek line contents
-  use { 'numToStr/Comment.nvim', config = gc 'comment' } -- Peek line contents
-  pluse('jiaoshijie/undotree', 'undotree')
+  use { 'numToStr/Comment.nvim', config = gc 'comment' } -- Commenting
   --[[ use { 'jiaoshijie/undotree', config = gc 'undotree' } -- Peek line contents ]]
 
   --use({ "", config = gc("") })
