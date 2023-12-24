@@ -12,6 +12,8 @@ local undotree_mappings = {
 M.mappings = {
     name = '󰣆 Applications',
     u = undotree_mappings,
+    f = { '<cmd>:FzfLua<cr>', ' Fuzzy Search' },
+    t = { "<cmd>Telescope<cr>", " Telescope Extensions" },
 }
 
 --[[ M.options = { ]]

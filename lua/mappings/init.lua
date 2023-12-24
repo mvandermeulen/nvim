@@ -91,12 +91,12 @@ map("n", "<S-TAB>", ":bprevious<CR>", default_options)
 --------------------
 -- Shift Modifier
 --------------------
-map("n", "<S-Left>", ":tabnext<CR>")
-map("n", "<S-Right>", ":tabprev<CR>")
+map("n", "<S-Right>", ":tabnext<CR>")
+map("n", "<S-Left>", ":tabprev<CR>")
 map("n", "<S-Up>", ":BufferLineCyclePrev<CR>")
 map("n", "<S-Down>", ":BufferLineCycleNext<CR>")
-map("n", "<S-H>", "gt")
-map("n", "<S-L>", "gT")
+map("n", "<S-L>", ":tabnext<CR>")
+map("n", "<S-H>", ":tabprev<CR>")
 map("n", "<S-CR>", ":Twilight<CR>", default_options)
 map("n", "<S-Space>", ":ZenMode<CR>", default_options)
 
@@ -123,8 +123,8 @@ map("n", "<M-S-Right>", ":vertical resize +2<CR>")
 map("n", "<C-S>", ":w<CR>") -- write with w
 map("n", "<C-T>", "<cmd>lua require('telescope').extensions.tele_tabby.list()<CR>") -- write with w
 map("n", "<C-CR>", ":NvimTreeToggle<CR>", default_options)
-map("n", "<C-/>", "<Plug>(comment_toggle_linewise_current)", default_options)
-map("n", "<C-->", "<Plug>(comment_toggle_linewise_current)", default_options)
+-- map("n", "<C-/>", "<Plug>(comment_toggle_linewise_current)", default_options)
+-- map("n", "<C-->", "<Plug>(comment_toggle_linewise_current)", default_options)
 map("n", "<C-\\>", "<Plug>(comment_toggle_linewise_current)", default_options)
 
 
@@ -179,7 +179,8 @@ map("n", "<C-\\>", "<Plug>(comment_toggle_linewise_current)", default_options)
 --map("n", "#", "<cmd>lua require'starlite'.hash()<CR>", default_options)
 --map("n", "g#", "<cmd>lua require'starlite'.g_hash()<CR>", default_options)
 
---map("n", "<C-,>", ":Files<CR>")
+map("n", "<C-,>", ":Fzflua files<CR>")
+map("n", "<C-P>", ":Fzflua files<CR>")
 
 --map("n", "", "")
 
