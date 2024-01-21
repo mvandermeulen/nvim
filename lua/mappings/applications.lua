@@ -13,6 +13,7 @@ M.mappings = {
     name = '󰣆 Applications',
     u = undotree_mappings,
     f = { '<cmd>:FzfLua<cr>', ' Fuzzy Search' },
+    l = { '<cmd>:Llama<cr>', '󰭆 LLaMA' },
     t = { "<cmd>Telescope<cr>", " Telescope Extensions" },
 }
 

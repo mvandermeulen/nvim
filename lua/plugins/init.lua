@@ -180,6 +180,7 @@ return packer.startup(function()
     },
     config = gc 'chatgpt',
   }
+  use { 'jpmcb/nvim-llama', config = gc 'nvim-llama' }
 
   --------------------
   -- Snippets
@@ -341,49 +342,60 @@ return packer.startup(function()
   --------------------
   -- Colorschemes
   --------------------
-  use { 'rktjmp/lush.nvim' }
-  use { 'EdenEast/nightfox.nvim', config = gc 'nightfox' }
-  -- use({ "catppuccin/nvim", as = "catppuccin" })
-  -- use({ "catppuccin/nvim", as = "catppuccin", config =  gc("catppuccin") })
-  use { 'folke/tokyonight.nvim' }
-  use { 'rebelot/kanagawa.nvim' }
-  use { 'marko-cerovac/material.nvim' }
-  -- use { 'ellisonleao/gruvbox.nvim' }
-  use { 'eddyekofo94/gruvbox-flat.nvim' }
-  use { 'shaunsingh/nord.nvim' }
-  use { 'navarasu/onedark.nvim' }
-  use { 'olimorris/onedarkpro.nvim' }
-  -- use { 'z4yw0o/nightwolf.nvim' }
-  use { 'savq/melange' }
-  use { 'rmehri01/onenord.nvim' }
-  use { 'Yagua/nebulous.nvim' }
-  use { 'andersevenrud/nordic.nvim' }
-  use { 'kvrohit/substrata.nvim' }
-  use { 'Domeee/mosel.nvim' }
-  use { 'teloe/drip.nvim' }
-  use({ 'rose-pine/neovim', as = 'rose-pine', tag = 'v1.*' })
-  use { 'sainnhe/gruvbox-material' }
-  use { 'Mofiqul/dracula.nvim' }
-  use { 'shaeinst/roshnivim-cs' }
-  use { 'rafamadriz/neon' }
-  use { 'clpi/cyu.lua' }
-  use { 'glepnir/zephyr-nvim' }
-  use { 'sam4llis/nvim-tundra' }
-  use { 'lmburns/kimbox' }
-  use { 'lvim-tech/lvim-colorscheme' }
-  use { 'mcchrish/zenbones.nvim' }
-  use { 'Mofiqul/vscode.nvim' }
-  use { 'decaycs/decay.nvim', as = 'decay' }
-  use { 'yashguptaz/calvera-dark.nvim' }
-  use { 'ishan9299/nvim-solarized-lua' }
-  use { 'NTBBloodbath/doom-one.nvim' }
-  use { 'shaunsingh/solarized.nvim' }
-  use { 'Mofiqul/adwaita.nvim' }
-  use { 'metalelf0/jellybeans-nvim' }
-  use { 'Murtaza-Udaipurwala/gruvqueen' }
-  use { 'daschw/leaf.nvim' }
-  use { 'daltonmenezes/aura-theme', rtp = 'packages/neovim' }
-  use { 'AlexvZyl/nordic.nvim', as = 'alexvzyl-nordic' }
+  if _G.my.ui.theme ~= nil then
+    if _G.my.ui.theme == "rose-pine" then
+      use({ 'rose-pine/neovim', as = 'rose-pine', tag = 'v1.*', config = gc 'rpine' })
+    end
+  else
+    if _G.my.plugins.themes ~= nil then
+      for _, item in pairs(_G.my.plugins.themes.standard_install) do
+        use { item }
+      end
+      for _, item in pairs(_G.my.plugins.themes.extended_install) do
+        use { item }
+      end
+    else
+      use { 'rktjmp/lush.nvim' }
+      use { 'EdenEast/nightfox.nvim', config = gc 'nightfox' }
+      use { 'folke/tokyonight.nvim' }
+      use { 'rebelot/kanagawa.nvim' }
+      use { 'marko-cerovac/material.nvim' }
+      use { 'eddyekofo94/gruvbox-flat.nvim' }
+      use { 'shaunsingh/nord.nvim' }
+      use { 'navarasu/onedark.nvim' }
+      use { 'olimorris/onedarkpro.nvim' }
+      use { 'savq/melange' }
+      use { 'rmehri01/onenord.nvim' }
+      use { 'Yagua/nebulous.nvim' }
+      use { 'andersevenrud/nordic.nvim' }
+      use { 'kvrohit/substrata.nvim' }
+      use { 'Domeee/mosel.nvim' }
+      use { 'teloe/drip.nvim' }
+      use { 'sainnhe/gruvbox-material' }
+      use { 'Mofiqul/dracula.nvim' }
+      use { 'shaeinst/roshnivim-cs' }
+      use { 'rafamadriz/neon' }
+      use { 'clpi/cyu.lua' }
+      use { 'glepnir/zephyr-nvim' }
+      use { 'sam4llis/nvim-tundra' }
+      use { 'lmburns/kimbox' }
+      use { 'lvim-tech/lvim-colorscheme' }
+      use { 'mcchrish/zenbones.nvim' }
+      use { 'Mofiqul/vscode.nvim' }
+      use { 'decaycs/decay.nvim', as = 'decay' }
+      use { 'yashguptaz/calvera-dark.nvim' }
+      use { 'ishan9299/nvim-solarized-lua' }
+      use { 'NTBBloodbath/doom-one.nvim' }
+      use { 'shaunsingh/solarized.nvim' }
+      use { 'Mofiqul/adwaita.nvim' }
+      use { 'metalelf0/jellybeans-nvim' }
+      use { 'Murtaza-Udaipurwala/gruvqueen' }
+      use { 'daschw/leaf.nvim' }
+      use { 'daltonmenezes/aura-theme', rtp = 'packages/neovim' }
+      use { 'AlexvZyl/nordic.nvim', as = 'alexvzyl-nordic' }
+    end
+  end
+
 
 
   -----------------------------------------------

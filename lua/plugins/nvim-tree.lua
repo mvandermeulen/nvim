@@ -4,7 +4,7 @@
 -- Updated: 29-04-2022
 --]]
 
-local tree_cb = require('nvim-tree.config').nvim_tree_callback
+-- local tree_cb = require('nvim-tree.config').nvim_tree_callback
 local status_ok, nvim_tree = pcall(require, 'nvim-tree')
 if not status_ok then
   return

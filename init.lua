@@ -11,7 +11,10 @@ vim.g.mapleader = ' '
 vim.g.log_level = 'warn' -- Use this for global debugging
 -- place for personal utility & configuration options
 _G.my = {}
-_G.my.ui = { theme = 'kanagawa', bg = 'dark' }
+_G.my.plugins = {}
+_G.my.plugins.themes = require('config.vdm.theme-plugins')
+-- _G.my.ui = { theme = 'kanagawa', bg = 'dark' }
+_G.my.ui = { theme = 'rose-pine', bg = 'dark' }
 -----------------------------------------------
 -- Faster startup
 -----------------------------------------------
