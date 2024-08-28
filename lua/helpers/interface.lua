@@ -25,7 +25,7 @@ end
 
 -- Detect if window is owned by plugin by checking buftype.
 interface.win.is_plugin_owned = function(bufid)
-	local origin_type = api.nvim_buf_get_option(bufid, 'buftype')
+	local origin_type = api.nvim_get_option_value('buftype', { buf = bufid })
 	if origin_type == '' or origin_type == 'help' then
 		return false
 	end

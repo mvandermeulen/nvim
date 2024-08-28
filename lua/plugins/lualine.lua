@@ -9,16 +9,10 @@ if not status_ok then
   return
 end
 
-local status_gps_ok, gps = pcall(require, 'nvim-gps')
-if not status_gps_ok then
-  return
-end
-
 local navic_status, navic = pcall(require, 'nvim-navic')
 if not navic_status then
 	return
 end
-
 
 local hide_in_width = function()
   return vim.fn.winwidth(0) > 80
@@ -60,15 +54,6 @@ local spaces = function()
   return '␉' .. vim.api.nvim_buf_get_option(0, 'shiftwidth')
 end
 
-local nvim_gps = function()
-  local gps_location = gps.get_location()
-  if gps_location == 'error' then
-    return ''
-  else
-    return gps.get_location()
-  end
-end
-
 vim.opt.laststatus = 3
 
 lualine.setup {
@@ -104,7 +89,17 @@ lualine.setup {
     -- lualine_x = { "encoding", "fileformat", "filetype" },
     -- lualine_x = { diagnostics, spaces, 'encoding', 'fileformat', filetype },
     lualine_x = { spaces, 'fileformat', 'encoding', filetype },
-    lualine_y = { { nvim_gps, cond = hide_in_width } },
+    --[[ lualine_y = { { nvim_gps, cond = hide_in_width } }, ]]
+    lualine_y = {
+      {
+        function()
+          return navic.get_location()
+        end,
+        cond = function()
+          return navic.is_available()
+        end
+      },
+    },
     lualine_z = { location, diagnostics },
   },
   inactive_sections = {
@@ -120,44 +115,3 @@ lualine.setup {
   extensions = { 'nvim-tree', 'toggleterm', 'quickfix', 'symbols-outline' },
 }
 
---require("lualine").setup({
---	options = {
---		icons_enabled = true,
---		component_separators = { "", "" },
---		section_separators = { "", "" },
---		disabled_filetypes = {},
---		always_divide_middle = true,
---		--theme = 'tokyonight',
---	},
---	sections = {
---		lualine_a = { "mode" },
--- lualine_b = { { "b:gitsigns_head", icon = "" }, "diff" },
---		lualine_c = {
---			{
---				"filename",
---				file_status = true,
---				path = 1, -- show relativ path
---				shorting_target = 40,
---				symbols = { modified = "[]", readonly = " " },
---			},
---		},
---		lualine_x = {
---			{ "diagnostics", sources = { "nvim_diagnostic" } },
---			"encoding",
---			"fileformat",
---			"filetype",
---		},
---		lualine_y = { "progress" },
---		lualine_z = { "location" },
---	},
---	inactive_sections = {
---		lualine_a = {},
---		lualine_b = {},
---		lualine_c = { "filename" },
---		lualine_x = { "location" },
---		lualine_y = {},
---		lualine_z = {},
---	},
---	tabline = {},
---	extensions = { "nvim-tree", "toggleterm", "quickfix", "symbols-outline" },
---})

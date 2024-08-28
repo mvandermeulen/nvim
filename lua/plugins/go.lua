@@ -1,8 +1,8 @@
 require("go").setup({
     go = "go", -- go command, can be go[default] or go1.18beta1
-    goimport = "gopls", -- goimport command, can be gopls[default] or goimport
+    -- goimport = "gopls", -- goimport command, can be gopls[default] or goimport
     fillstruct = "gopls", -- can be nil (use fillstruct, slower) and gopls
-    gofmt = "gofumpt", -- gofmt cmd,
+    gofmt = "golines", -- gofmt cmd,
     max_line_len = 120, -- max line length in goline format
     tag_transform = false, -- tag_transfer  check gomodifytags for details
     test_template = "", -- default to testify if not set; g:go_nvim_tests_template  check gotests for details
@@ -19,7 +19,6 @@ require("go").setup({
     --      when lsp_cfg is true
     -- if lsp_on_attach is a function: use this function as on_attach function for gopls
     lsp_codelens = false, -- set to false to disable codelens, true by default
-    lsp_diag_hdlr = true, -- hook lsp diag handler
     lsp_document_formatting = false,
     -- set to true: use gopls to format
     -- false if you want to use other formatter tool(e.g. efm, nulls)

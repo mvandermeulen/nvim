@@ -1,9 +1,9 @@
-local execute = vim.api.nvim_command
-local fn = vim.fn
+-- local execute = vim.api.nvim_command
+-- local fn = vim.fn
 
-vim.fn.setenv('MACOSX_DEPLOYMENT_TARGET', '10.15')
+-- vim.fn.setenv('MACOSX_DEPLOYMENT_TARGET', '10.15')
 
-local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
+-- local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
 
 -- returns the require for use in `config` parameter of packer's use
 -- expects the name of the config file
@@ -11,58 +11,53 @@ local function gc(name)
   return string.format('require("plugins.%s")', name)
 end
 
--- bootstrap packer if not installed
-if fn.empty(fn.glob(install_path)) > 0 then
-  PACKER_BOOTSTRAP = fn.system {
-    'git',
-    'clone',
-    'https://github.com/wbthomason/packer.nvim',
-    install_path,
-  }
-  execute 'packadd packer.nvim'
-  --print "Installing packer close and reopen Neovim..."
+
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
 end
-
--- initialize and configure packer
-local status_ok, packer = pcall(require, 'packer') -- Use a protected call so we don't error out on first use
-
-if not status_ok then
-  return
-end
-
-packer.init {
-  display = {
-    open_fn = function()
-      return require('packer.util').float { border = 'rounded' }
-    end,
-  },
-  compile_path = vim.fn.stdpath 'config' .. '/plugin/packer_compiled.lua',
-  enable = true, -- enable profiling via :PackerCompile profile=true
-  threshold = 0, -- the amount in ms that a plugins load time must be over for it to be included in the profile
-  ensure_dependencies = true,
-  luarocks = {
-    python_cmd = '/opt/homebrew/bin/python3',
-  },
-  log = { level = 'warn' },
-  max_jobs = 10,
-}
-
-local use = packer.use
-packer.reset()
+vim.opt.rtp:prepend(lazypath)
 
 -- Function to make using plugins easier. Expects opts to be a dictionary if provided.
 local function puse(repo, cfg, opts)
   if cfg then
     if opts then
-      use { repo, requires = opts, config = gc(cfg) }
+      return {
+        repo,
+        dependencies = opts,
+        lazy = false,
+        config = function()
+          require(string.format('plugins.%s', cfg))
+        end,
+      }
     else
-      use { repo, config = gc(cfg) }
+      return {
+        repo,
+        lazy = false,
+        config = function()
+          require(string.format('plugins.%s', cfg))
+        end,
+      }
     end
   else
     if opts then
-      use { repo, requires = opts }
+      return {
+        repo,
+        dependencies = opts,
+        lazy = false,
+      }
     else
-      use { repo }
+      return {
+        repo,
+        lazy = false,
+      }
     end
   end
 end
@@ -77,350 +72,514 @@ local function pluse(repo, cfg, opts)
     end
   end
   if cfg then
-    use { repo, requires = depends, config = gc(cfg) }
+    return {
+      repo,
+      dependencies = depends,
+      lazy = false,
+      config = function()
+        require(string.format('plugins.%s', cfg))
+      end,
+    }
   else
-    use { repo, requires = depends }
+    return {
+      repo,
+      dependencies = depends,
+      lazy = false,
+    }
   end
 end
 
-return packer.startup(function()
-  -----------------------------------------------
-  -- Required
-  -----------------------------------------------
-  use { 'wbthomason/packer.nvim', opt = true }
-  use 'lewis6991/impatient.nvim'
-  use {
+
+---------------------------
+-- Dependencies
+---------------------------
+local telescope_depends = {
+  { 'nvim-lua/popup.nvim' },
+  { 'nvim-lua/plenary.nvim' },
+  { 'crispgm/telescope-heading.nvim' },
+  { 'nvim-telescope/telescope-symbols.nvim' },
+  { 'nvim-telescope/telescope-file-browser.nvim' },
+  { 'nvim-telescope/telescope-project.nvim' },
+  { 'nvim-telescope/telescope-github.nvim' },
+  { 'nvim-telescope/telescope-packer.nvim' },
+  { 'nvim-telescope/telescope-node-modules.nvim' },
+  { 'nvim-telescope/telescope-live-grep-raw.nvim' },
+  { 'KaiSpencer/telescope-tmuxp.nvim' },
+  { 'tom-anders/telescope-vim-bookmarks.nvim' },
+  { 'TC72/telescope-tele-tabby.nvim' },
+  { 'camgraff/telescope-tmux.nvim' },
+  { 'nvim-telescope/telescope-frecency.nvim' },
+  { 'cljoly/telescope-repo.nvim' },
+  { 'nvim-telescope/telescope-z.nvim' },
+  { 'LinArcX/telescope-changes.nvim' },
+  { 'LinArcX/telescope-ports.nvim' },
+  { 'neanias/telescope-lines.nvim' },
+  { 'nyarthan/telescope-code-actions.nvim' },
+  { 'nvim-telescope/telescope-ui-select.nvim' },
+  -- { 'da-moon/telescope-toggleterm.nvim' },
+}
+local treesitter_depends = {
+  { 'nvim-treesitter/nvim-treesitter-textobjects' },
+  { 'p00f/nvim-ts-rainbow' },
+  { 'eckon/treesitter-current-functions' },
+}
+local diff_plugin_cmds = { 'DiffviewOpen', 'DiffviewClose', 'DiffviewToggleFiles', 'DiffviewFocusFiles' }
+local neoclip_depends = { { 'tami5/sqlite.lua' }, { 'nvim-telescope/telescope.nvim' } }
+
+
+require("lazy").setup({
+  {
     'norcalli/nvim-terminal.lua',
+    lazy = false,
+    priority = 1000,
+    concurrency = 2,
     config = function()
       require('terminal').setup()
     end,
-  } -- for displaying terminal colors in the pane_contents previewer with telescope-tmux
-  use { 'tami5/sqlite.lua' }
-
-  -----------------------------------------------
-  -- FZF
-  -----------------------------------------------
-  pluse('ibhagwan/fzf-lua', 'fzf-lua', { { 'kyazdani42/nvim-web-devicons' } }) -- Start page
-
-  -----------------------------------------------
-  -- Telescope
-  -----------------------------------------------
-  local telescope_depends = {
-    { 'nvim-lua/popup.nvim' },
-    { 'nvim-lua/plenary.nvim' },
-    { 'crispgm/telescope-heading.nvim' },
-    { 'nvim-telescope/telescope-symbols.nvim' },
-    { 'nvim-telescope/telescope-file-browser.nvim' },
-    { 'nvim-telescope/telescope-project.nvim' },
-    { 'nvim-telescope/telescope-github.nvim' },
-    { 'nvim-telescope/telescope-packer.nvim' },
-    { 'nvim-telescope/telescope-node-modules.nvim' },
-    { 'nvim-telescope/telescope-live-grep-raw.nvim' },
-    { 'KaiSpencer/telescope-tmuxp.nvim' },
-    { 'tom-anders/telescope-vim-bookmarks.nvim' },
-    { 'TC72/telescope-tele-tabby.nvim' },
-    { 'camgraff/telescope-tmux.nvim' },
-    { 'nvim-telescope/telescope-frecency.nvim' },
-    { 'chip/telescope-software-licenses.nvim' },
-    { 'cljoly/telescope-repo.nvim' },
-    { 'nvim-telescope/telescope-z.nvim' },
-    { 'LinArcX/telescope-changes.nvim' },
-    { 'LinArcX/telescope-ports.nvim' },
-    { 'neanias/telescope-lines.nvim' },
-    { 'nyarthan/telescope-code-actions.nvim' },
-    -- { 'da-moon/telescope-toggleterm.nvim' },
-  }
-  use { 'nvim-telescope/telescope.nvim', requires = telescope_depends, config = gc 'telescope' }
-  use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
-  puse('sudormrfbin/cheatsheet.nvim', 'cheatsheet')
-  --use({ "", config = gc("") })
-
-  -----------------------------------------------
-  -- Treesitter
-  -----------------------------------------------
-  local treesitter_depends = {
-    { 'nvim-treesitter/nvim-treesitter-textobjects' },
-    { 'p00f/nvim-ts-rainbow' },
-    { 'eckon/treesitter-current-functions' },
-  }
-  use {
-    'nvim-treesitter/nvim-treesitter',
-    requires = treesitter_depends,
-    config = gc 'treesitter',
-    run = ':TSUpdate',
-  }
-  use { 'romgrk/nvim-treesitter-context', config = gc 'treesitter-context' }
-  use { 'SmiteshP/nvim-gps', requires = { 'nvim-treesitter/nvim-treesitter' }, config = gc 'gps' } -- simple status line component that shows context of the current cursor position in file
-  use { 'JoosepAlviste/nvim-ts-context-commentstring' }
-
-  -----------------------------------------------
-  -- Clipboard
-  -----------------------------------------------
-  use { 'tversteeg/registers.nvim' } -- Show register content in popup
-  local neoclip_depends = { { 'tami5/sqlite.lua', module = 'sqlite' }, { 'nvim-telescope/telescope.nvim' } }
-  use { 'AckslD/nvim-neoclip.lua', requires = neoclip_depends, config = gc 'neoclip' } -- Clipboard manager for neovim with persistent history between sessions powered by sqlite.lua
-
-  -----------------------------------------------
-  -- File Management
-  -----------------------------------------------
-  use { 'kyazdani42/nvim-tree.lua', config = gc 'nvim-tree' }
-
-  -----------------------------------------------
-  -- Window Management & Navigation
-  -----------------------------------------------
-  use { 'https://gitlab.com/yorickpeterse/nvim-window.git', config = gc 'nvim-window' }
-  use { 'numToStr/Navigator.nvim', config = gc 'navigator' } -- Smoothly navigate between neovim splits and tmux panes
-  use {
-    'luukvbaal/stabilize.nvim',
+  },
+  {
+    'tami5/sqlite.lua',
+    name = 'sqlite',
+    lazy = false,
+    priority = 1000,
+  },
+  { 
+    'echasnovski/mini.nvim',
+    version = '*',
     config = function()
-      require('stabilize').setup()
+      require('plugins.mini')
     end,
-  } -- Better handling of window open/close events
-
-  -----------------------------------------------
-  -- Completion Plugins
-  -----------------------------------------------
-  use { 'windwp/nvim-autopairs', config = gc 'autopairs' } -- Pair completion ie. parentheses
-  use {
+  },
+  -- {
+  --   'vhyrro/luarocks.nvim',
+  --   config = function()
+  --     require('luarocks-nvim').setup({ rocks = { "lua-curl", "nvim-nio", "mimetypes", "xml2lua" } })
+  --   end,
+  --   run = ':source ./build.lua',
+  -- }
+  pluse('ibhagwan/fzf-lua', 'fzf-lua', { { 'kyazdani42/nvim-web-devicons' } }), -- Start page
+  { 'nvim-telescope/telescope.nvim', lazy = false, dependencies = telescope_depends, config = gc 'telescope' },
+  { 'nvim-telescope/telescope-fzf-native.nvim', lazy = false, build = 'make' },
+  puse('sudormrfbin/cheatsheet.nvim', 'cheatsheet'),
+  {
+    'nvim-treesitter/nvim-treesitter',
+    lazy = false,
+    dependencies = treesitter_depends,
+    config = function()
+      require('plugins.treesitter')
+    end,
+    name = "treesitter",
+    build = ':TSUpdate',
+  },
+  {
+    'romgrk/nvim-treesitter-context',
+    lazy = false,
+    config = function()
+      require('plugins.treesitter-context')
+    end,
+    name = "treesitter-context",
+  },
+  {
+    'windwp/nvim-autopairs',-- Pair completion ie. parentheses
+    lazy = false,
+    config = function()
+      require('plugins.autopairs')
+    end,
+    name = "autopairs",
+  },
+  {
     'hrsh7th/nvim-cmp',
-    requires = {
+    lazy = false,
+    dependencies = {
       { 'hrsh7th/cmp-nvim-lsp' },
       { 'hrsh7th/cmp-buffer' }, -- buffer completions
       { 'hrsh7th/cmp-path' }, -- path completions
       { 'hrsh7th/cmp-cmdline' }, -- cmdline completions
       { 'hrsh7th/cmp-calc' },
       { 'hrsh7th/cmp-nvim-lua' },
-      --{ "lukas-reineke/cmp-rg" },
+      { 'onsails/lspkind-nvim' },
+      { 'famiu/bufdelete.nvim' },
     },
-    config = gc 'cmp',
-  }
-  --use "saadparwaiz1/cmp_luasnip" -- snippet completions
-
-  -- Snippets
-  use { 'rafamadriz/friendly-snippets' }
-  use { 'L3MON4D3/LuaSnip', requires = 'saadparwaiz1/cmp_luasnip', config = gc 'luasnip' }
-
-  -----------------------------------------------
-  -- Git Plugins
-  -----------------------------------------------
-  local diff_plugin_cmds = { 'DiffviewOpen', 'DiffviewClose', 'DiffviewToggleFiles', 'DiffviewFocusFiles' }
-  use { 'sindrets/diffview.nvim', cmd = diff_plugin_cmds, config = gc 'diffview' } -- Diff plugin (requirement for Neogit)
-  use { 'f-person/git-blame.nvim', config = gc 'git-blame' }
-  pluse('tanvirtin/vgit.nvim', 'vgit')
-  use { 'TimUntersberger/neogit', requires = { 'nvim-lua/plenary.nvim' }, cmd = 'Neogit', config = gc 'neogit' }
-  use {
-    'lewis6991/gitsigns.nvim',
-    requires = { 'nvim-lua/plenary.nvim' },
-    event = 'BufReadPre',
-    config = gc 'gitsigns',
-  }
-
-  -- Buffer Plugins
-  use {
-    'akinsho/bufferline.nvim',
-    tag = 'v2.*',
-    requires = 'kyazdani42/nvim-web-devicons',
-    event = 'BufReadPre',
-    config = gc 'bufferline',
-  }
-  --use({ "romgrk/barbar.nvim", requires = { "kyazdani42/nvim-web-devicons" }, config = gc("barbar") })
-  use 'famiu/bufdelete.nvim'
-
-  -----------------------------------------------
-  -- LSP Configuration
-  -----------------------------------------------
-
-
-  use { 'SmiteshP/nvim-navic', requires = 'neovim/nvim-lspconfig' }
-  use {
+    config = function()
+      require('plugins.cmp')
+    end,
+    name = "cmp",
+  },
+  {
+    "yetone/avante.nvim",
+    lazy = false,
+    -- event = "VeryLazy",
+    build = "make", -- This is Optional, only if you want to use tiktoken_core to calculate tokens count
+    opts = {
+      -- add any opts here
+    },
+    dependencies = {
+      "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
+      "stevearc/dressing.nvim",
+      "nvim-lua/plenary.nvim",
+      "MunifTanjim/nui.nvim",
+      --- The below is optional, make sure to setup it properly if you have lazy=true
+      {
+        'MeanderingProgrammer/render-markdown.nvim',
+        opts = {
+          file_types = { "markdown", "Avante" },
+        },
+        ft = { "markdown", "Avante" },
+      },
+    },
+  },
+  {
+    'jackMort/ChatGPT.nvim',
+    lazy = false,
+    dependencies = {
+      'MunifTanjim/nui.nvim',
+      'nvim-lua/plenary.nvim',
+      'nvim-telescope/telescope.nvim'
+    },
+    config = function()
+      require('plugins.chatgpt')
+    end,
+  },
+  {
+    "magicalne/nvim.ai",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    config = function()
+      require('plugins.ai')
+    end,
+    opts = {
+      provider = "anthropic", -- You can configure your provider, model or keymaps here.
+    }
+  },
+  -- use { 'jpmcb/nvim-llama', config = gc 'nvim-llama' }
+  -- { 'rafamadriz/friendly-snippets' }, -- Snippets
+  -- { 'L3MON4D3/LuaSnip', dependencies = 'saadparwaiz1/cmp_luasnip', config = gc 'luasnip' },
+  { 'neovim/nvim-lspconfig', lazy = false },
+  {
+    'SmiteshP/nvim-navic',
+    lazy = false,
+    dependencies = {
+      {'neovim/nvim-lspconfig'},
+    },
+  },
+  { 'nvimtools/none-ls.nvim', lazy = false },
+  { 'jay-babu/mason-null-ls.nvim', lazy = false },
+  { 'WhoIsSethDaniel/mason-tool-installer.nvim', lazy = false },
+  { 'mhartington/formatter.nvim', lazy = false },
+  {
     'williamboman/mason.nvim',
-    requires = {
+    lazy = false,
+    dependencies = {
       {'neovim/nvim-lspconfig'},
       {'williamboman/mason-lspconfig.nvim'},
-      {'jose-elias-alvarez/null-ls.nvim'},
       {'jay-babu/mason-null-ls.nvim'},
+      {'nvimtools/none-ls.nvim'},
       {'WhoIsSethDaniel/mason-tool-installer.nvim'},
     },
-    config = gc 'mason',
-  }
-
-  --[[ use { 'neovim/nvim-lspconfig', config = gc 'lsp' } ]]
-  --[[ use { 'williamboman/nvim-lsp-installer' } -- simple to use language server installer ]]
-  use { 'ray-x/lsp_signature.nvim', requires = { 'neovim/nvim-lspconfig' }, config = gc 'lsp-signature' }
-  use { 'onsails/lspkind-nvim', requires = { 'famiu/bufdelete.nvim' } }
-  pluse('jose-elias-alvarez/null-ls.nvim', 'null-ls') -- for formatters and linters
-  use { 'rmagatti/goto-preview', config = gc 'goto-preview' }
-  use { 'simrat39/symbols-outline.nvim', cmd = { 'SymbolsOutline' }, config = gc 'symbols' }
-
-  -----------------------------------------------
-  -- Terminal & Command Plugins
-  -----------------------------------------------
-  -- local toggleterm_keys = {
-  --   '<C-n>',
-  --   '<leader>t1',
-  --   '<leader>t2',
-  --   '<leader>t3',
-  --   '<leader>t4',
-  --   '<leader>tn',
-  --   '<leader>tu',
-  --   '<leader>tp',
-  --   '<leader>tf',
-  --   '<leader>tt',
-  --   '<leader>th',
-  --   '<leader>tv',
-  --   '<leader>gl',
-  --   '<leader>gt',
-  -- }
-  use { 'akinsho/nvim-toggleterm.lua', config = gc 'toggleterm' }
-  -- use { 'akinsho/nvim-toggleterm.lua', keys = toggleterm_keys, config = gc 'toggleterm' }
-  use { 'numToStr/FTerm.nvim', config = gc 'fterm' }
-  use { 'waylonwalker/Telegraph.nvim' }
-  use {
+    config = function()
+      require('plugins.mason')
+    end,
+    name = "mason",
+  },
+  {
+    'ray-x/lsp_signature.nvim',
+    lazy = false,
+    dependencies = {
+      {'neovim/nvim-lspconfig'},
+    },
+    config = function()
+      require('plugins.lsp-signature')
+    end,
+    name = "lsp-signature",
+  },
+  -- pluse('jose-elias-alvarez/null-ls.nvim', 'null-ls'), -- for formatters and linters
+  { 'rmagatti/goto-preview', lazy = false, config = gc 'goto-preview' },
+  { 'simrat39/symbols-outline.nvim', lazy = false, cmd = { 'SymbolsOutline' }, config = gc 'symbols' },
+  { 'cuducos/yaml.nvim', ft = { 'yaml' } }, -- Language Specific
+  puse('ray-x/go.nvim', 'go'),
+  { 'ray-x/guihua.lua' },
+  { 'ray-x/web-tools.nvim', lazy = false, config = gc 'webtools' },
+  {
+    'kyazdani42/nvim-tree.lua',
+    lazy = false,
+    config = function()
+      require('plugins.nvim-tree')
+    end,
+  }, -- File Management
+  { 'jghauser/mkdir.nvim', lazy = false }, -- Makes directories on save if required. Not Lua
+  -- puse('nathom/filetype.nvim', 'filetype'), -- Lua filtype.vim is much faster
+  pluse('jiaoshijie/undotree', 'undotree'),
+  { 'sindrets/diffview.nvim', lazy = false, cmd = diff_plugin_cmds, config = gc 'diffview' }, -- Diff plugin (requirement for Neogit)
+  pluse('tanvirtin/vgit.nvim', 'vgit'),
+  { 'TimUntersberger/neogit', dependencies = { 'nvim-lua/plenary.nvim' }, cmd = 'Neogit', config = gc 'neogit' },
+  {
+    'lewis6991/gitsigns.nvim',
+    lazy = false,
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+    },
+    config = function()
+      require('plugins.gitsigns')
+    end,
+  },
+  {
+    'ThePrimeagen/harpoon',
+    lazy = false,
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+    },
+    config = function()
+      require('plugins.harpoon')
+    end,
+  },
+  {
+    'ahmedkhalf/project.nvim',
+    lazy = false,
+    config = function()
+      require('plugins.project')
+    end,
+  },
+  {
+    'natecraddock/sessions.nvim',
+    lazy = false,
+    config = function()
+      require('plugins.sessions')
+    end,
+  },
+  {
+    'natecraddock/workspaces.nvim',
+    lazy = false,
+    config = function()
+      require('plugins.workspaces')
+    end,
+  },
+  {
+    'folke/persistence.nvim',
+    lazy = false,
+    event = 'BufReadPre',
+    config = function()
+      require('plugins.persistence')
+    end,
+  },
+  {
+    'Shatur/neovim-session-manager',
+    lazy = false,
+    config = function()
+      require('plugins.session-manager')
+    end,
+  },
+  {
+    'rmagatti/auto-session',
+    lazy = false,
+    config = function()
+      require('plugins.auto-session')
+    end,
+  },
+  {
+    'https://gitlab.com/yorickpeterse/nvim-window.git',
+    lazy = false,
+    config = function()
+      require('plugins.nvim-window')
+    end,
+  }, -- Windows & Buffers
+  {
+    'numToStr/Navigator.nvim',
+    lazy = false,
+    config = function()
+      require('plugins.navigator')
+    end,
+  }, -- Smoothly navigate between neovim splits and tmux panes
+  {
+    'luukvbaal/stabilize.nvim',
+    lazy = false,
+    config = function()
+      require('stabilize').setup()
+    end,
+  }, -- Better handling of window open/close events
+  {
+    'akinsho/bufferline.nvim',
+    lazy = false,
+    version = '*',
+    dependencies = 'kyazdani42/nvim-web-devicons',
+    event = 'BufReadPre',
+    config = function()
+      require('plugins.bufferline')
+    end,
+  },
+  { 'famiu/bufdelete.nvim', lazy = false },
+  {
+    'ggandor/lightspeed.nvim',
+    lazy = false,
+    event = 'BufReadPre',
+  }, -- Navigation
+  {
+    'chentoast/marks.nvim',
+    lazy = false,
+    config = function()
+      require('plugins.marks')
+    end,
+  },-- Bookmarks
+  {
+    'folke/which-key.nvim',
+    lazy = false,
+    priority = 1000,
+    config = function()
+      require('plugins.which')
+    end,
+  }, -- Mappings
+  {
+    'akinsho/nvim-toggleterm.lua',
+    version = "*",
+    lazy = false,
+    config = function()
+      require('plugins.toggleterm')
+    end,
+  }, -- Terminal & Commands/Tasks
+  {
+    'numToStr/FTerm.nvim',
+    lazy = false,
+    config = function()
+      require('plugins.fterm')
+    end,
+  },
+  { 'waylonwalker/Telegraph.nvim', lazy = false },
+  {
     'tknightz/telescope-termfinder.nvim',
+    lazy = false,
     config = function()
       require('telescope').load_extension("termfinder")
     end,
-  } -- for displaying terminal colors in the pane_contents previewer with telescope-tmux
-  --use({ "da-moon/telescope-toggleterm.nvim", config = gc("telescope-toggleterm") })
-	use { 'jedrzejboczar/toggletasks.nvim', requires = { 'nvim-lua/plenary.nvim', 'akinsho/toggleterm.nvim', 'nvim-telescope/telescope.nvim' }, config = gc('toggletasks') }
-
-  -----------------------------------------------
-  -- Search highlighting
-  -----------------------------------------------
-  use { 'RRethy/vim-illuminate', event = 'CursorHold' }
-  use { 'ironhouzi/starlite-nvim' }
-  use {
+  }, -- for displaying terminal colors in the pane_contents previewer with telescope-tmux
+	{ 'jedrzejboczar/toggletasks.nvim', lazy = false, dependencies = { 'nvim-lua/plenary.nvim', 'akinsho/toggleterm.nvim', 'nvim-telescope/telescope.nvim' }, config = gc('toggletasks') },
+  {
+    'tversteeg/registers.nvim',
+    lazy = false,
+    config = function()
+      require('plugins.registers')
+    end,
+    name = "registers",
+  },
+  {
+    'AckslD/nvim-neoclip.lua',
+    lazy = false,
+    dependencies = { { 'tami5/sqlite.lua' }, { 'nvim-telescope/telescope.nvim' } },
+    config = function()
+      require('plugins.neoclip')
+    end,
+    name = "neoclip",
+  },
+  {
+    "ptdewey/yankbank-nvim",
+    dependencies = "kkharji/sqlite.lua",
+    config = function()
+        require('yankbank').setup({
+            persist_type = "sqlite",
+        })
+    end,
+  },
+  puse('rcarriga/nvim-notify', 'notify'),
+  -- {
+  --   '',
+  --   lazy = false,
+  --   config = function()
+  --     require('plugins.registers')
+  --   end,
+  --   name = "",
+  -- },
+  { 'MunifTanjim/nui.nvim', lazy = false },
+  {
+    'nvim-lualine/lualine.nvim',
+    lazy = false,
+    config = gc 'lualine',
+    event = 'VimEnter',
+    dependencies = { 'kyazdani42/nvim-web-devicons', lazy = true },
+  }, -- Status Line
+  { 'norcalli/nvim-colorizer.lua', lazy = false, event = 'BufReadPre', config = gc 'colorizer' }, -- A high-performance color highlighter
+  { 'folke/zen-mode.nvim', cmd = 'ZenMode', config = gc 'zen-mode' }, -- opens the current buffer in a new full-screen floating window, disables plugins, etc
+  { 'folke/twilight.nvim', config = gc 'twilight' }, -- dims inactive portions of the code you're editing using TreeSitter
+  -- { 'lukas-reineke/indent-blankline.nvim', event = 'BufReadPre', config = gc 'indent-blankline' }, -- line intentation markers
+  { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
+  { 'LudoPinelli/comment-box.nvim', lazy = false, config = gc 'comment-box' }, -- Create boxes and lines in comments
+  -- pluse('goolord/alpha-nvim', 'alpha-nvim', { { 'kyazdani42/nvim-web-devicons' } }), -- Start page
+  {
+    'goolord/alpha-nvim',
+    lazy = false,
+    config = function ()
+        require'alpha'.setup(require'alpha.themes.dashboard'.config)
+    end
+  },
+  { 'kevinhwang91/nvim-bqf', lazy = false, dependencies = { { 'junegunn/fzf' } } }, -- Quickfix
+  {
+    'folke/trouble.nvim',
+    lazy = false,
+    dependencies = 'kyazdani42/nvim-web-devicons',
+    cmd = { 'TroubleToggle', 'Trouble' },
+    config = gc 'trouble',
+  }, -- Show troubleshooting window with relevant lists
+  { 'gennaro-tedesco/nvim-jqx', lazy = false }, -- Work with JSON in the quickfix window
+  { 'RRethy/vim-illuminate', lazy = false, event = 'CursorHold' }, -- Highlighting
+  { 'ironhouzi/starlite-nvim', lazy = false },
+  {
     'folke/todo-comments.nvim',
-    requires = 'nvim-lua/plenary.nvim',
+    lazy = false,
+    dependencies = 'nvim-lua/plenary.nvim',
     cmd = { 'TodoTrouble', 'TodoTelescope' },
     event = 'BufReadPost',
     config = gc 'todo',
-  } -- Searching/highlighting of comments such as TODO, HACK, BUG
-  use { 'rhysd/conflict-marker.vim' } -- Highlight, jump and resolve conflict markers quickly. ie. Diff conflicts
-
-  -----------------------------------------------
-  -- Navigation
-  -----------------------------------------------
-  use { 'ggandor/lightspeed.nvim', event = 'BufReadPre' }
-  local scrollkeys = { '<C-u>', '<C-d>', '<C-b>', '<C-f>', '<C-e>', 'zt', 'zz', 'zb' }
-  use { 'karb94/neoscroll.nvim', keys = scrollkeys, config = gc 'neoscroll' } -- Better scrolling
-  use { 'folke/which-key.nvim', config = gc 'which' }
-
-  -- Project/Session manaagement and navigation.
-  pluse('ThePrimeagen/harpoon', 'harpoon')
-  use { 'ahmedkhalf/project.nvim', config = gc 'project' }
-  use { 'natecraddock/sessions.nvim', config = gc 'sessions' }
-  use { 'natecraddock/workspaces.nvim', config = gc 'workspaces' }
-  use { 'folke/persistence.nvim', event = 'BufReadPre', module = 'persistence', config = gc 'persistence' }
-
-  -----------------------------------------------
-  -- Language Plugins
-  -----------------------------------------------
-  use { 'cuducos/yaml.nvim', ft = { 'yaml' } }
-  puse('ray-x/go.nvim', 'go')
-  use { 'ray-x/web-tools.nvim', config = gc 'webtools' }
-
-
-  -----------------------------------------------
-  -- UI Plugins
-  -----------------------------------------------
-  puse('rcarriga/nvim-notify', 'notify')
-  puse('chentoast/marks.nvim', 'marks')
-  use { 'MunifTanjim/nui.nvim' }
-  use {
-    'nvim-lualine/lualine.nvim',
-    config = gc 'lualine',
-    event = 'VimEnter',
-    requires = { 'kyazdani42/nvim-web-devicons', opt = true },
-  } -- Status Line
-  use { 'norcalli/nvim-colorizer.lua', event = 'BufReadPre', config = gc 'colorizer' } -- A high-performance color highlighter
-  use { 'folke/zen-mode.nvim', cmd = 'ZenMode', config = gc 'zen-mode' } -- opens the current buffer in a new full-screen floating window, disables plugins, etc
-  use { 'folke/twilight.nvim', config = gc 'twilight' } -- dims inactive portions of the code you're editing using TreeSitter
-  use { 'lukas-reineke/indent-blankline.nvim', event = 'BufReadPre', config = gc 'indent-blankline' } -- line intentation markers
-  use { 'LudoPinelli/comment-box.nvim', config = gc 'comment-box' } -- Create boxes and lines in comments
-  pluse('goolord/alpha-nvim', 'alpha-nvim', { { 'kyazdani42/nvim-web-devicons' } }) -- Start page
-  use { 'kevinhwang91/nvim-bqf', requires = { { 'junegunn/fzf', module = 'nvim-bqf' } } } -- Quickfix
-  use {
-    'folke/trouble.nvim',
-    requires = 'kyazdani42/nvim-web-devicons',
-    cmd = { 'TroubleToggle', 'Trouble' },
-    config = gc 'trouble',
-  } -- Show troubleshooting window with relevant lists
-  use { 'gennaro-tedesco/nvim-jqx' } -- Work with JSON in the quickfix window
-  --------------------
-  -- Colorschemes
-  --------------------
-  use { 'rktjmp/lush.nvim' }
-  use { 'EdenEast/nightfox.nvim', config = gc 'nightfox' }
-  -- use({ "catppuccin/nvim", as = "catppuccin" })
-  --[[ use({ "catppuccin/nvim", as = "catppuccin", config =  gc("catppuccin") }) ]]
-  use { 'folke/tokyonight.nvim' }
-  use { 'rebelot/kanagawa.nvim' }
-  use { 'marko-cerovac/material.nvim' }
-  -- use { 'ellisonleao/gruvbox.nvim' }
-  use { 'eddyekofo94/gruvbox-flat.nvim' }
-  use { 'shaunsingh/nord.nvim' }
-  use { 'navarasu/onedark.nvim' }
-  use { 'olimorris/onedarkpro.nvim' }
-  -- use { 'z4yw0o/nightwolf.nvim' }
-  use { 'savq/melange' }
-  use { 'rmehri01/onenord.nvim' }
-  use { 'Yagua/nebulous.nvim' }
-  use { 'andersevenrud/nordic.nvim' }
-  use { 'kvrohit/substrata.nvim' }
-  use { 'Domeee/mosel.nvim' }
-  use { 'teloe/drip.nvim' }
-  use({ 'rose-pine/neovim', as = 'rose-pine', tag = 'v1.*' })
-  use { 'sainnhe/gruvbox-material' }
-  use { 'Mofiqul/dracula.nvim' }
-  use { 'shaeinst/roshnivim-cs' }
-  use { 'rafamadriz/neon' }
-  use { 'clpi/cyu.lua' }
-  use { 'glepnir/zephyr-nvim' }
-  use { 'sam4llis/nvim-tundra' }
-  use { 'lmburns/kimbox' }
-  use { 'lvim-tech/lvim-colorscheme' }
-  use { 'mcchrish/zenbones.nvim' }
-  use { 'Mofiqul/vscode.nvim' }
-  use { 'decaycs/decay.nvim', as = 'decay' }
-  use { 'yashguptaz/calvera-dark.nvim' }
-  use { 'ishan9299/nvim-solarized-lua' }
-  use { 'NTBBloodbath/doom-one.nvim' }
-  use { 'shaunsingh/solarized.nvim' }
-  use { 'Mofiqul/adwaita.nvim' }
-  use { 'metalelf0/jellybeans-nvim' }
-  use { 'Murtaza-Udaipurwala/gruvqueen' }
-  use { 'daschw/leaf.nvim' }
-
-
-  -----------------------------------------------
-  -- Integrations
-  -----------------------------------------------
-  pluse('NTBBloodbath/rest.nvim', 'http-rest')
-
-  -----------------------------------------------
-  -- General Plugins
-  -----------------------------------------------
-  use { 'echasnovski/mini.nvim', branch = 'stable', config = gc 'mini' } -- Swiss army knife generic plugin.
-  use { 'jghauser/mkdir.nvim' } -- Makes directories on save if required. Not Lua
-  use { 'nathom/filetype.nvim' } -- Lua filtype.vim is much faster
-  use { 'nacro90/numb.nvim', config = gc 'numb' } -- Peek line contents
-  use { 'numToStr/Comment.nvim', config = gc 'comment' } -- Peek line contents
-  pluse('jiaoshijie/undotree', 'undotree')
-  --[[ use { 'jiaoshijie/undotree', config = gc 'undotree' } -- Peek line contents ]]
-
-  --use({ "", config = gc("") })
-  --use({ "", config = gc("") })
-  --use({ "", config = gc("") })
-  --use({ "", config = gc("") })
-
-  --use({
-  --"",
-  --requires = { "" },
-  --config = gc(""),
-  --})
-
-  --if PACKER_BOOTSTRAP then
-  --require("packer").sync()
-  --end
-end)
+  }, -- Searching/highlighting of comments such as TODO, HACK, BUG
+  { 'rhysd/conflict-marker.vim', lazy = false }, -- Highlight, jump and resolve conflict markers quickly. ie. Diff conflicts
+  { 'rose-pine/neovim', name = 'rose-pine', version = 'v1.*', config = gc 'rpine' },
+  _G.my.plugins.themes.standard_install,
+  _G.my.plugins.themes.extended_install,
+  { 'rktjmp/lush.nvim' },
+  { 'EdenEast/nightfox.nvim', config = gc 'nightfox' },
+  { 'folke/tokyonight.nvim' },
+  { 'rebelot/kanagawa.nvim' },
+  { 'marko-cerovac/material.nvim' },
+  { 'eddyekofo94/gruvbox-flat.nvim' },
+  { 'shaunsingh/nord.nvim' },
+  { 'navarasu/onedark.nvim' },
+  { 'olimorris/onedarkpro.nvim' },
+  { 'savq/melange' },
+  { 'rmehri01/onenord.nvim' },
+  { 'Yagua/nebulous.nvim' },
+  { 'andersevenrud/nordic.nvim' },
+  { 'kvrohit/substrata.nvim' },
+  { 'Domeee/mosel.nvim' },
+  { 'teloe/drip.nvim' },
+  { 'sainnhe/gruvbox-material' },
+  { 'Mofiqul/dracula.nvim' },
+  { 'shaeinst/roshnivim-cs' },
+  { 'rafamadriz/neon' },
+  { 'clpi/cyu.lua' },
+  { 'glepnir/zephyr-nvim' },
+  { 'sam4llis/nvim-tundra' },
+  { 'lmburns/kimbox' },
+  { 'lvim-tech/lvim-colorscheme' },
+  { 'mcchrish/zenbones.nvim' },
+  { 'Mofiqul/vscode.nvim' },
+  { 'decaycs/decay.nvim', name = 'decay' },
+  { 'yashguptaz/calvera-dark.nvim' },
+  { 'ishan9299/nvim-solarized-lua' },
+  { 'NTBBloodbath/doom-one.nvim' },
+  { 'shaunsingh/solarized.nvim' },
+  { 'Mofiqul/adwaita.nvim' },
+  { 'metalelf0/jellybeans-nvim' },
+  { 'Murtaza-Udaipurwala/gruvqueen' },
+  { 'daschw/leaf.nvim' },
+  -- { 'daltonmenezes/aura-theme', rtp = 'packages/neovim' },
+  { 'AlexvZyl/nordic.nvim', name = 'alexvzyl-nordic' },
+  -- { "catppuccin/nvim", name = "catppuccin" },
+  -- {
+  --   "rest-nvim/rest.nvim",
+  --   rocks = { "lua-curl", "nvim-nio", "mimetypes", "xml2lua" },
+  --   config = function()
+  --     require("rest-nvim").setup()
+  --   end,
+  -- },
+  -- { 'echasnovski/mini.nvim', branch = 'stable', config = gc 'mini' }, -- Swiss army knife generic plugin.,
+  { 'nacro90/numb.nvim', lazy = false, config = gc 'numb' }, -- Peek line contents,
+  { 'numToStr/Comment.nvim', config = gc 'comment' },
+  })

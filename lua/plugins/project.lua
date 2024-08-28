@@ -10,6 +10,12 @@ if not status_ok then
   return
 end
 
+
+local projects_path = vim.fn.expand(vim.fn.stdpath 'data' .. '/projects')
+if vim.fn.isdirectory(projects_path) == 0 then
+  vim.fn.mkdir(projects_path, 'p')
+end
+
 project.setup {
   active = true,
   on_config_done = nil,
@@ -35,12 +41,12 @@ project.setup {
   show_hidden = false, ---@ Show hidden files in telescope when searching for files in a project
   silent_chdir = false, -- When set to false, you will get a message when project.nvim changes your directory.
   ignore_lsp = {}, ---@usage list of lsp client names to ignore when using **lsp** detection. eg: { "efm", ... }
-  datapath = vim.fn.stdpath 'data', ---@usage path to store the project history for use in telescope
+  datapath = vim.fn.expand(vim.fn.stdpath 'data' .. '/projects'), ---@usage path to store the project history for use in telescope
 }
 
-local tele_status_ok, telescope = pcall(require, 'telescope')
-if not tele_status_ok then
-  return
-end
-
-telescope.load_extension('projects')
+-- local tele_status_ok, telescope = pcall(require, 'telescope')
+-- if not tele_status_ok then
+--   return
+-- end
+--
+-- telescope.load_extension('projects')

@@ -2,7 +2,7 @@
 -- Telescope Configuration
 --
 -- Author: Mark van der Meulen
--- Updated: 29-04-2022
+-- Updated: 2024-08-22
 --]]
 
 local status_ok, telescope = pcall(require, 'telescope')
@@ -126,12 +126,13 @@ telescope.load_extension('file_browser')
 telescope.load_extension('notify')
 telescope.load_extension('vim_bookmarks')
 --telescope.load_extension('frecency')
-telescope.load_extension('software-licenses')
+--telescope.load_extension('software-licenses')
 telescope.load_extension('repo')
 telescope.load_extension('z')
 telescope.load_extension('changes')
 telescope.load_extension('ports')
 telescope.load_extension('lines')
+telescope.load_extension("ui-select")
 -- telescope.load_extension('telescope-code-actions')
 -- telescope.load_extension('toggleterm')
 

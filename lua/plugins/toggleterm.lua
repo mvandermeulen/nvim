@@ -75,22 +75,28 @@ toggleterm.setup {
 
 map('n', '<leader>tn', '<cmd>lua _NODE_TOGGLE()<CR>', { noremap = true, silent = true }) -- start node
 map('n', '<leader>tp', '<cmd>lua _PYTHON_TOGGLE()<CR>', { noremap = true, silent = true }) -- start python
-map('n', '<leader>tt', '<cmd>lua _HTOP_TOGGLE()<CR>', { noremap = true, silent = true }) -- start htop
+map('n', '<leader>th', '<cmd>lua _HTOP_TOGGLE()<CR>', { noremap = true, silent = true }) -- start htop
 map('n', '<leader>tu', '<cmd>lua _NCDU_TOGGLE()<CR>', { noremap = true, silent = true }) -- start ncdu
-map('n', '<leader>gl', '<cmd>lua _GITUI_TOGGLE()<CR>i', { noremap = true, silent = true }) -- start gitui
-map('n', '<leader>gt', '<cmd>lua _LAZYGIT_TOGGLE()<CR>i', { noremap = true, silent = true }) -- start lazygit
+map('n', '<leader>gG', '<cmd>lua _GITUI_TOGGLE()<CR>i', { noremap = true, silent = true }) -- start gitui
+map('n', '<leader>gL', '<cmd>lua _LAZYGIT_TOGGLE()<CR>i', { noremap = true, silent = true }) -- start lazygit
 -- map('t', '<ESC>', '<C-\\><C-n>', { noremap = true, silent = true }) -- back to normal mode in Terminal
+
+-- :ToggleTermSendCurrentLine
+
+
 
 -- Better navigation to and from terminal
 function _G.set_terminal_keymaps()
   local opts = { noremap = true }
-  vim.api.nvim_buf_set_keymap(0, 't', '<esc>', [[<C-\><C-n>]], opts)
+  -- vim.api.nvim_buf_set_keymap(0, 't', '<esc>', [[<C-\><C-n>]], opts)
+  vim.api.nvim_buf_set_keymap(0, 't', '<esc>', [[q]], opts)
   vim.api.nvim_buf_set_keymap(0, 't', 'jk', [[<C-\><C-n>]], opts)
   vim.api.nvim_buf_set_keymap(0, 't', '<C-h>', [[<C-\><C-n><C-W>h]], opts)
   vim.api.nvim_buf_set_keymap(0, 't', '<C-j>', [[<C-\><C-n><C-W>j]], opts)
   vim.api.nvim_buf_set_keymap(0, 't', '<C-k>', [[<C-\><C-n><C-W>k]], opts)
   vim.api.nvim_buf_set_keymap(0, 't', '<C-l>', [[<C-\><C-n><C-W>l]], opts)
 end
+
 -- if you only want these mappings for toggle term use term://*toggleterm#* instead
 vim.cmd 'autocmd! TermOpen term://* lua set_terminal_keymaps()'
 

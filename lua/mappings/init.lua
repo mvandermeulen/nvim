@@ -49,6 +49,7 @@ map("n", "N", "Nzz", default_options) -- center search results
 map("n", "k", "v:count == 0 ? 'gk' : 'k'", expr_options) -- Deal with visual line wraps
 map("n", "j", "v:count == 0 ? 'gj' : 'j'", expr_options) -- Deal with visual line wraps
 map("n", "<ESC>", ":nohlsearch<Bar>:echo<CR>", default_options) -- Cancel search highlighting with ESC
+map("n", "m/", "<cmd>MarksListAll<CR>", default_options) -- Marks from all opened buffers
 
 
 -------------------------------
@@ -91,12 +92,12 @@ map("n", "<S-TAB>", ":bprevious<CR>", default_options)
 --------------------
 -- Shift Modifier
 --------------------
-map("n", "<S-Left>", ":tabnext<CR>")
-map("n", "<S-Right>", ":tabprev<CR>")
+map("n", "<S-Right>", ":tabnext<CR>")
+map("n", "<S-Left>", ":tabprev<CR>")
 map("n", "<S-Up>", ":BufferLineCyclePrev<CR>")
 map("n", "<S-Down>", ":BufferLineCycleNext<CR>")
-map("n", "<S-H>", "gt")
-map("n", "<S-L>", "gT")
+map("n", "<S-L>", ":tabnext<CR>")
+map("n", "<S-H>", ":tabprev<CR>")
 map("n", "<S-CR>", ":Twilight<CR>", default_options)
 map("n", "<S-Space>", ":ZenMode<CR>", default_options)
 
@@ -123,8 +124,8 @@ map("n", "<M-S-Right>", ":vertical resize +2<CR>")
 map("n", "<C-S>", ":w<CR>") -- write with w
 map("n", "<C-T>", "<cmd>lua require('telescope').extensions.tele_tabby.list()<CR>") -- write with w
 map("n", "<C-CR>", ":NvimTreeToggle<CR>", default_options)
-map("n", "<C-/>", "<Plug>(comment_toggle_linewise_current)", default_options)
-map("n", "<C-->", "<Plug>(comment_toggle_linewise_current)", default_options)
+-- map("n", "<C-/>", "<Plug>(comment_toggle_linewise_current)", default_options)
+-- map("n", "<C-->", "<Plug>(comment_toggle_linewise_current)", default_options)
 map("n", "<C-\\>", "<Plug>(comment_toggle_linewise_current)", default_options)
 
 
@@ -179,7 +180,10 @@ map("n", "<C-\\>", "<Plug>(comment_toggle_linewise_current)", default_options)
 --map("n", "#", "<cmd>lua require'starlite'.hash()<CR>", default_options)
 --map("n", "g#", "<cmd>lua require'starlite'.g_hash()<CR>", default_options)
 
---map("n", "<C-,>", ":Files<CR>")
+-- TODO: Doesn't work
+-- FIXED
+map("n", "<C-,>", ":FzfLua files<CR>")
+map("n", "<C-P>", ":FzfLua<CR>")
 
 --map("n", "", "")
 

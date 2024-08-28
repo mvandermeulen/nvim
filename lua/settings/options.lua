@@ -26,7 +26,7 @@ vim.opt.backupcopy = "yes"
 vim.opt.writebackup = false
 
 -- Encoding
-vim.opt.fileformat = "unix"
+-- vim.opt.fileformat = "unix"
 vim.opt.fileencoding = "utf-8" -- the encoding written to a file
 vim.opt.encoding = "utf-8"
 
@@ -70,4 +70,4 @@ vim.opt.titlestring = "%{join(split(getcwd(), '/')[-2:], '/')}"
 vim.opt.shada = { "!", "'500", "<500", "s10", "h" }
 --vim.opt.startofline = false
 
-vim.opt.pastetoggle = "<F2>"
+-- vim.opt.pastetoggle = "<F2>"

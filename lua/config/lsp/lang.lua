@@ -28,23 +28,19 @@ M.parsers = {
 }
 
 M.servers = {
-  'bashls',
-  'cssls',
-  --[[ "tailwindcss", ]]
-  'dockerls',
-  'emmet_ls',
-  'gopls',
-  'html',
-  'jsonls',
-  'pyright',
-  'sqlls',
   'lua_ls',
-  --[[ 'svelte-language-server', ]]
-  'terraformls',
-  'tsserver',
-  'yamlls',
-  --[[ 'yaml-language-server', ]]
+  'pyright',
+  'gopls',
+  'emmet_ls',
+  'ansiblels',
   'jsonls',
+  'dockerls',
+  'sqlls',
+  'terraformls',
+  'yamlls',
+  'bashls',
+  'tsserver',
+  'docker_compose_language_service',
 }
 
 return M

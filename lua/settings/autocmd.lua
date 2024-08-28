@@ -21,12 +21,6 @@ autocmd('TextYankPost', {
   end
 })
 
--- Remove whitespace on save
--- autocmd('BufWritePre', {
---   pattern = '*',
---   command = ":%s/\\s\\+$//e"
--- })
-
 -- Don't auto comment new lines
 autocmd('BufEnter', {
   pattern = '*',
@@ -117,52 +111,4 @@ end
 
 -- BufEnter,BufRead,BufWinEnter,FileType,WinEnter
 vim.cmd("autocmd BufEnter,BufRead,BufWinEnter,FileType,WinEnter * lua hide_statusline(statusline_hide)")
-
--- Auto open nvim-tree when writing (nvim .) in command line
--- and auto open Dashboard when nothing given as argument.
---vim.cmd([[
---if index(argv(), ".") >= 0
-  --autocmd VimEnter * NvimTreeOpen
-  --bd1
---elseif len(argv()) == 0
-  --autocmd VimEnter * Dashboard
---endif
---]])
-
---vim.api.nvim_exec([[
- --autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif
---]], false)
-
-
---vim.cmd [[
-  --augroup _markdown
-    --autocmd!
-    --autocmd FileType markdown setlocal spell
-  --augroup end
-
-  --augroup _git
-    --autocmd!
-    --autocmd FileType gitcommit setlocal wrap
-    --autocmd FileType gitcommit setlocal spell
-  --augroup end
-
---]]
-
-
---vim.api.nvim_exec([[
---autocmd BufNewFile,BufRead /tmp/mutt-* set filetype=mail
---autocmd BufNewFile,BufRead /*.rasi setf css
---augroup ruby_subtypes
-  --autocmd!
-  --autocmd BufNewFile,BufRead *.pdf.erb let b:eruby_subtype='html'
-  --autocmd BufNewFile,BufRead *.pdf.erb set filetype=eruby
---augroup END
---au BufRead,BufNewFile jquery.*.js set ft=javascript syntax=jquery
---au BufRead,BufNewFile *.ejs setfiletype html
---]], true)
-
-
-
-
-
 

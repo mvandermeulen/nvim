@@ -10,46 +10,17 @@ if not status_ok then
   return
 end
 
-local ft_to_parser = require('nvim-treesitter.parsers').filetype_to_parsername
-ft_to_parser.motoko = 'typescript'
+--[[ local ft_to_parser = require('nvim-treesitter.parsers').filetype_to_parsername ]]
+--[[ ft_to_parser.motoko = 'typescript' ]]
 
 configs.setup {
-  ensure_installed = {
-    'bash',
-    'c',
-    'cmake',
-    'css',
-    'dockerfile',
-    'go',
-    'hcl',
-    'html',
-    'http',
-    'javascript',
-    'json',
-    'latex',
-    'lua',
-    'markdown',
-    'python',
-    'regex',
-    'scss',
-    'toml',
-    'typescript',
-    'vue',
-    'yaml',
-    'vim',
-  }, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-  --ensure_installed = "all",
+  ensure_installed = "all",
   query_linter = {
     enable = true,
     use_virtual_text = true,
     lint_events = { 'BufWrite', 'CursorHold' },
   },
   sync_install = true,
-  --context_commentstring = { enable = true },
-  context_commentstring = {
-    enable = true,
-    enable_autocmd = false,
-  },
   ignore_install = {}, -- List of parsers to ignore installing
   highlight = {
     enable = true, -- false will disable the whole extension
@@ -63,15 +34,7 @@ configs.setup {
       scope_incremental = 'grc',
       node_decremental = 'grm',
     },
-    --keymaps = {
-    --  init_selection = '<CR>',
-    --  scope_incremental = '<CR>',
-    --  node_incremental = '<TAB>',
-    --  node_decremental = '<S-TAB>',
-    --},
   },
-  --indent = {enable = true},
-  -- indent = { enable = true, disable = { 'python', 'css' } },
   indent = { enable = true, disable = { 'css' } },
   autopairs = { { enable = true } },
   autotag = {

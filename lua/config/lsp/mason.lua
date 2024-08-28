@@ -22,11 +22,6 @@ if not mason_null_ls_status then
   return
 end
 
-local navic_status, navic = pcall(require, 'nvim-navic')
-if not navic_status then
-  return
-end
-
 local lang_status, lang = pcall(require, 'config.lsp.lang')
 if not lang_status then
   return
@@ -34,6 +29,11 @@ end
 
 local lsputils_status, lsputils = pcall(require, 'config.lsp.utils')
 if not lsputils_status then
+  return
+end
+
+local handlers_status, handlers = pcall(require, 'config.lsp.handlers')
+if not handlers_status then
   return
 end
 
@@ -48,39 +48,26 @@ local settings = {
   ui = {
     border = "rounded",
     icons = {
-      package_installed = "◍",
-      package_pending = "◍",
-      package_uninstalled = "◍",
+      package_installed = "✓",
+      package_pending = "➜",
+      package_uninstalled = "✗",
     },
   },
   log_level = vim.log.levels.INFO,
   max_concurrent_installers = 4,
 }
 
-local lsp_attach = function(client, bufnr)
-  -- disable formatting for LSP clients as this is handled by null-ls
-  client.server_capabilities.document_formatting = false
-  client.server_capabilities.document_range_formatting = false
-  if client.server_capabilities.documentSymbolProvider then
-    navic.attach(client, bufnr)
-  end
-end
-
-
 mason.setup(settings)
-mason_lspconfig.setup({
-  ensure_installed = lang.servers,
-  automatic_installation = true,
-})
-mason_null_ls.setup({
-  ensure_installed = lang.parsers,
-  automatic_installation = true,
-})
+mason_lspconfig.setup({ ensure_installed = lang.servers, automatic_installation = true, })
+mason_null_ls.setup({ ensure_installed = lang.parsers, automatic_installation = true, })
+handlers.setup()
+-- handlers.setup()
+
 mason_lspconfig.setup_handlers({
   function(server_name)
     lspconfig[server_name].setup({
-    on_attach = lsp_attach,
-    capabilities = lsputils.capabilities,
+    on_attach = handlers.common_on_attach,
+    capabilities = handlers.capabilities,
     before_init = function(_, config)
       if lsp == 'pyright' then
         config.settings.python.pythonPath = lsputils.get_python_path(config.root_dir)
@@ -93,13 +80,8 @@ mason_lspconfig.setup_handlers({
 
 for _, server in pairs(lang.servers) do
   opts = {
-    on_attach = lsp_attach,
-    capabilities = lsputils.capabilities,
-    before_init = function(_, config)
-    if lsp == 'pyright' then
-      config.settings.python.pythonPath = lsputils.get_python_path(config.root_dir)
-    end
-  end,
+    on_attach = handlers.on_attach,
+    capabilities = handlers.capabilities,
   }
 
   server = vim.split(server, "@")[1]
@@ -109,6 +91,7 @@ for _, server in pairs(lang.servers) do
   end
   lspconfig[server].setup(opts)
 end
+
 
 
 

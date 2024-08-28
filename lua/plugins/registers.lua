@@ -21,3 +21,11 @@ vim.g.registers_visual_mode = 1 --1 by default, open the window in visual mode
 vim.g.registers_insert_mode = 1 --1 by default, open the window in insert mode
 -- vim.g.registers_show = "*+\"" --'*+\"-/_=#%.0123456789abcdefghijklmnopqrstuvwxyz' by default, which registers to show and in what order
 
+
+
+local status_ok, registers = pcall(require, 'registers')
+if not status_ok then
+  return
+end
+
+registers.setup()

@@ -5,10 +5,9 @@
 --]]
 
 local M = {}
+local cmd = vim.cmd
 local util = require 'lspconfig/util'
 
-M.capabilities = require("cmp_nvim_lsp").default_capabilities()
-M.capabilities.textDocument.completion.completionItem.snippetSupport = true
 M.hs_version = vim.fn.system('hs -c _VERSION'):gsub('[\n\r]', '')
 M.hs_path = vim.split(vim.fn.system('hs -c package.path'):gsub('[\n\r]', ''), ';')
 
@@ -28,9 +27,7 @@ function M.get_python_path(workspace)
   return vim.fn.exepath 'python3' or vim.fn.exepath 'python' or 'python'
 end
 
-
-
-
+-- cmd([[autocmd ColorScheme * highlight NormalFloat guibg=#1f2335]])
+-- cmd([[autocmd ColorScheme * highlight FloatBorder guifg=white guibg=#1f2335]])
 
 return M
-

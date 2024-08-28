@@ -70,6 +70,7 @@ local setup = {
     position = 'bottom', -- bottom, top
     margin = { 1, 0, 1, 0 }, -- extra window margin [top, right, bottom, left]
     padding = { 2, 2, 2, 2 }, -- extra window padding [top, right, bottom, left]
+    winblend = 30,
   },
   layout = {
     height = { min = 4, max = 25 }, -- min and max height of the columns
@@ -133,10 +134,11 @@ local mappings = {
   ['<Tab>'] = { '<cmd>e#<cr>', 'Switch to previously opened buffer' },
   ['e'] = { '<cmd>NvimTreeToggle<cr>', 'Explorer' },
   ['q'] = { '<cmd>NvimTreeClose<cr>:q<cr>', 'Quit Tab' },
-  ['x'] = { '<cmd>Bdelete<cr>', 'Close Buffer' },
-  ['/'] = { '<Plug>(comment_toggle_linewise_current)', 'Comment' },
+  ['x'] = { ':TSContextDisable<cr>:TSBufDisable rainbow<cr>:TSBufDisable highlight<cr><cmd>Bdelete<cr>', 'Close Buffer' },
+  -- ['/'] = { '<Plug>(comment_toggle_linewise_current)', 'Comment' },
   --[[ ['/'] = { '<cmd>lua require("Comment.api").toggle_current_linewise()<CR>', 'Comment' }, ]]
   --["R"] = { '<cmd>lua require("renamer").rename()<cr>', "Rename" },
+  a = require('mappings.applications').mappings,
   b = {
     name = 'Buffers',
     b = {
@@ -154,10 +156,9 @@ local mappings = {
     L = { '<cmd>BufferLineSortByExtension<cr>', 'Sort BufferLines automatically by extension' },
     s = { '<cmd>noautocmd w<CR>', 'Save (no autocmd)' },
   },
-  c = require('mappings.clipboard').mappings,
+  c = { '<cmd>:Cheatsheet<cr>', 'Cheatsheet' },
   d = require('mappings.diagnostics').mappings,
   f = require('mappings.files').mappings,
-  F = require('mappings.find').mappings,
   g = require('mappings.git').mappings,
   h = require('mappings.harpoon').mappings,
   l = {
@@ -187,15 +188,27 @@ local mappings = {
     t = { '<cmd>lua vim.lsp.buf.type_definition()<cr>', 'Type Definition' },
     w = { '<cmd>Telescope diagnostics<cr>', 'Workspace Diagnostics' },
   },
+  L = { '<cmd>:Lazy<cr>', 'Lazy' },
   m = require('mappings.misc').mappings,
-  p = require('mappings.packer').mappings,
+  o = { '<cmd>SymbolsOutline<cr>', 'Symbols Outline' },
   s = require('mappings.search').mappings,
+  -- S = require('mappings.settings').mappings,
   t = require('mappings.terminal').mappings,
-  T = require('mappings.treesitter').mappings,
+  T = require('mappings.telescope').mappings,
   w = require('mappings.window').mappings,
   W = require('mappings.workspace').mappings,
-  z = require('mappings.focus').mappings,
+  -- z = require('mappings.focus').mappings,
 }
+
+local avante_mappings = {
+    { "<leader>aa", '<ESC><CMD>AvanteAsk<CR>', desc = "Avante Ask", mode = "n", nowait = true, remap = false },
+}
+
+
+local yank_mappings = {
+    { "<leader>y", '<ESC><CMD>YankBank<CR>', desc = "Yank Bank", mode = "n", nowait = true, remap = false },
+}
+
 
 local vmappings = {
   ['/'] = { '<ESC><CMD>lua require("Comment.api").toggle_linewise_op(vim.fn.visualmode())<CR>', 'Comment' },
@@ -205,5 +218,9 @@ local vmappings = {
 which_key.setup(setup)
 which_key.register(non_leader_mappings) -- register non leader based mappings
 which_key.register(mappings, opts)
+which_key.register(avante_mappings, opts)
+which_key.register(yank_mappings, opts)
 which_key.register(vmappings, vopts)
 --which_key.register(m_mappings, m_opts)
+
+
