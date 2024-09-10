@@ -14,8 +14,9 @@ end
 ai.setup({
   provider = "ollama",
   ollama = {
-    model = "codestral:latest", -- You can start with smaller one like `gemma2` or `llama3.1`
-    --endpoint = "http://192.168.2.47:11434", -- In case you access ollama from another machine
+    model = "llama3.1:latest", -- You can start with smaller one like `gemma2` or `llama3.1`
+    -- model = "granite-code:8b", -- You can start with smaller one like `gemma2` or `llama3.1`
+    endpoint = "http://ml-worker:11434", -- In case you access ollama from another machine
   }
 })
 

@@ -156,7 +156,7 @@ local mappings = {
     L = { '<cmd>BufferLineSortByExtension<cr>', 'Sort BufferLines automatically by extension' },
     s = { '<cmd>noautocmd w<CR>', 'Save (no autocmd)' },
   },
-  c = { '<cmd>:Cheatsheet<cr>', 'Cheatsheet' },
+  C = { '<cmd>:Cheatsheet<cr>', 'Cheatsheet' },
   d = require('mappings.diagnostics').mappings,
   f = require('mappings.files').mappings,
   g = require('mappings.git').mappings,

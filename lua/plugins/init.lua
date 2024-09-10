@@ -143,7 +143,7 @@ require("lazy").setup({
     lazy = false,
     priority = 1000,
   },
-  { 
+  {
     'echasnovski/mini.nvim',
     version = '*',
     config = function()
@@ -210,9 +210,9 @@ require("lazy").setup({
     lazy = false,
     -- event = "VeryLazy",
     build = "make", -- This is Optional, only if you want to use tiktoken_core to calculate tokens count
-    opts = {
-      -- add any opts here
-    },
+    config = function()
+      require('plugins.avante')
+    end,
     dependencies = {
       "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
       "stevearc/dressing.nvim",
@@ -228,18 +228,18 @@ require("lazy").setup({
       },
     },
   },
-  {
-    'jackMort/ChatGPT.nvim',
-    lazy = false,
-    dependencies = {
-      'MunifTanjim/nui.nvim',
-      'nvim-lua/plenary.nvim',
-      'nvim-telescope/telescope.nvim'
-    },
-    config = function()
-      require('plugins.chatgpt')
-    end,
-  },
+  -- {
+  --   'jackMort/ChatGPT.nvim',
+  --   lazy = false,
+  --   dependencies = {
+  --     'MunifTanjim/nui.nvim',
+  --     'nvim-lua/plenary.nvim',
+  --     'nvim-telescope/telescope.nvim'
+  --   },
+  --   config = function()
+  --     require('plugins.chatgpt')
+  --   end,
+  -- },
   {
     "magicalne/nvim.ai",
     dependencies = {
@@ -248,10 +248,26 @@ require("lazy").setup({
     },
     config = function()
       require('plugins.ai')
+    end
+  },
+  {
+    "L3MON4D3/LuaSnip",
+    version = "v2.*",
+    build = "make install_jsregexp",
+    dependencies = { "rafamadriz/friendly-snippets" },
+    config = function()
+      require('plugins.luasnip')
+    end,
+  },
+  {
+    "chrisgrieser/nvim-scissors",
+    dependencies = { "nvim-telescope/telescope.nvim", "L3MON4D3/LuaSnip" }, 
+    config = function()
+      require('plugins.scissors')
     end,
     opts = {
-      provider = "anthropic", -- You can configure your provider, model or keymaps here.
-    }
+      snippetDir = os.getenv("HOME") .. "/.config/nvim/snippets/vsc",
+    },
   },
   -- use { 'jpmcb/nvim-llama', config = gc 'nvim-llama' }
   -- { 'rafamadriz/friendly-snippets' }, -- Snippets
