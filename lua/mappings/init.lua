@@ -81,6 +81,13 @@ map("n", "<F16>", ":ZenMode<CR>", default_options)
 --keymap("n", "<Leader>qq", ":q!<CR>")                                    -- space + qq to force quit
 --map('n', '<leader>j', [[<cmd>m-2|j<cr>]])                                 -- Join line above at end of current
 -- map("n", "<leader><leader>M", ":lua require'telegraph'.telegraph({how='tmux_popup', cmd='man '})<Left><Left><Left>", default_options)
+-- Map <leader>mr in normal mode to the ranger_popup_in_tmux function
+map(
+  "n",
+  "<leader>mr",
+  "<Cmd>lua require('helpers.shell').ranger_popup_in_tmux()<CR>",
+  { noremap = true, silent = true }
+)
 
 -------------------------------
 -- Keys w Modifiers
@@ -208,6 +215,15 @@ map("v", "p", '"_dP', default_options) -- paste over currently selected text wit
 map("v", "K", ":move '<-2<CR>gv-gv", default_options)
 map("v", "J", ":move '>+1<CR>gv-gv", default_options)
 
+
+-- Map <leader>ex in visual mode to the function
+vim.api.nvim_set_keymap(
+  "x",
+  "<leader>ex",
+  [[:lua require('helpers.shell').execute_visual_selection()<CR>]],
+  { noremap = true, silent = true }
+)
+
 -----------------------------------------------
 -- Mappings: INSERT Mode
 -----------------------------------------------
@@ -234,6 +250,18 @@ function EscapePair()
 end
 
 map("i", "<C-L>", "<cmd>lua EscapePair()<CR>", default_options)
+
+map("i", "<M-i>", "<Cmd>lua require('helpers.fs').insert_file_path()<CR>", { noremap = true, silent = true })
+
+-- Create a keymap to call the add_project_from_line function
+map(
+  "i",
+  "<C-x>",
+  [[<Cmd>lua require('helpers.utils').add_project_from_line(vim.fn.getline('.'))<CR>]], -- Passes current line to the function
+  { noremap = true, silent = false }
+)
+
+
 
 -------------------------------
 -- Keys w Modifiers

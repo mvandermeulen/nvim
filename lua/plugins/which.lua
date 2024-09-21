@@ -165,6 +165,7 @@ local mappings = {
     x = { '<cmd>BufferLineSortByDirectory<cr>', 'Sort BufferLines automatically by directory' },
     L = { '<cmd>BufferLineSortByExtension<cr>', 'Sort BufferLines automatically by extension' },
     s = { '<cmd>noautocmd w<CR>', 'Save (no autocmd)' },
+    S = { '<cmd>setlocal winfixbuf<CR>', 'Sticky Buffer' },
   },
   c = { 'Toggle Chat' },
   C = { '<cmd>:Cheatsheet<cr>', 'Cheatsheet' },

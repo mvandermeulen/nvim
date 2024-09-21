@@ -2,7 +2,7 @@
 -- Mason LSP Plugin
 --
 -- Author: Mark van der Meulen
--- Updated: 12-02-2023
+-- Updated: 2024-09-22
 --]]
 
 
@@ -61,7 +61,6 @@ mason.setup(settings)
 mason_lspconfig.setup({ ensure_installed = lang.servers, automatic_installation = true, })
 mason_null_ls.setup({ ensure_installed = lang.parsers, automatic_installation = true, })
 handlers.setup()
--- handlers.setup()
 
 mason_lspconfig.setup_handlers({
   function(server_name)
@@ -73,10 +72,10 @@ mason_lspconfig.setup_handlers({
         config.settings.python.pythonPath = lsputils.get_python_path(config.root_dir)
       end
     end,
+    flags = { debounce_text_changes = 150 },
     })
   end,
 })
-
 
 for _, server in pairs(lang.servers) do
   opts = {
@@ -91,7 +90,3 @@ for _, server in pairs(lang.servers) do
   end
   lspconfig[server].setup(opts)
 end
-
-
-
-

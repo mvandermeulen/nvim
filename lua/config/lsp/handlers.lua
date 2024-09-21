@@ -12,16 +12,6 @@ if not navic_status then
   return
 end
 
-local notify_status_ok, notify = pcall(require, "notify")
-if not notify_status_ok then
-  return
-end
-
-local status_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
-if not status_ok then
-  return
-end
-
 local present_lsp_signature, lsp_signature = pcall(require, "lsp_signature")
 local present_cmp_lsp, cmp_lsp = pcall(require, "cmp_nvim_lsp")
 
@@ -29,8 +19,8 @@ M.capabilities = vim.lsp.protocol.make_client_capabilities()
 if present_cmp_lsp then
   M.capabilities = cmp_lsp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
 end
-M.capabilities.textDocument.completion.completionItem.snippetSupport = true
 
+M.capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 
 M.setup = function()
@@ -168,7 +158,6 @@ function M.common_on_attach(client, bufnr)
   end
 end
 
-
 function M.enable_format_on_save()
   vim.cmd [[
     augroup format_on_save
@@ -198,6 +187,6 @@ function M.remove_augroup(name)
   end
 end
 
-vim.cmd [[ command! LspToggleAutoFormat execute 'lua require("user.lsp.handlers").toggle_format_on_save()' ]]
+vim.cmd [[ command! LspToggleAutoFormat execute 'lua require("config.lsp.handlers").toggle_format_on_save()' ]]
 
 return M

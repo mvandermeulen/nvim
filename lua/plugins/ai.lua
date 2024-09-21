@@ -1,22 +1,111 @@
 --[[
--- AI Plugin
---
+-- Plugins: AI
 -- Author: Mark van der Meulen
--- Updated: 2024-08-28
+-- Updated: 2024-09-21
 --]]
 
-
-local status_ok, ai = pcall(require, 'ai')
-if not status_ok then
-  return
+local function gc(name)
+  return string.format('require("plugins.%s")', name)
 end
 
-ai.setup({
-  provider = "ollama",
-  ollama = {
-    model = "llama3.1:latest", -- You can start with smaller one like `gemma2` or `llama3.1`
-    -- model = "granite-code:8b", -- You can start with smaller one like `gemma2` or `llama3.1`
-    endpoint = "http://ml-worker:11434", -- In case you access ollama from another machine
-  }
-})
+local function puse(repo, cfg, opts)
+  if cfg then
+    if opts then
+      return {
+        repo,
+        dependencies = opts,
+        lazy = false,
+        config = function()
+          require(string.format('plugins.%s', cfg))
+        end,
+      }
+    else
+      return {
+        repo,
+        lazy = false,
+        config = function()
+          require(string.format('plugins.%s', cfg))
+        end,
+      }
+    end
+  else
+    if opts then
+      return {
+        repo,
+        dependencies = opts,
+        lazy = false,
+      }
+    else
+      return {
+        repo,
+        lazy = false,
+      }
+    end
+  end
+end
 
+-- Function to make using with plenary easier. Expects opts to be a dictionary if provided.
+local function pluse(repo, cfg, opts)
+  local depends = { { 'nvim-lua/plenary.nvim' } }
+  if opts then
+    while #opts > 0 do
+      local item = table.remove(opts)
+      table.insert(depends, item)
+    end
+  end
+  if cfg then
+    return {
+      repo,
+      dependencies = depends,
+      lazy = false,
+      config = function()
+        require(string.format('plugins.%s', cfg))
+      end,
+    }
+  else
+    return {
+      repo,
+      dependencies = depends,
+      lazy = false,
+    }
+  end
+end
+
+
+local M = {
+  {-- yetone/avante.nvim
+    "yetone/avante.nvim",
+    lazy = false,
+    -- event = "VeryLazy",
+    build = "make", -- This is Optional, only if you want to use tiktoken_core to calculate tokens count
+    config = function()
+      require('plugins.avante')
+    end,
+    dependencies = {
+      "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
+      "stevearc/dressing.nvim",
+      "nvim-lua/plenary.nvim",
+      "MunifTanjim/nui.nvim",
+      --- The below is optional, make sure to setup it properly if you have lazy=true
+      {
+        'MeanderingProgrammer/render-markdown.nvim',
+        opts = {
+          file_types = { "markdown", "Avante" },
+        },
+        ft = { "markdown", "Avante" },
+      },
+    },
+  },
+  {-- magicalne/nvim.ai
+    "magicalne/nvim.ai",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    config = function()
+      require('plugins.nvimai')
+    end
+  },
+}
+
+return M
