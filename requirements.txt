@@ -16,3 +16,16 @@ pylsp-rope
 tenacity
 jedi-language-server
 pylyzer
+tldr
+gitgud
+mycli
+pgcli
+tomlkit
+iredis
+termcolor
+libtmux
+hiredis
+"redis[hiredis]"
+pre-commit
+virtualenvwrapper
+neovim-remote
