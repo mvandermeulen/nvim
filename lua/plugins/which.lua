@@ -164,7 +164,7 @@ local mappings = {
   l = {
     name = ' LSP',
     A = { '<cmd>lua vim.lsp.buf.add_workspace_folder()<cr>', 'Add Workspace Folder' },
-    D = { '<cmd>lua vim.lsp.buf.declaration()<cr>', 'Go To Declaration' },
+    D = { '<cmd>tab split | lua vim.lsp.buf.declaration()<cr>', 'Go To Declaration' },
     F = { '<cmd>LspToggleAutoFormat<cr>', 'Toggle Autoformat' },
     I = { '<cmd>lua vim.lsp.buf.implementation()<cr>', 'Show implementations' },
     K = { '<cmd>lua vim.lsp.buf.hover()<cr>', 'Hover Commands' },
@@ -173,7 +173,7 @@ local mappings = {
     S = { '<cmd>Telescope lsp_dynamic_workspace_symbols<cr>', 'Workspace Symbols' },
     W = { '<cmd>lua vim.lsp.buf.remove_workspace_folder()<cr>', 'Remove Workspace Folder' },
     a = { '<cmd>lua vim.lsp.buf.code_action()<cr>', 'Code Action' },
-    d = { '<cmd>lua vim.lsp.buf.definition()<cr>', 'Go To Definition' },
+    d = { '<cmd>tab split | lua vim.lsp.buf.definition()<cr>', 'Go To Definition' },
     e = { '<cmd>Telescope diagnostics bufnr=0<cr>', 'Document Diagnostics' },
     f = { '<cmd>lua vim.lsp.buf.formatting()<cr>', 'Format' },
     h = { '<cmd>lua vim.lsp.buf.signature_help()<cr>', 'Signature Help' },
