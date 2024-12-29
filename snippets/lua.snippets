@@ -1,0 +1,5 @@
+snippet cmd "Add Command"
+  command("${1:command}", function()
+    ${2: -- body}
+  end, { ${3:args}})
+  $0
