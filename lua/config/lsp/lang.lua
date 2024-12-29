@@ -24,6 +24,14 @@ M.parsers = {
   "typescript",
   "tsx",
   "yaml",
+  "prettier",
+  "prettierd",
+  "markdownlint",
+  "markdown-toc",
+  "black",
+  "sql-formatter",
+  "eslint_d",
+  'debugpy',
   "vim"
 }
 
@@ -31,16 +39,37 @@ M.servers = {
   'lua_ls',
   'pyright',
   'gopls',
-  'emmet_ls',
-  'ansiblels',
-  'jsonls',
-  'dockerls',
-  'sqlls',
+  -- 'ansiblels',
   'terraformls',
   'yamlls',
+  'jsonls',
+  -- 'sqlls',
   'bashls',
-  'docker_compose_language_service',
-  'vimls',
+  -- 'dockerls',
+  -- 'docker_compose_language_service',
+  -- 'vimls',
+  -- 'emmet_ls',
+  -- "vtsls",
+  "marksman",
+  -- "lua-language-server",
+  -- python
+  -- 'basedpyright',
+  -- 'ruff',
+  -- go
+  -- devops
+  -- sql
+  -- shell & bash
+  -- "bash-language-server",
+  -- docker
+  -- frontend
+  -- 'vscode-css-language-server',
+  -- 'vscode-html-language-server',
+  -- 'vscode-json-language-server',
+  -- "html",
+  -- "cssls",
+  -- "tailwindcss-language-server",
+  -- markdown
+  -- 'kulala_ls',
 }
 
 return M

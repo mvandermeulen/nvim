@@ -10,7 +10,6 @@ if not status_ok then
   return
 end
 
-local icons = require "helpers.icons"
 
 signature.setup({
   debug = false, -- set to true to enable debug logging

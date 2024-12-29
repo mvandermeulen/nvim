@@ -2,7 +2,7 @@
 -- LSP Server: JSON
 --
 -- Author: Mark van der Meulen
--- Updated: August 09, 2023
+-- Updated: 2024-12-28
 --]]
 
 local local_schemas = {
@@ -40,9 +40,13 @@ local local_schemas = {
   },
 }
 
+-- https://github.com/hrsh7th/vscode-langservers-extracted
+-- npm i -g vscode-langservers-extracted or yay -S vscode-langservers-extracted (for arch)
+
 local config = {
   format = { enabled = false },
   schemas = local_schemas,
+  validate = { enable = false },
 }
 
 local status_ok, schemastore = pcall(require, "schemastore")
@@ -50,10 +54,19 @@ if status_ok then
   config.schemas = vim.tbl_deep_extend("force", local_schemas, schemastore.json.schemas())
 end
 
-local opts = {
+
+return {
+  cmd = { "vscode-json-language-server", "--stdio" },
+  filetypes = { "json", "jsonc" },
   init_options = {
-    provideFormatter = false,
+    provideFormatter = false,-- better handled by JQ
   },
+  single_file_support = true,
+  on_new_config = function(new_config)
+    new_config.settings.json.schemas = new_config.settings.json.schemas or {}
+    vim.list_extend(new_config.settings.json.schemas, config.schemas)
+    -- vim.list_extend(new_config.settings.json.schemas, require("schemastore").json.schemas())
+  end,
   settings = {
     json = config,
   },
@@ -67,5 +80,3 @@ local opts = {
     },
   },
 }
-
-return opts

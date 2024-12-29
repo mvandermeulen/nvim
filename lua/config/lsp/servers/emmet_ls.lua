@@ -9,6 +9,8 @@
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
+local util = require("lspconfig.util")
+
 local settings = {
   cmd = { "ls_emmet", "--stdio" },
 }
@@ -50,6 +52,8 @@ local opts = {
       },
     },
   },
+  root_dir = util.find_git_ancestor,
+  single_file_support = true,
 }
 
 -- opts.capabilities = require("cmp_nvim_lsp").default_capabilities()
