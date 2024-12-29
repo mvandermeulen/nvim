@@ -99,6 +99,39 @@ local ai_plugins = require('plugins.ai')
 local lang_plugins = require('plugins.lang')
 local file_plugins = require('plugins.files')
 local utility_plugins = require('plugins.utils')
+local navigation_plugins = require('plugins.navigation')
+local integration_plugins = require('plugins.integration')
 
 
-require("lazy").setup({ utility_plugins, lang_plugins, file_plugins, ui_plugins })
+
+require('lazy').setup({ utility_plugins, file_plugins, lang_plugins, ui_plugins, ai_plugins, navigation_plugins, integration_plugins }, {
+  defaults = {
+    version = false,
+  },
+  dev = {
+    path = '~/projects',
+    fallback = true,
+  },
+  install = {
+    missing = true,
+    colorscheme = { 'default' },
+  },
+  checker = { enabled = false },
+  rtp = {
+    disabled_plugins = {
+      'gzip',
+      'matchit',
+      'matchparen',
+      'netrwPlugin',
+      'tarPlugin',
+      'tohtml',
+      'tutor',
+      'zipPlugin',
+    },
+  },
+  change_detection = {
+    enabled = true,
+    notify = false,
+  },
+})
+-- require("lazy").setup({ utility_plugins, lang_plugins, file_plugins, ui_plugins, ai_plugins, navigation_plugins })
