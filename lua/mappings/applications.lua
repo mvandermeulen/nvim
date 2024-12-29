@@ -51,8 +51,8 @@ local chatgpt_mappings = {
 
 local focus_mappings = {
     name = 'Focus',
-    z = { ':ZenMode<cr>', 'Toggle Zen Mode' },
-    t = { ':Twilight<cr>', 'Toggle Twilight' },
+    z = { '<cmd>:ZenMode<cr>', 'Toggle Zen Mode' },
+    t = { '<cmd>:Twilight<cr>', 'Toggle Twilight' },
 }
 
 

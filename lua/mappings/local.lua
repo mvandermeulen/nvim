@@ -9,8 +9,16 @@
 -- Helpers
 -----------------------------------------------
 
-default_options = { noremap = true, silent = true }
 expr_options = { noremap = true, expr = true, silent = true }
+
+
+local function dfo(desc)
+  if desc then
+    return { noremap = true, silent = true, desc = desc }
+  else
+    return { noremap = true, silent = true }
+  end
+end
 
 -- Function for make mapping easier.
 local function map(mode, lhs, rhs, opts)
@@ -34,17 +42,17 @@ vim.g.maplocalleader = ","
 -- Mappings: NORMAL Mode
 -----------------------------------------------
 
-map("n", "<localleader>1", "1gt", default_options)
-map("n", "<localleader>2", "2gt", default_options)
-map("n", "<localleader>3", "3gt", default_options)
-map("n", "<localleader>4", "4gt", default_options)
-map("n", "<localleader>5", "5gt", default_options)
-map("n", "<localleader>6", "6gt", default_options)
-map("n", "<localleader>7", "7gt", default_options)
-map("n", "<localleader>8", "8gt", default_options)
-map("n", "<localleader>9", "9gt", default_options)
-map("n", "<localleader>pp", ":set paste<CR>", default_options)
-map("n", "<localleader>po", ":set nopaste<CR>", default_options)
+map("n", "<localleader>1", "1gt", dfo('Tab 1'))
+map("n", "<localleader>2", "2gt", dfo('Tab 2'))
+map("n", "<localleader>3", "3gt", dfo('Tab 3'))
+map("n", "<localleader>4", "4gt", dfo('Tab 4'))
+map("n", "<localleader>5", "5gt", dfo('Tab 5'))
+map("n", "<localleader>6", "6gt", dfo('Tab 6'))
+map("n", "<localleader>7", "7gt", dfo('Tab 7'))
+map("n", "<localleader>8", "8gt", dfo('Tab 8'))
+map("n", "<localleader>9", "9gt", dfo('Tab 9'))
+map("n", "<localleader>pp", ":set paste<CR>", dfo('Paste Mode'))
+map("n", "<localleader>po", ":set nopaste<CR>", dfo('Paste Mode Off'))
 
 
 

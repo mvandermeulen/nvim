@@ -10,7 +10,7 @@ M.mappings = {
     l = { '<cmd>lua vim.lsp.codelens.run()<cr>', 'CodeLens Action' },
     -- o = { '<cmd>SymbolsOutline<cr>', 'Outline' },
     -- s = { '<cmd>SymbolsOutline<cr>', 'Toggle SymbolsOutline' },
-    u = { '<cmd>UndotreeToggle<cr>', 'Undotree' },
+    -- u = { '<cmd>UndotreeToggle<cr>', 'Undotree' },
     z = { '<cmd>ZenMode<cr>', 'Toggle ZenMode' },
 }
 

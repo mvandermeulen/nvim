@@ -13,10 +13,7 @@ M.mappings = {
   ['='] = { '<c-w>=', 'Equally size' },
   v = { '<cmd>:vnew<cr>', 'Empty Vertical Split' },
   V = { '<cmd>:vsplit<cr>', 'Vertical Split' },
-  w = {
-    "<cmd>lua require('nvim-window').pick()<cr>",
-    'Choose window to jump',
-  },
+  w = { "<cmd>lua require('nvim-window').pick()<cr>", 'Choose window to jump' },
 }
 
 --[[ M.options = { ]]
