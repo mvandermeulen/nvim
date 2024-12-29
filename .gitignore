@@ -18,5 +18,5 @@ old/
 lazy-lock.json
 .nvim
 examples/
-venv/
+.venv/
 
