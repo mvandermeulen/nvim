@@ -9,7 +9,6 @@ httpx
 Jinja2
 multidict
 pytz
-python-lsp-server[all]
 pynvim
 pydantic
 pylsp-rope
@@ -25,7 +24,10 @@ iredis
 termcolor
 libtmux
 hiredis
-"redis[hiredis]"
+redis
 pre-commit
 virtualenvwrapper
 neovim-remote
+ruff
+ruff-lsp
+python-lsp-server[all]

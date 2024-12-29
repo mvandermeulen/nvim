@@ -125,6 +125,23 @@ autocmd('Filetype', {
   command = 'setlocal number'
 })
 
+-- -- Using a file named .venv in your projects root folder, it will automatically set the virtual-env for such environment
+-- vim.api.nvim_create_autocmd("FileType", {
+--     pattern = {"python"},
+--     callback = function()
+--         require('swenv.api').auto_venv()
+--     end
+-- })
+
+-- Setup mappings just for markdown
+-- vim.api.nvim_create_autocmd("FileType", {
+--     pattern = {"markdown"},
+--     callback = function()
+--       -- Currently using C-i as C-m does not work.
+--       vim.keymap.set("n", "<C-i>w", "<CMD>MakeWordMarkdownLink<CR>", { noremap = true, silent = true, desc = 'Make word Markdown Link' })
+--       vim.keymap.set("n", "<C-i>W", "<CMD>MakeNonWhitespaceWordMarkdownLink<CR>", { noremap = true, silent = true, desc = 'Make WORD Markdown Link' })
+--     end
+-- })
 
 ------------------------------------
 -- Terminal
@@ -191,13 +208,15 @@ autocmd("InsertLeave", {-- Display diagnostics as virtual text only if not in in
 
 autocmd({ "InsertLeave", "TextChanged" }, {-- Autosave on insert leave
   callback = function()
+    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+      -- Don't save while there's any 'nofile' buffer open.
+      if vim.api.nvim_get_option_value("buftype", { buf = buf }) == 'nofile' then
+        return
+      end
+    end
     if #vim.api.nvim_buf_get_name(0) ~= 0 and vim.bo.buflisted then
       vim.cmd "silent w"
-      -- local time = os.date "%I:%M %p"
-      -- print nice colored msg
-      -- vim.api.nvim_echo({ { "", "LazyProgressDone" }, { " file autosaved at " .. time } }, false, {})
       clear_cmdarea()
     end
   end,
 })
-
