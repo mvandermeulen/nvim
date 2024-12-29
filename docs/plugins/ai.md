@@ -5,8 +5,19 @@
 
 ### Nvim.ai
 
+[Nvim.ai](https://github.com/magicalne/nvim.ai)
+
 - Configured to use Gemini
 - Need to disable loading of `<C-L>` binding in markdown files.
+- Bindings:
+    - Toggle: `<leader>Gc`
+    - Send: `<CR>`
+    - Close: `q`
+    - Clear: `<C-c><C-l>`
+    - Previous: `<leader>[`
+    - Next: `<leader>]`
+    - Inline assist: `<leader>i`
+    - Stop generate: `<C-c><C-c>`
 
 ### Bropilot
 
