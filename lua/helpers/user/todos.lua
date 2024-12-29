@@ -19,11 +19,4 @@ function M.insert_todo_and_comment()
   -- vim.cmd [[execute "normal \<Plug>(comment_toggle_linewise)"]]
 end
 
-vim.api.nvim_set_keymap(
-  "i",
-  "<c-a>",
-  "<C-o>:lua require('helpers.todos').insert_todo_and_comment()<CR>",
-  { noremap = true, silent = true }
-)
-
 return M
