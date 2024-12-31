@@ -8,35 +8,10 @@
 -- Setup nvim-cmp.
 local cmp = require("cmp")
 local lspkind = require("lspkind")
+local icons = require("helpers.ui.icons")
 
 lspkind.init({
-  symbol_map = {
-    Text = "",
-    Method = "",
-    Function = "",
-    Constructor = "",
-    Field = "ﰠ",
-    Variable = "",
-    Class = "ﴯ",
-    Interface = "",
-    Module = "",
-    Property = "ﰠ",
-    Unit = "塞",
-    Value = "",
-    Enum = "",
-    Keyword = "",
-    Snippet = "",
-    Color = "",
-    File = "",
-    Reference = "",
-    Folder = "",
-    EnumMember = "",
-    Constant = "",
-    Struct = "פּ",
-    Event = "",
-    Operator = "",
-    TypeParameter = "",
-  },
+  symbol_map = icons.kind,
 })
 
 cmp.setup({
@@ -95,7 +70,7 @@ cmp.setup({
     -- { name = "emoji" },
     -- { name = "spell" },
     { name = "path" },
-    { name = 'nvimai_cmp_source' },
+    -- { name = 'nvimai_cmp_source' },
     { name = "rg", keyword_length = 5 },
   },
 })

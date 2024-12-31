@@ -10,6 +10,7 @@ local M = {
   },
 }
 
+local icons = require('helpers.ui.icons')
 function M.config()
   require("noice").setup {
     lsp = {
@@ -19,18 +20,80 @@ function M.config()
         ["vim.lsp.util.stylize_markdown"] = true,
         ["cmp.entry.get_documentation"] = true,
       },
-
+      message = {
+        enabled = true,
+        view = "mini",
+      },
+      hover = {
+        enabled = true,
+        silent = true,
+      },
       signature = {
-        enabled = false,
+        enabled = true,
         auto_open = {
-          enabled = false,
-          trigger = false, -- Automatically show signature help when typing a trigger character from the LSP
+          enabled = true,
+          trigger = true, -- Automatically show signature help when typing a trigger character from the LSP
           luasnip = false, -- Will open signature help when jumping to Luasnip insert nodes
           throttle = 50, -- Debounce lsp signature help request by 50ms
         },
         view = nil, -- when nil, use defaults from documentation
-        opts = {}, -- merged with defaults from documentation
+        -- opts = {}, -- merged with defaults from documentation
       },
+    },
+    views = {
+      hover = {
+        border = {
+          style = "single",
+          padding = { 0, 0 },
+        },
+        position = { row = 0, col = 0 },
+      },
+      mini = {
+        timeout = 4000, -- Duration between show() and hide(), in milliseconds
+        win_options = {
+          winblend = 0,
+        },
+        winhighlight = {},
+      },
+    },
+    cmdline = {
+      view = "cmdline",
+      format = {
+        cmdline = { icon = " " .. icons.arrow.right_short_thick },
+        search_down = { icon = " " .. icons.misc.lupa .. " " .. icons.arrow.double_down_short },
+        search_up = { icon = " " .. icons.misc.lupa .. " " .. icons.arrow.double_up_short },
+        filter = { icon = " " .. icons.misc.filter },
+        lua = { icon = " " .. icons.language.lua },
+        help = { icon = " " .. icons.misc.fat_question },
+      },
+    },
+    popupmenu = {
+      enabled = true,
+      relative = 'editor',
+      position = {
+        row = 20,
+        col = "50%",
+      },
+      size = {
+        width = 60,
+        height = 10,
+      },
+      border = {
+        style = 'rounded',
+        padding = { 0, 1 },
+      },
+    },
+    notify = {
+      enabled = false,
+      view = "mini",
+    },
+    messages = {
+      enabled = true, -- enables the Noice messages UI
+      view = false, -- default view for messages
+      view_error = "mini", -- view for errors
+      view_warn = "mini", -- view for warnings
+      view_history = "messages", -- view for :messages
+      view_search = "virtualtext", -- view for search count messages. Set to `false` to disable
     },
     presets = {
       bottom_search = true, -- use a classic bottom cmdline for search
