@@ -17,7 +17,9 @@ local M = {}
 
 local fs_status, fs = pcall(require, 'helpers.utils.fs')
 local util_status, utils = pcall(require, 'helpers.utils')
-local path_status, Path = pcall(require, 'helpers.utils.path')
+local root_pattern = require('lspconfig.util').root_pattern
+
+-- local path_status, Path = pcall(require, 'helpers.utils.path')
 
 local system_name = vim.loop.os_uname().sysname
 local hostname = vim.env.HOST
@@ -41,12 +43,12 @@ if not util_status then
   return M
 end
 
-if not path_status then
-  mylog('Error loading helper: path', 'error')
-  -- print('Error loading helper: path')
-  -- vim.notify('Error loading helpers: path', vim.log.levels.ERROR)
-  return M
-end
+-- if not path_status then
+--   mylog('Error loading helper: path', 'error')
+--   -- print('Error loading helper: path')
+--   -- vim.notify('Error loading helpers: path', vim.log.levels.ERROR)
+--   return M
+-- end
 
 -- mylog('Loaded helpers', 'info')
 
@@ -77,9 +79,11 @@ M.ignore_diagnostic_message = {
 M.basepath_conda = nil
 M.basepath_conda_venv = nil
 if vim.env.CONDA_EXE then
-  M.basepath_conda = Path:new(vim.env.CONDA_EXE):parent():parent()
-  M.basepath_conda_venv = M.basepath_conda:join("envs")
+  M.basepath_conda = vim.fn.fnamemodify(vim.env.CONDA_EXE, ':h:h')
+  -- M.basepath_conda = Path:new(vim.env.CONDA_EXE):parent():parent()
+  M.basepath_conda_venv = fs.path_join(M.basepath_conda, 'envs')
 end
+
 
 
 
@@ -131,40 +135,50 @@ local find_python_cmd = utils.my_cache_fn(function(workspace, cmd)
   -- https://github.com/neovim/nvim-lspconfig/issues/500#issuecomment-851247107
 
   -- If conda env is activated, use it
-  if vim.env.CONDA_PREFIX and vim.env.CONDA_PREFIX ~= M.basepath_conda.filename then
-    return Path:new(vim.env.CONDA_PREFIX):join("bin"):join(cmd):absolute()
+  if vim.env.CONDA_PREFIX and vim.env.CONDA_PREFIX ~= M.basepath_conda then
+    -- return Path:new(vim.env.CONDA_PREFIX):join("bin"):join(cmd):absolute()
+    return fs.abspath(fs.path_join(vim.env.CONDA_PREFIX, 'bin', cmd))
   end
 
   -- If virtualenv is activated, use it
   if vim.env.VIRTUAL_ENV then
-    return Path:new(vim.env.VIRTUAL_ENV):join("bin"):join(cmd):absolute()
+    -- return Path:new(vim.env.VIRTUAL_ENV):join("bin"):join(cmd):absolute()
+    return fs.abspath(fs.path_join(vim.env.VIRTUAL_ENV, 'bin', cmd))
   end
 
   -- If .venv directory, use it
-  local workspace_venv_cmdpath = Path:new(workspace):join(".venv/bin"):join(cmd)
-  if workspace_venv_cmdpath:exists() then
-    return workspace_venv_cmdpath:absolute()
+  -- local workspace_venv_cmdpath = Path:new(workspace):join(".venv/bin"):join(cmd)
+  local workspace_dot_venv_cmdpath = fs.path_join(workspace, '.venv', 'bin', cmd)
+  -- if workspace_venv_cmdpath:exists() then
+  if fs.exists(workspace_dot_venv_cmdpath) then
+    -- return workspace_venv_cmdpath:absolute()
+    return fs.abspath(workspace_dot_venv_cmdpath)
+  end
+
+  local workspace_venv_cmdpath = fs.path_join(workspace, 'venv', 'bin', cmd)
+  if fs.exists(workspace_venv_cmdpath) then
+    return fs.abspath(workspace_venv_cmdpath)
   end
 
   -- If .venv directory, use it
-  local workspace_venv_cmdpath = Path:new(workspace):join("venv/bin"):join(cmd)
-  if workspace_venv_cmdpath:exists() then
-    return workspace_venv_cmdpath:absolute()
-  end
+  -- local workspace_venv_cmdpath = Path:new(workspace):join("venv/bin"):join(cmd)
+  -- if workspace_venv_cmdpath:exists() then
+  --   return workspace_venv_cmdpath:absolute()
+  -- end
 
   -- If a conda env exists with `almost` the same name as the workspace, use it
-  local workspace_name = utils.to_workspace_name(workspace)
-  if workspace and workspace_name then
-    -- Check for any conda env named like the project
-    if M.basepath_conda_venv then
-      local conda_venv_path = M.basepath_conda_venv:glob(workspace_name)
-      if #conda_venv_path > 0 then
-        return conda_venv_path[1]:join("bin", cmd):absolute()
-      end
-    end
+  -- local workspace_name = utils.to_workspace_name(workspace)
+  -- if workspace and workspace_name then
+  --   -- Check for any conda env named like the project
+  --   if M.basepath_conda_venv then
+  --     local conda_venv_path = M.basepath_conda_venv:glob(workspace_name)
+  --     if #conda_venv_path > 0 then
+  --       return conda_venv_path[1]:join("bin", cmd):absolute()
+  --     end
+  --   end
 
-    -- Check for any virtualenv named like the project
-  end
+  --   -- Check for any virtualenv named like the project
+  -- end
 
   -- Fallback to system Python.
   return cmd
@@ -181,10 +195,11 @@ M.wax_get_python_path = utils.my_cache_fn(function(workspace, cmd)
   local python_path = nil
 
   local function pattern_to_python_path(pattern)
-    return Path:new(workspace):find_root_dir({ pattern }):join("bin", cmd):absolute()
+    -- return Path:new(workspace):find_root_dir({ pattern }):join("bin", cmd):absolute()
+    return fs.abspath(fs.path_join(root_pattern({ pattern })(workspace), 'bin', cmd))
   end
 
-  if M.basepath_conda_venv and string.find(workspace, M.basepath_conda_venv.path) then
+  if M.basepath_conda_venv and string.find(workspace, M.basepath_conda_venv) then
     -- In case of jump to definition inside dependency with conda venv:
     python_path = pattern_to_python_path("conda-meta")
   else
