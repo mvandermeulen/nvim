@@ -28,7 +28,7 @@ end
 
 
 -------- Register Path --------
-local path_status, Path = pcall(require, 'helpers.utils.Path')
+local path_status, Path = pcall(require, 'helpers.utils.path')
 if not path_status then
   local msg = "Error loading helper: Path"
   print(msg)
