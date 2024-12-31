@@ -62,7 +62,6 @@ return {
         diagnosticMode = 'workspace',
         useLibraryCodeForTypes = true,
         indexing = true,
-        -- typeCheckingMode = "off",
         -- typeCheckingMode = 'standard', -- standard, strict, all, off, basic
         typeCheckingMode = "off",
         diagnosticSeverityOverrides = {
@@ -89,6 +88,9 @@ return {
           reportUnannotatedClassAttribute = "none",
           reportDeprecated = "none",
           reportImplicitOverride = "none",
+          reportCallInDefaultInitializer = "none",
+          reportUnknownArgumentType = "none",
+          reportUnknownMemberType = "none",
         },
       },
       exclude = { "./examples", "./notes" },
