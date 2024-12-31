@@ -116,6 +116,17 @@ require('lazy').setup({ utility_plugins, file_plugins, lang_plugins, ui_plugins,
     missing = true,
     colorscheme = { 'default' },
   },
+  concurrency = 2,
+  git = {
+    clone_timeout = 120,
+    url_format = "git@github.com:%s.git",
+    filter = true,
+    throttle = {
+      enabled = true,
+      rate = 2,
+      duration = 5 * 1000,
+    },
+  },
   checker = { enabled = false },
   rtp = {
     disabled_plugins = {
