@@ -18,8 +18,8 @@ local M = {}
 local fs_status, fs = pcall(require, 'helpers.utils.fs')
 local util_status, utils = pcall(require, 'helpers.utils')
 local root_pattern = require('lspconfig.util').root_pattern
+local path_status, Path = pcall(require, 'helpers.utils.path')
 
--- local path_status, Path = pcall(require, 'helpers.utils.path')
 
 local system_name = vim.loop.os_uname().sysname
 local hostname = vim.env.HOST
@@ -43,12 +43,12 @@ if not util_status then
   return M
 end
 
--- if not path_status then
---   mylog('Error loading helper: path', 'error')
---   -- print('Error loading helper: path')
---   -- vim.notify('Error loading helpers: path', vim.log.levels.ERROR)
---   return M
--- end
+if not path_status then
+  mylog('Error loading helper: path', 'error')
+  -- print('Error loading helper: path')
+  -- vim.notify('Error loading helpers: path', vim.log.levels.ERROR)
+  return M
+end
 
 -- mylog('Loaded helpers', 'info')
 
@@ -79,8 +79,8 @@ M.ignore_diagnostic_message = {
 M.basepath_conda = nil
 M.basepath_conda_venv = nil
 if vim.env.CONDA_EXE then
-  M.basepath_conda = vim.fn.fnamemodify(vim.env.CONDA_EXE, ':h:h')
-  -- M.basepath_conda = Path:new(vim.env.CONDA_EXE):parent():parent()
+  -- M.basepath_conda = vim.fn.fnamemodify(vim.env.CONDA_EXE, ':h:h')
+  M.basepath_conda = Path:new(vim.env.CONDA_EXE):parent():parent()
   M.basepath_conda_venv = fs.path_join(M.basepath_conda, 'envs')
 end
 
@@ -135,15 +135,15 @@ local find_python_cmd = utils.my_cache_fn(function(workspace, cmd)
   -- https://github.com/neovim/nvim-lspconfig/issues/500#issuecomment-851247107
 
   -- If conda env is activated, use it
-  if vim.env.CONDA_PREFIX and vim.env.CONDA_PREFIX ~= M.basepath_conda then
-    -- return Path:new(vim.env.CONDA_PREFIX):join("bin"):join(cmd):absolute()
-    return fs.abspath(fs.path_join(vim.env.CONDA_PREFIX, 'bin', cmd))
+  if vim.env.CONDA_PREFIX and vim.env.CONDA_PREFIX ~= M.basepath_conda.filename then
+    return Path:new(vim.env.CONDA_PREFIX):join("bin"):join(cmd):absolute()
+    -- return fs.abspath(fs.path_join(vim.env.CONDA_PREFIX, 'bin', cmd))
   end
 
   -- If virtualenv is activated, use it
   if vim.env.VIRTUAL_ENV then
-    -- return Path:new(vim.env.VIRTUAL_ENV):join("bin"):join(cmd):absolute()
-    return fs.abspath(fs.path_join(vim.env.VIRTUAL_ENV, 'bin', cmd))
+    return Path:new(vim.env.VIRTUAL_ENV):join("bin"):join(cmd):absolute()
+    -- return fs.abspath(fs.path_join(vim.env.VIRTUAL_ENV, 'bin', cmd))
   end
 
   -- If .venv directory, use it
