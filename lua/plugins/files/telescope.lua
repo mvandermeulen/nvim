@@ -28,7 +28,12 @@ telescope.setup {
         search_dirs = {
           "~/projects",
           "~/resources",
-          "~/Documents/2023",
+          "~/Documents",
+          "~/dots",
+          "~/scripts",
+          "~/vdm",
+          "~/working",
+          "~/w",
         },
       },
     },

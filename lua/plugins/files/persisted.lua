@@ -17,6 +17,11 @@ require("persisted").setup({
   allowed_dirs = {
     '~/projects',
     '~/resources',
-    '~/dots',
+    "~/Documents",
+    "~/dots",
+    "~/scripts",
+    "~/vdm",
+    "~/working",
+    "~/w",
   },
 })
