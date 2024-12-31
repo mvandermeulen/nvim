@@ -345,6 +345,7 @@ wk.add({
   { "<leader>ml", "<CMD>Gitsigns toggle_linehl<CR>", desc = "Toggle Line Highlight" },
   -- { "<leader>mt", "<CMD>lua require'telegraph'.telegraph({cmd='gitui', how='tmux_popup'})<CR>", desc = "Test Telegraph" },
   { "<leader>mw", "<CMD>Gitsigns toggle_word_diff<CR>", desc = "Toggle Word Diff"},
+  { "<leader>mi", "<CMD>LspToggleInlayHints<CR>", desc = "Toggle Inlay Hints"},
   -- { "<leader>mz", "<CMD>ZenMode<CR>", desc = "Toggle ZenMode" },
   -- { "<leader>m", "", desc = "" },
 })
