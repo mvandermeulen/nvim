@@ -10,9 +10,9 @@ local log = require('plenary.log').new({ plugin = 'mason', level = 'debug', use_
 local function mylog(msg, level)
   local level = level or 'debug'
   log.debug(msg)
-  if level == 'info' or level == 'warn' or level == 'error' then
-    vim.notify(msg, vim.log.levels.INFO, { title = 'Mason' })
-  end
+  -- if level == 'info' or level == 'warn' or level == 'error' then
+  --   vim.notify(msg, vim.log.levels.INFO, { title = 'Mason' })
+  -- end
 end
 
 local mason_status, mason = pcall(require, 'mason')
