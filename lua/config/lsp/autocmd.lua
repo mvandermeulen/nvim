@@ -23,4 +23,3 @@ vim.api.nvim_create_user_command('LspToggleInlayHints', function()
   require('helpers.lsp').toggle_inlay_hints()
 end, {})
 
-
