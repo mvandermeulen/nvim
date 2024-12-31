@@ -29,13 +29,14 @@ project.setup {
   detection_methods = { 'pattern' },
   patterns = {
     '.git',
+    '.venv',
     -- 'package.json',
-    '.terraform',
-    'go.mod',
-    'requirements.yml',
+    -- '.terraform',
+    -- 'go.mod',
+    -- 'requirements.yml',
     'pyrightconfig.json',
     -- 'pyproject.toml',
-    'Makefile',
+    -- 'Makefile',
     '.is_root_directory',
   },
   show_hidden = false, ---@ Show hidden files in telescope when searching for files in a project
