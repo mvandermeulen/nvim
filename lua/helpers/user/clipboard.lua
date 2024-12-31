@@ -5,6 +5,16 @@
 -- Updated: 2025-01-01
 --]]
 
+
+local log = require('plenary.log').new({ plugin = 'clipboard', level = 'debug', use_console = true })
+local function mylog(msg, level)
+  local level = level or 'debug'
+  log.debug(msg)
+  -- if level == 'info' or level == 'warn' or level == 'error' then
+  --   vim.notify(msg, vim.log.levels.INFO, { title = 'Mason' })
+  -- end
+end
+
 local M = {}
 
 
@@ -30,11 +40,14 @@ function M.setup()
       -- end
 
       if vim.env.TMUX then
+        mylog('Configuring tmux clipboard', 'info')
         vim.g.clipboard = {
             name = "tmuxclipboard",
             copy = {
-                ["+"] = "tmux load-buffer -w -",
-                ["*"] = "tmux load-buffer -w -",
+                -- ["+"] = "tmux load-buffer -w -",
+                -- ["*"] = "tmux load-buffer -w -",
+                ["+"] = "pbcopy",
+                ["*"] = "pbcopy",
             },
             paste = {
                 ["+"] = "tmux save-buffer -",
@@ -54,6 +67,7 @@ function M.setup()
       --   },
       -- }
     else
+      mylog('Configuring xclip clipboard', 'info')
       vim.g.clipboard = {
         name = 'xclip',
         copy = {

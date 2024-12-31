@@ -88,10 +88,41 @@ local M = {
   {-- Bekaboo/dropbar.nvim
     'Bekaboo/dropbar.nvim',
     lazy = false,
+    enabled= false,
     dependencies = {
       'nvim-telescope/telescope-fzf-native.nvim',
       build = 'make'
     },
+    opts = {
+        icons = {
+          kinds = {
+            symbols = {
+              File = ' ',
+              Folder = '  ',
+            },
+          },
+          ui = {
+            bar = {
+              separator = '   ',
+              extends = '',
+            },
+            menu = {
+              separator = ' ',
+              indicator = '',
+            },
+          },
+        },
+        bar = {
+          enable = function(buf, win)
+            return not vim.api.nvim_win_get_config(win).zindex
+              and vim.bo[buf].buftype == ''
+              and vim.bo[buf].buftype ~= 'terminal'
+              and vim.bo[buf].buftype ~= 'markdown'
+              and vim.api.nvim_buf_get_name(buf) ~= ''
+              and not vim.wo[win].diff
+          end,
+        },
+      },
     config = function()
       require('plugins.ui.dropbar')
     end,

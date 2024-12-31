@@ -37,7 +37,8 @@ M.parsers = {
 
 M.servers = {
   'lua_ls',
-  'pyright',
+  -- 'pyright',
+  'basedpyright',
   'gopls',
   -- 'ansiblels',
   'terraformls',
@@ -50,10 +51,9 @@ M.servers = {
   -- 'vimls',
   -- 'emmet_ls',
   -- "vtsls",
-  "marksman",
+  -- "marksman",
   -- "lua-language-server",
   -- python
-  -- 'basedpyright',
   -- 'ruff',
   -- go
   -- devops

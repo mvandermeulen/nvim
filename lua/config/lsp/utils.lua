@@ -19,8 +19,12 @@ local fs_status, fs = pcall(require, 'helpers.utils.fs')
 local util_status, utils = pcall(require, 'helpers.utils')
 local path_status, Path = pcall(require, 'helpers.utils.path')
 
-M.hs_version = vim.fn.system('hs -c _VERSION'):gsub('[\n\r]', '')
-M.hs_path = vim.split(vim.fn.system('hs -c package.path'):gsub('[\n\r]', ''), ';')
+local system_name = vim.loop.os_uname().sysname
+local hostname = vim.env.HOST
+if hostname ~= 'devbox' and system_name ~= 'Linux' then
+  M.hs_version = vim.fn.system('hs -c _VERSION'):gsub('[\n\r]', '')
+  M.hs_path = vim.split(vim.fn.system('hs -c package.path'):gsub('[\n\r]', ''), ';')
+end
 
 
 if not fs_status then
