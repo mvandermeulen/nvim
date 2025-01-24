@@ -13,9 +13,9 @@ end
 
 codecompanion.setup({
   display = {
-    action_palette = {
-      provider = "telescope",
-    },
+    -- action_palette = {
+    --   provider = "telescope",
+    -- },
     chat = {
       render_headers = false,
       show_settings = true,
@@ -24,15 +24,22 @@ codecompanion.setup({
   adapters = require('plugins.ai.codecompanion.adapters'),
   strategies = {
     chat = {
-      adapter = "copilot",
+      adapter = "qwen_7b_mba",
+      -- adapter = "copilot",
     },
     inline = {
-      adapter = "copilot",
+      adapter = "copilot_sonnet",
     },
     agent = {
-      adapter = "copilot",
+      adapter = "copilot_sonnet",
     },
   },
 })
 
+local ccs_status, ccs = pcall(require, 'plugins.ai.codecompanion.setup')
+if not ccs_status then
+  vim.notify('Unable to load CodeCompanion setup module', vim.log.levels.ERROR)
+  return
+end
+ccs.setup()
 -- require('plugins.ai.codecompanion.setup').setup()

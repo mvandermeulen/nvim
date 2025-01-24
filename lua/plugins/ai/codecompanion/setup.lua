@@ -10,8 +10,8 @@ local codecompanion = {}
 
 -- Ref: [Snippet to add the ability to saveload CodeCompanion chats in neovim](https://gist.github.com/itsfrank/942780f88472a14c9cbb3169012a3328)
 codecompanion.setup_save_load = function()
-  require("vimrc.profile").setup()
-  require("plug.config_cache").setup()
+  -- require("vimrc.profile").setup()
+  -- require("plug.config_cache").setup()
 
   -- add 2 commands:
   --    CodeCompanionSave [space delimited args]
@@ -54,9 +54,9 @@ codecompanion.setup_save_load = function()
 
   -- save current chat, `CodeCompanionSave foo bar baz` will save as 'foo-bar-baz.md'
   vim.api.nvim_create_user_command("CodeCompanionSave", function(opts)
-    local codecompanion = require("codecompanion")
+    local cc = require("codecompanion")
     local success, chat = pcall(function()
-      return codecompanion.buf_get_chat(0)
+      return cc.buf_get_chat(0)
     end)
     if not success or chat == nil then
       vim.notify(
@@ -86,7 +86,7 @@ codecompanion.setup_autocmd = function()
       if vim.bo.filetype == "codecompanion" then
         vim.opt.buflisted = true
         vim.opt.buftype = ""
-        vim.cmd("Copilot enable")
+        -- vim.cmd("Copilot enable")
       end
     end,
   })

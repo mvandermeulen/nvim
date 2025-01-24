@@ -99,8 +99,8 @@ map("n", "<leader>pj]", "<cmd>Portal jumplist forward<cr>", dfo('Portal Jumplist
 -- map("n", "<leader>pj[", "<cmd>Portal jumplist backward<cr>", dfo('Portal Jumplist Backward'))
 -- map("n", "<leader>pj]", "<cmd>Portal jumplist forward<cr>", dfo('Portal Jumplist Forward'))
 
-map("n", "<leader><S-Tab>", ":BufferLineCyclePrev<CR>", dfo())
-map("n", "<leader><Tab>", ":BufferLineCycleNext<CR>", dfo())
+map("n", "<leader><S-Tab>", ":BufferLineCyclePrev<CR>", dfo('Previous Buffer'))
+map("n", "<leader><Tab>", ":BufferLineCycleNext<CR>", dfo('Next Buffer'))
 
 -------------------------------
 -- Keys w Modifiers
@@ -112,22 +112,22 @@ map("n", "<leader><Tab>", ":BufferLineCycleNext<CR>", dfo())
 --------------------
 -- Shift Modifier
 --------------------
-map("n", "<S-Right>", ":tabnext<CR>", dfo())
-map("n", "<S-Left>", ":tabprev<CR>", dfo())
-map("n", "<S-Up>", ":BufferLineCyclePrev<CR>", dfo())
-map("n", "<S-Down>", ":BufferLineCycleNext<CR>", dfo())
-map("n", "<S-L>", ":tabnext<CR>", dfo())
-map("n", "<S-H>", ":tabprev<CR>", dfo())
-map("n", "<S-CR>w'", "<CMD>ReplaceInSingleQuotesWord<CR>", dfo())
-map("n", "<S-CR>W'", "<CMD>ReplaceInSingleQuotesNonWhitespaceWord<CR>", dfo())
-map("n", "<S-CR>w\"", "<CMD>ReplaceInDoubleQuotesWord<CR>", dfo())
-map("n", "<S-CR>W\"", "<CMD>ReplaceInDoubleQuotesNonWhitespaceWord<CR>", dfo())
-map("n", "<S-CR>w[", "<CMD>ReplaceInBracketsWord<CR>", dfo())
-map("n", "<S-CR>W[", "<CMD>ReplaceInBracketsNonWhitespaceWord<CR>", dfo())
-map("n", "<S-CR>w(", "<CMD>ReplaceInParenthesesWord<CR>", dfo())
-map("n", "<S-CR>W(", "<CMD>ReplaceInParenthesesNonWhitespaceWord<CR>", dfo())
-map("n", "<S-CR>wm", "<CMD>MakeWordMarkdownLink<CR>", dfo())
-map("n", "<S-CR>Wm", "<CMD>MakeNonWhitespaceWordMarkdownLink<CR>", dfo())
+map("n", "<S-Right>", ":tabnext<CR>", dfo('Next Tab'))
+map("n", "<S-Left>", ":tabprev<CR>", dfo('Previous Tab'))
+map("n", "<S-Up>", ":BufferLineCyclePrev<CR>", dfo('Previous Buffer'))
+map("n", "<S-Down>", ":BufferLineCycleNext<CR>", dfo('Next Buffer'))
+map("n", "<S-L>", ":tabnext<CR>", dfo('Next Tab'))
+map("n", "<S-H>", ":tabprev<CR>", dfo('Previous Tab'))
+map("n", "<S-CR>w'", "<CMD>ReplaceInSingleQuotesWord<CR>", dfo('Wrap in Single Quotes'))
+map("n", "<S-CR>W'", "<CMD>ReplaceInSingleQuotesNonWhitespaceWord<CR>", dfo('Wrap WORD in Single Quotes'))
+map("n", "<S-CR>w\"", "<CMD>ReplaceInDoubleQuotesWord<CR>", dfo('Wrap in Double Quotes'))
+map("n", "<S-CR>W\"", "<CMD>ReplaceInDoubleQuotesNonWhitespaceWord<CR>", dfo('Wrap WORD in Double Quotes'))
+map("n", "<S-CR>w[", "<CMD>ReplaceInBracketsWord<CR>", dfo('Wrap in Brackets'))
+map("n", "<S-CR>W[", "<CMD>ReplaceInBracketsNonWhitespaceWord<CR>", dfo('Wrap WORD in Brackets'))
+map("n", "<S-CR>w(", "<CMD>ReplaceInParenthesesWord<CR>", dfo('Wrap word in Parentheses'))
+map("n", "<S-CR>W(", "<CMD>ReplaceInParenthesesNonWhitespaceWord<CR>", dfo('Wrap WORD in Parentheses'))
+map("n", "<S-CR>wm", "<CMD>MakeWordMarkdownLink<CR>", dfo('Markdown Link'))
+map("n", "<S-CR>Wm", "<CMD>MakeNonWhitespaceWordMarkdownLink<CR>", dfo('Markdown Link from Non-Whitespace Word'))
 -- <S-Space> is UNUSED
 map("n", "<S-Space>", function() require('snacks').scratch() end, dfo('Scratchpad Toggle'))
 

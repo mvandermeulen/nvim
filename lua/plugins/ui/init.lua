@@ -6,13 +6,27 @@
 
 local M = {
   { 'ray-x/guihua.lua' },
-  {-- numToStr/Navigator.nvim
-    'numToStr/Navigator.nvim',
+  {-- dynamotn/Navigator.nvim
+    'dynamotn/Navigator.nvim',
     lazy = false,
     config = function()
       require('plugins.ui.navigator')
     end,
   },
+  -- {-- numToStr/Navigator.nvim
+  --   'numToStr/Navigator.nvim',
+  --   lazy = false,
+  --   config = function()
+  --     require('plugins.ui.navigator')
+  --   end,
+  -- },
+  -- {-- hiasr/vim-zellij-navigator.nvim
+  --   'hiasr/vim-zellij-navigator.nvim',
+  --   lazy = false,
+  --   config = function()
+  --     require('vim-zellij-navigator').setup()
+  --   end,
+  -- },
   {-- luukvbaal/stabilize.nvim
     'luukvbaal/stabilize.nvim',
     lazy = false,

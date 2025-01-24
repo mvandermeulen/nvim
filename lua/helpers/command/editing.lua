@@ -77,11 +77,19 @@ vim.api.nvim_create_user_command("MakeWordMarkdownLink", function()
   vim.api.nvim_feedkeys("P", 'n', true)
 end, {})
 
+
 vim.api.nvim_create_user_command("MakeNonWhitespaceWordMarkdownLink", function()
   replace_with('W', '[]', true)
   vim.api.nvim_feedkeys("la()", 'n', true)
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Esc>', true, false, true), 'n', false)
   vim.api.nvim_feedkeys("P", 'n', true)
 end, {})
+
+
+vim.api.nvim_create_user_command("InAndOut", function(opts)
+  local linecount = opts.fargs[1] or 1
+  vim.api.nvim_feedkeys(linecount .. "<<", 'n', true)
+  vim.api.nvim_feedkeys(linecount .. ">>", 'n', true)
+end, { nargs = 1 })
 
 

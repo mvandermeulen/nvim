@@ -13,11 +13,13 @@ end
 wk.add({
   { "<leader>C", "<cmd>Cheatsheet<cr>", desc = "Cheatsheet" },
   { "<leader>L", "<cmd>:Lazy<cr>", desc = "Lazy" },
-  { "<leader>e", "<cmd>NvimTreeToggle<cr>", desc = " 󰙅 Explorer" },
-  { "<leader>q", "<cmd>NvimTreeClose<cr>:q<cr>", desc = "  Close Window" },
+  { "<leader>e", "<cmd>NvimTreeToggle<cr>", desc = "Explorer" },
+  { "<leader>q", "<cmd>NvimTreeClose<cr>:q<cr>", desc = "Close Window" },
+  -- { "<leader>q", "<cmd>NvimTreeClose<cr>:q<cr>", desc = "  Close Window" },
   -- { "<leader>Q", "<cmd>NvimTreeClose<cr><cmd>qa<cr>", desc = "  Close Window" },
   -- { "<leader>x", ":TSContextDisable<cr>:TSBufDisable rainbow<cr>:TSBufDisable highlight<cr><cmd>Bdelete<cr>", desc = "  Close Buffer" },
-  { "<leader>x", "<CMD>BufferDelete<CR>", desc = "  Close Buffer" },
+  { "<leader>x", "<CMD>BufferDelete<CR>", desc = "Close Buffer" },
+  -- { "<leader>x", "<CMD>BufferDelete<CR>", desc = "  Close Buffer" },
   -- { "<C-_>", "<Plug>(comment_toggle_linewise_current)", desc = "  Comment Line" },
   -- { "<leader>", "", desc = "" },
   -- { "<leader>", "", desc = "" },
@@ -80,13 +82,13 @@ wk.add({
   { '<leader>at3', ':3ToggleTerm<cr>', desc = '3' },
   { '<leader>at4', ':4ToggleTerm<cr>', desc = '4' },
   { '<leader>atc', "<cmd>:ToggleTermSendCurrentLine<cr>", desc = 'Send Current Line' },
-  { '<leader>atf', "<CMD>ToggleTerm direction=float<CR>", desc = " Float" },
-  { '<leader>atH', "<CMD>ToggleTerm size=10 direction=horizontal<CR>", desc = " Horizontal" },
+  { '<leader>atf', "<CMD>ToggleTerm direction=float<CR>", desc = "Float" },
+  { '<leader>atH', "<CMD>ToggleTerm size=10 direction=horizontal<CR>", desc = "Horizontal" },
   { '<leader>ati', "<cmd>ToggleTasksInfo<cr>", desc = 'Tasks Info' },
   { '<leader>ats', "<cmd>:ToggleTermSendVisualSelection<cr>", desc = 'Send Selection' },
   { '<leader>att', "<cmd>Telescope toggletasks spawn<cr>", desc = 'Spawn Task' },
   { '<leader>atT', "<cmd>Telescope toggletasks select<cr>", desc = 'Select Task' },
-  { '<leader>atv', "<CMD>ToggleTerm size=80 direction=vertical<CR>", desc = " Vertical" },
+  { '<leader>atv', "<CMD>ToggleTerm size=80 direction=vertical<CR>", desc = "Vertical" },
 })
 
 -- Treesitter: <leader>aT
@@ -122,8 +124,9 @@ wk.add({
 -- Buffers: <leader>b
 wk.add({
   { '<leader>bb', "<CMD>lua require'telescope.builtin'.buffers({ sort_mru = true, ignore_current_buffer = true })<CR>", desc = 'Find buffer' },
-  { '<leader>ba', '<CMD>BufferLineCloseLeft<CR><CMD>BufferLineCloseRight<CR>', desc = 'Close all but the current buffer' },
-  { '<leader>bc', "<CMD>BufferLinePickClose<CR>", desc = " Pick close" },
+  { '<leader>ba', '<CMD>BufferLineCloseLeft<CR><CMD>BufferLineCloseRight<CR>', desc = 'Close All but current' },
+  { '<leader>bc', "<CMD>BufferLinePickClose<CR>", desc = "Pick Close" },
+  -- { '<leader>bc', "<CMD>BufferLinePickClose<CR>", desc = " Pick close" },
   -- { '<leader>bd', '<CMD>TSContextDisable<CR><CMD>TSBufDisable rainbow<CR><CMD>TSBufDisable highlight<CR><CMD>Bdelete<CR>', desc = 'Close Buffer' },
   { '<leader>bd', '<CMD>BufferDelete<CR>', desc = 'Delete Buffer' },
   { '<leader>bf', '<CMD>BufferLinePick<CR>', desc = ' Pick buffer' },
@@ -137,7 +140,7 @@ wk.add({
   { '<leader>bP', '<CMD>PinBuffer<CR>', desc = ' 󰐃 Pin Buffer' },
   -- Sort
   { '<leader>bsd', "<CMD>BufferLineSortByDirectory<CR>", desc = " Directory" },
-  { '<leader>bst', "<CMD>BufferLineSortByTabs<CR>", desc = " Tabs" },
+  { '<leader>bst', "<CMD>BufferLineSortByTabs<CR>", desc = "Tabs" },
   { '<leader>bse', "<CMD>BufferLineSortByExtension<CR>", desc = "  Extension" },
   { '<leader>bsr', "<CMD>BufferLineSortByRelativeDirectory<CR>", desc = " Relative Directory" },
 })

@@ -36,54 +36,64 @@ if present_cmp_lsp then
 end
 M.capabilities.textDocument.completion.completionItem.snippetSupport = true
 
+local function opts(desc)
+  if desc then
+    return { noremap = true, silent = true, desc = desc }
+  else
+    return { noremap = true, silent = true }
+  end
+end
+
 
 local function lsp_keymaps(bufnr)
-  local opts = { noremap = true, silent = true }
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "<M-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-  -- vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
-  -- vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", "<cmd>Telescope lsp_references<CR>", opts)-- Uses Telescope
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "<localleader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>df", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "[d", '<cmd>lua vim.diagnostic.goto_prev({ border = "rounded" })<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "]d", '<cmd>lua vim.diagnostic.goto_next({ border = "rounded" })<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>dL", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "gpd", "<cmd>lua require('goto-preview').goto_preview_definition({})<CR>", opts)
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "gpi", "<cmd>lua require('goto-preview').goto_preview_implementation({})<CR>", opts)
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "gpc", "<cmd>lua require('goto-preview').close_all_win()<CR>", opts)
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "gpr", "<cmd>lua require('goto-preview').goto_preview_references({})<CR>", opts)
-  -- vim.api.nvim_buf_set_keymap(bufnr, "n", "", "<cmd>lua <CR>", opts)
+  vim.api.nvim_buf_set_keymap(bufnr, "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts('Declaration'))
+  vim.api.nvim_buf_set_keymap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts('Definition'))
+  vim.api.nvim_buf_set_keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts('Hover'))
+  vim.api.nvim_buf_set_keymap(bufnr, "n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts('Implementation'))
+  vim.api.nvim_buf_set_keymap(bufnr, "n", "<M-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts('Signature Help'))
+  -- vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts(''))
+  -- vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts(''))
+  vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", "<cmd>Telescope lsp_references<CR>", opts('LSP References'))-- Uses Telescope
+  vim.api.nvim_buf_set_keymap(bufnr, "n", "<localleader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts('Code Action'))
+  vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>df", "<cmd>lua vim.diagnostic.open_float()<CR>", opts('Diagnostics Float'))
+  vim.api.nvim_buf_set_keymap(bufnr, "n", "[d", '<cmd>lua vim.diagnostic.goto_prev({ border = "rounded" })<CR>', opts('Previous Diagnostic'))
+  vim.api.nvim_buf_set_keymap(bufnr, "n", "]d", '<cmd>lua vim.diagnostic.goto_next({ border = "rounded" })<CR>', opts('Next Diagnostic'))
+  vim.api.nvim_buf_set_keymap(bufnr, "n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts('Diagnostics Float'))
+  vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>dL", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts('Diagnostics Loclist'))
+  vim.api.nvim_buf_set_keymap(bufnr, "n", "gpd", "<cmd>lua require('goto-preview').goto_preview_definition({})<CR>", opts('Preview Definition'))
+  vim.api.nvim_buf_set_keymap(bufnr, "n", "gpi", "<cmd>lua require('goto-preview').goto_preview_implementation({})<CR>", opts('Preview Implementation'))
+  vim.api.nvim_buf_set_keymap(bufnr, "n", "gpc", "<cmd>lua require('goto-preview').close_all_win()<CR>", opts('Close Preview'))
+  vim.api.nvim_buf_set_keymap(bufnr, "n", "gpr", "<cmd>lua require('goto-preview').goto_preview_references({})<CR>", opts('Preview References'))
+  -- vim.api.nvim_buf_set_keymap(bufnr, "n", "", "<cmd>lua <CR>", opts(''))
   vim.cmd [[ command! Format execute 'lua vim.lsp.buf.formatting()' ]]
 end
 
 local function common_keymaps(bufnr)
-  local opts = {noremap = true, silent = true}
-  local function bufnnoremap(lhs, rhs)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', lhs, rhs, opts)
+  local function bufnnoremap(lhs, rhs, desc)
+    if desc then
+      vim.api.nvim_buf_set_keymap(bufnr, 'n', lhs, rhs, opts(desc))
+    else
+      vim.api.nvim_buf_set_keymap(bufnr, 'n', lhs, rhs, opts())
+    end
   end
   -- Keymaps: we need to define keymaps for each of the LSP functionalities manually
   -- Go to definition and declaration (use leader to presever standard use of 'gd')
-  bufnnoremap("<localleader>gd", "<Cmd>lua vim.lsp.buf.definition()<CR>")
-  bufnnoremap("<localleader>gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>")
+  bufnnoremap("<localleader>gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", 'Definition')
+  bufnnoremap("<localleader>gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", 'Declaration')
   -- Go to implementation
-  bufnnoremap("<localleader>gi", "<Cmd>lua vim.lsp.buf.implementation()<CR>")
+  bufnnoremap("<localleader>gi", "<Cmd>lua vim.lsp.buf.implementation()<CR>", 'Implementation')
   -- List symbol uses
   -- bufnnoremap("<leader>gr", "<cmd>lua vim.lsp.buf.references()<CR>")  -- Uses quickfix
-  bufnnoremap("<localleader>gr", "<cmd>Telescope lsp_references<CR>")  -- Uses Telescope
+  bufnnoremap("<localleader>gr", "<cmd>Telescope lsp_references<CR>", 'LSP References')  -- Uses Telescope
   -- Inspect function
-  bufnnoremap("K", "<Cmd>lua vim.lsp.buf.hover()<CR>")
+  bufnnoremap("K", "<Cmd>lua vim.lsp.buf.hover()<CR>", 'Hover')
   -- Signature help
-  bufnnoremap("<M-k>", "<Cmd>lua vim.lsp.buf.signature_help()<CR>")
+  bufnnoremap("<M-k>", "<Cmd>lua vim.lsp.buf.signature_help()<CR>", 'Signature Help')
   -- Rename all references of symbol
-  bufnnoremap("<localleader>R", "<Cmd>lua vim.lsp.buf.rename()<CR>")
+  bufnnoremap("<localleader>R", "<Cmd>lua vim.lsp.buf.rename()<CR>", 'Rename')
   -- Navigate diagnostics
-  bufnnoremap("<localleader>N", "<Cmd>lua vim.diagnostic.goto_next()<CR>")
-  bufnnoremap("<localleader>P", "<Cmd>lua vim.diagnostic.goto_prev()<CR>")
+  bufnnoremap("<localleader>N", "<Cmd>lua vim.diagnostic.goto_next()<CR>", 'Next Diagnostic')
+  bufnnoremap("<localleader>P", "<Cmd>lua vim.diagnostic.goto_prev()<CR>", 'Previous Diagnostic')
 end
 
 M.setup = function()
