@@ -51,7 +51,7 @@ require("mappings.local")
 -------------------------------
 map("n", ";", ":", dfo()) -- Remap semicolon for commands
 map("n", ";;", ";", dfo()) -- Remap semicolon for commands
-map("n", "0", "^", dfo()) -- use 0 to go to first char of line
+-- map("n", "0", "^", dfo()) -- use 0 to go to first char of line
 map("n", "n", "nzz", dfo()) -- center search results
 map("n", "N", "Nzz", dfo()) -- center search results
 map("n", "k", "v:count == 0 ? 'gk' : 'k'", expr_options) -- Deal with visual line wraps
@@ -165,6 +165,7 @@ map("n", "<C-CR>", "<CMD>:NvimTreeToggle<CR>", dfo('Explorer'))
 map("n", "<C-->", "<cmd>Cheatsheet<cr>", dfo('Cheatsheet'))
 map("n", "<C-\\>", "<Plug>(comment_toggle_linewise_current)", dfo('Comment Line'))
 map("n", "<C-Q>", "<cmd>:NvimTreeClose<cr><cmd>:qa<cr>", dfo('Quit All'))
+map("n", "<C-A>", "<cmd>:YankBank<cr>", dfo('YankBank'))
 -- <C-/> is used by FZF Document Symbols
 -- map("n", "<C-/>", "", dfo())
 -- FZF is using C-.
