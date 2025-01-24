@@ -19,6 +19,7 @@ wk.add({
   -- { "<leader>Q", "<cmd>NvimTreeClose<cr><cmd>qa<cr>", desc = "  Close Window" },
   -- { "<leader>x", ":TSContextDisable<cr>:TSBufDisable rainbow<cr>:TSBufDisable highlight<cr><cmd>Bdelete<cr>", desc = "  Close Buffer" },
   { "<leader>x", "<CMD>BufferDelete<CR>", desc = "Close Buffer" },
+  { "<leader>y", "<CMD>YankBank<CR>", desc = "YankBank" },
   -- { "<leader>x", "<CMD>BufferDelete<CR>", desc = "  Close Buffer" },
   -- { "<C-_>", "<Plug>(comment_toggle_linewise_current)", desc = "  Comment Line" },
   -- { "<leader>", "", desc = "" },
