@@ -55,6 +55,16 @@ function M.config()
         },
         winhighlight = {},
       },
+      cmdline_popup = {
+        position = {
+          row = 5,
+          col = "50%",
+        },
+        size = {
+          width = 60,
+          height = "auto",
+        },
+      },
     },
     cmdline = {
       view = "cmdline",
@@ -71,7 +81,7 @@ function M.config()
       enabled = true,
       relative = 'editor',
       position = {
-        row = 20,
+        row = 8,
         col = "50%",
       },
       size = {
@@ -82,14 +92,17 @@ function M.config()
         style = 'rounded',
         padding = { 0, 1 },
       },
+      win_options = {
+        winhighlight = { Normal = "Normal", FloatBorder = "DiagnosticInfo" },
+      },
     },
     notify = {
-      enabled = false,
-      view = "mini",
+      enabled = true,
+      view = "notify",
     },
     messages = {
       enabled = true, -- enables the Noice messages UI
-      view = false, -- default view for messages
+      -- view = true, -- default view for messages
       view_error = "mini", -- view for errors
       view_warn = "mini", -- view for warnings
       view_history = "messages", -- view for :messages
@@ -100,7 +113,7 @@ function M.config()
       command_palette = true, -- position the cmdline and popupmenu together
       long_message_to_split = true, -- long messages will be sent to a split
       inc_rename = false, -- enables an input dialog for inc-rename.nvim
-      lsp_doc_border = true, -- add a border to hover docs and signature help
+      lsp_doc_border = false, -- add a border to hover docs and signature help
     },
   }
 end

@@ -114,6 +114,7 @@ M.setup = function()
       source = "always",
       header = "",
       prefix = "",
+      relative = "cursor",
     },
   }
   vim.diagnostic.config(config)

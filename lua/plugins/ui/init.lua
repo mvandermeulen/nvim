@@ -6,6 +6,7 @@
 
 local M = {
   { 'ray-x/guihua.lua' },
+  require('plugins.ui.noice'),
   {-- dynamotn/Navigator.nvim
     'dynamotn/Navigator.nvim',
     lazy = false,
@@ -181,12 +182,11 @@ local M = {
       keymap.amend('n', 'zM', map.close_preview_without_defer)
     end,
   },
-  {
+  {-- nvim-zh/colorful-winsep.nvim
     "nvim-zh/colorful-winsep.nvim",
     config = true,
     event = { "WinLeave" },
   },
-  require('plugins.ui.noice'),
   {-- mikavilpas/yazi.nvim
     "mikavilpas/yazi.nvim",
     event = "VeryLazy",

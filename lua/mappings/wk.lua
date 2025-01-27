@@ -13,7 +13,7 @@ end
 wk.add({
   { "<leader>C", "<cmd>Cheatsheet<cr>", desc = "Cheatsheet" },
   { "<leader>L", "<cmd>:Lazy<cr>", desc = "Lazy" },
-  { "<leader>e", "<cmd>NvimTreeToggle<cr>", desc = "Explorer" },
+  { "<leader>n", "<cmd>NvimTreeToggle<cr>", desc = "Explorer" },
   { "<leader>q", "<cmd>NvimTreeClose<cr>:q<cr>", desc = "Close Window" },
   -- { "<leader>q", "<cmd>NvimTreeClose<cr>:q<cr>", desc = "  Close Window" },
   -- { "<leader>Q", "<cmd>NvimTreeClose<cr><cmd>qa<cr>", desc = "  Close Window" },
@@ -224,8 +224,68 @@ wk.add({
   { '<leader>ds', "<cmd>lua _G.my.helpers.server:vdm_start_server()<cr>", desc = 'Start Server' },
   { '<leader>dt', '<cmd>TodoTrouble<cr>', desc = 'Todos' },
   { '<leader>dT', '<cmd>TroubleToggle<cr>', desc = 'Toggle Trouble' },
+  { '<leader>do', '<cmd>lua require("snacks").diagnostics.toggle()<cr>', desc = 'Toggle Diagnostics' },
+  { '<leader>dp', '<cmd>lua require("snacks").profiler.toggle()<cr>', desc = 'Toggle Profiler' },
   -- { '<leader>dw', '<cmd>Trouble workspace_diagnostics<cr>', desc = 'Workspace Diagnostics' },
   { '<leader>dx', '<cmd>LspRestart<cr>', desc = 'LSP Restart' },
+})
+
+
+-- Editor: <leader>e
+-- Glance, GitOpen, Grapple, GistsList, GistCreate, GistCreateFromFile, Inspect, JQ, KeyAnalyzer, Learn
+-- Neogit, Outline, OutlineStatus, OutlineToggle, Portal, Pretty, PinBuffer, ProjectRoot, PDF, RootDir
+-- Registers, RecallMark, ReloadConfig, ReviewChanges, Redir, SQL, Stash, TabMessage, TmuxLayout
+-- Unpin, VGit, WorkspacesList, WorkspacesAdd, WorksspacesAddDir, YankBank, Yazi, 
+wk.add({
+  -- { '<leader>', '', desc = '' },
+  -- { '<leader>', '', desc = '' },
+  -- { '<leader>', '', desc = '' },
+  { '<leader>efr', "<cmd>lua require('flash').remote()<cr>", desc = 'Remote' },
+  { '<leader>eft', "<cmd>lua require('flash').treesitter()<cr>", desc = 'Treesitter' },
+  { '<leader>efb', "<cmd>lua require('flash').jump({search = { forward = false, wrap = false, multi_window = false },})<cr>", desc = 'Search Back' },
+  { '<leader>eff', "<cmd>lua require('flash').jump({search = { forward = true, wrap = false, multi_window = false },})<cr>", desc = 'Search Forward' },
+  { '<leader>efp', "<cmd>lua require('flash').jump({continue = true})<cr>", desc = 'Previous Jump' },
+  { '<leader>efs', "<cmd>lua require('flash').jump()<cr>", desc = 'Search' },
+  { '<leader>efR', "<cmd>lua require('flash').treesitter_search()<cr>", desc = 'Remote Treesitter' },
+  { '<leader>efw', '<cmd>lua require("flash").jump({ pattern = vim.fn.expand("<cword>")})<cr>', desc = 'Current Word' },
+  { '<leader>efd', "<cmd>FlashDiagnostics<cr>", desc = 'Diagnostics' },
+  { '<leader>esd', '<cmd>lua require("snacks").diagnostics.toggle()<cr>', desc = 'Diagnostics: Toggle' },
+  { '<leader>esp', '<cmd>lua require("snacks").profiler.pick()<cr>', desc = 'Profiler: Pick' },
+  { '<leader>esP', '<cmd>lua require("snacks").profiler.toggle()<cr>', desc = 'Profiler: Toggle' },
+  { '<leader>esh', '<cmd>lua require("snacks").notifier.show_history()<cr>', desc = 'Notifications: History' },
+  { '<leader>esg', '<cmd>lua require("snacks").gitbrowse()<cr>', desc = 'Git: Browse' },
+  { '<leader>ess', '<cmd>lua require("snacks").scratch.select()<cr>', desc = 'Scratch: Select' },
+  { '<leader>esl', '<cmd>lua require("snacks").scratch.list()<cr>', desc = 'Scratch: List' },
+  { '<leader>ena', '<cmd>NoiceAll<cr>', desc = 'Noice: All' },
+  { '<leader>enc', '<cmd>NoiceConfig<cr>', desc = 'Noice: Config' },
+  { '<leader>end', '<cmd>Noice dismiss<cr>', desc = 'Noice: Dismiss' },
+  { '<leader>enD', '<cmd>NoiceDebug<cr>', desc = 'Noice: Debug' },
+  { '<leader>ene', '<cmd>Noice errors<cr>', desc = 'Noice: Errors' },
+  { '<leader>enE', '<cmd>Noice enable<cr>', desc = 'Noice: Enable' },
+  { '<leader>enf', '<cmd>NoiceFzf<cr>', desc = 'Noice: FZF' },
+  { '<leader>enh', '<cmd>Noice history<cr>', desc = 'Noice: History' },
+  { '<leader>enl', '<cmd>Noice last<cr>', desc = 'Noice: Last' },
+  { '<leader>enL', '<cmd>NoiceLog<cr>', desc = 'Noice: Log' },
+  { '<leader>enp', '<cmd>NoicePick<cr>', desc = 'Noice: Pick' },
+  { '<leader>enr', '<cmd>NoiceRoutes<cr>', desc = 'Noice: Routes' },
+  { '<leader>ens', '<cmd>Noice stats<cr>', desc = 'Noice: Stats' },
+  { '<leader>ent', '<cmd>Noice telescope<cr>', desc = 'Noice: Telescope History' },
+  { '<leader>enx', '<cmd>Noice disable<cr>', desc = 'Noice: Disable' },
+  { '<leader>eN', '<cmd>Notifications<cr>', desc = 'Notifications' },
+  { '<leader>em', '<cmd>Mason<cr>', desc = 'Mason' },
+  { '<leader>eM', '<cmd>messages<cr>', desc = 'Messages' },
+  { '<leader>ep', '<cmd>Lazy<cr>', desc = 'Plugins' },
+  { '<leader>elc', '<cmd>Lazy check<cr>', desc = 'Lazy: Check' },
+  { '<leader>elC', '<cmd>Lazy clean<cr>', desc = 'Lazy: Clean' },
+  { '<leader>eld', '<cmd>Lazy debug<cr>', desc = 'Lazy: Debug' },
+  { '<leader>eli', '<cmd>Lazy install<cr>', desc = 'Lazy: Install' },
+  { '<leader>ell', '<cmd>Lazy log<cr>', desc = 'Lazy: Log' },
+  { '<leader>els', '<cmd>Lazy sync<cr>', desc = 'Lazy: Sync' },
+  { '<leader>elu', '<cmd>Lazy update<cr>', desc = 'Lazy: Update' },
+  { '<leader>elr', '<cmd>Lazy restore<cr>', desc = 'Lazy: Restore' },
+  { '<leader>elp', '<cmd>Lazy profile<cr>', desc = 'Lazy: Profile' },
+  { '<leader>et', '<cmd>lua require("snacks").profiler.toggle()<cr>', desc = 'Profiler: Toggle' },
+  { '<leader>eP', '<cmd>lua require("snacks").profiler.pick()<cr>', desc = 'Profiler: Pick' },
 })
 
 
@@ -320,6 +380,11 @@ wk.add({
   { '<leader>ls', '<cmd>Telescope lsp_document_symbols<cr>', desc = 'Document Symbols' },
   { '<leader>lt', '<cmd>lua vim.lsp.buf.type_definition()<cr>', desc = 'Type Definition' },
   { '<leader>lw', '<cmd>Telescope diagnostics<CR>', desc = 'Workspace Diagnostics' },
+  { '<leader>lcr', '<cmd>LspRestart<cr>', desc = 'LSP: Restart' },
+  { '<leader>lcs', '<cmd>LspStop<cr>', desc = 'LSP: Stop' },
+  { '<leader>lci', '<cmd>LspInfo<cr>', desc = 'LSP: Info' },
+  { '<leader>lcS', '<cmd>LspStart<cr>', desc = 'LSP: Start' },
+  { '<leader>lcl', '<cmd>LspLog<cr>', desc = 'LSP: Logs' },
 })
 
 
@@ -472,6 +537,13 @@ wk.add({
 })
 
 
+
+-- UI: <leader>u
+-- wk.add({
+--   { "<leader>u", "<CMD><CR>", desc = "" },
+--   { "<leader>u", "<CMD><CR>", desc = "" },
+--   { "<leader>u", "<CMD><CR>", desc = "" },
+-- })
 
 -- Visits: <leader>v
 wk.add({
