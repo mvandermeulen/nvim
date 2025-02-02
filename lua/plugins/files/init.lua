@@ -180,9 +180,12 @@ local M = {
     end,
   },
   {-- TimUntersberger/neogit
-    'TimUntersberger/neogit',
+    'NeogitOrg/neogit',
     lazy = false,
-    dependencies = { 'nvim-lua/plenary.nvim' },
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      "sindrets/diffview.nvim",
+    },
     cmd = 'Neogit',
     config = function()
       require('plugins.files.neogit')

@@ -88,7 +88,7 @@ local M = {
   --     require('plugins.utils.line_notes')
   --   end,
   -- },
-  {-- Mappings
+  {-- folke/which-key.nvim
     'folke/which-key.nvim',
     event = "VeryLazy",
     opts = {
@@ -274,7 +274,11 @@ local M = {
         { "<leader>fl", group = "LSP" },
         { "<leader>F", group = "File" },
         { "<leader>g", group = "Git" },
+        { "<leader>gn", group = "Neogit" },
         { "<leader>go", group = "Open Repo" },
+        { "<leader>gv", group = "VGit" },
+        { "<leader>gvb", group = "Buffer" },
+        { "<leader>gvt", group = "Toggle" },
         { "<leader>h", group = "Helper" },
         { "<leader>I", group = "Inserts" },
         { "<leader>l", group = "LSP" },

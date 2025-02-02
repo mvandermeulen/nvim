@@ -44,6 +44,9 @@ telescope.setup {
         layout_strategy = 'horizontal',
       },
     },
+    git_diffs = {
+      enable_preview_diff = true,
+    },
   },
   defaults = {
     file_ignore_patterns = { 'node_modules', '.terraform', '%.jpg', '%.png', 'examples', 'notes' },
