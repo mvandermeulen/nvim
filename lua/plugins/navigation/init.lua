@@ -88,13 +88,13 @@ local M = {
         { "<C-v>", "<cmd>Grapple toggle<cr>", desc = "Grapple toggle tag" },
     },
   },
-  {-- tristone13th/lspmark.nvim
-    'tristone13th/lspmark.nvim',
-    lazy = false,
-    config = function()
-      require('plugins.navigation.lspmark')
-    end,
-  },
+  -- {-- tristone13th/lspmark.nvim
+  --   'tristone13th/lspmark.nvim',
+  --   lazy = false,
+  --   config = function()
+  --     require('plugins.navigation.lspmark')
+  --   end,
+  -- },
 }
 
 return M

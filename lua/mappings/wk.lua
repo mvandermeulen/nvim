@@ -444,12 +444,12 @@ wk.add({
 
 
 -- LSP Marks: <leader>lm
-wk.add({
-  { "<leader>lmt", "<CMD>lua require('lspmark.bookmarks').toggle_bookmark({with_comment=false})<CR>", desc = "Toggle Mark" },
-  { "<leader>lmc", "<CMD>lua require('lspmark.bookmarks').toggle_bookmark({with_comment=true})<CR>", desc = "Toggle Comment Mark" },
-  { "<leader>lmm", "<CMD>lua require('lspmark.bookmarks').modify_comment()<CR>", desc = "Modify Comment" },
-  { "<leader>lms", "<CMD>lua require('lspmark.bookmarks').show_comment()<CR>", desc = "Show Comment" },
-})
+-- wk.add({
+--   { "<leader>lmt", "<CMD>lua require('lspmark.bookmarks').toggle_bookmark({with_comment=false})<CR>", desc = "Toggle Mark" },
+--   { "<leader>lmc", "<CMD>lua require('lspmark.bookmarks').toggle_bookmark({with_comment=true})<CR>", desc = "Toggle Comment Mark" },
+--   { "<leader>lmm", "<CMD>lua require('lspmark.bookmarks').modify_comment()<CR>", desc = "Modify Comment" },
+--   { "<leader>lms", "<CMD>lua require('lspmark.bookmarks').show_comment()<CR>", desc = "Show Comment" },
+-- })
 
 
 -- LSP Python: <leader>lP
