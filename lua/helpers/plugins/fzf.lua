@@ -22,6 +22,8 @@ local rg_ignore_dirs = {
   "*.pyc",
   "**/__pycache__/*",
   "**.venv/*",
+  "**venv/*",
+  "**_oldvenv/*",
   "**/__snapshots__",
   "tests/data",
   --
