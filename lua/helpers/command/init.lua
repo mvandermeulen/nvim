@@ -13,4 +13,5 @@ require('helpers.command.files')
 require('helpers.command.utils')
 require('helpers.command.tmux')
 require('helpers.command.lang')
+require('helpers.command.windows')
 
