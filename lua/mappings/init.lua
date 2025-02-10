@@ -166,7 +166,7 @@ map("n", "<C-CR>", "<CMD>:NvimTreeToggle<CR>", dfo('Explorer'))
 map("n", "<C-->", "<cmd>Cheatsheet<cr>", dfo('Cheatsheet'))
 map("n", "<C-\\>", "<Plug>(comment_toggle_linewise_current)", dfo('Comment Line'))
 map("n", "<C-Q>", "<cmd>:NvimTreeClose<cr><cmd>:qa<cr>", dfo('Quit All'))
-map("n", "<C-A>", "<cmd>:YankBank<cr>", dfo('YankBank'))
+map("n", "<C-Esc>", "<cmd>:YankBank<cr>", dfo('YankBank'))
 -- <C-/> is used by FZF Document Symbols
 -- map("n", "<C-/>", "", dfo())
 -- FZF is using C-.
