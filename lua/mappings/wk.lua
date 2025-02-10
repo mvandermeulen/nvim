@@ -12,6 +12,7 @@ end
 -- Global Mappings
 wk.add({
   { "<leader>C", "<cmd>Cheatsheet<cr>", desc = "Cheatsheet" },
+  { "<leader>D", "<CMD>Was<CR>", desc = "Development Log" },
   { "<leader>L", "<cmd>:Lazy<cr>", desc = "Lazy" },
   { "<leader>n", "<cmd>NvimTreeToggle<cr>", desc = "Explorer" },
   { "<leader>q", "<cmd>NvimTreeClose<cr>:q<cr>", desc = "Close Window" },
@@ -249,6 +250,11 @@ wk.add({
   { '<leader>efR', "<cmd>lua require('flash').treesitter_search()<cr>", desc = 'Remote Treesitter' },
   { '<leader>efw', '<cmd>lua require("flash").jump({ pattern = vim.fn.expand("<cword>")})<cr>', desc = 'Current Word' },
   { '<leader>efd', "<cmd>FlashDiagnostics<cr>", desc = 'Diagnostics' },
+  { '<leader>egr', "<cmd>Glance resume<cr>", desc = 'Resume' },
+  { '<leader>egR', "<cmd>Glance references<cr>", desc = 'References' },
+  { '<leader>egd', "<cmd>Glance definitions<cr>", desc = 'Definitions' },
+  { '<leader>egi', "<cmd>Glance implementations<cr>", desc = 'Implementations' },
+  { '<leader>egt', "<cmd>Glance type_definitions<cr>", desc = 'Type Definitions' },
   { '<leader>esd', '<cmd>lua require("snacks").diagnostics.toggle()<cr>', desc = 'Diagnostics: Toggle' },
   { '<leader>esp', '<cmd>lua require("snacks").profiler.pick()<cr>', desc = 'Profiler: Pick' },
   { '<leader>esP', '<cmd>lua require("snacks").profiler.toggle()<cr>', desc = 'Profiler: Toggle' },
@@ -402,7 +408,7 @@ wk.add({
 wk.add({
   { "<leader>Ie", "<CMD>lua EscapePair()<CR>", desc = "Escape Pair" },
   { "<leader>If", "<CMD>lua require('helpers.utils.fs').insert_file_path()<CR>", desc = "File Path" },
-  { "<leader>It", "<CMD>lua require('helpers.user.todos').insert_todo_and_comment()<CR>", desc = "Todo with Comment" },
+  { "<leader>It", "<CMD>lua require('helpers.user.notes').insert_todo_and_comment()<CR>", desc = "Todo with Comment" },
   { "<leader>Ip", "<CMD>lua require('helpers.utils').add_project_from_line(vim.fn.getline('.'))<CR>", desc = "Project" },
   -- { "<leader>I", "", desc = "" },
   -- { "<leader>I", "", desc = "" },

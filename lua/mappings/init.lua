@@ -147,6 +147,7 @@ map("n", "<M-S-Right>", ":vertical resize +2<CR>", dfo())
 map({ "i", "x", "n", "s"}, "<M-.>", "<cmd>AvanteToggle<CR>", dfo('Avante: Toggle'))
 -- <M-,> is UNUSED
 -- map("n", "<M-CR>", "<CMD>:NvimTreeToggle<CR>", dfo())
+map("n", "<M-,>", "<CMD>lua require('helpers.user.notes').record_was_doing()<CR>", dfo())
 -- <M-CR> is Telescope Smart Open
 vim.keymap.set("n", "<M-CR>", function ()
   require("telescope").extensions.smart_open.smart_open()
