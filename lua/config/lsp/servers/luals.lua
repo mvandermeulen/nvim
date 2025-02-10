@@ -63,6 +63,7 @@ local hammerspoon_library = {
   '/Users/vandem/.hammerspoon/Spoons/EmmyLua.spoon/annotations/',
   '/Applications/Hammerspoon.app/Contents/Resources/extensions/hs/',
 }
+
 local neovim_library = {
   vim.api.nvim_get_runtime_file('', true),
   vim.env.VIMRUNTIME,
