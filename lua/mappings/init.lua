@@ -135,10 +135,11 @@ map("n", "<S-Space>", function() require('snacks').scratch() end, dfo('Scratchpa
 --------------------
 -- Meta Modifier
 --------------------
-map("n", "<M-j>", [[<cmd>m.+1<cr>==]], dfo())
-map("n", "<M-k>", [[<cmd>m.-2<cr>==]], dfo())
-map("i", "<M-j>", [[<esc><cmd>m.+1<cr>==]], dfo())
-map("i", "<M-k>", [[<esc><cmd>m.-2<cr>==]], dfo())
+-- map("n", "<M-j>", [[<cmd>m.+1<cr>==]], dfo())
+-- map("n", "<M-k>", [[<cmd>m.-2<cr>==]], dfo())
+-- map("i", "<M-j>", [[<esc><cmd>m.+1<cr>==]], dfo())
+-- map("i", "<M-k>", [[<esc><cmd>m.-2<cr>==]], dfo())
+
 map("n", "<M-S-Up>", ":resize -2<CR>", dfo())
 map("n", "<M-S-Down>", ":resize +2<CR>", dfo())
 map("n", "<M-S-Left>", ":vertical resize -2<CR>", dfo())
