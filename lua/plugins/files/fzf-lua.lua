@@ -67,6 +67,9 @@ fzf_lua.setup({
   oldfiles = {
     include_current_session = true,
   },
+  on_create = function()
+    vim.keymap.set('t', '<Esc>', '<C-c>', { buffer = 0 })
+  end,
 })
 
 local function kmo(desc)

@@ -11,8 +11,10 @@ if not status_ok then
   return
 end
 
+local icons = require('helpers.ui.icons')
+
 recall.setup({
-  sign = "",
+  sign = icons.ui.Bookmark,
   sign_highlight = "@comment.note",
   telescope = {
     autoload = true,

@@ -216,6 +216,42 @@ local M = {
   --     require('plugins.files.persistence')
   --   end,
   -- },
+  -- {-- 
+  --   '',
+  --   lazy = false,
+  --   config = function()
+  --     require('').setup()
+  --   end,
+  -- },
+  {-- bxrne/was.nvim
+    'bxrne/was.nvim',
+    lazy = false,
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+    config = function()
+      require('was').setup()
+    end,
+  },
+  {-- you-fail-me/git-drift.nvim
+    'you-fail-me/git-drift.nvim',
+    lazy = false,
+    config = function()
+      require('git-drift').setup()
+    end,
+  },
+  {-- nick-skriabin/commitment.nvim
+    'nick-skriabin/commitment.nvim',
+    lazy = false,
+    config = function()
+      require('commitment').setup({
+        stop_on_write = false,
+        stop_on_useless_commit = false,
+        writes_number = 30,
+        check_interval = 15,
+      })
+    end,
+  },
   {-- sessions.nvim
     'natecraddock/sessions.nvim',
     lazy = false,
@@ -244,7 +280,7 @@ local M = {
       require('plugins.files.persisted')
     end,
   },
-  {
+  {-- nosduco/remote-sshfs.nvim
     "nosduco/remote-sshfs.nvim",
     dependencies = { "nvim-telescope/telescope.nvim" },
     opts = {

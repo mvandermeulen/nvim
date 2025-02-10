@@ -66,7 +66,7 @@ local M = {
     end,
   },
   { 'neovim/nvim-lspconfig', lazy = false },
-  {
+  {-- icholy/lsplinks.nvim
     "icholy/lsplinks.nvim",
     config = function()
       local lsplinks = require("lsplinks")
@@ -207,7 +207,7 @@ local M = {
       require('plugins.lang.dap-virtual-text')
     end,
   },
-  {-- 
+  {-- nvim-telescope/telescope-dap.nvim
     "nvim-telescope/telescope-dap.nvim",
     dependencies = {
       "mfussenegger/nvim-dap",
@@ -218,41 +218,6 @@ local M = {
     end,
   },
   { 'cuducos/yaml.nvim', ft = { 'yaml' } }, -- Language Specific
-  -- {-- AckslD/swenv.nvim
-  --   'AckslD/swenv.nvim',
-  --   lazy = false,
-  --   keys = {
-  --     { "<space>e", function() require("swenv.api").pick_venv() end, desc = "Set Python Environment" },
-  --   },
-  --   opts = {
-  --     get_venvs = function()
-  --       local helpers = require('plugins.lang.swenv')
-  --       -- Default paths from environments
-  --       local venvs = require("swenv.api").get_venvs()
-  --       -- Loop through the paths in custom_python_envs and expand
-  --       for _, path in ipairs(helpers.custom_python_envs) do
-  --         vim.list_extend(venvs, helpers.get_venvs_wrapper(path["base_path"], path["source"]))
-  --       end
-  --       return venvs
-  --     end,
-  --     -- Path passed to `get_venvs`.
-  --     -- venvs_path = vim.fn.getcwd(),
-  --     venvs_path = nil,
-  --     -- Something to do after setting an environment, for example call vim.cmd.LspRestart
-  --     post_set_venv = function()
-  --       vim.cmd.LspRestart()
-  --       -- Reset python path in nvim
-  --       local current_env = require("swenv.api").get_current_venv()
-  --       vim.g.python3_host_prog = current_env.path .. "/bin/python"
-  --       -- Restart DAP with new python path
-  --       -- vim.cmd [[Lazy reload nvim-dap]]
-  --       -- vim.cmd [[Lazy reload nvim-dap-ui]]
-  --       require("lazy.core.loader").reload("nvim-dap")
-  --       require("lazy.core.loader").reload("nvim-dap-ui")
-  --       vim.notify("Switched env to: " .. current_env.name .. " [" .. current_env.source .. "]")
-  --     end,
-  --   },
-  -- },
   {-- roobert/action-hints.nvim
     "roobert/action-hints.nvim",
     config = function()
@@ -275,7 +240,7 @@ local M = {
       require("lsp-file-operations").setup()
     end,
   },
-  {
+  {-- cenk1cenk2/jq.nvim
     "cenk1cenk2/jq.nvim",
     dependencies = {
       "nvim-lua/plenary.nvim",
@@ -302,6 +267,23 @@ local M = {
       require('plugins.lang.glance')
     end,
   },
+  {
+    "zeioth/garbage-day.nvim",
+    dependencies = "neovim/nvim-lspconfig",
+    event = "VeryLazy",
+    opts = {
+      grace_period = 600,
+    }
+  },
+  {-- amnn/lsp-echohint.nvim
+    'amnn/lsp-echohint.nvim',
+    lazy = false,
+    config = function()
+      require('echohint').setup({
+        auto_enable = true,
+      })
+    end,
+  },
   -- {-- 
   --   '',
   --   lazy = false,
@@ -316,6 +298,25 @@ local M = {
       require('lsp-progress').setup()
     end,
   },
+  {-- mhanberg/output-panel.nvim
+    "mhanberg/output-panel.nvim",
+    version = "*",
+    event = "VeryLazy",
+    config = function()
+      require("output_panel").setup({
+        max_buffer_size = 5000 -- default
+      })
+    end,
+    cmd = { "OutputPanel" },
+    keys = {
+      {
+        "<leader>lp",
+        vim.cmd.OutputPanel,
+        mode = "n",
+        desc = "Panel: Server Logs",
+      },
+    }
+  }
 }
 
 return M

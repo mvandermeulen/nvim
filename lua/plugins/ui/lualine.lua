@@ -77,7 +77,16 @@ lualine.setup {
   sections = {
     lualine_a = { 'mode' },
     -- lualine_b = { { "b:gitsigns_head", icon = "" }, "diff" },
-    lualine_b = { branch, diff },
+    lualine_b = {
+      branch,
+      {
+        require("git-drift").status,
+        cond = function()
+          return vim.b.gitsigns_head ~= nil
+        end
+      },
+      diff
+    },
     --lualine_a = { branch, diagnostics },
     --lualine_a = { branch },
     --lualine_b = { diagnostics },

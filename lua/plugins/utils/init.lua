@@ -79,7 +79,6 @@ local M = {
       require('plugins.utils.comment-box')
     end,
   },
-  -- { 'famiu/bufdelete.nvim', lazy = false },
   -- {-- asmorris/line_notes.nvim
   --   'asmorris/line_notes.nvim',
   --   dependencies = { "nvim-telescope/telescope.nvim" },
@@ -264,6 +263,7 @@ local M = {
         { "<leader>d", group = "Diagnostic" },
         { "<leader>e", group = "Editor" },
         { "<leader>ef", group = "Flash" },
+        { "<leader>eg", group = "Glance" },
         { "<leader>en", group = "Noice" },
         { "<leader>el", group = "Lazy" },
         { "<leader>es", group = "Snacks" },
@@ -558,7 +558,40 @@ local M = {
       require('plugins.utils.toggler')
     end,
   },
-  {
+  {-- daltongd/yanklock.nvim
+    'daltongd/yanklock.nvim',
+    opts = {
+      notify = true,
+    },
+    keys = {
+      {
+        "<leader>ey",
+        function()
+          require('yanklock').toggle()
+        end,
+        desc = "Toggle: Yanklock",
+      },
+    },
+    lazy = false,
+  },
+  {-- SunnyTamang/select-undo.nvim
+    'SunnyTamang/select-undo.nvim',
+    lazy = false,
+    config = function()
+      require('select-undo').setup({
+        line_mapping = "<leader>Fl",
+        partial_mapping = "<leader>Fu"
+      })
+    end,
+  },
+  -- {-- 
+  --   '',
+  --   lazy = false,
+  --   config = function()
+  --     require('').setup()
+  --   end,
+  -- },
+  {-- roobert/f-string-toggle.nvim
     "roobert/f-string-toggle.nvim",
     config = function()
       require("f-string-toggle").setup({

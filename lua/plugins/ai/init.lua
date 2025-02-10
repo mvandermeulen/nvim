@@ -97,6 +97,28 @@ local M = {
       require('plugins.ai.codecompanion')
     end,
   },
+  {-- Davidyz/VectorCode
+    'Davidyz/VectorCode',
+    lazy = false,
+    config = function()
+      require('').setup()
+    end,
+  },
+  -- {-- 
+  --   '',
+  --   lazy = false,
+  --   config = function()
+  --     require('').setup()
+  --   end,
+  -- },
+  -- {-- 
+  --   '',
+  --   lazy = false,
+  --   config = function()
+  --     require('').setup()
+  --   end,
+  -- },
+
 }
 
 return M
