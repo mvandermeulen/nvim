@@ -100,9 +100,9 @@ local M = {
   {-- Davidyz/VectorCode
     'Davidyz/VectorCode',
     lazy = false,
-    config = function()
-      require('').setup()
-    end,
+    -- config = function()
+    --   require('').setup()
+    -- end,
   },
   -- {-- 
   --   '',

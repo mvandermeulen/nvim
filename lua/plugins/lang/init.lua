@@ -279,7 +279,7 @@ local M = {
     'amnn/lsp-echohint.nvim',
     lazy = false,
     config = function()
-      require('echohint').setup({
+      require('lsp-echohint').setup({
         auto_enable = true,
       })
     end,
