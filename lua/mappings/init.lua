@@ -149,7 +149,7 @@ map("n", "<M-S-Right>", ":vertical resize +2<CR>", dfo())
 map({ "i", "x", "n", "s"}, "<M-.>", "<cmd>AvanteToggle<CR>", dfo('Avante: Toggle'))
 -- <M-,> is UNUSED
 -- map("n", "<M-CR>", "<CMD>:NvimTreeToggle<CR>", dfo())
-map("n", "<M-,>", "<CMD>lua require('helpers.user.notes').record_was_doing()<CR>", dfo())
+-- map("n", "<M-,>", "<CMD>lua require('helpers.user.notes').record_was_doing()<CR>", dfo())
 -- <M-CR> is Telescope Smart Open
 vim.keymap.set("n", "<M-CR>", function ()
   require("telescope").extensions.smart_open.smart_open()
@@ -179,7 +179,7 @@ map({ "i", "x", "n", "s" }, "<C-;>", "<cmd>CopilotChatToggle<cr>", dfo('Copilot 
 -- <C-'> is used by FZF Workspace Symbols
 -- map("n", "<C-'>", "", dfo()) -- write with w
 -- <C-"> is Window Zoom
--- <C-[> is Copilot Chat Actions
+-- <C-[> is Copilot Chat Actions -- REMOVED AS MISTAKEN FOR ESCAPE
 -- <C-]> is FZF Buffers
 -- map("n", "<C-_>",'<CMD>lua require("arrow.persist").toggle<CR>', dfo())
 -- vim.api.nvim_set_keymap('n','<C-\\>',"<Plug>(comment_toggle_linewise_current)", dfo())

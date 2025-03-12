@@ -98,7 +98,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
 })
 
 
-vim.keymap.set("n", "<C-[>", function ()
+vim.keymap.set("n", "<M-,>", function ()
   local actions = require("CopilotChat.actions")
   require("CopilotChat.integrations.telescope").pick(actions.prompt_actions())
 end, { noremap = true, silent = true, desc = 'CopilotChat - Prompt Actions' })

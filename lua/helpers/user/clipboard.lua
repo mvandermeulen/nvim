@@ -14,6 +14,16 @@ end
 
 local M = {}
 
+local async = require "plenary.async"
+
+
+local function socket_paste()
+  local socket_path = os.getenv('HOME') .. '/.local/tmp/snuggle.socket'
+  local socket = vim.uv.new_pipe(false)
+  local err = async.uv.pipe_connect(socket, vim.fn.resolve(socket_path))
+  assert(not err, err)
+  async.uv.write(socket, vim.fn.getreg(''))
+end
 
 function M.setup()
   --  Remove this option if you want your OS clipboard to remain independent.
@@ -21,6 +31,7 @@ function M.setup()
   vim.opt.clipboard = 'unnamedplus'
   -- Pasting with OSC52 is really slow. Use Neovim's paste instead.
   local function paste()
+    socket_paste()
     return {
       vim.split(vim.fn.getreg '', '\n'),
       vim.fn.getregtype '',
