@@ -645,6 +645,7 @@ wk.add({
 wk.add({
   { '<leader>Wa', '<cmd>SessionStart<cr>', desc = 'Persistence: Start' },
   { '<leader>Wc', '<cmd>SessionStop<cr>', desc = ' Cancel Persistence' },
+  { '<leader>Wm', '<cmd>SessionManager<cr>', desc = 'Session Manager' },
   { '<leader>Wd', '<cmd>SessionDelete<cr>', desc = ' Delete Persistence' },
   { '<leader>Wl', '<cmd>lua require("sessions").load()<cr>', desc = ' Load Session' },
   { '<leader>WL', '<cmd>SessionLoadLast<cr>', desc = ' Latest Persisted' },

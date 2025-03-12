@@ -6,7 +6,7 @@
 --]]
 
 
-local persisted_path = vim.fn.expand(vim.fn.stdpath 'data' .. '/persisted/')
+local persisted_path = vim.fn.expand(vim.fn.stdpath 'data' .. '/persisted')
 if vim.fn.isdirectory(persisted_path) == 0 then
   vim.fn.mkdir(persisted_path, 'p')
 end
@@ -14,6 +14,8 @@ end
 require("persisted").setup({
   save_dir = persisted_path, -- Resolves to ~/.local/share/nvim/sessions/
   autosave = true,
+  autostart = true,
+  autoload = false,
   allowed_dirs = {
     '~/projects',
     '~/resources',

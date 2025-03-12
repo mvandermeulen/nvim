@@ -208,14 +208,21 @@ local M = {
       require('plugins.files.project')
     end,
   },
-  -- {-- folke/persistence.nvim
-  --   'folke/persistence.nvim',
-  --   lazy = false,
-  --   event = 'BufReadPre',
-  --   config = function()
-  --     require('plugins.files.persistence')
-  --   end,
-  -- },
+  {-- folke/persistence.nvim
+    'folke/persistence.nvim',
+    lazy = false,
+    event = 'BufReadPre',
+    config = function()
+      require('plugins.files.persistence')
+    end,
+  },
+  {-- stevearc/resession.nvim
+    'stevearc/resession.nvim',
+    lazy = false,
+    config = function()
+      require('plugins.files.resession')
+    end,
+  },
   -- {-- 
   --   '',
   --   lazy = false,

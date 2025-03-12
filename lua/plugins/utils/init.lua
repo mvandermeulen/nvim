@@ -68,6 +68,7 @@ local M = {
     config = function()
         require('yankbank').setup({
             persist_type = "sqlite",
+            max_entries = 30,
         })
     end,
   },
