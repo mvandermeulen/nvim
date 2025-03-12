@@ -1,1 +1,1 @@
-return {}
+[100%] Diagnosing workspace

@@ -116,6 +116,10 @@ local settings = {
     maxPreload = 9000,
     preloadFileSize = 9000,
     checkThirdParty = false,
+    ignoreDir = {
+      'examples',
+      'notes',
+    },
   },
   codeLens = {
     enable = true,

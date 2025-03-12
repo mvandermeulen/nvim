@@ -42,15 +42,15 @@ return {
     local path = root_pattern(lsputils.root_files)(p)
     return path
   end,
-  before_init = function(_, config)
-    config.settings.python.pythonPath = lsputils.get_python_path(config.root_dir)
-  end,
+  -- before_init = function(_, config)
+  --   config.settings.python.pythonPath = lsputils.get_python_path(config.root_dir)
+  -- end,
   -- handlers = {
   --   -- If you want to disable pyright's diagnostic prompt, open the code below
   --   ["textDocument/publishDiagnostics"] = function(...) end,
   -- },
   settings = {
-    python = {
+    basedpyright = {
       disableLanguageServices = false,
       disableOrganizeImports = true,
       openFilesOnly = true,
@@ -58,12 +58,12 @@ return {
         -- ignore = { "*" },
         autoImportCompletions = true,
         autoSearchPaths = true,
-        -- diagnosticMode = "openFilesOnly",
-        diagnosticMode = 'workspace',
+        diagnosticMode = "openFilesOnly",
+        -- diagnosticMode = 'workspace',
         useLibraryCodeForTypes = true,
         indexing = true,
         -- typeCheckingMode = 'standard', -- standard, strict, all, off, basic
-        typeCheckingMode = "off",
+        typeCheckingMode = "basic",
         diagnosticSeverityOverrides = {
           strictListInference = true,
           strictDictionaryInference = true,
@@ -79,14 +79,14 @@ return {
           reportConstantRedefinition = "warning",
           reportUndefinedVariable = "error",
           reportAssertAlwaysTrue = "error",
-          reportMissingTypeStubs = "none",
+          reportMissingTypeStubs = "information",
           reportIncompleteStub = "none",
           reportInvalidStubStatement = "none",
           reportMissingModuleSource = "none",
           reportMissingImports = "information",
           reportIncompatibleMethodOverride = "information",
           reportUnannotatedClassAttribute = "none",
-          reportDeprecated = "none",
+          reportDeprecated = "information",
           reportImplicitOverride = "none",
           reportCallInDefaultInitializer = "none",
           reportOptionalMemberAccess = "none",
@@ -95,6 +95,13 @@ return {
           reportUnknownVariableType = "none",
           reportUnknownParameterType = "none",
           reportGeneralTypeIssues = "none",
+          reportArgumentType = "none",
+          reportAttributeAccessIssue = "none",
+          -- reportPrivateImportUsage = "none",
+          reportCallIssue = "none",
+          -- reportOptionalIterable = "none",
+          -- reportOptionalSubscript = "none",
+          -- reportOperatorIssue = "none",
           reportAny = "none",
         },
       },
@@ -106,12 +113,12 @@ return {
     local new_workspace_name = utils.to_workspace_name(new_workspace)
 
     if python_path == "python" then
-      local msg = "LSP python (pyright) - keeping previous python path '%s' for new_root_dir '%s'"
-      vim.notify(msg:format(config.cmd[1], new_workspace), vim.log.levels.DEBUG)
+      -- local msg = "LSP python (pyright) - keeping previous python path '%s' for new_root_dir '%s'"
+      -- vim.notify(msg:format(config.cmd[1], new_workspace), vim.log.levels.DEBUG)
       return config
     else
-      local msg = "LSP python (pyright) - '%s' using path %s"
-      vim.notify(msg:format(new_workspace_name, python_path), vim.log.levels.DEBUG)
+      -- local msg = "LSP python (pyright) - '%s' using path %s"
+      -- vim.notify(msg:format(new_workspace_name, python_path), vim.log.levels.DEBUG)
       config.settings.python.pythonPath = python_path
       return config
     end

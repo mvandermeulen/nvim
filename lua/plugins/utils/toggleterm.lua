@@ -68,7 +68,8 @@ map('n', '<leader>atl', '<cmd>lua _LAZYGIT_TOGGLE()<CR>i', { noremap = true, sil
 -- Better navigation to and from terminal
 function _G.set_terminal_keymaps()
   local opts = { noremap = true }
-  vim.api.nvim_buf_set_keymap(0, 't', '<esc>', [[<C-\><C-n>]], opts)
+  -- vim.api.nvim_buf_set_keymap(0, 't', '<esc>', [[<C-\><C-n>]], opts)
+  vim.api.nvim_buf_set_keymap(0, 't', '<esc>', [[<C-c>]], opts)
   -- vim.api.nvim_buf_set_keymap(0, 't', '<esc>', [[q]], opts)
   vim.api.nvim_buf_set_keymap(0, 't', 'jk', [[<C-\><C-n>]], opts)
   vim.api.nvim_buf_set_keymap(0, 't', '<C-h>', [[<C-\><C-n><C-W>h]], opts)

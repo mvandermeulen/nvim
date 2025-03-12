@@ -1,71 +1,45 @@
-local lsputils_status, lsputils = pcall(require, 'config.lsp.utils')
-if not lsputils_status then
-  print('Error loading helper: lsputils')
-  vim.notify('Error loading helpers: lsputils', vim.log.levels.ERROR)
-  return M
-end
+--------------------------
+-- ruff
+--------------------------
 
+local util = require 'lspconfig.util'
 
-local util_status, utils = pcall(require, 'helpers.utils')
-if not util_status then
-  print('Error loading helper: utils')
-  vim.notify('Error loading helpers: utils', vim.log.levels.ERROR)
-  return M
-end
-
-local conf_path = vim.fn.stdpath("config") .. "/pyproject.toml"
-
-local lint_ignore = {
-  "F541",
-  "F401",
-  "E401",
-  "E701",
-  "F841",
-  "E722",
+local root_files = {
+  'pyproject.toml',
+  'ruff.toml',
+  '.ruff.toml',
 }
 
-
 return {
-  enabled = false,
-  single_file_support = true,
-  filetypes = { "python" },
-  root_dir = function(fname)
-    return utils.root_pattern(lsputils.root_files) or vim.fs.dirname(vim.fs.find('.git', { path = fname, upward = true })[1])
-  end,
-  settings = {
-    -- https://github.com/charliermarsh/ruff-lsp#settings
-    interpreter = { lsputils.get_python_path() },
-    organizeImports = false,
-    configuration = conf_path,
-    configurationPreferences = 'filesystemFirst',
-    showSyntaxErrors = true,
-    fixAll = false,
-    codeAction = {
-      disableRuleComment = { enable = true },
-      fixViolation = { enable = true },
-    },
-    lineLength = 120,
-    lint = {
-      enable = true,
-      preview = true,
-      ignore = lint_ignore,
-    },
+  default_config = {
+    cmd = { 'ruff', 'server', '--preview' },
+    filetypes = { 'python' },
+    root_dir = util.root_pattern(unpack(root_files)) or util.find_git_ancestor(),
+    single_file_support = true,
+    settings = {},
   },
-  cmd = { "ruff", "server", "--preview" },
-  on_new_config = function(config, new_workspace)
-    local python_path = lsputils.get_python_path(new_workspace)
-    local new_workspace_name = utils.to_workspace_name(new_workspace)
+  docs = {
+    description = [[
+https://github.com/astral-sh/ruff
 
-    if python_path == "python" then
-      local msg = "LSP python (ruff-lsp) - keeping previous python path '%s' for new_root_dir '%s'"
-      vim.notify(msg:format(config.cmd[1], new_workspace), vim.log.levels.DEBUG)
-      return config
-    else
-      local msg = "LSP python (ruff-lsp) - '%s' using path %s"
-      vim.notify(msg:format(new_workspace_name, python_path), vim.log.levels.DEBUG)
+A Language Server Protocol implementation for Ruff, an extremely fast Python linter and code formatter, written in Rust. It can be installed via pip.
 
-      config.settings.interpreter = { python_path }
-      return config
-    end
-  end,
+```sh
+pip install ruff
+```
+
+_Requires Ruff v0.3.3 or later._
+
+This is the new Rust-based version of the original `ruff-lsp` implementation. It's currently in alpha, meaning that some features are under development. Currently, the following capabilities are supported:
+
+1. Diagnostics
+2. Code actions
+3. Formatting
+4. Range Formatting
+
+Please note that the `ruff-lsp` server will continue to be maintained until further notice.
+
+  ]],
+    root_dir = [[root_pattern("pyproject.toml", "ruff.toml", ".ruff.toml", ".git")]],
+  },
 }
