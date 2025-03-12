@@ -51,7 +51,7 @@ copilot.setup({
     },
   },
   filetypes = {
-    yaml = true,
+    yaml = false,
     markdown = true,
     python = true,
     help = false,
@@ -63,7 +63,14 @@ copilot.setup({
     ["."] = false,
   },
   copilot_node_command = 'node', -- Node.js version must be > 18.x
-  server_opts_overrides = {},
+  server_opts_overrides = {
+    trace = "verbose",
+    settings = {
+      advanced = {
+        inlineSuggestCount = 9, -- #completions for getCompletions
+      },
+    },
+  },
 })
 
 copilot_api.register_status_notification_handler(function(data)

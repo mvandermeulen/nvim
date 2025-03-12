@@ -271,8 +271,10 @@ local M = {
     "zeioth/garbage-day.nvim",
     dependencies = "neovim/nvim-lspconfig",
     event = "VeryLazy",
+    enabled = false,-- This might be breaking copilot?
     opts = {
       grace_period = 600,
+      notifications = true,
     }
   },
   {-- amnn/lsp-echohint.nvim

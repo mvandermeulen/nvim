@@ -42,4 +42,3 @@ if not ccs_status then
   return
 end
 ccs.setup()
--- require('plugins.ai.codecompanion.setup').setup()

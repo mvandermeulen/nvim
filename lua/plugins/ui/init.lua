@@ -159,29 +159,29 @@ local M = {
       require('plugins.ui.rpine')
     end,
   },
-  {-- anuvyklack/fold-preview.nvim
-    'anuvyklack/fold-preview.nvim',
-    lazy = false,
-    dependencies = 'anuvyklack/keymap-amend.nvim',
-    config = function()
-      local fp = require('fold-preview')
-      local map = require('fold-preview').mapping
-      local keymap = vim.keymap
-      keymap.amend = require('keymap-amend')
-      fp.setup({
-        --auto = 1500,
-        default_keybindings = false,
-      })
-      keymap.amend('n', '<leader>pf', function(original) if not fp.show_preview() then original() end end)
-      keymap.amend('n', 'h',  map.close_preview_open_fold)
-      keymap.amend('n', 'l',  map.close_preview_open_fold)
-      keymap.amend('n', 'zo', map.close_preview)
-      keymap.amend('n', 'zO', map.close_preview)
-      keymap.amend('n', 'zc', map.close_preview_without_defer)
-      keymap.amend('n', 'zR', map.close_preview)
-      keymap.amend('n', 'zM', map.close_preview_without_defer)
-    end,
-  },
+  -- {-- anuvyklack/fold-preview.nvim
+  --   'anuvyklack/fold-preview.nvim',
+  --   lazy = false,
+  --   dependencies = 'anuvyklack/keymap-amend.nvim',
+  --   config = function()
+  --     local fp = require('fold-preview')
+  --     local map = require('fold-preview').mapping
+  --     local keymap = vim.keymap
+  --     keymap.amend = require('keymap-amend')
+  --     fp.setup({
+  --       --auto = 1500,
+  --       default_keybindings = false,
+  --     })
+  --     keymap.amend('n', '<leader>pf', function(original) if not fp.show_preview() then original() end end)
+  --     keymap.amend('n', 'h',  map.close_preview_open_fold)
+  --     keymap.amend('n', 'l',  map.close_preview_open_fold)
+  --     keymap.amend('n', 'zo', map.close_preview)
+  --     keymap.amend('n', 'zO', map.close_preview)
+  --     keymap.amend('n', 'zc', map.close_preview_without_defer)
+  --     keymap.amend('n', 'zR', map.close_preview)
+  --     keymap.amend('n', 'zM', map.close_preview_without_defer)
+  --   end,
+  -- },
   {-- nvim-zh/colorful-winsep.nvim
     "nvim-zh/colorful-winsep.nvim",
     config = true,

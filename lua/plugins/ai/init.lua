@@ -40,18 +40,6 @@ local M = {
       require('plugins.ai.nvimai')
     end
   },
-  -- {-- meeehdi-dev/bropilot.nvim
-  --   'meeehdi-dev/bropilot.nvim',
-  --   event = "VeryLazy", -- preload model on start
-  --   dependencies = {
-  --     "nvim-lua/plenary.nvim",
-  --     "stevearc/dressing.nvim",
-  --     "j-hui/fidget.nvim",
-  --   },
-  --   config = function()
-  --     require('plugins.ai.bropilot')
-  --   end,
-  -- },
   {-- zbirenbaum/copilot.lua
     "zbirenbaum/copilot.lua",
     dependencies = {
