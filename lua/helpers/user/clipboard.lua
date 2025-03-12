@@ -20,7 +20,8 @@ local M = {}
 local function socket_paste()
   local socket_path = os.getenv('HOME') .. '/.local/tmp/snuggle.socket'
   local pipe = vim.loop.new_pipe(false)
-  vim.loop.pipe_connect(pipe, socket_path, function(err)
+  print(socket_path)
+  vim.loop.pipe_connect(pipe, vim.fn.resolve(socket_path), function(err)
       assert(not err, err)
   end)
   pipe:write(vim.fn.getreg(''))
