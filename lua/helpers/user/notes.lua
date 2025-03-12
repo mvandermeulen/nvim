@@ -46,8 +46,13 @@ end
 function M.send_to_snuggle()
   local socket_path = os.getenv('HOME') .. '/.local/tmp/snuggle.socket'
   print(socket_path)
-  local _s = vim.fn.sockconnect('pipe', socket_path, {rpc = false})
-  vim.fn.chansend(_s, "Testing\n")
+  local _s = vim.fn.sockconnect('pipe', vim.fn.resolve(socket_path), {rpc = false})
+  if _s == -1 then
+    vim.cmd('echomsg "Failed to open channel, status = ' .. _s .. '"')
+    return
+  end
+  vim.fn.chansend(_s, vim.fn.getreg('"'))
+  vim.fn.chanclose(_s)
   -- vim.fn.chansend(_s, vim.fn.getreg(''))
   -- vim.loop.pipe_connect(pipe, vim.fn.resolve(socket_path), function(err)
   --     assert(not err, err)
