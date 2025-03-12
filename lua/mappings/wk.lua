@@ -292,6 +292,8 @@ wk.add({
   { '<leader>elp', '<cmd>Lazy profile<cr>', desc = 'Lazy: Profile' },
   { '<leader>et', '<cmd>lua require("snacks").profiler.toggle()<cr>', desc = 'Profiler: Toggle' },
   { '<leader>eP', '<cmd>lua require("snacks").profiler.pick()<cr>', desc = 'Profiler: Pick' },
+  { '<leader>ev', "<CMD>lua require('helpers.user.notes').socket_paste()<CR>", desc = 'Socket Paste' },
+  { '<leader>ew', "<CMD>lua require('helpers.user.notes').send_to_snuggle()<CR>", desc = 'Send to Snuggle' },
 })
 
 
