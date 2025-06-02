@@ -21,10 +21,6 @@ avante.setup({
   -- },
   provider = "copilot",
   auto_suggestions_provider = "copilot",
-  copilot = {
-    model = "claude-3.5-sonnet",
-    max_tokens = 195000,
-  },
   windows = {
     position = 'bottom',
     wrap = true, -- similar to vim.o.wrap
@@ -38,7 +34,7 @@ avante.setup({
       focus_on_apply = 'theirs',
     },
   },
-  vendors = require('plugins.ai.avante.vendors'),
+  providers = require('plugins.ai.avante.vendors'),
   hints = { enabled = true },
   behaviour = {
     auto_suggestions = false, -- Experimental stage

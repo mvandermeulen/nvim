@@ -11,7 +11,8 @@ if not status_ok then
   return
 end
 
-local copilot_api = require 'copilot.api'
+-- local copilot_api = require 'copilot.api'
+local copilot_status = require 'copilot.status'
 -- local copilot_suggestion = require 'copilot.suggestion'
 -- local copilot_panel = require 'copilot.panel'
 local ns = vim.api.nvim_create_namespace 'user.copilot'
@@ -73,7 +74,7 @@ copilot.setup({
   },
 })
 
-copilot_api.register_status_notification_handler(function(data)
+copilot_status.register_status_notification_handler(function(data)
   vim.api.nvim_buf_clear_namespace(0, ns, 0, -1)
   if vim.fn.mode() == 'i' and data.status == 'InProgress' then
     vim.api.nvim_buf_set_extmark(0, ns, vim.fn.line '.' - 1, 0, {
