@@ -35,6 +35,10 @@ if present_cmp_lsp then
   M.capabilities = cmp_lsp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
 end
 M.capabilities.textDocument.completion.completionItem.snippetSupport = true
+M.capabilities.textDocument.foldingRange = {
+    dynamicRegistration = false,
+    lineFoldingOnly = true
+}
 
 local function opts(desc)
   if desc then

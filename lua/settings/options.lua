@@ -71,3 +71,6 @@ vim.opt.shada = { "!", "'500", "<500", "s10", "h" }
 --vim.opt.startofline = false
 
 -- vim.opt.pastetoggle = "<F2>"
+
+-- ctrl-o/ctrl-i jump options
+vim.opt.jumpoptions = 'stack,view'
