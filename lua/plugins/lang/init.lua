@@ -1,12 +1,13 @@
 --[[
 -- Plugins: Language
 -- Author: Mark van der Meulen
--- Updated: 2024-09-21
+-- Updated: 2025-06-03
 --]]
 
 local treesitter_depends = {
   { 'nvim-treesitter/nvim-treesitter-textobjects' },
-  { 'p00f/nvim-ts-rainbow' },
+  -- { 'p00f/nvim-ts-rainbow' },
+  { 'HiPhish/rainbow-delimiters.nvim' },
   { 'eckon/treesitter-current-functions' },
 }
 

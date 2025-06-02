@@ -49,7 +49,7 @@ function M.config()
         position = { row = 0, col = 0 },
       },
       mini = {
-        timeout = 4000, -- Duration between show() and hide(), in milliseconds
+        timeout = 8000, -- Duration between show() and hide(), in milliseconds
         win_options = {
           winblend = 0,
         },

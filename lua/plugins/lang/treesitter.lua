@@ -138,6 +138,7 @@ configs.setup {
     enable = true,
     extended_mode = true, -- Highlight also non-parentheses delimiters, boolean or table: lang -> boolean
     max_file_lines = 2000, -- Do not enable for files with more than specified lines
+    termcolors = { '3', '4', '1', '3', '4', '1', '3', '4' },
   },
   playground = {
     enable = true,

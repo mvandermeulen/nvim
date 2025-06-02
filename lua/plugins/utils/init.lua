@@ -200,6 +200,7 @@ local M = {
           { pattern = "Suggestion", icon = helper_icons.misc.comment, color = "azure" },
           { pattern = "Editor", icon = helper_icons.ui.Neovim, color = "azure" },
           { pattern = "Pathfinder", icon = helper_icons.ui.Right, color = "azure" },
+          { pattern = "Copy", icon = helper_icons.ui.Clipboard, color = "azure" },
           -- { pattern = "Detach", icon = helper_icons.misc.communicator, color = "azure" },
           -- { pattern = "", icon = "", color = "azure" },
           -- { pattern = "", icon = " ", color = "azure" },
@@ -264,6 +265,7 @@ local M = {
         { "<leader>cc", group = "Copilot Chat" },
         { "<leader>d", group = "Diagnostic" },
         { "<leader>e", group = "Editor" },
+        { "<leader>ec", group = "Copy" },
         { "<leader>ef", group = "Flash" },
         { "<leader>eg", group = "Glance" },
         { "<leader>en", group = "Noice" },
@@ -446,7 +448,7 @@ local M = {
       lazygit = { enabled = true },
       notifier = {
         enabled = true,
-        timeout = 3000,
+        timeout = 8000,
       },
       notify = { enabled = true },
       profiler = { enabled = true },
@@ -527,7 +529,7 @@ local M = {
       zen = { enabled = true },
       styles = {
         notification = {
-          wo = { wrap = true }, -- Wrap notifications
+          wo = { wrap = false }, -- Wrap notifications
         },
       },
     },
@@ -577,15 +579,54 @@ local M = {
     },
     lazy = false,
   },
-  {-- SunnyTamang/select-undo.nvim
-    'SunnyTamang/select-undo.nvim',
+  -- {-- SunnyTamang/select-undo.nvim: undo specific lines or partial selections without affecting the rest of the file
+  --   'SunnyTamang/select-undo.nvim',
+  --   lazy = false,
+  --   config = function()
+  --     require('select-undo').setup({
+  --       line_mapping = "<leader>Fl",
+  --       partial_mapping = "<leader>Fu"
+  --     })
+  --   end,
+  -- },
+  {-- y3owk1n/time-machine.nvim
+    'y3owk1n/time-machine.nvim',
     lazy = false,
-    config = function()
-      require('select-undo').setup({
-        line_mapping = "<leader>Fl",
-        partial_mapping = "<leader>Fu"
-      })
-    end,
+    cmd = {
+      "TimeMachineToggle",
+      "TimeMachinePurgeBuffer",
+      "TimeMachinePurgeAll",
+      "TimeMachineLogShow",
+      "TimeMachineLogClear",
+    },
+    opts = {},
+    keys = {
+      {
+      "<leader>eu",
+      "",
+      desc = "Time Machine",
+      },
+      {
+      "<leader>eut",
+      "<cmd>TimeMachineToggle<cr>",
+      desc = "[Time Machine] Toggle Tree",
+      },
+      {
+      "<leader>eux",
+      "<cmd>TimeMachinePurgeCurrent<cr>",
+      desc = "[Time Machine] Purge current",
+      },
+      {
+      "<leader>euX",
+      "<cmd>TimeMachinePurgeAll<cr>",
+      desc = "[Time Machine] Purge all",
+      },
+      {
+      "<leader>eul",
+      "<cmd>TimeMachineLogShow<cr>",
+      desc = "[Time Machine] Show log",
+      },
+    },
   },
   -- {-- 
   --   '',
