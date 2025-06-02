@@ -293,6 +293,26 @@ local M = {
     opts = {
     },
   },
+  {-- HawkinsT/pathfinder.nvim
+    'HawkinsT/pathfinder.nvim',
+    lazy = false,
+    config = function()
+      require('pathfinder').setup({
+        open_mode = "vsplit",
+        remap_default_keys = false,
+      })
+      vim.keymap.set('n', 'gf', require('pathfinder').gf, { noremap = true, silent = true, desc = 'Opens the next valid file after the cursor' })
+      vim.keymap.set('n', 'gx', require('pathfinder').gx, { noremap = true, silent = true, desc = 'Opens the next valid URL after the cursor' })
+      vim.keymap.set('n', '<leader>Pf', require('pathfinder').select_file, { desc = "Pathfinder: Select File", noremap = true, silent = true })
+      vim.keymap.set('n', '<leader>PF', require('pathfinder').select_file_line, { desc = "Pathfinder: Select File Line", noremap = true, silent = true })
+      vim.keymap.set('n', '<leader>Px', require('pathfinder').select_url, { desc = "Pathfinder: Select UTL", noremap = true, silent = true })
+      vim.keymap.set("n", "<leader>Ph", require("pathfinder").hover_description, { desc = "Pathfinder: Hover", noremap = true, silent = true })
+    end,
+  },
+  {-- benoror/gpg.nvim
+    "benoror/gpg.nvim",
+    lazy = false,
+  },
 }
 
 return M

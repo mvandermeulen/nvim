@@ -15,7 +15,7 @@ default_options = {noremap = true, silent = true}
 
 local system_name = vim.loop.os_uname().sysname
 local hostname = vim.env.HOST
-if hostname ~= 'devbox' and system_name ~= 'Linux' then
+if hostname ~= 'devbox' or system_name ~= 'Linux' then
   vim.api.nvim_set_keymap("n", "<C-h>", "<cmd>lua require('Navigator').left()<CR>", default_options)
   vim.api.nvim_set_keymap("n", "<C-k>", "<cmd>lua require('Navigator').up()<CR>", default_options)
   vim.api.nvim_set_keymap("n", "<C-l>", "<cmd>lua require('Navigator').right()<CR>", default_options)
