@@ -22,7 +22,7 @@ end, { bang = false })
 
 vim.api.nvim_create_user_command("BufferDelete", function(opts)
   local bufnr = opts[1] or vim.fn.bufnr() or vim.api.nvim_get_current_buf()
-  vim.cmd "TSContextDisable"
+  -- vim.cmd "TSContextDisable"
   vim.cmd "TSBufDisable rainbow"
   vim.cmd "TSBufDisable highlight"
   require("snacks").bufdelete()

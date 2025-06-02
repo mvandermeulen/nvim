@@ -40,19 +40,19 @@ function M.organize_imports(client, bufnr)
   end
 end
 
-function M.configure_signs()
-  local icons = require('helpers.ui.icons')
-  local signs = {
-    { name = "DiagnosticSignError", text = icons.diagnostics.Error },
-    { name = "DiagnosticSignWarn", text = icons.diagnostics.Warning },
-    { name = "DiagnosticSignHint", text = icons.diagnostics.Hint },
-    { name = "DiagnosticSignInfo", text = icons.diagnostics.Information },
-  }
-  for _, sign in ipairs(signs) do
-    vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
-  end
-  return signs
-end
+-- function M.configure_signs()
+--   local icons = require('helpers.ui.icons')
+--   local signs = {
+--     { name = "DiagnosticSignError", text = icons.diagnostics.Error },
+--     { name = "DiagnosticSignWarn", text = icons.diagnostics.Warning },
+--     { name = "DiagnosticSignHint", text = icons.diagnostics.Hint },
+--     { name = "DiagnosticSignInfo", text = icons.diagnostics.Information },
+--   }
+--   for _, sign in ipairs(signs) do
+--     vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
+--   end
+--   return signs
+-- end
 
 function M.toggle_diagnostics()
   if not vim.g.diag_is_hidden then

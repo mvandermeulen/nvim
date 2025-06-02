@@ -50,8 +50,8 @@ require("mappings.local")
 -------------------------------
 -- Standard Keys
 -------------------------------
-map("n", ";", ":", dfo()) -- Remap semicolon for commands
-map("n", ";;", ";", dfo()) -- Remap semicolon for commands
+-- map("n", ";", ":", dfo()) -- Remap semicolon for commands
+-- map("n", ";;", ";", dfo()) -- Remap semicolon for commands
 -- map("n", "0", "^", dfo()) -- use 0 to go to first char of line
 map("n", "n", "nzz", dfo()) -- center search results
 map("n", "N", "Nzz", dfo()) -- center search results

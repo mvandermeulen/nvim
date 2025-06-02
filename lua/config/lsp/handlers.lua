@@ -97,12 +97,18 @@ local function common_keymaps(bufnr)
 end
 
 M.setup = function()
-  local signs = helper.configure_signs()
   -- mlog("LSP Handlers setup: Signs", "info")
+  local icons = require('helpers.ui.icons')
   local config = {
     virtual_text = false, -- disable virtual text
     signs = { -- show signs
-      active = signs,
+      priority = 20,
+      text = {
+        [vim.diagnostic.severity.ERROR] = icons.diagnostics.Error,
+        [vim.diagnostic.severity.WARN] = icons.diagnostics.Warning,
+        [vim.diagnostic.severity.INFO] = icons.diagnostics.Information,
+        [vim.diagnostic.severity.HINT] = icons.diagnostics.Hint,
+      },
     },
     update_in_insert = false,
     underline = true,

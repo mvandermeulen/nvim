@@ -1,7 +1,7 @@
 --[[
 -- Neovim Global Configuration
 -- Author: Mark van der Meulen
--- Updated: 2024-09-11
+-- Updated: 2025-06-03
 --]]
 
 require 'start'

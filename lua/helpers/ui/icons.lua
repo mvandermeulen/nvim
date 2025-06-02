@@ -2,7 +2,7 @@
 -- Icons
 --
 -- Author: Mark van der Meulen
--- Updated: 24-04-2022
+-- Updated: 2025-06-03
 --]]
 
 -- https://github.com/microsoft/vscode/blob/main/src/vs/base/common/codicons.ts
