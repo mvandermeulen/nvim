@@ -2,7 +2,7 @@
 -- Origami Plugin
 --
 -- Author: Mark van der Meulen
--- Updated: 2024-12-21
+-- Updated: 2025-06-03
 --]]
 
 
@@ -11,10 +11,18 @@ if not status_ok then
   return
 end
 
-origami.setup {
-  keepFoldsAcrossSessions = true,
+origami.setup({
+  -- keepFoldsAcrossSessions = true,
+  keepFoldsAcrossSessions = package.loaded["ufo"],
+  useLspFoldsWithTreesitterFallback = not package.loaded["ufo"],
   pauseFoldsOnSearch = true,
-  setupFoldKeymaps = true,
+  autoFold = {
+    enabled = true,
+    kinds = { "comment", "imports" },
+  },
   -- `h` key opens on first column, not at first non-blank character or before
-  hOnlyOpensOnFirstColumn = false,
-}
+  foldKeymaps = {
+    setup = false, -- modifies `h` and `l`
+    hOnlyOpensOnFirstColumn = false,
+  },
+})

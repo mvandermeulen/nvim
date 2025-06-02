@@ -130,7 +130,7 @@ local M = {
       require('telescope').load_extension('smart_history')
     end,
   },
-  {
+  {-- danielfalk/smart-open.nvim
     "danielfalk/smart-open.nvim",
     branch = "0.2.x",
     config = function()
@@ -312,6 +312,15 @@ local M = {
   {-- benoror/gpg.nvim
     "benoror/gpg.nvim",
     lazy = false,
+  },
+  {-- art-vasilyev/yapath.nvim
+    "art-vasilyev/yapath.nvim",
+    config = function()
+      require("yapath").setup()
+      vim.keymap.set("n", "<leader>ecg", require("yapath").copy_git_url)
+      vim.keymap.set("n", "<leader>ecr", require("yapath").copy_relative_path)
+      vim.keymap.set("n", "<leader>ecp", require("yapath").copy_python_path)
+    end,
   },
 }
 

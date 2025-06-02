@@ -36,11 +36,12 @@ vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 --vim.opt.foldmethod = 'indent'
 vim.opt.foldmethod = "expr"
 --vim.opt.foldmethod = 'marker'                     -- Enable folding (default 'foldmarker')
-vim.opt.foldlevel = 9
+vim.opt.foldlevel = 99
 vim.opt.foldminlines = 2
 vim.opt.foldnestmax = 10
 vim.opt.foldlevelstart = 5
 vim.opt.foldenable = true                          -- disable folding; enable with zi
+vim.opt.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
 
 -- Window Splits
 vim.opt.splitbelow = true                           -- force all horizontal splits to go below current window
