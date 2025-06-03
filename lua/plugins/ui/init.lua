@@ -224,6 +224,7 @@ local M = {
   { 'Murtaza-Udaipurwala/gruvqueen' },
   { 'daschw/leaf.nvim' },
   { 'AlexvZyl/nordic.nvim', name = 'alexvzyl-nordic' },
+  { 'datsfilipe/vesper.nvim' },
   _G.my.plugins.themes.standard_install,
   _G.my.plugins.themes.extended_install,
 }

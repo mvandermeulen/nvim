@@ -115,6 +115,9 @@ local M = {
   {-- rmagatti/goto-preview
     "rmagatti/goto-preview",
     event = "BufEnter",
+    dependencies = {
+      {'rmagatti/logger.nvim'},
+    },
     config = true,
     keys = {
       {
