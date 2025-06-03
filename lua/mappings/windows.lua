@@ -1,0 +1,18 @@
+-- Windows: <leader>w
+return {
+  { '<leader>wb', '<cmd>:vsplit<cr>', desc = 'Buffer Vertical Split' },
+  { '<leader>wf', '<CMD>tabfirst<CR>', desc = ' First Tab' },
+  { '<leader>wh', '<cmd>:NewTabHSplit<cr>', desc = 'Tab w Horizontal Split' },
+  { '<leader>wl', '<CMD>tablast<CR>', desc = ' Last Tab' },
+  { '<leader>wp', '<c-w>x', desc = 'Swap' },
+  { '<leader>wq', '<cmd>:q<cr>', desc = 'Close' },
+  { '<leader>wr', '<CMD>tabrewind<CR>', desc = ' Rewind' },
+  { '<leader>ws', '<cmd>:new<cr>', desc = 'Empty Horizontal Split' },
+  { '<leader>wS', '<cmd>:split<cr>', desc = 'Horizontal Split' },
+  { '<leader>wt', '<cmd>:tabnew<cr>', desc = 'New Tab' },
+  { '<leader>wT', '<cmd>:NewTabTiled<cr>', desc = 'Tiled Tab' },
+  { '<leader>wv', '<cmd>:vnew<cr>', desc = 'Empty Vertical Split' },
+  { '<leader>w=', '<c-w>=', desc = 'Equally size' },
+  { '<leader>wV', '<cmd>:NewTabVSplit<cr>', desc = 'Tab w Vertical Split' },
+  -- { '<leader>ww', "<cmd>lua require('nvim-window').pick()<cr>", desc = 'Choose window to jump' },
+}
