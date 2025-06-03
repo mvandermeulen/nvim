@@ -1,42 +1,107 @@
-local M = {}
+-- local M = {}
+-- M.mappings = {
+--   ["name"] = " Git",
+--   -- ["name"] = " Git",
+--   ["b"] = { '<cmd>Telescope git_branches<cr>', 'Checkout branch' },
+--   ["B"] = { "<CMD>lua require 'gitsigns'.blame_line()<CR>", "Show Blame" },
+--   ["c"] = { '<cmd>Telescope git_commits<cr>', 'Checkout commit' },
+--   ["C"] = { '<cmd>Telescope git_bcommits<cr>', 'Checkout commit(for current file)' },
+--   ["g"] = { '<cmd>Telescope git_status<cr>', 'Git Status' },
+--   ["G"] = { "<cmd>lua _GITUI_TOGGLE()<cr>i", "GitUI" },
+--   ["h"] = { "<cmd>:Gitsigns toggle_linehl<cr>", 'Toggle Highlight' },
+--   ["j"] = { "<CMD>lua require 'gitsigns'.next_hunk()<CR>", " Next Hunk" },
+--   ["k"] = { "<CMD>lua require 'gitsigns'.prev_hunk()<CR>", " Prev Hunk" },
+--   ["L"] = { "<cmd>lua _LAZYGIT_TOGGLE()<cr>i", " Lazygit" },
+--   ["p"] = { "<CMD>lua require 'gitsigns'.preview_hunk()<CR>", " Preview Hunk" },
+--   ["n"] = { '<cmd>Neogit<cr>', 'Neogit' },
+--   ["t"] = { "<cmd>:Gitsigns toggle_signs<cr>", 'Toggle Signs' },-- Should this be moved to some kind of UI menu?
+--   ["r"] = { "<CMD>lua require 'gitsigns'.reset_hunk()<CR>", "ﰇ Reset Hunk" },
+--   ["R"] = { "<CMD>lua require 'gitsigns'.reset_buffer()<CR>", " Reset Buffer" },
+--   ["s"] = { "<CMD>lua require 'gitsigns'.stage_hunk()<CR>", "ﴽ Stage Hunk" },
+--   ["u"] = {
+--     "<CMD>lua require 'gitsigns'.undo_stage_hunk()<CR>",
+--     " Undo Stage Hunk",
+--   },
+--   ["d"] = {
+--     "<CMD>Gitsigns diffthis HEAD<CR>",
+--     " Diff",
+--   },
+-- }
 
-M.mappings = {
-  ["name"] = " Git",
-  -- ["name"] = " Git",
-  ["b"] = { '<cmd>Telescope git_branches<cr>', 'Checkout branch' },
-  ["B"] = { "<CMD>lua require 'gitsigns'.blame_line()<CR>", "Show Blame" },
-  ["c"] = { '<cmd>Telescope git_commits<cr>', 'Checkout commit' },
-  ["C"] = { '<cmd>Telescope git_bcommits<cr>', 'Checkout commit(for current file)' },
-  ["g"] = { '<cmd>Telescope git_status<cr>', 'Git Status' },
-  ["G"] = { "<cmd>lua _GITUI_TOGGLE()<cr>i", "GitUI" },
-  ["h"] = { "<cmd>:Gitsigns toggle_linehl<cr>", 'Toggle Highlight' },
-  ["j"] = { "<CMD>lua require 'gitsigns'.next_hunk()<CR>", " Next Hunk" },
-  ["k"] = { "<CMD>lua require 'gitsigns'.prev_hunk()<CR>", " Prev Hunk" },
-  ["L"] = { "<cmd>lua _LAZYGIT_TOGGLE()<cr>i", " Lazygit" },
-  ["p"] = { "<CMD>lua require 'gitsigns'.preview_hunk()<CR>", " Preview Hunk" },
-  ["n"] = { '<cmd>Neogit<cr>', 'Neogit' },
-  ["t"] = { "<cmd>:Gitsigns toggle_signs<cr>", 'Toggle Signs' },-- Should this be moved to some kind of UI menu?
-  ["r"] = { "<CMD>lua require 'gitsigns'.reset_hunk()<CR>", "ﰇ Reset Hunk" },
-  ["R"] = { "<CMD>lua require 'gitsigns'.reset_buffer()<CR>", " Reset Buffer" },
-  ["s"] = { "<CMD>lua require 'gitsigns'.stage_hunk()<CR>", "ﴽ Stage Hunk" },
-  ["u"] = {
-    "<CMD>lua require 'gitsigns'.undo_stage_hunk()<CR>",
-    " Undo Stage Hunk",
-  },
-  ["d"] = {
-    "<CMD>Gitsigns diffthis HEAD<CR>",
-    " Diff",
-  },
+--[[
+-- Mappings: Git
+-- Author: Mark van der Meulen
+-- Updated: 2025-06-03
+--]]
+
+return {
+  { '<leader>gb', '<CMD>Telescope git_branches<CR>', desc = '  Checkout branch' },
+  -- { '<leader>gB', "<CMD>lua require 'gitsigns'.blame_line()<CR>", desc = "Show Blame" },
+  { '<leader>gc', '<CMD>Telescope git_commits<CR>', desc = 'Checkout commit' },
+  { '<leader>gC', '<CMD>Telescope git_bcommits<CR>', desc = 'Checkout commit(for current file)' },
+  { '<leader>gd', "<CMD>Gitsigns diffthis HEAD<CR>", desc = " 󰉢 Diff" },
+  { '<leader>gG', "<CMD>lua _GITUI_TOGGLE()<CR>i", desc = "GitUI" },
+  { '<leader>gh', "<CMD>Gitsigns toggle_linehl<CR>", desc = 'Toggle Highlight' },
+  { '<leader>gj', "<CMD>lua require 'gitsigns'.next_hunk()<CR>", desc = " Next Hunk" },
+  { '<leader>gk', "<CMD>lua require 'gitsigns'.prev_hunk()<CR>", desc = " Prev Hunk" },
+  { '<leader>gL', "<CMD>lua _LAZYGIT_TOGGLE()<CR>i", desc = " Lazygit" },
+  { '<leader>gp', "<CMD>lua require 'gitsigns'.preview_hunk()<CR>", desc = " Preview Hunk" },
+  { '<leader>gr', "<CMD>lua require 'gitsigns'.reset_hunk()<CR>", desc = "ﰇ Reset Hunk" },
+  { '<leader>gR', "<CMD>lua require 'gitsigns'.reset_buffer()<CR>", desc = " Reset Buffer" },
+  { '<leader>gs', "<CMD>lua require 'gitsigns'.stage_hunk()<CR>", desc = "Stage Hunk" },
+  { '<leader>gS', '<CMD>Telescope git_status<CR>', desc = '  Git Status' },
+  { '<leader>gt', "<CMD>Gitsigns toggle_signs<CR>", desc = 'Toggle Signs' },-- Should this be moved to some kind of UI menu?
+  { '<leader>gu', "<CMD>lua require 'gitsigns'.undo_stage_hunk()<CR>", desc = "Undo Stage Hunk" },
+  -- Neogit: <leader>gn
+  { '<leader>gna', '<CMD>Neogit branch_config<CR>', desc = 'Branch Config' },
+  { '<leader>gnA', '<CMD>Neogit remote_config<CR>', desc = 'Remote Config' },
+  { '<leader>gnb', '<CMD>Neogit bisect<CR>', desc = 'Bisect' },
+  { '<leader>gnB', '<CMD>Neogit branch<CR>', desc = 'Branch' },
+  { '<leader>gnc', '<CMD>Neogit commit<CR>', desc = 'Commit' },
+  { '<leader>gnC', '<CMD>Neogit cherry_pick<CR>', desc = 'Cherry Pick' },
+  { '<leader>gnd', '<CMD>Neogit diff<CR>', desc = 'Diff' },
+  { '<leader>gnf', '<CMD>Neogit fetch<CR>', desc = 'Fetch' },
+  { '<leader>gnh', '<CMD>Neogit help<CR>', desc = 'Help' },
+  { '<leader>gni', '<CMD>Neogit ignore<CR>', desc = 'Ignore' },
+  { '<leader>gnl', '<CMD>Neogit log<CR>', desc = 'Log' },
+  { '<leader>gnm', '<CMD>Neogit merge<CR>', desc = 'Merge' },
+  { '<leader>gnp', '<CMD>Neogit push<CR>', desc = 'Push' },
+  { '<leader>gnP', '<CMD>Neogit pull<CR>', desc = 'Pull' },
+  { '<leader>gnr', '<CMD>Neogit rebase<CR>', desc = 'Rebase' },
+  { '<leader>gnR', '<CMD>Neogit remote<CR>', desc = 'Remote' },
+  { '<leader>gns', '<cmd>lua require("neogit").open({ kind = "floating" })<CR>', desc = 'Status' },
+  { '<leader>gnS', '<CMD>Neogit stash<CR>', desc = 'Stash' },
+  { '<leader>gnt', '<CMD>Neogit tag<CR>', desc = 'Tag' },
+  { '<leader>gnv', '<CMD>Neogit revert<CR>', desc = 'Revert' },
+  { '<leader>gnw', '<CMD>Neogit worktree<CR>', desc = 'Worktree' },
+  { '<leader>gnx', '<CMD>Neogit reset<CR>', desc = 'Reset' },
+  { '<leader>gnX', '<cmd>lua require("neogit").open({ kind = "split" })<CR>', desc = 'Split' },
+  -- Github Repo: <leader>go
+  { "<leader>gog", "<CMD>lua require('helpers.plugins.github').open_git_repo()<CR>", desc = "Open Repo" },
+  { "<leader>gox", "<CMD>lua require('helpers.plugins.github').close_git_repo()<CR>", desc = "Close Repo Buffers" },
+  { "<leader>goc", "<CMD>lua require('helpers.plugins.github').clean_git_repo()<CR>", desc = "Clean Repo" },
+  -- VGit: <leader>gv
+  { '<leader>gva', '<CMD>VGit checkout<CR>', desc = 'Project Checkout' },
+  { '<leader>gvc', '<CMD>VGit project_commit_preview<CR>', desc = 'Commit Preview' },
+  { '<leader>gvd', '<CMD>VGit project_diff_preview<CR>', desc = 'Project Diff Preview' },
+  { '<leader>gvh', '<CMD>VGit help<CR>', desc = 'Help' },
+  { '<leader>gvl', '<CMD>VGit project_logs_preview<CR>', desc = 'Logs Preview' },
+  { '<leader>gvp', '<CMD>VGit project_commits_preview<CR>', desc = 'Project Commits Preview' },
+  { '<leader>gvs', '<CMD>VGit project_stash_preview<CR>', desc = 'Stash Preview' },
+  { '<leader>gvbs', '<CMD>VGit buffer_stage<CR>', desc = 'Buffer: Stage' },
+  { '<leader>gvbu', '<CMD>VGit buffer_unstage<CR>', desc = 'Buffer: Unstage' },
+  { '<leader>gvbr', '<CMD>VGit buffer_reset<CR>', desc = 'Buffer: Reset' },
+  { '<leader>gvbh', '<CMD>VGit buffer_hunk_preview<CR>', desc = 'Buffer: Hunk Preview' },
+  { '<leader>gvbd', '<CMD>VGit buffer_diff_preview<CR>', desc = 'Buffer: Diff Preview' },
+  { '<leader>gvbH', '<CMD>VGit buffer_history_preview<CR>', desc = 'Buffer: History Preview' },
+  { '<leader>gvbb', '<CMD>VGit buffer_blame_preview<CR>', desc = 'Buffer: Blame Preview' },
+  { '<leader>gvbn', '<CMD>VGit buffer_hunk_stage<CR>', desc = 'Buffer: Stage Hunk' },
+  { '<leader>gvbx', '<CMD>VGit buffer_hunk_reset<CR>', desc = 'Buffer: Hunk Reset' },
+  { '<leader>gvba', '<CMD>VGit buffer_conflict_accept_both<CR>', desc = 'Buffer Conflict: Accept Both' },
+  { '<leader>gvbC', '<CMD>VGit buffer_conflict_accept_current<CR>', desc = 'Buffer Conflict: Accept Current' },
+  { '<leader>gvbi', '<CMD>VGit buffer_conflict_accept_incoming<CR>', desc = 'Buffer Conflict: Accept Incoming' },
+  { '<leader>gvtd', '<CMD>VGit toggle_diff_preference<CR>', desc = 'Diff Preference' },
+  { '<leader>gvtg', '<CMD>VGit toggle_live_gutter<CR>', desc = 'Live Gutter' },
+  { '<leader>gvtb', '<CMD>VGit toggle_live_blame<CR>', desc = 'Live Blame' },
+  { '<leader>gvtt', '<CMD>VGit toggle_tracing<CR>', desc = 'Tracing' },
 }
-
-M.options = {
-  mode = "n",
-  silent = true,
-  noremap = true,
-  prefix = "<leader>g",
-  nowait = false,
-}
-
-return M
-
--- vim:ft=lua

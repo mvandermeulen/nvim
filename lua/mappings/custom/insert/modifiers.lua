@@ -6,20 +6,25 @@
 --]]
 
 
+local map = require('helpers.utils.keys').safe_keymap_set
+local opts = { noremap = true, silent = true }
+
 local insert_date = function()
-	local date = os.date('%Y-%m-%d') --[[@ as string]]
-	vim.api.nvim_feedkeys(date, 'n', false)
+  local date = os.date('%Y-%m-%d') --[[@ as string]]
+  vim.api.nvim_feedkeys(date, 'n', false)
 end
 
 local insert_time = function()
-	local time = os.date('%H:%M:%S') --[[@ as string]]
-	vim.api.nvim_feedkeys(time, 'n', false)
+  local time = os.date('%H:%M:%S') --[[@ as string]]
+  vim.api.nvim_feedkeys(time, 'n', false)
 end
 
-vim.keymap.set('i', '<C-g>d', insert_date, { desc = 'Insert date' })
-vim.keymap.set('i', '<C-g><C-d>', insert_date, { desc = 'Insert date' })
-vim.keymap.set('i', '<C-g>t', insert_time, { desc = 'Insert time' })
-vim.keymap.set('i', '<C-g><C-t>', insert_time, { desc = 'Insert time' })
+map('i', '<C-g>d', insert_date, { desc = 'Insert date' })
+map('i', '<C-g><C-d>', insert_date, { desc = 'Insert date' })
+map('i', '<C-g>t', insert_time, { desc = 'Insert time' })
+map('i', '<C-g><C-t>', insert_time, { desc = 'Insert time' })
+
+map('i', '<C-c>', '<Esc>', opts)
 
 
 -- map({ 'i', 's' }, '<C-l>', function()

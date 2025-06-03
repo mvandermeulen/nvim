@@ -7,14 +7,13 @@
 
 
 
+local map = require('helpers.utils.keys').safe_keymap_set
 
 -- map('n', '<leader>-', function()
 -- 	vim.cmd('Explore')
 -- end, { desc = 'Explorer' })
 
 
-
-vim.keymap.set("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
 -- copy current file name
 -- vim.keymap.set(
 --   "n",
@@ -52,21 +51,18 @@ vim.keymap.set("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diag
 -- )
 
 -- blackhole delete
-vim.keymap.set({ "n", "v" }, "<leader>D", '"_dP', { desc = 'Blackhole Delete'})
+map({ "n", "v" }, "<leader>D", '"_dP', { desc = 'Blackhole Delete'})
 
 -- Escape search highlight
 -- vim.keymap.set("n", "<leader>s", "<cmd>set hlsearch!<CR>")
 
-vim.keymap.set('n', '<Space>am', '<CMD>messages<CR>', { desc = 'History of messages' })
+-- vim.keymap.set('n', '<Space>am', '<CMD>messages<CR>', { desc = 'History of messages' })
 
 -- vim.keymap.set("n", "<leader>xl", "<cmd>lopen<cr>", { desc = "Location List" })
 -- vim.keymap.set("n", "<leader>xq", "<cmd>copen<cr>", { desc = "Quickfix List" })
 
 -- quit
 -- vim.keymap.set("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit All" })
-
-vim.keymap.set("n", "<leader>aze", "<cmd>SopsEncrypt<cr>", { desc = "SOPS Encrypt" })
-vim.keymap.set("n", "<leader>azd", "<cmd>SopsDecrypt<cr>", { desc = "SOPS Decrypt" })
 
 -- Helpful for copy and paste
 -- map('x', '<leader>p', '"_dP')
@@ -81,23 +77,6 @@ vim.keymap.set("n", "<leader>azd", "<cmd>SopsDecrypt<cr>", { desc = "SOPS Decryp
 
 
 
-
--- Fill the rest of line with characters
-local function FillLine(ch)
-    ch = ch or "-"
-    local width = 100
-    local line_nr = vim.api.nvim_win_get_cursor(0)[1] - 1
-    local line = vim.api.nvim_buf_get_lines(0, line_nr, line_nr + 1, false)[1]
-
-    local line_len = string.len(line)
-    vim.api.nvim_buf_set_lines(0, line_nr, line_nr + 1, false,
-        { line .. " " .. string.rep(ch, width - line_len - 2) })
-end
-
-vim.keymap.set("n", "<leader>-", function() FillLine("─") end,
-    { desc = "Fill line with `─` characters", noremap = true, silent = true })
-vim.keymap.set("n", "<leader>=", function() FillLine("━") end,
-    { desc = "Fill line with `━` characters", noremap = true, silent = true })
 
 -- TOGGLES
 --------------------------------
@@ -154,26 +133,26 @@ vim.keymap.set("n", "<leader>=", function() FillLine("━") end,
 -- 	vim.notify('clipboard=' .. vim.o.clipboard)
 -- end, { desc = 'Toggle clipboard' })
 
-local vedit_default
-vim.keymap.set('n', '<leader>av', function()
-  if not vedit_default then
-    vedit_default = vim.o.virtualedit
-  end
-  if vim.o.virtualedit == vedit_default then
-    vim.opt.virtualedit = 'all'
-  else
-    vim.opt.virtualedit = vedit_default
-  end
-  vim.notify('virtualedit=' .. vim.o.virtualedit)
-end, { desc = 'Toggle virtualedit' })
+-- local vedit_default
+-- vim.keymap.set('n', '<leader>av', function()
+--   if not vedit_default then
+--     vedit_default = vim.o.virtualedit
+--   end
+--   if vim.o.virtualedit == vedit_default then
+--     vim.opt.virtualedit = 'all'
+--   else
+--     vim.opt.virtualedit = vedit_default
+--   end
+--   vim.notify('virtualedit=' .. vim.o.virtualedit)
+-- end, { desc = '' })
 
-local vt_bak
-vim.keymap.set('n', '<leader>lT', function()
-  vt_bak = vt_bak == nil and vim.diagnostic.config().virtual_text or vt_bak
-  if vim.diagnostic.config().virtual_text then
-    vim.diagnostic.config({ virtual_text = false })
-  else
-    vim.diagnostic.config({ virtual_text = vt_bak })
-  end
-end, { desc = 'LSP: Toggle virtual text of diagnotics' })
+-- local vt_bak
+-- vim.keymap.set('n', '<leader>lT', function()
+--   vt_bak = vt_bak == nil and vim.diagnostic.config().virtual_text or vt_bak
+--   if vim.diagnostic.config().virtual_text then
+--     vim.diagnostic.config({ virtual_text = false })
+--   else
+--     vim.diagnostic.config({ virtual_text = vt_bak })
+--   end
+-- end, { desc = 'LSP: Toggle virtual text of diagnotics' })
 

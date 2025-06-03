@@ -1,99 +1,73 @@
-local M = {}
+--[[
+-- Mappings: Applications
+-- Author: Mark van der Meulen
+-- Updated: 2025-06-03
+--]]
 
-local clipboard_mappings = {
-    name = ' Clipboard',
-    ["0"] = { '<cmd>:Telescope neoclip 0<cr>', 'Yank to Register 0' },
-    ["2"] = { '<cmd>:Telescope neoclip 2<cr>', 'Yank to Register 2' },
-    ["4"] = { '<cmd>:Telescope neoclip 4<cr>', 'Yank to Register 4' },
-    ["6"] = { '<cmd>:Telescope neoclip 6<cr>', 'Yank to Register 6' },
-    ["8"] = { '<cmd>:Telescope neoclip 8<cr>', 'Yank to Register 8' },
-    h = { '<cmd>:Telescope neoclip<cr>', 'History' },
-    m = { "<cmd>lua require('telescope').extensions.macroscope.default()<cr>", 'Macros'},
-    p = { '<cmd>:Telescope neoclip plus<cr>', 'Yank to Plus' },
-    P = { '<cmd>lua require("neoclip").pause()<cr>', 'Pause Recording' },
-    s = { '<cmd>:Telescope neoclip star<cr>', 'Yank to Star' },
-    S = { '<cmd>lua require("neoclip").start()<cr>', 'Start Recording' },
-    T = { '<cmd>lua require("neoclip").toggle()<cr>', 'Toggle Recording' },
-    u = { '<cmd>:Telescope neoclip unnamed<cr>', 'Yank to Unnamed' },
+local log = require('plenary.log').new({ plugin = 'which-key-apps', level = 'debug', use_console = true })
+local function mylog(msg, level)
+  local level = level or 'debug'
+  log.debug(msg)
+  if level == 'info' or level == 'warn' or level == 'error' then
+    vim.notify(msg, vim.log.levels.INFO, { title = 'which-key-apps' })
+  end
+end
+
+local ts_status, ts = pcall(require, 'mappings.apps.treesitter')
+if not ts_status then
+  mylog('Failed to load mappings: Treesitter', 'error')
+  return
+end
+
+local terminal_status, term = pcall(require, 'mappings.apps.terminal')
+if not terminal_status then
+  mylog('Failed to load mappings: Terminal', 'error')
+  return
+end
+
+local sshfs_status, sshfs = pcall(require, 'mappings.apps.sshfs')
+if not sshfs_status then
+  mylog('Failed to load mappings: SSHFS', 'error')
+  return
+end
+
+local clipboard_status, clip = pcall(require, 'mappings.apps.clipboard')
+if not clipboard_status then
+  mylog('Failed to load mappings: Clipboard', 'error')
+  return
+end
+
+local gist_status, gist = pcall(require, 'mappings.apps.gist')
+if not gist_status then
+  mylog('Failed to load mappings: Gist', 'error')
+  return
+end
+
+local sops_status, sops = pcall(require, 'mappings.apps.sops')
+if not sops_status then
+  mylog('Failed to load mappings: SOPS', 'error')
+  return
+end
+
+return {
+  { "<leader>aC", "<cmd>Cheatsheet<cr>", desc = "Cheatsheet" },
+  { '<leader>am', '<cmd>Mason<cr>', desc = 'Mason' },
+  { "<leader>aS", "<cmd>FzfLua<cr>", desc = "Fuzzy Search" },
+  { "<leader>aT", "<cmd>Telescope<cr>", desc = "  Telescope Extensions" },
+  { "<leader>ay", "<ESC><CMD>YankBank<CR>", desc = " YankBank" },
+  { "<leader>au", "<ESC><CMD>UrlView<CR>", desc = "Buffer URL View" },
+  { "<leader>aL", "<ESC><CMD>UrlView lazy<CR>", desc = "Lazy URL View" },
+  { '<leader>aV', "<cmd>lua _G.my.helpers.server:vdm_start_server()<cr>", desc = 'Start Server' },
+  -- Clipboard: <leader>ac
+  clip,
+  -- Gist: <leader>ag
+  gist,
+  -- SSHFS: <leader>as
+  sshfs,
+  -- Terminal: <leader>at
+  term,
+  -- Treesitter: <leader>aT
+  ts,
+  -- SOPS: <leader>az
+  sops,
 }
-
-local chatgpt_mappings = {
-  name = "GPT",
-    c = { "<cmd>ChatGPT<CR>", "ChatGPT" },
-    e = { "<cmd>ChatGPTEditWithInstruction<CR>", "Edit with instruction", mode = { "n", "v" } },
-    g = { "<cmd>ChatGPTRun grammar_correction<CR>", "Grammar Correction", mode = { "n", "v" } },
-    t = { "<cmd>ChatGPTRun translate<CR>", "Translate", mode = { "n", "v" } },
-    k = { "<cmd>ChatGPTRun keywords<CR>", "Keywords", mode = { "n", "v" } },
-    d = { "<cmd>ChatGPTRun docstring<CR>", "Docstring", mode = { "n", "v" } },
-    a = { "<cmd>ChatGPTRun add_tests<CR>", "Add Tests", mode = { "n", "v" } },
-    o = { "<cmd>ChatGPTRun optimize_code<CR>", "Optimize Code", mode = { "n", "v" } },
-    s = { "<cmd>ChatGPTRun summarize<CR>", "Summarize", mode = { "n", "v" } },
-    f = { "<cmd>ChatGPTRun fix_bugs<CR>", "Fix Bugs", mode = { "n", "v" } },
-    x = { "<cmd>ChatGPTRun explain_code<CR>", "Explain Code", mode = { "n", "v" } },
-    r = { "<cmd>ChatGPTRun roxygen_edit<CR>", "Roxygen Edit", mode = { "n", "v" } },
-    l = { "<cmd>ChatGPTRun code_readability_analysis<CR>", "Code Readability Analysis", mode = { "n", "v" } },
-}
-
-
--- local chatgpt_mappings = {
---     name = 'GPT',
---     g = { ':ChatGPT<cr>', 'ChatGPT' },
---     r = { ':ChatGPTRun<cr>', 'Run' },
---     a = { ':ChatGPTActAs<cr>', 'Act As' },
---     c = { ':ChatGPTCompleteCode<cr>', 'Complete Code' },
---     e = { ':ChatGPTEditWithInstructions<cr>', 'Complete Code' },
--- }
-
-
-
--- local clipboard_mappings = {
--- }
-
-local focus_mappings = {
-    name = 'Focus',
-    z = { '<cmd>:ZenMode<cr>', 'Toggle Zen Mode' },
-    t = { '<cmd>:Twilight<cr>', 'Toggle Twilight' },
-}
-
-
-local treesitter_mappings = {
-    name = 'Treesitter',
-    c = { '<cmd>:TSContextToggle<cr>', 'Context Toggle' },
-    h = { '<cmd>TSHighlightCapturesUnderCursor<cr>', 'Highlight' },
-    p = { '<cmd>TSPlaygroundToggle<cr>', 'Playground' },
-}
-
-local undotree_mappings = {
-    name = ' Undotree',
-    o = { '<cmd>lua require("undotree").open()<cr>', ' Open' },
-    c = { '<cmd>lua require("undotree").close()<cr>', ' Close' },
-    t = { '<cmd>lua require("undotree").toggle()<cr>', ' Toggle' },
-}
-
-
-
--- M.mappings = {
---     name = '󰣆 Applications',
---     u = undotree_mappings,
---     c = { '<cmd>:Cheatsheet<cr>', ' Cheatsheet' },
---     f = { '<cmd>:FzfLua<cr>', ' Fuzzy Search' },
---     l = { '<cmd>:Llama<cr>', '󰭆 LLaMA' },
---     n = { '<cmd>:Notifications<cr>', '󰵙 Notifications' },
---     t = { "<cmd>Telescope<cr>", " Telescope Extensions" },
--- }
-
-M.mappings = {
-    name = 'Applications',
-    c = clipboard_mappings,
-    C = { '<cmd>:Cheatsheet<cr>', 'Cheatsheet' },
-    f = focus_mappings,
-    g = chatgpt_mappings,
-    l = { '<cmd>:Llama<cr>', '󰭆 LLaMA' },
-    n = { '<cmd>:Notifications<cr>', '󰵙 Notifications' },
-    s = { '<cmd>:FzfLua<cr>', 'Fuzzy Search' },
-    t = treesitter_mappings,
-    T = { "<cmd>Telescope<cr>", " Telescope Extensions" },
-    u = undotree_mappings,
-}
-
-return M

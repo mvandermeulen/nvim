@@ -303,7 +303,7 @@ function EscapePair()
 end
 
 -- map("i", "<C-L>", "<CMD>lua EscapePair()<CR>", dfo())
-map("i", "<M-i>", "<CMD>lua require('helpers.utils.fs').insert_file_path()<CR>", dfo())
+map("i", "<M-f>", "<CMD>lua require('helpers.utils.fs').insert_file_path()<CR>", dfo())
 
 vim.api.nvim_set_keymap(
   "i",

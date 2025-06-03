@@ -6,6 +6,8 @@
 --]]
 
 
+local map = require('helpers.utils.keys').safe_keymap_set
+
 local function dfo(desc)
   if desc then
     return { noremap = true, silent = true, desc = desc }
@@ -13,20 +15,6 @@ local function dfo(desc)
     return { noremap = true, silent = true }
   end
 end
-
-
--- This will allow us to Shift-K and get the Hover property to show
-vim.keymap.set('n', 'K', vim.lsp.buf.hover, {})
-
---- Always center Ctrl+U/D ---
-vim.keymap.set("n", "<C-u>", "<C-u>zz", dfo())
-vim.keymap.set("n", "<C-d>", "<C-d>zz", dfo())
-
-
-
-vim.keymap.set("n", "[q", vim.cmd.cprev, { desc = "Previous Quickfix" })
-vim.keymap.set("n", "]q", vim.cmd.cnext, { desc = "Next Quickfix" })
-
 
 -- diagnostic
 local diagnostic_goto = function(next, severity)
@@ -36,33 +24,35 @@ local diagnostic_goto = function(next, severity)
     go { severity = severity }
   end
 end
-vim.keymap.set("n", "]D", diagnostic_goto(true), { desc = "Next Diagnostic" })
-vim.keymap.set("n", "[D", diagnostic_goto(false), { desc = "Prev Diagnostic" })
-vim.keymap.set("n", "]e", diagnostic_goto(true, "ERROR"), { desc = "Next Error" })
-vim.keymap.set("n", "[e", diagnostic_goto(false, "ERROR"), { desc = "Prev Error" })
-vim.keymap.set("n", "]w", diagnostic_goto(true, "WARN"), { desc = "Next Warning" })
-vim.keymap.set("n", "[w", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
+
+map('n', 'K', vim.lsp.buf.hover, {}) -- This will allow us to Shift-K and get the Hover property to show
+
+--- Always center Ctrl+U/D ---
+map("n", "<C-u>", "<C-u>zz", dfo())
+map("n", "<C-d>", "<C-d>zz", dfo())
+
+map("n", "[q", vim.cmd.cprev, { desc = "Previous Quickfix" })
+map("n", "]q", vim.cmd.cnext, { desc = "Next Quickfix" })
+map("n", "]D", diagnostic_goto(true), { desc = "Next Diagnostic" })
+map("n", "[D", diagnostic_goto(false), { desc = "Prev Diagnostic" })
+map("n", "]e", diagnostic_goto(true, "ERROR"), { desc = "Next Error" })
+map("n", "[e", diagnostic_goto(false, "ERROR"), { desc = "Prev Error" })
+map("n", "]w", diagnostic_goto(true, "WARN"), { desc = "Next Warning" })
+map("n", "[w", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
+map('n', ']j', '<C-i>zz', { silent = true, noremap = true, desc = 'Next Jump'})
+map('n', '[j', '<C-o>zz', { silent = true, noremap = true, desc = 'Previous Jump'})
 
 
+map('n', '<Tab>', '<C-w>w', { silent = true, noremap = true })
 -- vim.api.nvim_set_keymap('n', '<bs>', '<c-^\'”zz', { silent = true, noremap = true })
 
-
-  -- Scroll with ',' and 'm', moving the marker key to 'M'
+-- Scroll with ',' and 'm', moving the marker key to 'M'
 -- vim.keymap.map('', ',', '<C-u>', { noremap = true })
 -- vim.keymap.map('', 'm', '<C-d>', { noremap = true })
 -- vim.keymap.map('', 'M', 'm', { noremap = true })
 
-
--- vim.keymap.map('', '', '', { silent = true, noremap = true })
--- vim.keymap.map('', '', '', { silent = true, noremap = true })
--- vim.keymap.map('', '', '', { silent = true, noremap = true })
--- vim.keymap.map('', '', '', { silent = true, noremap = true })
-
-vim.keymap.set('n', ']j', '<C-i>zz', { silent = true, noremap = true, desc = 'Next Jump'})
-vim.keymap.set('n', '[j', '<C-o>zz', { silent = true, noremap = true, desc = 'Previous Jump'})
-vim.keymap.set('n', '<Tab>', '<C-w>w', { silent = true, noremap = true })
 -- vim.keymap.map('n', '<CR>', '<Cmd>noh<CR><Bar><Cmd>echon<CR><CR>', { silent = true, noremap = true })
--- vim.keymap.map('n', '<c-c><c-c>', ':qa!<cr>', { silent = true, noremap = true })
+map('n', '<c-c><c-q>', ':qa!<cr>', { silent = true, noremap = true })
 
 
 -- Clear search with <esc>
@@ -95,11 +85,17 @@ vim.keymap.set('n', '<Tab>', '<C-w>w', { silent = true, noremap = true })
 -- map('n', 'grl', vim.diagnostic.setloclist, { desc = 'LSP: Set diagnostics into loclist' })
 
 -- Make many of the jump commands also center on search term
-vim.keymap.set("n", "n", "nzz", { noremap = true })
-vim.keymap.set("n", "N", "Nzz", { noremap = true })
+map("n", "n", "nzz", { noremap = true })
+map("n", "N", "Nzz", { noremap = true })
 -- map("n", "<C-o>", "<C-o>zz", { noremap = true })
 -- map("n", "<C-i>", "<C-i>zz", { noremap = true })
-vim.keymap.set("n", "*", "*zz", { noremap = true })
-vim.keymap.set("n", "#", "#zz", { noremap = true })
+map("n", "*", "*zz", { noremap = true })
+map("n", "#", "#zz", { noremap = true })
 
+
+-- map("n", "<leader>gn", "]s")
+-- map("n", "<leader>gp", "[s")
+-- map("n", "<leader>gg", "zg")
+-- map("n", "<ESC>", "<cmd> :noh <CR>")
+-- map("x", "p", "P")
 
