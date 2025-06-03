@@ -43,10 +43,10 @@ return {
         provider_selector = function(bufnr, filetype, buftype)
           return { "treesitter", "indent" }
         end,
-        open_fold_hl_timeout = 150,
+        open_fold_hl_timeout = 0,
         close_fold_kinds_for_ft = { default = { 'imports', 'comment' } },
         preview = {
-          win_config = { border = { "", "─", "", "", "", "─", "", "" }, winhighlight = 'Normal:Folded', winblend = 50 },
+          win_config = { border = { "", "─", "", "", "", "─", "", "" }, winblend = 0 },
           mappings = {
             scrollU = "<C-b>",
             scrollD = "<C-f>",
@@ -69,43 +69,43 @@ return {
       },
     },
   },
-  {-- chrisgrieser/nvim-origami
-    "chrisgrieser/nvim-origami",
-    lazy = false,
-    enabled = false,
-    opts = {
-      keepFoldsAcrossSessions = package.loaded["ufo"],
-      useLspFoldsWithTreesitterFallback = not package.loaded["ufo"],
-      pauseFoldsOnSearch = true,
-      autoFold = {
-        enabled = true,
-        kinds = { "comment", "imports" },
-      },
-      foldKeymaps = {
-        setup = false, -- modifies `h` and `l`
-        hOnlyOpensOnFirstColumn = false,
-      },
-    },
-    config = function()
-      local status_ok, origami = pcall(require, 'origami')
-      if not status_ok then
-        return
-      end
-      origami.setup({
-        -- keepFoldsAcrossSessions = true,
-        keepFoldsAcrossSessions = package.loaded["ufo"],
-        useLspFoldsWithTreesitterFallback = not package.loaded["ufo"],
-        pauseFoldsOnSearch = true,
-        autoFold = {
-          enabled = true,
-          kinds = { "comment", "imports" },
-        },
-        -- `h` key opens on first column, not at first non-blank character or before
-        foldKeymaps = {
-          setup = false, -- modifies `h` and `l`
-          hOnlyOpensOnFirstColumn = false,
-        },
-      })
-    end,
-  },
+  -- {-- chrisgrieser/nvim-origami
+  --   "chrisgrieser/nvim-origami",
+  --   lazy = false,
+  --   enabled = false,
+  --   opts = {
+  --     keepFoldsAcrossSessions = package.loaded["ufo"],
+  --     useLspFoldsWithTreesitterFallback = not package.loaded["ufo"],
+  --     pauseFoldsOnSearch = true,
+  --     autoFold = {
+  --       enabled = true,
+  --       kinds = { "comment", "imports" },
+  --     },
+  --     foldKeymaps = {
+  --       setup = false, -- modifies `h` and `l`
+  --       hOnlyOpensOnFirstColumn = false,
+  --     },
+  --   },
+  --   config = function()
+  --     local status_ok, origami = pcall(require, 'origami')
+  --     if not status_ok then
+  --       return
+  --     end
+  --     origami.setup({
+  --       -- keepFoldsAcrossSessions = true,
+  --       keepFoldsAcrossSessions = package.loaded["ufo"],
+  --       useLspFoldsWithTreesitterFallback = not package.loaded["ufo"],
+  --       pauseFoldsOnSearch = true,
+  --       autoFold = {
+  --         enabled = true,
+  --         kinds = { "comment", "imports" },
+  --       },
+  --       -- `h` key opens on first column, not at first non-blank character or before
+  --       foldKeymaps = {
+  --         setup = false, -- modifies `h` and `l`
+  --         hOnlyOpensOnFirstColumn = false,
+  --       },
+  --     })
+  --   end,
+  -- },
 }
