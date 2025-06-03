@@ -9,7 +9,8 @@
 local M = {}
 
 function M.get_tmux_working_directory()
-  local handle = io.popen "tmux display-message -p -F '#{session_path}'"
+  -- local handle = io.popen "tmux display-message -p -F '#{session_path}'"
+  local handle = io.popen "tmux display-message -p -F '#{pane_path}'"
   if handle then
     local result = handle:read "*l"
     handle:close()

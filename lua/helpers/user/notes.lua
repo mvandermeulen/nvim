@@ -10,6 +10,12 @@ local M = {}
 
 local uv = vim.uv or vim.loop
 
+-- get length of current word
+function M.get_word_length()
+    local word = vim.fn.expand "<cword>"
+    return #word
+end
+
 function M.insert_todo_and_comment()
   -- Insert the TODO text at the current cursor position
   local line = vim.api.nvim_get_current_line()

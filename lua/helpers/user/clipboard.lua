@@ -15,18 +15,42 @@ end
 local M = {}
 
 -- local async = require "plenary.async"
+local function paste()
+  return {
+    vim.split(vim.fn.getreg '', '\n'),
+    vim.fn.getregtype '',
+  }
+end
+
+local function paste_with_osc52()
+  -- This function is used to paste with OSC52, which is not recommended due to slowness.
+  -- It is kept here for reference but not used in the clipboard setup.
+  return {
+    vim.split(vim.fn.getreg(''), '\n'),
+    vim.fn.getregtype(''),
+  }
+end
+
+local function copy_to_local_clipboard(lines, regtype)
+  -- This function is used to copy to the local clipboard.
+  -- It is kept here for reference but not used in the clipboard setup.
+  vim.fn.setreg('', lines, regtype)
+end
+
+-- local function local_copy(lines, _) osc52.copy(table.concat(lines, "\n")) end
+-- local function local_paste() return { vim.fn.split(vim.fn.getreg(""), "\n"), vim.fn.getregtype("") } end
+
+-- vim.g.clipboard = {
+--   name = "osc52",
+--   copy = { ["+"] = local_copy, ["*"] = local_copy },
+--   paste = { ["+"] = local_paste, ["*"] = local_paste },
+-- }
 
 function M.setup()
   --  Remove this option if you want your OS clipboard to remain independent.
   --  See `:help 'clipboard'`
   vim.opt.clipboard = 'unnamedplus'
   -- Pasting with OSC52 is really slow. Use Neovim's paste instead.
-  local function paste()
-    return {
-      vim.split(vim.fn.getreg '', '\n'),
-      vim.fn.getregtype '',
-    }
-  end
 
   local system_name = vim.loop.os_uname().sysname
   local hostname = vim.env.HOST
