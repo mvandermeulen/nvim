@@ -13,7 +13,8 @@ return {
     opts = function()
       local handler = function(virtText, lnum, endLnum, width, truncate)
         local newVirtText = {}
-        local suffix = (" ... 󰁂 %d "):format(endLnum - lnum)
+        -- local suffix = (" ... 󰁂 %d "):format(endLnum - lnum)
+        local suffix = (" 󰁂 %d "):format(endLnum - lnum)
         local sufWidth = vim.fn.strdisplaywidth(suffix)
         local targetWidth = width - sufWidth
         local curWidth = 0
@@ -69,43 +70,4 @@ return {
       },
     },
   },
-  -- {-- chrisgrieser/nvim-origami
-  --   "chrisgrieser/nvim-origami",
-  --   lazy = false,
-  --   enabled = false,
-  --   opts = {
-  --     keepFoldsAcrossSessions = package.loaded["ufo"],
-  --     useLspFoldsWithTreesitterFallback = not package.loaded["ufo"],
-  --     pauseFoldsOnSearch = true,
-  --     autoFold = {
-  --       enabled = true,
-  --       kinds = { "comment", "imports" },
-  --     },
-  --     foldKeymaps = {
-  --       setup = false, -- modifies `h` and `l`
-  --       hOnlyOpensOnFirstColumn = false,
-  --     },
-  --   },
-  --   config = function()
-  --     local status_ok, origami = pcall(require, 'origami')
-  --     if not status_ok then
-  --       return
-  --     end
-  --     origami.setup({
-  --       -- keepFoldsAcrossSessions = true,
-  --       keepFoldsAcrossSessions = package.loaded["ufo"],
-  --       useLspFoldsWithTreesitterFallback = not package.loaded["ufo"],
-  --       pauseFoldsOnSearch = true,
-  --       autoFold = {
-  --         enabled = true,
-  --         kinds = { "comment", "imports" },
-  --       },
-  --       -- `h` key opens on first column, not at first non-blank character or before
-  --       foldKeymaps = {
-  --         setup = false, -- modifies `h` and `l`
-  --         hOnlyOpensOnFirstColumn = false,
-  --       },
-  --     })
-  --   end,
-  -- },
 }

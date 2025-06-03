@@ -142,15 +142,7 @@ local M = {
       require('plugins.ui.dropbar')
     end,
   },
-  -- b9Joker108/my.neovim.config/lua/plugins/extras/editor/fold.lua
   require('plugins.ui.fold'),
-  -- {-- chrisgrieser/nvim-origami
-  --   'chrisgrieser/nvim-origami',
-  --   lazy = false,
-  --   config = function()
-  --     require('plugins.ui.origami')
-  --   end,
-  -- },
   { 'rhysd/conflict-marker.vim', lazy = false },
   {-- rose-pine/neovim
     'rose-pine/neovim',
