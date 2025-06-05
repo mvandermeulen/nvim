@@ -13,9 +13,9 @@ local function mylog(msg, level)
   end
 end
 
-local settings_status, settings = pcall(require, 'settings')
+local settings_status, settings = pcall(require, 'mappings.settings')
 if not settings_status then
-  mylog('Failed to load mappings: Settings', 'error')
+  mylog('Failed to load mappings: settings', 'error')
   return
 end
 

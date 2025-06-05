@@ -7,4 +7,3 @@ function M.register(name, provider)
 end
 
 return M
-

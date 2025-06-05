@@ -18,7 +18,7 @@ end
 resession.setup({
   autosave = {
     enabled = true,
-    interval = 30,
+    interval = 15,
     notify = true,
   },
   dir = "resession",

@@ -77,12 +77,12 @@ vim.keymap.set("n", "<F14>", "<cmd>BufferDelete<CR>", dfo())
 -- <F11>: Toggle zoom the current window (from custom functions)
 vim.keymap.set("n", "<F16>", function() require("snacks").zen.zoom() end, dfo())
 -- <S-F11>: Toggle colorizer
-vim.keymap.set("n", "<F17>", "<cmd>ColorizerToggle<CR>", dfo())
+-- vim.keymap.set("n", "<F17>", "<cmd>ColorizerToggle<CR>", dfo())
 
 -- <F12>: Toggle relative number
 -- vim.keymap.set("n", "<F12>", "<cmd>set nu rnu!<CR>", dfo())
 -- <S-F11>: Toggle welcome screen
-vim.keymap.set("n", "<F19>", function() require("snacks").dashboard() end, dfo())
+-- vim.keymap.set("n", "<F19>", function() require("snacks").dashboard() end, dfo())
 
 
 

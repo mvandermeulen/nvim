@@ -87,6 +87,12 @@ local function set_server_value_in_redis(server_socket_path)
   vim.fn.jobwait({ jobid })
 end
 
+
+function M:is_running()
+  return self.server.running
+end
+
+
 function M:vdm_start_server()
   if self.server.running or self.server.pipe ~= nil then
     print('Server already running on ' .. self.server.pipe)

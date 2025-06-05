@@ -263,6 +263,7 @@ local M = {
   {-- you-fail-me/git-drift.nvim
     'you-fail-me/git-drift.nvim',
     lazy = false,
+    enabled = false, -- TODO: This plugin keeps making neovim crash
     config = function()
       require('git-drift').setup()
     end,
@@ -270,6 +271,7 @@ local M = {
   {-- nick-skriabin/commitment.nvim
     'nick-skriabin/commitment.nvim',
     lazy = false,
+    enabled = false, -- TODO: This plugin keeps making neovim unstable
     config = function()
       require('commitment').setup({
         stop_on_write = false,

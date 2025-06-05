@@ -2,7 +2,7 @@
 -- Autocommand functions
 --
 -- Author: Mark van der Meulen
--- Updated: 24-04-2022
+-- Updated: 2025-06-03
 --]]
 
 -- Define autocommands with Lua APIs
@@ -73,21 +73,16 @@ autocmd('BufEnter', {
 -- BufEnter,BufRead,BufWinEnter,FileType,WinEnter
 vim.cmd("autocmd BufEnter,BufRead,BufWinEnter,FileType,WinEnter * lua hide_statusline(statusline_hide)")
 
--- Don't auto comment new lines
-autocmd('BufEnter', {
-  pattern = '*',
-  command = 'set fo-=c fo-=r fo-=o'
-})
 
 -- Restore cursor position?
-autocmd("BufReadPost", {
-  callback = function()
-    local last_pos = vim.fn.line("'\"")
-    if last_pos > 0 and last_pos <= vim.fn.line("$") then
-      vim.api.nvim_win_set_cursor(0, {last_pos, 0})
-    end
-  end,
-})
+-- autocmd("BufReadPost", {
+--   callback = function()
+--     local last_pos = vim.fn.line("'\"")
+--     if last_pos > 0 and last_pos <= vim.fn.line("$") then
+--       vim.api.nvim_win_set_cursor(0, {last_pos, 0})
+--     end
+--   end,
+-- })
 
 
 -- Jump to last loc when opening a buffer
@@ -208,6 +203,9 @@ autocmd("InsertLeave", {-- Display diagnostics as virtual text only if not in in
 
 autocmd({ "InsertLeave", "TextChanged" }, {-- Autosave on insert leave
   callback = function()
+    if not _G.my.helpers.server:is_running() then
+      return
+    end
     for _, buf in ipairs(vim.api.nvim_list_bufs()) do
       -- Don't save while there's any 'nofile' buffer open.
       if vim.api.nvim_get_option_value("buftype", { buf = buf }) == 'nofile' then

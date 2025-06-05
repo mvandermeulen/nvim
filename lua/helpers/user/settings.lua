@@ -1,4 +1,16 @@
-local M = {}
+--[[
+-- Helper: User Settings
+--
+-- Author: Mark van der Meulen
+-- Updated: 2025-06-05
+--]]
+
+local M = {
+  settings = {
+    auto_resize_splits = true, -- Automatically resize splits when window got resized
+  },
+}
+
 
 local vedit_default
 local vt_bak
@@ -57,6 +69,18 @@ function M.toggle_clipboard()
   end
 end
 
+function M:toggle_setting(setting)
+  if self.settings[setting] == nil then
+    vim.notify('Setting ' .. setting .. ' does not exist.')
+    return
+  end
+  if type(self.settings[setting]) == 'boolean' then
+    self.settings[setting] = not self.settings[setting]
+    vim.notify(setting .. ': ' .. tostring(self.settings[setting]))
+  else
+    vim.notify('Setting ' .. setting .. ' is not a boolean.')
+  end
+end
 
 
 return M
