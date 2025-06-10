@@ -80,14 +80,6 @@ local M = {
       require('plugins.utils.comment-box')
     end,
   },
-  -- {-- asmorris/line_notes.nvim
-  --   'asmorris/line_notes.nvim',
-  --   dependencies = { "nvim-telescope/telescope.nvim" },
-  --   lazy = false,
-  --   config = function()
-  --     require('plugins.utils.line_notes')
-  --   end,
-  -- },
   {-- folke/which-key.nvim
     'folke/which-key.nvim',
     event = "VeryLazy",
@@ -579,16 +571,6 @@ local M = {
     },
     lazy = false,
   },
-  -- {-- SunnyTamang/select-undo.nvim: undo specific lines or partial selections without affecting the rest of the file
-  --   'SunnyTamang/select-undo.nvim',
-  --   lazy = false,
-  --   config = function()
-  --     require('select-undo').setup({
-  --       line_mapping = "<leader>Fl",
-  --       partial_mapping = "<leader>Fu"
-  --     })
-  --   end,
-  -- },
   {-- y3owk1n/time-machine.nvim
     'y3owk1n/time-machine.nvim',
     lazy = false,

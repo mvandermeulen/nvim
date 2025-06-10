@@ -14,20 +14,6 @@ local M = {
       require('plugins.ui.navigator')
     end,
   },
-  -- {-- numToStr/Navigator.nvim
-  --   'numToStr/Navigator.nvim',
-  --   lazy = false,
-  --   config = function()
-  --     require('plugins.ui.navigator')
-  --   end,
-  -- },
-  -- {-- hiasr/vim-zellij-navigator.nvim
-  --   'hiasr/vim-zellij-navigator.nvim',
-  --   lazy = false,
-  --   config = function()
-  --     require('vim-zellij-navigator').setup()
-  --   end,
-  -- },
   {-- luukvbaal/stabilize.nvim
     'luukvbaal/stabilize.nvim',
     lazy = false,
@@ -152,11 +138,6 @@ local M = {
     config = function()
       require('plugins.ui.rpine')
     end,
-  },
-  {-- nvim-zh/colorful-winsep.nvim
-    "nvim-zh/colorful-winsep.nvim",
-    config = true,
-    event = { "WinLeave" },
   },
   {-- mikavilpas/yazi.nvim
     "mikavilpas/yazi.nvim",
