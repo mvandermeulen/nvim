@@ -58,20 +58,6 @@ local M = {
         { "<C-v>", "<cmd>Grapple toggle<cr>", desc = "Grapple toggle tag" },
     },
   },
-  {-- asmorris/line_notes.nvim
-      "asmorris/line_notes.nvim",
-      dependencies = { "nvim-telescope/telescope.nvim" },
-      config = function()
-          require('line_notes').setup({})
-      end
-  },
-  -- {-- tristone13th/lspmark.nvim
-  --   'tristone13th/lspmark.nvim',
-  --   lazy = false,
-  --   config = function()
-  --     require('plugins.navigation.lspmark')
-  --   end,
-  -- },
 }
 
 return M

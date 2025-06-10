@@ -390,14 +390,6 @@ local M = {
       require('telescope').load_extension("termfinder")
     end,
   },
-  {-- jedrzejboczar/toggletasks.nvim
-    'jedrzejboczar/toggletasks.nvim',
-    lazy = false,
-    dependencies = { 'nvim-lua/plenary.nvim', 'akinsho/toggleterm.nvim', 'nvim-telescope/telescope.nvim' },
-    config = function()
-      require('plugins.utils.toggletasks')
-    end,
-  },
   {-- numToStr/Comment.nvim
     'numToStr/Comment.nvim',
     lazy = false,
@@ -609,6 +601,13 @@ local M = {
       desc = "[Time Machine] Show log",
       },
     },
+  },
+  {-- asmorris/line_notes.nvim
+      "asmorris/line_notes.nvim",
+      dependencies = { "nvim-telescope/telescope.nvim" },
+      config = function()
+          require('line_notes').setup({})
+      end
   },
   -- {-- 
   --   '',

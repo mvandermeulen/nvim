@@ -154,6 +154,7 @@ if mac == 1 then
       -- Repo = ' ',
       Tag = ' ',
       Untrack = ' ',
+      Copied = ' ',
     },
     copilot = {
       Enabled = " ",
