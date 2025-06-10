@@ -1,7 +1,7 @@
 --[[
 -- FZF
 -- Author: Mark van der Meulen
--- Updated: 16-05-2022
+-- Updated: 2025-06-10
 --]]
 
 local status_ok, fzf_lua = pcall(require, 'fzf-lua')
@@ -9,11 +9,7 @@ if not status_ok then
   return
 end
 
-local icon_status, icons = require('helpers.ui.icons')
-if not icon_status then
-  return
-end
-
+local icons = require('helpers.ui.icons')
 local fzf_config = require('helpers.plugins.fzf_config')
 local actions = require('fzf-lua.actions')
 
@@ -104,17 +100,6 @@ fzf_lua.setup({
   buffers = fzf_config.buffers,
   tabs = fzf_config.tabs,
   files = fzf_config.files,
-  -- grep = { rg_glob = true },
-  -- files = {
-  --   file_icons = "mini",
-  --   git_icons = false,
-  --   fd_opts = "-H -I "
-  --       .. "-E '{.astro,.git,.kube,.idea,.vscode,.sass-cache,node_modules,build,.vscode-server,.virtualenvs,target}' "
-  --       .. "--type f --strip-cwd-prefix",
-  -- },
-  -- on_create = function()
-  --   vim.keymap.set('t', '<Esc>', '<C-c>', { buffer = 0 })
-  -- end,
 })
 
 local function kmo(desc)

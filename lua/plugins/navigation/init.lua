@@ -36,7 +36,7 @@ local M = {
   require('plugins.navigation.leap'),
   require('plugins.navigation.flit'),
   require('plugins.navigation.arrow'),
-  require('plugins.navigation.eyeliner'),
+  -- require('plugins.navigation.eyeliner'),
   require('plugins.navigation.bookmarks'),
   {-- cbochs/grapple.nvim
     "cbochs/grapple.nvim",

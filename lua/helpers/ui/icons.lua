@@ -115,7 +115,7 @@ if mac == 1 then
     },
     type = {
       Array = ' ',
-      Number = "",
+      -- Number = "",
       Null = "󰟢",
       Number = "",
       String = "󰉿",

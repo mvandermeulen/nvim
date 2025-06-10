@@ -38,19 +38,20 @@ local M = {
       prompt = "Tabs❯ ",
       tab_title = "Tab",
       tab_marker = "<<",
-      current_tab_only = true, -- Only show buffers from current tab
+      -- current_tab_only = true, -- Only show buffers from current tab
       file_icons = true, -- show file icons?
       color_icons = true, -- colorize file|git icons
       actions = {
           -- actions inherit from 'actions.buffers' and merge
           ["default"] = actions.buf_switch,
+          ["default"] = actions.resume,
           ["ctrl-x"] = { fn = actions.buf_del, reload = true },
       },
-      fzf_opts = {
-          -- hide tabnr
-          ["--delimiter"] = "'[\\):]'",
-          ["--with-nth"] = "2..",
-      },
+      -- fzf_opts = {
+      --     -- hide tabnr
+      --     ["--delimiter"] = "'[\\):]'",
+      --     ["--with-nth"] = "2..",
+      -- },
   },
   grep = {
     rg_opts = "--no-heading --line-number "
@@ -58,7 +59,15 @@ local M = {
         .. [[ --glob "!{**/.git/*,**/node_modules/*,**/package-lock.json,pnpm-lock.yaml,**/yarn.lock,.vscode-server,.virtualenvs}" ]],
   },
   files = {
-    fd_opts = '--color=never --type f --hidden --follow --exclude .git --exclude yarn.lock --exclude index.ts',
+    prompt = "Files> ",
+    multiprocess = true, -- run command in a separate process
+    git_icons = true, -- show git icons?
+    file_icons = true, -- show file icons?
+    color_icons = true, -- colorize file|git icons
+    fd_opts = '--color=never --type f --hidden --follow --exclude .git --exclude yarn.lock --exclude venv --exclude .venv',
+    find_opts = [[-type f -not -path '*/\.git/*' -printf '%P\n']],
+    rg_opts = "--color=never --files --hidden --follow --glob '!{.git,.venv,venv}/*'",
+    -- rg_opts = "--color=never --files --hidden --follow -g '!.git' -g '!.venv' -g '!venv'",
   },
 }
 

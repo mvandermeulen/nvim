@@ -11,12 +11,12 @@ if not status_ok then
 end
 
 local actions = require("telescope.actions")
-local previewers = require("telescope.previewers")
-local state = require("telescope.state")
-local action_set = require("telescope.actions.set")
+-- local previewers = require("telescope.previewers")
+-- local state = require("telescope.state")
+-- local action_set = require("telescope.actions.set")
 local action_layout = require("telescope.actions.layout")
-local actions_layout = require("telescope.actions.layout")
-local action_state = require("telescope.actions.state")
+-- local actions_layout = require("telescope.actions.layout")
+-- local action_state = require("telescope.actions.state")
 
 -- local function flash(prompt_bufnr)
 --     if lambda.config.movement.movement_type == "flash" then
@@ -55,86 +55,85 @@ function dropdown(opts)
     return require("telescope.themes").get_dropdown(rectangular_border(opts))
 end
 
-function ivy(opts)
-    return require("telescope.themes").get_ivy(vim.tbl_deep_extend("keep", opts or {}, {
-        borderchars = {
-            preview = { "▔", "▕", "▁", "▏", "🭽", "🭾", "🭿", "🭼" },
-        },
-    }))
-end
-local custom_actions = {}
+-- function ivy(opts)
+--     return require("telescope.themes").get_ivy(vim.tbl_deep_extend("keep", opts or {}, {
+--         borderchars = {
+--             preview = { "▔", "▕", "▁", "▏", "🭽", "🭾", "🭿", "🭼" },
+--         },
+--     }))
+-- end
+-- local custom_actions = {}
 
-function custom_actions.send_to_qflist(prompt_bufnr)
-    require("telescope.actions").send_to_qflist(prompt_bufnr)
-    require("user").qflist.open()
-end
+-- function custom_actions.send_to_qflist(prompt_bufnr)
+--     require("telescope.actions").send_to_qflist(prompt_bufnr)
+--     require("user").qflist.open()
+-- end
 
-function custom_actions.smart_send_to_qflist(prompt_bufnr)
-    require("telescope.actions").smart_send_to_qflist(prompt_bufnr)
-    require("user").qflist.open()
-end
+-- function custom_actions.smart_send_to_qflist(prompt_bufnr)
+--     require("telescope.actions").smart_send_to_qflist(prompt_bufnr)
+--     require("user").qflist.open()
+-- end
 
-function custom_actions.fzf_multi_select(prompt_bufnr)
-    local picker = action_state.get_current_picker(prompt_bufnr)
-    local num_selections = table.getn(picker:get_multi_selection())
+-- function custom_actions.fzf_multi_select(prompt_bufnr)
+--     local picker = action_state.get_current_picker(prompt_bufnr)
+--     local num_selections = table.getn(picker:get_multi_selection())
 
-    if num_selections > 1 then
-        -- actions.file_edit throws - context of picker seems to change
-        -- actions.file_edit(prompt_bufnr)
-        actions.send_selected_to_qflist(prompt_bufnr)
-        actions.open_qflist()
-    else
-        actions.file_edit(prompt_bufnr)
-    end
-end
+--     if num_selections > 1 then
+--         -- actions.file_edit throws - context of picker seems to change
+--         -- actions.file_edit(prompt_bufnr)
+--         actions.send_selected_to_qflist(prompt_bufnr)
+--         actions.open_qflist()
+--     else
+--         actions.file_edit(prompt_bufnr)
+--     end
+-- end
 
 -- Amazing Layout taken from https://github.com/max397574/NeovimConfig/blob/2267d7dfa8a30148516e2f5a6bb0e5ecc5de2c3c/lua/configs/telescope.lua
-local set_prompt_to_entry_value = function(prompt_bufnr)
-    local entry = action_state.get_selected_entry()
-    if not entry or not type(entry) == "table" then
-        return
-    end
+-- local set_prompt_to_entry_value = function(prompt_bufnr)
+--     local entry = action_state.get_selected_entry()
+--     if not entry or not type(entry) == "table" then
+--         return
+--     end
+--     action_state.get_current_picker(prompt_bufnr):reset_prompt(entry.ordinal)
+-- end
 
-    action_state.get_current_picker(prompt_bufnr):reset_prompt(entry.ordinal)
-end
+-- local Job = require("plenary.job")
+-- local new_maker = function(filepath, bufnr, opts)
+--     filepath = vim.fn.expand(filepath)
+--     Job:new({
+--         command = "file",
+--         args = { "--mime-type", "-b", filepath },
+--         on_exit = function(j)
+--             local mime_class = vim.split(j:result()[1], "/")[1]
+--             local mime_type = j:result()[1]
+--             if
+--                 mime_class == "text"
+--                 or (mime_class == "application" and mime_type ~= "application/x-pie-executable")
+--             then
+--                 previewers.buffer_previewer_maker(filepath, bufnr, opts)
+--             else
+--                 -- maybe we want to write something to the buffer here
+--                 vim.schedule(function()
+--                     vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, { "BINARY" })
+--                 end)
+--             end
+--         end,
+--     }):sync()
+-- end
 
-local Job = require("plenary.job")
-local new_maker = function(filepath, bufnr, opts)
-    filepath = vim.fn.expand(filepath)
-    Job:new({
-        command = "file",
-        args = { "--mime-type", "-b", filepath },
-        on_exit = function(j)
-            local mime_class = vim.split(j:result()[1], "/")[1]
-            local mime_type = j:result()[1]
-            if
-                mime_class == "text"
-                or (mime_class == "application" and mime_type ~= "application/x-pie-executable")
-            then
-                previewers.buffer_previewer_maker(filepath, bufnr, opts)
-            else
-                -- maybe we want to write something to the buffer here
-                vim.schedule(function()
-                    vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, { "BINARY" })
-                end)
-            end
-        end,
-    }):sync()
-end
-
-local M = {}
-M.multi_selection_open_vsplit = function(prompt_bufnr)
-    M._multiopen(prompt_bufnr, "vsplit")
-end
-M.multi_selection_open_split = function(prompt_bufnr)
-    M._multiopen(prompt_bufnr, "split")
-end
-M.multi_selection_open_tab = function(prompt_bufnr)
-    M._multiopen(prompt_bufnr, "tabe")
-end
-M.multi_selection_open = function(prompt_bufnr)
-    M._multiopen(prompt_bufnr, "edit")
-end
+-- local M = {}
+-- M.multi_selection_open_vsplit = function(prompt_bufnr)
+--     M._multiopen(prompt_bufnr, "vsplit")
+-- end
+-- M.multi_selection_open_split = function(prompt_bufnr)
+--     M._multiopen(prompt_bufnr, "split")
+-- end
+-- M.multi_selection_open_tab = function(prompt_bufnr)
+--     M._multiopen(prompt_bufnr, "tabe")
+-- end
+-- M.multi_selection_open = function(prompt_bufnr)
+--     M._multiopen(prompt_bufnr, "edit")
+-- end
 
 
 -----------------------------------------------
@@ -172,13 +171,13 @@ telescope.setup {
     live_grep_args = {
       auto_quoting = true, -- enable/disable auto-quoting
       -- define mappings, e.g.
-      mappings = { -- extend mappings
-        i = {
-          ["<C-k>"] = lga_actions.quote_prompt(),
-          ["<C-i>"] = lga_actions.quote_prompt({ postfix = " --iglob " }),
-          -- freeze the current list and start a fuzzy search in the frozen list
-        },
-      },
+      -- mappings = { -- extend mappings
+      --   i = {
+      --     ["<C-k>"] = lga_actions.quote_prompt(),
+      --     ["<C-i>"] = lga_actions.quote_prompt({ postfix = " --iglob " }),
+      --     -- freeze the current list and start a fuzzy search in the frozen list
+      --   },
+      -- },
       -- ... also accepts theme settings, for example:
       -- theme = "dropdown", -- use dropdown theme
       -- theme = { }, -- use own theme spec
@@ -273,7 +272,6 @@ telescope.setup {
     set_env = { ['COLORTERM'] = 'truecolor' }, -- default = nil,
     extensions = {
       file_browser = {
-        -- theme = "ivy",
         mappings = {
           ["i"] = {},
           ["n"] = {},
@@ -369,28 +367,16 @@ telescope.setup {
   },
 }
 
------------------------------------------------
--- Telescope Toggleterm Setup
------------------------------------------------
--- require("telescope-toggleterm").setup {
---    telescope_mappings = {
---       -- <ctrl-c> : kill the terminal buffer (default) .
---       ["<C-c>"] = require("telescope-toggleterm").actions.exit_terminal,
---    },
--- }
 
 -----------------------------------------------
 -- Load Extensions
 -----------------------------------------------
---telescope.load_extension("zoxide")
 telescope.load_extension('projects')
 telescope.load_extension('fzf')
 telescope.load_extension('heading')
 telescope.load_extension('file_browser')
 telescope.load_extension('notify')
 telescope.load_extension('vim_bookmarks')
--- telescope.load_extension('frecency')
---telescope.load_extension('software-licenses')
 telescope.load_extension('repo')
 telescope.load_extension('z')
 telescope.load_extension('changes')
@@ -399,10 +385,6 @@ telescope.load_extension('lines')
 telescope.load_extension("ui-select")
 telescope.load_extension("undo")
 telescope.load_extension("ghq")
--- telescope.load_extension('telescope-code-actions')
--- telescope.load_extension('toggleterm')
-
-
 
 local gstatus, _ = pcall(require, 'grapple')
 if gstatus then
@@ -423,6 +405,4 @@ local persisted, _ = pcall(require, 'persisted')
 if persisted then
   require("telescope").load_extension("persisted")
 end
-
-
 
