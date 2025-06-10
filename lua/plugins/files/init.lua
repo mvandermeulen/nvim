@@ -20,24 +20,29 @@ local telescope_depends = {
   { 'nvim-telescope/telescope-packer.nvim' },
   { 'nvim-telescope/telescope-node-modules.nvim' },
   { 'nvim-telescope/telescope-live-grep-raw.nvim' },
+  { 'nvim-telescope/telescope-live-grep-args.nvim' },
+  { 'nvim-telescope/telescope-frecency.nvim' },
+  { 'nvim-telescope/telescope-ui-select.nvim' },
+  { 'nvim-telescope/telescope-ghq.nvim' },
+  { 'nvim-telescope/telescope-smart-history.nvim' },
   { 'KaiSpencer/telescope-tmuxp.nvim' },
   { 'tom-anders/telescope-vim-bookmarks.nvim' },
   { 'TC72/telescope-tele-tabby.nvim' },
   { 'camgraff/telescope-tmux.nvim' },
-  { 'nvim-telescope/telescope-frecency.nvim' },
   { 'cljoly/telescope-repo.nvim' },
   { 'nvim-telescope/telescope-z.nvim' },
   { 'LinArcX/telescope-changes.nvim' },
   { 'LinArcX/telescope-ports.nvim' },
   { 'neanias/telescope-lines.nvim' },
   { 'nyarthan/telescope-code-actions.nvim' },
-  { 'nvim-telescope/telescope-ui-select.nvim' },
   { "debugloop/telescope-undo.nvim" },
-  { 'nvim-telescope/telescope-ghq.nvim' },
-  { 'nvim-telescope/telescope-smart-history.nvim' },
   { 'kiyoon/telescope-insert-path.nvim' },
   { 'ivanjermakov/telescope-file-structure.nvim' },
   { 'paopaol/telescope-git-diffs.nvim' },
+  { 'Marskey/telescope-sg' },
+  { 'tsakirist/telescope-lazy.nvim' },
+  { 'fdschmidt93/telescope-egrepify.nvim' },
+  { 'dhruvmanila/telescope-bookmarks.nvim' },
   -- { 'nvim-telescope/telescope-cheat.nvim' },
 }
 local diff_plugin_cmds = { 'DiffviewOpen', 'DiffviewClose', 'DiffviewToggleFiles', 'DiffviewFocusFiles' }
@@ -87,6 +92,41 @@ local M = {
     config = function()
       require('telescope').load_extension('gh')
     end,
+  },
+  {-- nvim-telescope/telescope-live-grep-args.nvim
+    "nvim-telescope/telescope-live-grep-args.nvim",
+    dependencies = { "nvim-telescope/telescope.nvim" },
+    config = function()
+      require('telescope').load_extension('live_grep_args')
+    end,
+  },
+  {-- fdschmidt93/telescope-egrepify.nvim
+    "fdschmidt93/telescope-egrepify.nvim",
+    dependencies = { "nvim-telescope/telescope.nvim" },
+    config = function()
+      require('telescope').load_extension('')
+    end,
+  },
+  {-- tsakirist/telescope-lazy.nvim
+    "tsakirist/telescope-lazy.nvim",
+    lazy = true,
+    dependencies = { "nvim-telescope/telescope.nvim" },
+    config = function()
+      require('telescope').load_extension('lazy')
+    end,
+  },
+  {-- Marskey/telescope-sg
+    "Marskey/telescope-sg",
+    lazy = true,
+    dependencies = { "nvim-telescope/telescope.nvim" },
+  },
+  {-- dhruvmanila/telescope-bookmarks.nvim
+    "dhruvmanila/telescope-bookmarks.nvim",
+    lazy = true,
+    dependencies = {
+        "kkharji/sqlite.lua",
+        "nvim-telescope/telescope.nvim",
+    },
   },
   {-- paopaol/telescope-git-diffs.nvim
     'paopaol/telescope-git-diffs.nvim',
