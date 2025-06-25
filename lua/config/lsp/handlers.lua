@@ -2,84 +2,142 @@
 -- LSP Handlers
 --
 -- Author: Mark van der Meulen
--- Updated: 2024-12-31
+-- Updated: 2025-06-17
 --]]
 
-local _log = require('plenary.log').new({ plugin = 'LSP', level = 'debug', use_console = true })
+
+local _name = 'LSP Handlers'
+local _log = require('plenary.log').new({ plugin = _name, level = 'debug', use_console = true })
 local function mlog(msg, level)
   local level = level or 'debug'
-  _log.debug(msg)
+  if level == 'error' then
+    vim.api.nvim_err_writeln(msg)
+    _log.error(msg)
+  elseif level == 'notify' then
+    vim.notify(msg, vim.log.levels.INFO, { title = _name })
+    _log.info(msg)
+  elseif level == 'info' then
+    _log.info(msg)
+  else
+    _log.debug(msg)
+  end
 end
 
 
 local M = {}
 
 local navic_status, navic = pcall(require, 'nvim-navic')
-if not navic_status then
-    mlog('Navic not found', 'error')
-    return
-end
-
-local helper_status, helper = pcall(require, 'helpers.lsp')
-if not helper_status then
-    mlog('LSP helpers not found!', 'error')
-    return
-end
-
-
 -- local present_lsp_signature, lsp_signature = pcall(require, "lsp_signature")
 local present_cmp_lsp, cmp_lsp = pcall(require, "cmp_nvim_lsp")
+local helper_status, helper = pcall(require, 'helpers.lsp')
+-- local autocmd_load_status, autocmds = require('config.lsp.autocmd')
 
-M.capabilities = vim.lsp.protocol.make_client_capabilities()
-if present_cmp_lsp then
-  M.capabilities = cmp_lsp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
+if not navic_status or not helper_status then
+    mlog('Navic, LSP Helpers, Autocommands, Completion Plugin not found', 'error')
+    return
 end
+
+if present_cmp_lsp then
+    M.capabilities = cmp_lsp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
+else
+    M.capabilities = vim.lsp.protocol.make_client_capabilities()
+end
+
 M.capabilities.textDocument.completion.completionItem.snippetSupport = true
 M.capabilities.textDocument.foldingRange = {
     dynamicRegistration = false,
     lineFoldingOnly = true
 }
 
+
 local function opts(desc)
   if desc then
-    return { noremap = true, silent = true, desc = desc }
+    return { noremap = true, silent = true, buffer = true, desc = desc }
   else
-    return { noremap = true, silent = true }
+    return { noremap = true, silent = true, buffer = true }
   end
 end
 
+local function bufnnoremap(lhs, rhs, desc)
+  if desc then
+    vim.keymap.set('n', lhs, rhs, opts(desc))
+  else
+    vim.keymap.set('n', lhs, rhs, opts())
+  end
+end
 
 local function lsp_keymaps(bufnr)
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts('Declaration'))
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts('Definition'))
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts('Hover'))
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts('Implementation'))
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "<M-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts('Signature Help'))
+  bufnnoremap("gss", function()
+    vim.cmd.vsplit()
+    vim.lsp.buf.definition()
+  end, 'go-to-definition-vsplit')
+  bufnnoremap("gsv", function()
+    vim.cmd.split()
+    vim.lsp.buf.definition()
+  end, 'go-to-definition-split')
+  bufnnoremap("gd", vim.lsp.buf.definition, 'go-to-definition')
+  bufnnoremap("gD", vim.lsp.buf.declaration, 'go-to-declaration')
+  bufnnoremap("gl", vim.diagnostic.open_float, 'show-diagnostics-float')
+  bufnnoremap("gm", vim.lsp.buf.implementation, 'go-to-implementation')
+  bufnnoremap("gy", vim.lsp.buf.type_definition, 'go-to-type-definition')
+  bufnnoremap("gI", vim.lsp.buf.incoming_calls, 'go-to-incoming-calls')
+  bufnnoremap("<localleader>gR", vim.lsp.buf.rename, 'lsp-rename')
+  bufnnoremap("<localleader>gs", vim.lsp.buf.signature_help, 'show-signature-help')
+  bufnnoremap("<localleader>gr", "<cmd>Telescope lsp_references<CR>", 't-lsp-references')
+  bufnnoremap("ge", function() require("telescope.builtin").diagnostics({ bufnr = bufnr }) end, 't-lsp-diagnostics')
+  bufnnoremap("<localleader>gE", "<cmd>Telescope diagnostics<CR>", "t-lsp-diagnostics")
+  bufnnoremap("<localleader>gd", "<cmd>Telescope lsp_definitions<CR>", "t-lsp-definition")
+  bufnnoremap("<localleader>gw", "<cmd>Telescope lsp_document_symbols<CR>", "t-lsp-document-symbols")
+  bufnnoremap("K", vim.lsp.buf.hover, 'show-hover')
+  bufnnoremap("<M-k>", vim.lsp.buf.signature_help, 'show-signature')
+  bufnnoremap("<localleader>ca", vim.lsp.buf.code_action, 'lsp-code-action')
+  bufnnoremap("<leader>df", vim.diagnostic.open_float, 'show-diagnostics-float')
+  bufnnoremap("<leader>dL", vim.diagnostic.setloclist, 'diagnostics-loclist')
+
+  bufnnoremap("gpd", function() require('goto-preview').goto_preview_definition({}) end , 'goto-preview-definition')
+  bufnnoremap("gpi", function() require('goto-preview').goto_preview_implementation({}) end , 'goto-preview-implementation')
+  bufnnoremap("gpc", function() require('goto-preview').close_all_win() end , 'goto-preview-close')
+  bufnnoremap("gpr", function() require('goto-preview').goto_preview_references({}) end , 'goto-preview-references')
+
+  bufnnoremap("<localleader>lr", function() require('fzf-lua').lsp_references() end, 'fzf-lsp-references')
+  bufnnoremap("<localleader>ld", function() require('fzf-lua').lsp_definitions() end, 'fzf-lsp-definitions')
+  bufnnoremap("<localleader>lD", function() require('fzf-lua').lsp_declarations() end, 'fzf-lsp-declarations')
+  bufnnoremap("<localleader>lt", function() require('fzf-lua').lsp_typedefs() end, 'fzf-lsp-typedefs')
+  bufnnoremap("<localleader>li", function() require('fzf-lua').lsp_implementations() end, 'fzf-lsp-implementations')
+  bufnnoremap("<localleader>ls", function() require('fzf-lua').lsp_document_symbols() end, 'fzf-lsp-document-symbols')
+  bufnnoremap("<localleader>lw", function() require('fzf-lua').lsp_live_workspace_symbols() end, 'fzf-lsp-live-workspace-symbols')
+  bufnnoremap("<localleader>lW", function() require('fzf-lua').lsp_workspace_symbols() end, 'fzf-lsp-workspace-symbols')
+  bufnnoremap("<localleader>lc", function() require('fzf-lua').lsp_incoming_calls() end, 'fzf-lsp-incoming-calls')
+  bufnnoremap("<localleader>lC", function() require('fzf-lua').lsp_outgoing_calls() end, 'fzf-lsp-outgoing-calls')
+  bufnnoremap("<localleader>la", function() require('fzf-lua').lsp_code_actions() end, 'fzf-lsp-code-actions')
+  bufnnoremap("<localleader>lf", function() require('fzf-lua').lsp_finder() end, 'fzf-lsp-finder')
+  bufnnoremap("<localleader>lx", function() require('fzf-lua').diagnostics_document() end, 'fzf-lsp-diagnostics-document')
+  bufnnoremap("<localleader>lX", function() require('fzf-lua').diagnostics_workspace() end, 'fzf-lsp-diagnostics-workspace')
+
+  -- Already defined in `lua/mappings/custom/normal/overrides.lua`
+  -- bufnnoremap("[d", function() vim.diagnostic.goto_prev({ border = "rounded" }) end , 'go-to-previous-diagnostic')
+  -- bufnnoremap("]d", function() vim.diagnostic.goto_next({ border = "rounded" }) end , 'go-to-next-diagnostic')
+  -- bufnnoremap("gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", 'Declaration')
+  -- bufnnoremap("gd", "<cmd>lua vim.lsp.buf.definition()<CR>", 'Definition')
+  -- bufnnoremap("K", "<cmd>lua vim.lsp.buf.hover()<CR>", 'Hover')
+  -- bufnnoremap("gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", 'Implementation')
+  -- bufnnoremap("<M-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", 'Signature')
   -- vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts(''))
   -- vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts(''))
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", "<cmd>Telescope lsp_references<CR>", opts('LSP References'))-- Uses Telescope
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "<localleader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts('Code Action'))
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>df", "<cmd>lua vim.diagnostic.open_float()<CR>", opts('Diagnostics Float'))
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "[d", '<cmd>lua vim.diagnostic.goto_prev({ border = "rounded" })<CR>', opts('Previous Diagnostic'))
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "]d", '<cmd>lua vim.diagnostic.goto_next({ border = "rounded" })<CR>', opts('Next Diagnostic'))
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts('Diagnostics Float'))
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>dL", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts('Diagnostics Loclist'))
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "gpd", "<cmd>lua require('goto-preview').goto_preview_definition({})<CR>", opts('Preview Definition'))
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "gpi", "<cmd>lua require('goto-preview').goto_preview_implementation({})<CR>", opts('Preview Implementation'))
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "gpc", "<cmd>lua require('goto-preview').close_all_win()<CR>", opts('Close Preview'))
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "gpr", "<cmd>lua require('goto-preview').goto_preview_references({})<CR>", opts('Preview References'))
-  -- vim.api.nvim_buf_set_keymap(bufnr, "n", "", "<cmd>lua <CR>", opts(''))
+  -- bufnnoremap("<localleader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", 'Code Action')
+  -- bufnnoremap("<leader>df", "<cmd>lua vim.diagnostic.open_float()<CR>", 'Diagnostics Float')
+  -- bufnnoremap("[d", '<cmd>lua vim.diagnostic.goto_prev({ border = "rounded" })<CR>', 'Previous Diagnostic')
+  -- bufnnoremap("]d", '<cmd>lua vim.diagnostic.goto_next({ border = "rounded" })<CR>', 'Next Diagnostic')
+  -- bufnnoremap("gl", "<cmd>lua vim.diagnostic.open_float()<CR>", 'Diagnostics Float')
+  -- bufnnoremap("<leader>dL", "<cmd>lua vim.diagnostic.setloclist()<CR>", 'Diagnostics Loclist')
+  -- bufnnoremap("gpd", "<cmd>lua require('goto-preview').goto_preview_definition({})<CR>", 'Preview Definition')
+  -- bufnnoremap("gpi", "<cmd>lua require('goto-preview').goto_preview_implementation({})<CR>", 'Preview Implementation')
+  -- bufnnoremap("gpc", "<cmd>lua require('goto-preview').close_all_win()<CR>", 'Close Preview')
+  -- bufnnoremap("gpr", "<cmd>lua require('goto-preview').goto_preview_references({})<CR>", 'Preview References')
   vim.cmd [[ command! Format execute 'lua vim.lsp.buf.formatting()' ]]
 end
 
 local function common_keymaps(bufnr)
-  local function bufnnoremap(lhs, rhs, desc)
-    if desc then
-      vim.api.nvim_buf_set_keymap(bufnr, 'n', lhs, rhs, opts(desc))
-    else
-      vim.api.nvim_buf_set_keymap(bufnr, 'n', lhs, rhs, opts())
-    end
-  end
   -- Keymaps: we need to define keymaps for each of the LSP functionalities manually
   -- Go to definition and declaration (use leader to presever standard use of 'gd')
   bufnnoremap("<localleader>gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", 'Definition')
@@ -99,6 +157,62 @@ local function common_keymaps(bufnr)
   bufnnoremap("<localleader>N", "<Cmd>lua vim.diagnostic.goto_next()<CR>", 'Next Diagnostic')
   bufnnoremap("<localleader>P", "<Cmd>lua vim.diagnostic.goto_prev()<CR>", 'Previous Diagnostic')
 end
+
+local function client_capabilities(client, bufnr)
+    if client.server_capabilities.documentSymbolProvider then
+      mlog("LSP Server: " .. client.name .. " has documentSymbolProvider", "debug")
+      navic.attach(client, bufnr)
+    end
+    if client.server_capabilities.signatureHelpProvider then
+      mlog("LSP Server: " .. client.name .. " has signatureHelpProvider", "debug")
+      vim.lsp.handlers["textDocument/signatureHelp"] = require("noice").signature
+    end
+    -- if client.server_capabilities.document_formatting then
+    --   vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
+    -- end
+    client.server_capabilities.document_formatting = false
+    client.server_capabilities.document_range_formatting = false
+    -- if client.server_capabilities.documentFormattingProvider then
+    --     client.server_capabilities.documentFormattingProvider = false
+    -- end
+    if client.server_capabilities.documentRangeFormattingProvider then
+        client.server_capabilities.documentRangeFormattingProvider = false
+    end
+    if client.server_capabilities.textDocument then
+      if client.server_capabilities.textDocument.codeLens then
+        mlog("LSP Server: " .. client.name .. " has codeLens", "info")
+        require("virtualtypes").on_attach(client, bufnr)
+        helper.attach_codelens(client, bufnr)
+      end
+    end
+    if client.supports_method "textDocument/inlayHint" then
+      mlog("LSP Server: " .. client.name .. " has inlay hints", "info")
+      vim.lsp.inlay_hint.enable(true)
+    end
+    -- if client.server_capabilities.documentHighlightProvider then
+    --   mlog("LSP Server: " .. client.name .. " has documentHighlightProvider", "info")
+    --   vim.api.nvim_create_augroup("lsp_document_highlight", { clear = true })
+    --   vim.api.nvim_clear_autocmds { buffer = bufnr, group = "lsp_document_highlight" }
+    --   vim.api.nvim_create_autocmd({ "CursorHold", "InsertLeave" }, {
+    --     desc = "Highlight references under the cursor",
+    --     buffer = bufnr,
+    --     callback = vim.lsp.buf.document_highlight,
+    --   })
+    --   vim.api.nvim_create_autocmd({ "CursorMoved", "InsertEnter", "BufLeave" }, {
+    --     desc = "Clear highlight references",
+    --     buffer = bufnr,
+    --     callback = vim.lsp.buf.clear_references,
+    --   })
+    -- end
+    if client.server_capabilities.semanticTokensProvider then
+        client.server_capabilities.semanticTokensProvider = nil
+    end
+
+    if client.server_capabilities.goto_definition == true then
+        vim.api.nvim_set_option_value("tagfunc", "v:lua.vim.lsp.tagfunc", { buf = bufnr })
+    end
+end
+
 
 M.setup = function()
   -- mlog("LSP Handlers setup: Signs", "info")
@@ -134,90 +248,17 @@ M.setup = function()
   vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
   mlog("LSP Handlers setup: Signature Help", "info")
   require("lspconfig.ui.windows").default_options.border = "rounded"
-  -- Customize windows for Hover and Signature
-  -- local float_win_opts = {
-  --   border = "rounded",
-  --   relative = "cursor",
-  --   style = "minimal",
-  -- }
-  -- vim.lsp.handlers["textDocument/hover"] =
-  --   vim.lsp.with(vim.lsp.handlers.hover, vim.tbl_extend("keep", float_win_opts, { focusable = true }))
-  -- vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
-  --   vim.lsp.handlers.signature_help,
-  --   vim.tbl_extend("keep", float_win_opts, { max_height = 3, focusable = false })
-  -- )
 end
 
 M.on_attach = function(client, bufnr)
-  vim.notify(client.name .. " starting...")
   mlog("LSP Server: " .. client.name .. " starting...", "info")
-  client.server_capabilities.document_formatting = false
-  client.server_capabilities.document_range_formatting = false
-  lsp_keymaps(bufnr)
-  helper.lsp_highlight_document(client)
-end
-
--- This function defines the on_attach function for several languages which share the same key-bindings
-function M.common_on_attach(client, bufnr)
-  vim.notify("LSP Server: " .. client.name .. " starting...")
-  -- mlog("common_on_attach LSP Server: " .. client.name .. " starting...", "info")
-  -- Set omnifunc
-  -- vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
-  -- Helper function
   common_keymaps(bufnr)
-  -- mlog("common_on_attach LSP Server: " .. client.name .. " keymaps set", "info")
-  if client.server_capabilities.documentSymbolProvider then
-    mlog("LSP Server: " .. client.name .. " has documentSymbolProvider", "info")
-    navic.attach(client, bufnr)
-  end
-  if client.server_capabilities.signatureHelpProvider then
-    mlog("LSP Server: " .. client.name .. " has signatureHelpProvider", "info")
-    vim.lsp.handlers["textDocument/signatureHelp"] = require("noice").signature
-  end
-  -- mlog("LSP Server: " .. client.name .. " keymaps set", "info")
-
-  if client.server_capabilities.document_formatting then
-    vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
-  end
-  if client.server_capabilities.textDocument then
-    if client.server_capabilities.textDocument.codeLens then
-      mlog("LSP Server: " .. client.name .. " has codeLens", "info")
-      require("virtualtypes").on_attach(client, bufnr)
-      helper.attach_codelens(client, bufnr)
-    end
-  end
-  if client.supports_method "textDocument/inlayHint" then
-    mlog("LSP Server: " .. client.name .. " has inlay hints", "info")
-    vim.lsp.inlay_hint.enable(true)
-  end
-  if client.server_capabilities.documentHighlightProvider then
-    mlog("LSP Server: " .. client.name .. " has documentHighlightProvider", "info")
-    vim.api.nvim_create_augroup("lsp_document_highlight", { clear = true })
-    vim.api.nvim_clear_autocmds { buffer = bufnr, group = "lsp_document_highlight" }
-    vim.api.nvim_create_autocmd({ "CursorHold", "InsertLeave" }, {
-      desc = "Highlight references under the cursor",
-      buffer = bufnr,
-      callback = vim.lsp.buf.document_highlight,
-    })
-    vim.api.nvim_create_autocmd({ "CursorMoved", "InsertEnter", "BufLeave" }, {
-      desc = "Clear highlight references",
-      buffer = bufnr,
-      callback = vim.lsp.buf.clear_references,
-    })
-  end
-  -- mlog("LSP Server: " .. client.name .. " setup complete", "info")
-
-  -- Markdown preview TODO: make this conditional, but I also don't use it all that much
-  -- bufnnnoremap("<leader>P", "<Cmd>Glow<CR>")
-  -- if client.server_capabilities.documentSymbolProvider then
-  --   navic.attach(client, bufnr)
-  -- end
-  -- if present_lsp_signature then
-  --   lsp_signature.on_attach({ floating_window = false, timer_interval = 500 })
-  -- end
-  -- require("workspace-diagnostics").populate_workspace_diagnostics(client, bufnr)
+  client_capabilities(client, bufnr)
+  lsp_keymaps(bufnr)
+  require('config.lsp.autocmd').setup_autocommands(client, bufnr)
+  helper.lsp_highlight_document(client)
+  -- Set omnifunc
+  -- buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
 end
-
-require('config.lsp.autocmd')
 
 return M

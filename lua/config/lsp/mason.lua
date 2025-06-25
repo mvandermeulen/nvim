@@ -2,60 +2,50 @@
 -- Mason LSP Plugin
 --
 -- Author: Mark van der Meulen
--- Updated: 2024-12-20
+-- Updated: 2025-06-17
 --]]
 
 
-local log = require('plenary.log').new({ plugin = 'mason', level = 'debug', use_console = true })
+local _name = 'mason'
+local _log = require('plenary.log').new({ plugin = _name, level = 'debug', use_console = true })
 local function mylog(msg, level)
   local level = level or 'debug'
-  log.debug(msg)
-  -- if level == 'info' or level == 'warn' or level == 'error' then
-  --   vim.notify(msg, vim.log.levels.INFO, { title = 'Mason' })
-  -- end
+  if level == 'error' then
+    vim.api.nvim_err_writeln(msg)
+    _log.error(msg)
+  elseif level == 'notify' then
+    vim.notify(msg, vim.log.levels.INFO, { title = _name })
+    _log.info(msg)
+  elseif level == 'info' then
+    _log.info(msg)
+  else
+    _log.debug(msg)
+  end
 end
 
 local mason_status, mason = pcall(require, 'mason')
-if not mason_status then
-  mylog('Mason not found', 'error')
-  return
-end
-
 local mason_lspconfig_status, mason_lspconfig = pcall(require, 'mason-lspconfig')
-if not mason_lspconfig_status then
-  mylog('Mason LSPConfig not found', 'error')
-  return
-end
-
 local mason_null_ls_status, mason_null_ls = pcall(require, 'mason-null-ls')
-if not mason_null_ls_status then
-  mylog('Mason Null LS not found', 'error')
+local lang_status, lang = pcall(require, 'config.lsp.lang')
+local lsputils_status, lsputils = pcall(require, 'config.lsp.utils')
+local handlers_status, handlers = pcall(require, 'config.lsp.handlers')
+local lspconfig_status, lspconfig = pcall(require, 'lspconfig')
+
+if not mason_status or not mason_lspconfig_status or not mason_null_ls_status then
+  mylog('Mason, Mason Tool Installer, Completion, or LSP Format not installed!', 'error')
   return
 end
 
-local lang_status, lang = pcall(require, 'config.lsp.lang')
 if not lang_status then
   mylog('Language servers not found', 'error')
   return
 end
 
-local lsputils_status, lsputils = pcall(require, 'config.lsp.utils')
-if not lsputils_status then
-  mylog('LSP Utils not found', 'error')
+if not lsputils_status or not handlers_status or not lspconfig_status then
+  mylog('LSP Utils, Handlers, Config not found', 'error')
   return
 end
 
-local handlers_status, handlers = pcall(require, 'config.lsp.handlers')
-if not handlers_status then
-  mylog('LSP Handlers not found', 'error')
-  return
-end
-
-local lspconfig_status, lspconfig = pcall(require, 'lspconfig')
-if not lspconfig_status then
-  mylog('LSP Config not found', 'error')
-  return
-end
 
 local opts = {}
 
@@ -73,30 +63,16 @@ local settings = {
 }
 
 mason.setup(settings)
--- mylog('Mason setup complete', 'info')
+mylog('Mason setup complete', 'info')
 mason_lspconfig.setup({ ensure_installed = lang.servers, automatic_installation = true, })
--- mylog('Mason LSPConfig setup complete', 'info')
+mylog('Mason LSPConfig setup complete', 'info')
 mason_null_ls.setup({ ensure_installed = lang.parsers, automatic_installation = true, })
--- mylog('Mason Null LS setup complete', 'info')
+mylog('Mason Null LS setup complete', 'info')
 handlers.setup()
--- mylog('LSP Handlers setup complete', 'info')
+mylog('LSP Handlers setup complete', 'info')
 
-mason_lspconfig.setup_handlers({
-  function(server_name)
-    lspconfig[server_name].setup({
-    on_attach = handlers.common_on_attach,
-    capabilities = handlers.capabilities,
-    before_init = function(_, config)
-      if lsp == 'pyright' then
-        config.settings.python.pythonPath = lsputils.get_python_path(config.root_dir)
-      end
-    end,
-    flags = { debounce_text_changes = 150 },
-    })
-  end,
-})
 
--- mylog('LSP common setup complete', 'info')
+-- mylog('Mason LSP Config per handler setup complete', 'info')
 for _, server in pairs(lang.servers) do
   opts = {
     on_attach = handlers.on_attach,
@@ -105,9 +81,6 @@ for _, server in pairs(lang.servers) do
   mylog('Setting up server: ' .. server, 'info')
 
   server = vim.split(server, "@")[1]
-  -- conf_opts = require('config.lsp.servers.' .. server)
-  -- opts = vim.tbl_deep_extend("force", conf_opts, opts)
-  -- mylog('Server config found: ' .. server, 'info')
   local require_ok, conf_opts = pcall(require, 'config.lsp.servers.' .. server)
   if require_ok then
     opts = vim.tbl_deep_extend("force", conf_opts, opts)

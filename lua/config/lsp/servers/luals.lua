@@ -2,15 +2,25 @@
 -- LSP Server: Lua
 --
 -- Author: Mark van der Meulen
--- Updated: August 09, 2023
+-- Updated: 2025-06-17
 --]]
 
-local log = require('plenary.log').new({ plugin = 'lsp', level = 'debug', use_console = true })
+
+
+local _name = 'Lua LSP'
+local _log = require('plenary.log').new({ plugin = _name, level = 'debug', use_console = true })
 local function mylog(msg, level)
   local level = level or 'debug'
-  log.debug(msg)
-  if level == 'info' or level == 'warn' or level == 'error' then
-    vim.notify(msg, vim.log.levels.INFO, { title = 'LSP' })
+  if level == 'error' then
+    vim.api.nvim_err_writeln(msg)
+    _log.error(msg)
+  elseif level == 'notify' then
+    vim.notify(msg, vim.log.levels.INFO, { title = _name })
+    _log.info(msg)
+  elseif level == 'info' then
+    _log.info(msg)
+  else
+    _log.debug(msg)
   end
 end
 
@@ -31,7 +41,7 @@ local neovim_runtime = {
   version = 'LuaJIT',
   path = vim.split(package.path, ';'),
 }
-local neovim_globals = { 'vim', 'describe' }
+local neovim_globals = { 'vim', 'describe', 'require', 'vim', 'vim' }
 
 local diagnostics_globals = function()
   -- mylog('Loading Lua LSP globals', 'info')
@@ -86,19 +96,14 @@ end
 local settings = {
   filetypes = { 'lua' },
   format = { enabled = false }, -- HACK: Hoping this will prevent automatic lua formatting at the moment.
-  runtime = neovim_runtime,
-  -- runtime = {
-  --   version = lsputils.hs_version,
-  --   path = lsputils.hs_path,
-  -- },
-  -- runtime = {
-  --   version = 'LuaJIT',
-  --   path = vim.split(package.path, ';'),
-  -- },
+  runtime = diagnostics_runtime(),
+  -- runtime = neovim_runtime,
+  flags = { debounce_text_changes = 150 },
   completion = { enable = true, callSnippet = 'Both' },
   diagnostics = {
     enable = true,
-    globals = neovim_globals,
+    -- globals = neovim_globals,
+    globals = diagnostics_globals(),
     -- globals = { 'vim', 'describe', 'hs', 'spoons' },
     disable = { 'lowercase-global' },
   },
@@ -112,7 +117,8 @@ local settings = {
     --   '/Applications/Hammerspoon.app/Contents/Resources/extensions/hs/',
     -- },
     -- adjust these two values if your performance is not optimal
-    library = neovim_library,
+    library = workspace_library(),
+    -- library = neovim_library,
     maxPreload = 9000,
     preloadFileSize = 9000,
     checkThirdParty = false,
@@ -140,6 +146,6 @@ local opts = {
     Lua = settings,
   },
 }
--- mylog('Lua LSP settings loaded', 'info')
+mylog('Lua LSP settings loaded', 'info')
 
 return opts
