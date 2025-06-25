@@ -2,7 +2,7 @@
 -- Helpers: API
 --
 -- Author: Mark van der Meulen
--- Updated: 2024-12-23
+-- Updated: 2025-06-17
 --]]
 
 -- Helpers and utilities for vim.api
@@ -249,7 +249,7 @@ function M.augroup(name, ...)
 
   local id = api.nvim_create_augroup(name, { clear = true })
   for _, autocmd in ipairs(commands) do
-    validate_autocmd(name, autocmd)
+    -- validate_autocmd(name, autocmd)
     local is_callback = type(autocmd.command) == 'function'
 
     api.nvim_create_autocmd(autocmd.event, {
@@ -265,6 +265,39 @@ function M.augroup(name, ...)
   end
   return id
 end
+
+---@class LAutocommand
+---@field description? string
+---@field event  string[] list of autocommand events
+---@field pattern? string[] list of autocommand patterns
+---@field command string | function
+---@field nested?  boolean
+---@field once?    boolean
+---@field buffer?  number
+
+---Create an autocommand
+---returns the group ID so that it can be cleared or manipulated.
+---@param name string
+---@param commands LAutocommand[]
+---@return number
+function M.laugroup(name, commands)
+    local id = vim.api.nvim_create_augroup(name, { clear = true })
+    for _, autocmd in ipairs(commands) do
+        local is_callback = type(autocmd.command) == "function"
+        vim.api.nvim_create_autocmd(autocmd.event, {
+            group = id,
+            pattern = autocmd.pattern,
+            desc = autocmd.description,
+            callback = is_callback and autocmd.command or nil,
+            command = not is_callback and autocmd.command or nil,
+            once = autocmd.once,
+            nested = autocmd.nested,
+            buffer = autocmd.buffer,
+        })
+    end
+    return id
+end
+
 
 --- @class CommandArgs
 --- @field args string
