@@ -32,8 +32,7 @@ local rg_ignore_dirs = {
   "**/node_modules/*",
 }
 
-local rg_ignore_files =
-  { "*.min.css", "*.svg", "pnpm-lock.yaml", "package-lock.json", "edgedb.toml" }
+local rg_ignore_files = { "*.min.css", "*.svg", "pnpm-lock.yaml", "package-lock.json", "edgedb.toml" }
 
 local rg_ignore_arg = ("--glob '!{%s}' --glob '!{%s}'"):format(
   table.concat(rg_ignore_dirs, ","),
@@ -48,6 +47,7 @@ local fzf_actions = {
   ['ctrl-v'] = actions.file_vsplit,
 }
 
+local M = {}
 
 local function make_fzf_dir()
   if utils.is_monorepo() then
@@ -132,8 +132,8 @@ end
 ---------- Grep ----------
 --
 -- Fzf Grep
-local function fzf_grep(cwd)
-  return fzf_lua.grep({
+function M.fzf_grep(cwd)
+  require("fzf-lua").grep({
     cwd = cwd or make_fzf_dir(),
     search = "",
     fn_selected = fn_selected_multi,
@@ -141,7 +141,7 @@ local function fzf_grep(cwd)
 end
 
 -- Live Grep
-local function live_grep(cwd)
+function M.live_grep(cwd)
   fzf_lua.live_grep({
     cwd = cwd or make_fzf_dir(),
     fn_selected = fn_selected_multi,
@@ -149,7 +149,7 @@ local function live_grep(cwd)
 end
 
 -- Fzf Grep word under cursor
-local function grep_word_under_cursor()
+function M.grep_word_under_cursor()
   vim.cmd([[normal! "wyiw]])
   local word = vim.fn.getreg('"')
   fzf_lua.grep({
@@ -160,7 +160,7 @@ local function grep_word_under_cursor()
 end
 
 ---------- Files ----------
-local function rg_files(rg_opts, cwd)
+function M.rg_files(rg_opts, cwd)
   local rg_cmd = ("rg %s --files --hidden %s"):format(rg_opts or "", rg_ignore_arg)
   return fzf_lua.fzf_exec(rg_cmd, {
     prompt = "Files > ",
@@ -175,7 +175,7 @@ end
 
 ---------- LSP ----------
 -- lsp issue with tips and tricks: https://github.com/ibhagwan/fzf-lua/issues/441
-local function lsp_references()
+function M.lsp_references()
   fzf_lua.lsp_references({
     async = true,
     file_ignore_patterns = { "miniconda3", "node_modules" }, -- ignore references in env libs
@@ -185,7 +185,7 @@ end
 --
 ------- Wax files -------
 
-local function my_files()
+function M.my_files()
   local paths = {
     ".config/nvim/config.lua",
     ".gitconfig",
@@ -233,7 +233,7 @@ local function pick_project(fn)
   end)
 end
 
-local function select_project_find_file()
+function M.select_project_find_file()
   -- if is_monorepo() then
   --   return fzf_grep(find_root_dir(vim.loop.cwd(), { ".git" }))
   -- else
@@ -242,7 +242,7 @@ local function select_project_find_file()
   end)
 end
 
-local function select_project_fzf_grep()
+function M.select_project_fzf_grep()
   -- if is_monorepo() then
   --   return live_grep(find_root_dir(vim.loop.cwd(), { ".git" }))
   -- else
@@ -250,6 +250,21 @@ local function select_project_fzf_grep()
     fzf_lua.grep({ cwd = path, search = "" })
   end)
 end
+
+
+function M.edit_nvim()
+  local dir = "~/.config/nvim"
+  require("fzf-lua").files({
+        cwd_prompt = false,
+        prompt = "Nvim Config > ",
+        cmd = "rg --files " .. dir,
+        cwd = dir,
+    })
+end
+
+
+
+
 
 return {
   -- grep
@@ -266,3 +281,4 @@ return {
   select_project_fzf_grep = select_project_fzf_grep,
 }
 
+return M
