@@ -5,7 +5,7 @@
 --]]
 
 return {
-  { '<leader>bb', "<CMD>lua require'telescope.builtin'.buffers({ sort_mru = true, ignore_current_buffer = true })<CR>", desc = 'Find buffer' },
+  { '<leader>bb', "<CMD>lua require'telescope.builtin'.buffers({ sort_mru = true, ignore_current_buffer = false })<CR>", desc = 'Find buffer' },
   { '<leader>ba', '<CMD>BufferLineCloseLeft<CR><CMD>BufferLineCloseRight<CR>', desc = 'Close All but current' },
   { '<leader>bc', "<CMD>BufferLinePickClose<CR>", desc = "Pick Close" },
   -- { '<leader>bc', "<CMD>BufferLinePickClose<CR>", desc = " Pick close" },

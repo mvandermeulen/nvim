@@ -2,7 +2,7 @@
 -- Mappings: Normal - Modifiers
 --
 -- Author: Mark van der Meulen
--- Updated: 2024-12-25
+-- Updated: 2025-06-17
 --]]
 
 
@@ -21,10 +21,10 @@ end
 -- vim.keymap.set("n", "<C-k>", "<C-w>k")
 -- vim.keymap.set("n", "<C-l>", "<C-w>l")
 -- Quickly switch window {{{
-vim.keymap.set("n", "<M-h>", [[<C-W>h]], { desc = "Switch to left window" })
-vim.keymap.set("n", "<M-j>", [[<C-W>j]], { desc = "Switch to below window" })
-vim.keymap.set("n", "<M-k>", [[<C-W>k]], { desc = "Switch to above window" })
-vim.keymap.set("n", "<M-l>", [[<C-W>l]], { desc = "Switch to right window" })
+-- vim.keymap.set("n", "<M-h>", [[<C-W>h]], { desc = "Switch to left window" })
+-- vim.keymap.set("n", "<M-j>", [[<C-W>j]], { desc = "Switch to below window" })
+-- vim.keymap.set("n", "<M-k>", [[<C-W>k]], { desc = "Switch to above window" })
+-- vim.keymap.set("n", "<M-l>", [[<C-W>l]], { desc = "Switch to right window" })
 
 
 -- tmux sessionizer in nvim

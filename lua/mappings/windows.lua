@@ -4,6 +4,7 @@ return {
   { '<leader>wf', '<CMD>tabfirst<CR>', desc = ' First Tab' },
   { '<leader>wh', '<cmd>:NewTabHSplit<cr>', desc = 'Tab w Horizontal Split' },
   { '<leader>wl', '<CMD>tablast<CR>', desc = ' Last Tab' },
+  { '<leader>wL', '<CMD>lua require("helpers.user.shell").last_session()<CR>', desc = ' Last Session' },
   { '<leader>wp', '<c-w>x', desc = 'Swap' },
   { '<leader>wq', '<cmd>:q<cr>', desc = 'Close' },
   { '<leader>wr', '<CMD>tabrewind<CR>', desc = ' Rewind' },
@@ -14,5 +15,6 @@ return {
   { '<leader>wv', '<cmd>:vnew<cr>', desc = 'Empty Vertical Split' },
   { '<leader>w=', '<c-w>=', desc = 'Equally size' },
   { '<leader>wV', '<cmd>:NewTabVSplit<cr>', desc = 'Tab w Vertical Split' },
+  { '<leader>w3', '<cmd>:NewTabTripleVSplit<cr>', desc = 'Tab w Triple Vertical Split' },
   -- { '<leader>ww', "<cmd>lua require('nvim-window').pick()<cr>", desc = 'Choose window to jump' },
 }

@@ -2,7 +2,7 @@
 -- Mappings: Normal - Overrides
 --
 -- Author: Mark van der Meulen
--- Updated: 2024-12-25
+-- Updated: 2025-06-17
 --]]
 
 
@@ -21,20 +21,35 @@ local diagnostic_goto = function(next, severity)
   local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
   severity = severity and vim.diagnostic.severity[severity] or nil
   return function()
-    go { severity = severity }
+    go { severity = severity, border = "rounded", wrap = true, float = true }
   end
 end
 
-map('n', 'K', vim.lsp.buf.hover, {}) -- This will allow us to Shift-K and get the Hover property to show
+-- map('n', 'K', vim.lsp.buf.hover, {}) -- This will allow us to Shift-K and get the Hover property to show
 
 --- Always center Ctrl+U/D ---
 map("n", "<C-u>", "<C-u>zz", dfo())
 map("n", "<C-d>", "<C-d>zz", dfo())
 
+-- bufnnoremap("]W", function()
+--   vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR })
+-- end, 'go-to-next-error')
+
+-- bufnnoremap("[W", function()
+--   vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR })
+-- end, 'go-to-previous-error')
+
+-- bufnnoremap("]w", function()
+--   vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.WARN })
+-- end, 'go-to-next-warning')
+
+-- bufnnoremap("[w", function()
+--   vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.WARN })
+-- end, 'go-to-previous-warning')
 map("n", "[q", vim.cmd.cprev, { desc = "Previous Quickfix" })
 map("n", "]q", vim.cmd.cnext, { desc = "Next Quickfix" })
-map("n", "]D", diagnostic_goto(true), { desc = "Next Diagnostic" })
-map("n", "[D", diagnostic_goto(false), { desc = "Prev Diagnostic" })
+map("n", "]d", diagnostic_goto(true), { desc = "Next Diagnostic" })
+map("n", "[d", diagnostic_goto(false), { desc = "Prev Diagnostic" })
 map("n", "]e", diagnostic_goto(true, "ERROR"), { desc = "Next Error" })
 map("n", "[e", diagnostic_goto(false, "ERROR"), { desc = "Prev Error" })
 map("n", "]w", diagnostic_goto(true, "WARN"), { desc = "Next Warning" })

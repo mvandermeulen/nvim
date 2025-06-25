@@ -112,6 +112,7 @@ return {
   { '<leader>tr', "<CMD>Telescope registers<CR>", desc = " Registers" },
   { "<leader>tR", "<CMD>Telescope recall<CR>", desc = " Recall" },
   { "<leader>ts", "<CMD>lua require('search').open()<CR>", desc = " Search" },
+  { '<leader>tS', function() require("telescope").extensions.resession.resession() end, desc = "Resession" },
   { '<leader>tt', "<CMD>Telescope filetypes<CR>", desc = " Filetypes" },
   { '<leader>tu', function() require("telescope").extensions.undo.undo({ side_by_side = true }) end, desc = "󰑖 Undo" },
   { '<leader>tz', "<CMD>Telescope current_buffer_fuzzy_find<CR>", desc = " Current Buffer Fuzzy Find" },
