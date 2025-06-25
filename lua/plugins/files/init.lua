@@ -1,7 +1,7 @@
 --[[
 -- Plugins: File Management
 -- Author: Mark van der Meulen
--- Updated: 2024-09-21
+-- Updated: 2025-06-17
 --]]
 
 
@@ -43,6 +43,7 @@ local telescope_depends = {
   { 'tsakirist/telescope-lazy.nvim' },
   { 'fdschmidt93/telescope-egrepify.nvim' },
   { 'dhruvmanila/telescope-bookmarks.nvim' },
+  { 'scottmckendry/pick-resession.nvim' },
   -- { 'nvim-telescope/telescope-cheat.nvim' },
 }
 local diff_plugin_cmds = { 'DiffviewOpen', 'DiffviewClose', 'DiffviewToggleFiles', 'DiffviewFocusFiles' }
@@ -104,7 +105,14 @@ local M = {
     "fdschmidt93/telescope-egrepify.nvim",
     dependencies = { "nvim-telescope/telescope.nvim" },
     config = function()
-      require('telescope').load_extension('')
+      require('telescope').load_extension('egrepify')
+    end,
+  },
+  {-- camgraff/telescope-tmux.nvim
+    "camgraff/telescope-tmux.nvim",
+    dependencies = { "nvim-telescope/telescope.nvim" },
+    config = function()
+      require('telescope').load_extension('tmux')
     end,
   },
   {-- tsakirist/telescope-lazy.nvim

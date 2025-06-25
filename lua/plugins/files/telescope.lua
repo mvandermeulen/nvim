@@ -144,6 +144,10 @@ telescope.setup {
     tele_tabby = {
         use_highlighter = true,
     },
+    resession = {
+        prompt_title = "Find Sessions", -- telescope prompt title
+        dir = "session", -- directory where resession stores sessions
+    },
     repo = {
       list = {
         search_dirs = {
