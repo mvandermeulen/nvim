@@ -1,7 +1,7 @@
 --[[
 -- Navigator Plugin
 -- Author: Mark van der Meulen
--- Updated: 29-04-2022
+-- Updated: 2025-06-17
 --]]
 
 require("Navigator").setup({

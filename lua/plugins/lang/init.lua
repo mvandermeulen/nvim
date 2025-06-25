@@ -1,7 +1,7 @@
 --[[
 -- Plugins: Language
 -- Author: Mark van der Meulen
--- Updated: 2025-06-03
+-- Updated: 2025-06-17
 --]]
 
 local treesitter_depends = {
@@ -31,7 +31,7 @@ local M = {
     name = "treesitter-context",
   },
   require('plugins.lang.context_vt'),
-  {-- Pair completion ie. parentheses
+  {-- windwp/nvim-autopairs: Pair completion ie. parentheses
     'windwp/nvim-autopairs',
     lazy = false,
     config = function()
@@ -49,6 +49,7 @@ local M = {
       { 'hrsh7th/cmp-cmdline' }, -- cmdline completions
       { 'hrsh7th/cmp-calc' },
       { 'hrsh7th/cmp-nvim-lua' },
+      { "hrsh7th/cmp-nvim-lsp-signature-help" },
       { 'onsails/lspkind-nvim' },
       { 'famiu/bufdelete.nvim' },
     },
@@ -67,6 +68,7 @@ local M = {
     end,
   },
   { 'neovim/nvim-lspconfig', lazy = false },
+  { "lukas-reineke/lsp-format.nvim" },
   {-- icholy/lsplinks.nvim
     "icholy/lsplinks.nvim",
     config = function()
@@ -271,7 +273,7 @@ local M = {
       require('plugins.lang.glance')
     end,
   },
-  {
+  {-- zeioth/garbage-day.nvim
     "zeioth/garbage-day.nvim",
     dependencies = "neovim/nvim-lspconfig",
     event = "VeryLazy",

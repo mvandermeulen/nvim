@@ -2,7 +2,7 @@
 -- Completion Plugin
 --
 -- Author: Mark van der Meulen
--- Updated: 2024-08-22
+-- Updated: 2025-06-17
 --]]
 
 -- Setup nvim-cmp.
@@ -64,13 +64,9 @@ cmp.setup({
   },
   sources = {
     { name = "nvim_lsp" },
-    { name = "buffer", keyword_length = 5 },
+    { name = "buffer", keyword_length = 3 },
     { name = "luasnip" },
-    -- { name = "calc" },
-    -- { name = "emoji" },
-    -- { name = "spell" },
     { name = "path" },
-    -- { name = 'nvimai_cmp_source' },
     { name = "rg", keyword_length = 5 },
   },
 })

@@ -1,7 +1,7 @@
 --[[
 -- Plugins: UI
 -- Author: Mark van der Meulen
--- Updated: 2024-09-21
+-- Updated: 2025-06-17
 --]]
 
 local M = {
