@@ -32,13 +32,13 @@ vim.opt.relativenumber = true                       -- Relative line numbers
 vim.opt.numberwidth = 4                             -- Make the gutter wider by default
 
 -- Folding
-vim.o.foldcolumn = '1' -- '0' is not bad
+vim.o.foldcolumn = '0' -- '0' is not bad
 -- vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 --vim.opt.foldmethod = 'indent'
 -- vim.opt.foldmethod = "expr"
 --vim.opt.foldmethod = 'marker'                     -- Enable folding (default 'foldmarker')
-vim.opt.foldlevel = 99
-vim.opt.foldlevelstart = 99
+vim.opt.foldlevel = 3
+vim.opt.foldlevelstart = 3
 vim.opt.foldminlines = 2
 vim.opt.foldnestmax = 10
 vim.opt.foldenable = true                          -- disable folding; enable with zi

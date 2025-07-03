@@ -4,9 +4,9 @@ return {
     lazy = false,
     dependencies = { "kevinhwang91/promise-async" },
     init = function()
-      vim.o.foldcolumn = "1"
-      vim.o.foldlevel = 99
-      vim.o.foldlevelstart = 99
+      vim.o.foldcolumn = "0"
+      vim.o.foldlevel = 3
+      vim.o.foldlevelstart = 3
       vim.o.foldenable = true
       vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
     end,
