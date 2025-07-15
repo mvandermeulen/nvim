@@ -128,15 +128,17 @@ autocmd('Filetype', {
 --     end
 -- })
 
--- Setup mappings just for markdown
--- vim.api.nvim_create_autocmd("FileType", {
---     pattern = {"markdown"},
---     callback = function()
---       -- Currently using C-i as C-m does not work.
---       vim.keymap.set("n", "<C-i>w", "<CMD>MakeWordMarkdownLink<CR>", { noremap = true, silent = true, desc = 'Make word Markdown Link' })
---       vim.keymap.set("n", "<C-i>W", "<CMD>MakeNonWhitespaceWordMarkdownLink<CR>", { noremap = true, silent = true, desc = 'Make WORD Markdown Link' })
---     end
--- })
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = {"markdown"},
+    callback = function()
+      -- Currently using C-i as C-m does not work.
+      vim.keymap.set("n", "<M-i>c", function() require("helpers.user.tools").md_block() end, { noremap = true, silent = true, desc = 'Make word Markdown Link' })
+      vim.keymap.set("n", "<M-i>w", "<CMD>MakeWordMarkdownLink<CR>", { noremap = true, silent = true, desc = 'Make word Markdown Link' })
+      vim.keymap.set("n", "<M-i>W", "<CMD>MakeNonWhitespaceWordMarkdownLink<CR>", { noremap = true, silent = true, desc = 'Make WORD Markdown Link' })
+      vim.keymap.set("n", "<C-a>", function() require("helpers.user.tools").increase_header() end, { noremap = true, silent = true, desc = 'Increase Markdown Header' })
+      vim.keymap.set("n", "<C-x>", function() require("helpers.user.tools").decrease_header() end, { noremap = true, silent = true, desc = 'Decrease Markdown Header' })
+    end
+})
 
 ------------------------------------
 -- Terminal
