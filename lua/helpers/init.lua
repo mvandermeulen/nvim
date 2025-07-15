@@ -17,6 +17,5 @@ _G.my.helpers.Colours = require('helpers.utils.colours')
 _G.create_picker = require('plugins.navigation.telescope.picker')
 
 require('helpers.user.auto')
-require('helpers.ui.windows.zoom')
 require('helpers.command')
 require('helpers.user.clipboard').setup()
