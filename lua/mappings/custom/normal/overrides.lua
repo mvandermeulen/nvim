@@ -58,7 +58,8 @@ map('n', ']j', '<C-i>zz', { silent = true, noremap = true, desc = 'Next Jump'})
 map('n', '[j', '<C-o>zz', { silent = true, noremap = true, desc = 'Previous Jump'})
 
 
-map('n', '<Tab>', '<C-w>w', { silent = true, noremap = true })
+-- NOTE: Disabled mapping of <Tab> to switch windows
+-- map('n', '<Tab>', '<C-w>w', { silent = true, noremap = true })
 -- vim.api.nvim_set_keymap('n', '<bs>', '<c-^\'”zz', { silent = true, noremap = true })
 
 -- Scroll with ',' and 'm', moving the marker key to 'M'
@@ -106,6 +107,8 @@ map("n", "N", "Nzz", { noremap = true })
 -- map("n", "<C-i>", "<C-i>zz", { noremap = true })
 map("n", "*", "*zz", { noremap = true })
 map("n", "#", "#zz", { noremap = true })
+map("n", "0", "^", { noremap = true })
+map("n", "^", "0", { noremap = true })
 
 
 -- map("n", "<leader>gn", "]s")
@@ -113,4 +116,29 @@ map("n", "#", "#zz", { noremap = true })
 -- map("n", "<leader>gg", "zg")
 -- map("n", "<ESC>", "<cmd> :noh <CR>")
 -- map("x", "p", "P")
+
+-------------------------------
+-- Standard Keys
+-------------------------------
+-- map("n", ";", ":", kmo()) -- Remap semicolon for commands
+-- map("n", ";;", ";", kmo()) -- Remap semicolon for commands
+-- map("n", "0", "^", kmo()) -- use 0 to go to first char of line
+map("n", "n", "nzz", kmo()) -- center search results
+map("n", "N", "Nzz", kmo()) -- center search results
+map("n", "k", "v:count == 0 ? 'gk' : 'k'", expr_options) -- Deal with visual line wraps
+map("n", "j", "v:count == 0 ? 'gj' : 'j'", expr_options) -- Deal with visual line wraps
+-- map("n", "<ESC>", ":nohlsearch<Bar>:echo<CR>", kmo()) -- Cancel search highlighting with ESC
+map("n", "m/", "<cmd>MarksListAll<CR>", kmo()) -- Marks from all opened buffers
+map("n", "U", "<esc><C-r>", 'Redo')
+
+
+-------------------------------
+-- Arrow Keys
+-------------------------------
+map("n", "<Left>", ":vertical resize +1<CR>", kmo())
+map("n", "<Right>", ":vertical resize -1<CR>", kmo())
+map("n", "<Up>", ":resize -1<CR>", kmo())
+map("n", "<Down>", ":resize +1<CR>", kmo())
+
+
 
