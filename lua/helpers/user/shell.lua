@@ -7,11 +7,13 @@
 
 local _name = 'Shell'
 local _log = require('plenary.log').new({ plugin = _name, level = 'debug', use_console = true })
+
 local function mlog(msg, level)
   local level = level or 'debug'
   if level == 'error' then
-    vim.api.nvim_err_writeln(msg)
     _log.error(msg)
+    vim.notify(msg, vim.log.levels.ERROR, { title = _name })
+    print(msg)
   elseif level == 'notify' then
     vim.notify(msg, vim.log.levels.INFO, { title = _name })
     _log.info(msg)
@@ -27,7 +29,8 @@ local M = {}
 
 
 local TMUXKeys = {
-  enter = "Enter",
+  -- enter = "Enter",
+  enter = "C-m",
 }
 
 local function tslime_to_target_pane()
@@ -192,7 +195,8 @@ local function tmux_get_panes()
     "-F",
     "#{session_name},#{window_index},#{pane_index},#{pane_bottom},#{pane_left},${pane_title},#{pane_current_command}",
   }
-  local panes_raw = get_os_command_output(cmd)
+  local panes_raw, ret = get_os_command_output(cmd, vim.loop.cwd())
+  -- return not (ret ~= 0 or #git_root <= 0)
   local panes = vim.tbl_map(function(e)
     local opts = vim.split(e, ",", {})
     return {
@@ -218,7 +222,8 @@ function M.tslime_select_target_pane()
     "#{pane_index} - #{pane_title}",
   }
 
-  local panes = get_os_command_output(cmd)
+  local panes, ret = get_os_command_output(cmd, vim.loop.cwd())
+  -- return not (ret ~= 0 or #git_root <= 0)
   if #panes == 2 then
     M.tslime_auto_select_bottom_pane()
     return
@@ -256,13 +261,72 @@ end
 
 function M.get_current_window()
   local cmd = { "tmux", "display-message", "-p", "#W" }
-  local res = get_os_command_output(cmd)
+  local res, ret = get_os_command_output(cmd, vim.loop.cwd())
+  if ret ~= 0 then
+    mlog("Error determining current window with command: " .. table.concat(cmd, " "), 'error')
+    return nil
+  end
+  -- return not (ret ~= 0 or #git_root <= 0)
   if #res >= 1 then
     return { name = res[1] }
   else
     return { name = nil }
   end
 end
+
+function M.show_session_in_popup(session_name, path)
+  vim.fn.system('pueue --config ~/.local/share/pueue/mbp/pueue.yml add -d 1 -p -g tmux -- tmux "display-popup -E -h 80% -w 80% \'tmux new-session -A -s NvimLog\'"')
+  -- vim.fn.system('tmux display-popup -h 80% -w 80% "tmux new-session -A -s ' .. session_name .. ' -c ' .. path .. '"')
+  -- cmd = { "tmux", "display-popup", "-h", "80%", "-w", "80%", '"tmux new-session -A -s ' .. session_name  .. '"' }
+  -- local res, ret = get_os_command_output(cmd, vim.loop.cwd())
+  -- if ret ~= 0 then
+  --   mlog("Error showing session in popup: " .. table.concat(cmd, " "), 'error')
+  --   return nil
+  -- end
+  -- if #res >= 1 then
+  --   return { name = res[1] }
+  -- else
+  --   return { name = nil }
+  -- end
+end
+
+function M.new_window(session_name, detach, window_path, window_name)
+  window_name = window_name or "nvwin"
+  if not window_path:match "^/" then
+    window_path = vim.loop.cwd() .. "/" .. window_path
+  end
+  cmd = { "tmux", "new-window", "-S", "-t", session_name, "-c", window_path, "-n", window_name }
+  if detach then
+    table.insert(cmd, 3, "-d")
+  end
+  local result = vim.fn.system(table.concat(cmd, " "))
+  mlog("New window command result: " .. result, 'debug')
+  -- local res, ret = get_os_command_output(cmd, vim.loop.cwd())
+  -- if ret ~= 0 then
+  --   mlog("Error opening new window with command: " .. table.concat(cmd, " "), 'error')
+  --   return nil
+  -- end
+  -- if #res >= 1 then
+  --   return { name = res[1] }
+  -- else
+  --   return { name = nil }
+  -- end
+end
+
+-- function M.new_session(session_name, detach, window_path)
+--   if not window_path:match "^/" then
+--     window_path = vim.loop.cwd() .. "/" .. window_path
+--   end
+--   cmd = { "tmux", "new-window", "-S", "-t", session_name, "-c", window_path, "-n", window_name }
+--   if detach then
+--     table.insert(cmd, 3, "-d")
+--   end
+--   local result = vim.fn.system(table.concat(cmd, " "))
+--   mlog("New window command result: " .. result, 'debug')
+-- end
+
+
+
 
 ---------- Experiment: custom run in pane ----------
 --
@@ -275,26 +339,28 @@ end
 ---Run os command in tmux pane
 ---@param cmd string[]
 ---@return nil
-function M.run_in_pane(cmd)
-  if not vim.g.tslime then
-    M.tslime_auto_select_bottom_pane()
+function M.run_in_pane(target, send_return, cmd)
+  local target_pane = target or tslime_to_target_pane()
+  local args = { "send-keys", "-t", target_pane, "'" .. cmd .. "'" }
+  if send_return then
+    table.insert(args, #args + 1, TMUXKeys.enter)
   end
+  local message = string.format("Running %s %s in pane %s", "tmux", table.concat(args, " "), target_pane)
+  mlog(message, 'debug')
+  local result = vim.fn.system('pueue --config ~/.local/share/pueue/mbp/pueue.yml add -d 1 -p -g tmux -- ' .. table.concat(cmd, " "))
+  -- local result = vim.fn.system(table.concat(cmd, " "))
+  mlog("Result of attempt to send-keys: " .. result, 'debug')
+  -- local handle
+  -- handle, _ = vim.loop.spawn("tmux", { args = args }, function(code)
+  --   handle:close()
+  --   if code ~= 0 then
+  --     message = string.format("Terminal exited %d running %s %s", code, "tmux", table.concat(args, " "))
+  --     mlog(message, 'error')
+  --     vim.notify(message, vim.log.levels.ERROR)
+  --   end
+  -- end)
 
-  local target_pane = tslime_to_target_pane()
-  local args = { "send-keys", "-t", target_pane, table.concat(cmd, " "), TMUXKeys.enter }
-
-  local handle
-  handle, _ = vim.loop.spawn("tmux", { args = args }, function(code)
-    handle:close()
-    if code ~= 0 then
-      vim.notify(
-        string.format("Terminal exited %d running %s %s", code, "tmux", table.concat(args, " ")),
-        vim.log.levels.ERROR
-      )
-    end
-  end)
-
-  return handle
+  -- return handle
 end
 
 function M.get_tmux_working_directory()
