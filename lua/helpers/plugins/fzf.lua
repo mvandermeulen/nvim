@@ -6,46 +6,10 @@
 --]]
 
 local fzf_lua = require("fzf-lua")
-local actions = require('fzf-lua.actions')
 local utils = require('helpers.utils')
 local Path = require('helpers.utils.path')
+local fzf_config = require('helpers.plugins.fzf_config')
 
-local rg_ignore_dirs = {
-  ".git",
-  --
-  ".*_cache",
-  "postgres-data",
-  "edgedb-data",
-  ".vscode",
-  "**/playground/*",
-  --
-  "*.pyc",
-  "**/__pycache__/*",
-  "**.venv/*",
-  "**venv/*",
-  "**_oldvenv/*",
-  "**/__snapshots__",
-  "tests/data",
-  --
-  "**/.dist/*",
-  "**/.output/*",
-  "**/node_modules/*",
-}
-
-local rg_ignore_files = { "*.min.css", "*.svg", "pnpm-lock.yaml", "package-lock.json", "edgedb.toml" }
-
-local rg_ignore_arg = ("--glob '!{%s}' --glob '!{%s}'"):format(
-  table.concat(rg_ignore_dirs, ","),
-  table.concat(rg_ignore_files, ",")
-)
-
-local fzf_actions = {
-  ["enter"] = actions.file_edit_or_qf,
-  ['default'] = actions.file_edit_or_qf,
-  ['ctrl-t'] = actions.file_tabedit,
-  ['ctrl-x'] = actions.file_split,
-  ['ctrl-v'] = actions.file_vsplit,
-}
 
 local M = {}
 
@@ -161,12 +125,14 @@ end
 
 ---------- Files ----------
 function M.rg_files(rg_opts, cwd)
-  local rg_cmd = ("rg %s --files --hidden %s"):format(rg_opts or "", rg_ignore_arg)
+  -- local rg_cmd = ("rg %s --files --hidden %s"):format(rg_opts or "", rg_ignore_arg)
+  local rg_cmd = (fzf_config.files_custom_rg_cmd):format(rg_opts or "", fzf_config.rg_ignore_arg)
   return fzf_lua.fzf_exec(rg_cmd, {
     prompt = "Files > ",
+    multiprocess = fzf_config.files_config.multiprocess,
     previewer = "builtin",
     cwd = cwd or make_fzf_dir(),
-    actions = fzf_actions,
+    actions = fzf_config.files_actions,
     fn_transform = function(x)
       return fzf_lua.make_entry.file(x, { file_icons = true, color_icons = true })
     end,
@@ -183,35 +149,45 @@ function M.lsp_references()
 end
 
 --
-------- Wax files -------
+------- VDM files -------
 
 function M.my_files()
-  local paths = {
-    ".config/nvim/config.lua",
-    ".gitconfig",
-    ".python_startup_local.py",
-    ".zshrc",
-    "src/waxcraft/dotfiles",
-    "src/waxcraft/colorschemes",
-    ".local/share/nvim/lazy",
-  }
   local home = vim.env.HOME
   local abs_paths = vim.tbl_map(function(path)
     return home .. "/" .. path
-  end, paths)
-
-  local cmd = ("rg --hidden %s --files %s"):format(rg_ignore_arg, table.concat(abs_paths, " "))
-
+  end, fzf_config.fzf_custom_paths.my_files_config)
+  local cmd = ("rg --hidden %s --files %s"):format(fzf_config.rg_ignore_arg, table.concat(abs_paths, " "))
   return fzf_lua.fzf_exec(cmd, {
-    prompt = "WaxFiles > ",
+    prompt = "MyFiles > ",
     previewer = "builtin",
     cwd = vim.env.HOME,
-    actions = fzf_actions,
+    cwd_prompt = false,
+    actions = fzf_config.files_actions,
     fn_transform = function(x)
       return fzf_lua.make_entry.file(x, { file_icons = true, color_icons = true })
     end,
   })
 end
+
+-- Alternative implementation using `fzf_lua.files`
+function M.my_files_alt()
+  local home = vim.env.HOME
+  local abs_paths = vim.tbl_map(function(path)
+    return home .. "/" .. path
+  end, fzf_config.fzf_custom_paths.my_files_config)
+  local mycmd = ("rg --hidden %s --files %s"):format(fzf_config.rg_ignore_arg, table.concat(abs_paths, " "))
+  require("fzf-lua").files({
+    cwd_prompt = false,
+    prompt = "My Files > ",
+    cmd = mycmd,
+    cwd = vim.env.HOME,
+  })
+end
+
+
+
+
+
 
 ------- Project Select first -------
 local function pick_project(fn)
@@ -253,7 +229,7 @@ end
 
 
 function M.edit_nvim()
-  local dir = "~/.config/nvim"
+  local dir = "~/resources/configs/nvim"
   require("fzf-lua").files({
         cwd_prompt = false,
         prompt = "Nvim Config > ",
@@ -266,19 +242,19 @@ end
 
 
 
-return {
-  -- grep
-  fzf_grep = fzf_grep,
-  live_grep = live_grep,
-  grep_word_under_cursor = grep_word_under_cursor,
-  -- files
-  rg_files = rg_files,
-  -- lsp
-  lsp_references = lsp_references,
-  -- custom
-  my_files = my_files,
-  select_project_find_file = select_project_find_file,
-  select_project_fzf_grep = select_project_fzf_grep,
-}
+-- return {
+--   -- grep
+--   fzf_grep = fzf_grep,
+--   live_grep = live_grep,
+--   grep_word_under_cursor = grep_word_under_cursor,
+--   -- files
+--   rg_files = rg_files,
+--   -- lsp
+--   lsp_references = lsp_references,
+--   -- custom
+--   my_files = my_files,
+--   select_project_find_file = select_project_find_file,
+--   select_project_fzf_grep = select_project_fzf_grep,
+-- }
 
 return M
