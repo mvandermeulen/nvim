@@ -199,40 +199,6 @@ function M.create_floating_scratch(content)
   vim.api.nvim_buf_set_keymap(buf, "n", "q", ":q!<CR>", { noremap = true, silent = true })
 end
 
-function M.add_project_from_line(current_line)
-  local project_pattern = "PROJECT:%s*(%S+)"
-  local project_name = current_line:match(project_pattern)
-
-  if not project_name then
-    require "notify"("No project name found on the line.", "error")
-    return
-  end
-
-  local file_path = vim.fn.expand "~/projects.txt"
-  local projects = {}
-  local file = io.open(file_path, "r")
-
-  if file then
-    for line in file:lines() do
-      projects[line] = true
-    end
-    file:close()
-  end
-
-  if projects[project_name] then
-    require "notify"("Project already exists: " .. project_name, "info")
-  else
-    file = io.open(file_path, "a")
-    if file then
-      file:write(project_name .. "\n")
-      file:close()
-      require "notify"("Project added: " .. project_name, "info")
-    else
-      require "notify"("Failed to open the file.", "error")
-    end
-  end
-end
-
 
 -- M.api = require('helpers.utils.api')
 -- M.icons = require('helpers.utils.icons')

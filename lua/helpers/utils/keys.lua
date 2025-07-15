@@ -7,6 +7,57 @@
 
 local M = {}
 
+
+-- KeyMap Options (kmo)
+function M.kmo(desc)
+  if desc then
+    return { noremap = true, silent = true, desc = desc }
+  else
+    return { noremap = true, silent = true }
+  end
+end
+
+-- Normal Local Leader Mapping
+---Wrapper around safe_keymap_set for local leader mappings in NORMAL mode.
+---@param lhs string
+---@param rhs function|string
+---@param desc string
+function M:nllmap(lhs, rhs, desc)
+  self.safe_keymap_set("n", "<localleader>" .. lhs, rhs, self.kmo(desc))
+end
+
+-- Normal Leader Mapping
+---Wrapper around safe_keymap_set for leader mappings in NORMAL mode.
+---@param lhs string
+---@param rhs function|string
+---@param desc string
+function M:nlmap(lhs, rhs, desc)
+  self.safe_keymap_set("n", "<leader>" .. lhs, rhs, self.kmo(desc))
+end
+
+-- Terminal Mapping
+---Wrapper around safe_keymap_set for terminal mappings.
+---@param lhs string
+---@param rhs function|string
+---@param desc string
+function M:tmap(lhs, rhs, desc)
+  self.safe_keymap_set("t", lhs, rhs, self.kmo(desc))
+end
+
+-- Insert Mapping
+---Wrapper around safe_keymap_set for insert mappings.
+---@param lhs string
+---@param rhs function|string
+---@param desc string
+function M:inomap(lhs, rhs, desc)
+  self.safe_keymap_set("i", lhs, rhs, self.kmo(desc))
+end
+
+
+
+
+
+
 function M.send(keys, options)
     local mode = options.mode
 
@@ -63,11 +114,15 @@ function M.safe_keymap_set(mode, lhs, rhs, opts)
     return not (keys.have and keys:have(lhs, m))
   end, modes)
 
+  local map_opts = { noremap = true, silent = true }
+  if opts then
+    map_opts = vim.tbl_extend("force", map_opts, opts)
+  end
+
   -- do not create the keymap if a lazy keys handler exists
   if #modes > 0 then
-    opts = opts or {}
-    opts.silent = opts.silent ~= false
-    vim.keymap.set(modes, lhs, rhs, opts)
+    map_opts.silent = map_opts.silent ~= false
+    vim.keymap.set(modes, lhs, rhs, map_opts)
   end
 end
 
