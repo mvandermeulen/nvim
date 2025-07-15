@@ -48,7 +48,7 @@ local diff = {
 local filetype = { 'filetype', icons_enabled = true }
 local branch = { 'branch', icons_enabled = true, icon = '' }
 local location = { 'location', padding = 0 }
-local action_hints = require("action-hints").statusline
+-- local action_hints = require("action-hints").statusline
 
 
 local spaces = function()
@@ -106,7 +106,7 @@ lualine.setup {
         cond = require("noice").api.statusline.mode.has,
         color = { fg = "#ff9e64" },
       },
-      { action_hints },
+      -- { action_hints },
       { lspstatus },
     },
     -- lualine_x = { "encoding", "fileformat", "filetype" },

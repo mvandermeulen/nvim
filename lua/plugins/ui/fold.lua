@@ -5,10 +5,12 @@ return {
     dependencies = { "kevinhwang91/promise-async" },
     init = function()
       vim.o.foldcolumn = "0"
-      vim.o.foldlevel = 3
-      vim.o.foldlevelstart = 3
+      vim.o.foldlevel = 90 
+      vim.o.foldlevelstart = 90
       vim.o.foldenable = true
       vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
+      vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
+      vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
     end,
     opts = function()
       local handler = function(virtText, lnum, endLnum, width, truncate)

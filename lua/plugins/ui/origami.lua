@@ -17,7 +17,7 @@ origami.setup({
   useLspFoldsWithTreesitterFallback = not package.loaded["ufo"],
   pauseFoldsOnSearch = true,
   autoFold = {
-    enabled = true,
+    enabled = false,
     kinds = { "comment", "imports" },
   },
   -- `h` key opens on first column, not at first non-blank character or before
