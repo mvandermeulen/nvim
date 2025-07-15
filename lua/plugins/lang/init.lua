@@ -226,6 +226,7 @@ local M = {
   { 'cuducos/yaml.nvim', ft = { 'yaml' } }, -- Language Specific
   {-- roobert/action-hints.nvim
     "roobert/action-hints.nvim",
+    enabled = false,-- These fucking icons
     config = function()
       require("action-hints").setup({
         template = {
