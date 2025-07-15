@@ -1,3 +1,10 @@
+--[[
+-- Mappings: INSERT
+--
+-- Author: Mark van der Meulen
+-- Updated: 2025-07-15
+--]]
+
 
 -- require('mappings.custom.insert.special')
 require('mappings.custom.insert.modifiers')

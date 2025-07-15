@@ -6,36 +6,32 @@
 --]]
 
 
-local map = require('helpers.utils.keys').safe_keymap_set
-local opts = { noremap = true, silent = true }
-
-local insert_date = function()
-  local date = os.date('%Y-%m-%d') --[[@ as string]]
-  vim.api.nvim_feedkeys(date, 'n', false)
+---------- Helper Functions ----------
+local keys = require('helpers.utils.keys')
+local edit = require('helpers.user.editing')
+local function map(key, action, desc)
+  keys:inomap(key, action, desc)
 end
 
-local insert_time = function()
-  local time = os.date('%H:%M:%S') --[[@ as string]]
-  vim.api.nvim_feedkeys(time, 'n', false)
-end
 
-map('i', '<C-g>d', insert_date, { desc = 'Insert date' })
-map('i', '<C-g><C-d>', insert_date, { desc = 'Insert date' })
-map('i', '<C-g>t', insert_time, { desc = 'Insert time' })
-map('i', '<C-g><C-t>', insert_time, { desc = 'Insert time' })
+--------------------
+-- Ctrl Modifier
+--------------------
 
-map('i', '<C-c>', '<Esc>', opts)
+map('<C-g>d', edit.insert_date, 'Insert date')
+map('<C-g><C-d>', edit.insert_date, 'Insert date')
+map('<C-g>t', edit.insert_time, 'Insert time')
+map('<C-g><C-t>', edit.insert_time, 'Insert time')
+map('<C-c>', '<Esc>', 'Exit Insert Mode')
+map("<C-U>", "<Esc>viwUi", 'Uppercase Word')
+map("<C-a>", function() edit.insert_todo_and_comment() end, 'Insert TODO Comment')
+map("<C-x>", function() edit.add_project_from_line(vim.fn.getline('.')) end, 'Add Project from Line')
+-- map("i", "<C-L>", "<CMD>lua EscapePair()<CR>", kmo())
 
+--------------------
+-- Meta Modifier
+--------------------
+map("<M-f>", function() edit.insert_file_path() end, 'Insert File Path')
 
--- map({ 'i', 's' }, '<C-l>', function()
--- 	local mode = vim.api.nvim_get_mode().mode
--- 	if mode == 'ix' then -- completion with <C-x>
--- 		vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<C-l>', true, false, true), 'n', false)
--- 	else
--- 		vim.cmd.fclose({ bang = true })
--- 	end
--- end, { silent = true })
-
-
-
-
+-- map("", function()  end, '')
+-- vim.api.nvim_set_keymap("i", "<C-CR>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
