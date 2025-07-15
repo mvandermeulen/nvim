@@ -1,109 +1,129 @@
 --[[
--- Mappings: Normal - Local Leader
+-- Mappings: Normal - Special
 --
 -- Author: Mark van der Meulen
--- Updated: 2024-12-25
+-- Updated: 2025-07-16
 --]]
 
 
+---------- Helpers ----------
+local keys = require('helpers.utils.keys')
+local map = keys.safe_keymap_set
+local kmo = keys.kmo
 
-local function dfo(desc)
-  if desc then
-    return { noremap = true, silent = true, desc = desc }
-  else
-    return { noremap = true, silent = true }
-  end
-end
 
-------------------------
--- Function Key Bindings
-------------------------
+-------------------------------
+-- Function Keys
+-------------------------------
 
 -- <F1>: Show help
-vim.keymap.set("n", "<F1>", "<cmd>Telescope help_tags<CR>", dfo())
+-- vim.keymap.set("n", "<F1>", "<cmd>Telescope help_tags<CR>", kmo())
 -- vim.keymap.set("n", "<F1>", "<Esc>")
--- <S-F1>: Show keymaps
-vim.keymap.set("n", "<F3>", "<cmd>Telescope keymaps<CR>", dfo())
 
 -- <F2>: Rename (check lspconfig)
-vim.keymap.set("n", "<F2>", "<cmd>lua vim.lsp.buf.rename()<CR>", dfo())
--- <S-F2>: Show task list
--- vim.keymap.set("n", "<F14>", "<cmd>TodoTelescope<CR>", dfo())
+map("n", "<F2>", "<cmd>lua vim.lsp.buf.rename()<CR>", kmo())
 
+-- <F3>: Show keymaps
+map("n", "<F3>", "<cmd>Telescope keymaps<CR>", kmo())
 -- <F3>: Show file tree explorer
--- vim.keymap.set("n", "<F3>", "<cmd>NvimTreeToggle<CR>", default_dfo())
--- vim.keymap.set("n", "<F3>", "<cmd>Neotree toggle<CR>", dfo())
+-- vim.keymap.set("n", "<F3>", "<cmd>NvimTreeToggle<CR>", default_kmo())
+-- vim.keymap.set("n", "<F3>", "<cmd>Neotree toggle<CR>", kmo())
 -- <F3>: Show file tree at the current file
--- vim.keymap.set("n", "<F15>", "<cmd>Neotree reveal<CR>", dfo())
 
 -- <F4>: Show tags of current buffer
--- vim.keymap.set("n", "<F4>", ":Telescope current_buffer_tags<CR>", default_dfo())
-vim.keymap.set("n", "<F4>", "<cmd>Outline!<CR>", dfo())
--- <S-F4>: Show diagnostics
-vim.keymap.set("n", "<F6>", "<cmd>Telescope diagnostics<CR>", dfo())
--- <S-F4>: Generate tags
--- vim.keymap.set("n", "<F16>", ":!ctags -R --links=no . <CR>", default_dfo())
+-- vim.keymap.set("n", "<F4>", ":Telescope current_buffer_tags<CR>", default_kmo())
+map("n", "<F4>", "<cmd>Outline!<CR>", kmo())
 
 -- <F5>: Show and switch buffer
-vim.keymap.set("n", "<F5>", "<cmd>Telescope buffers<CR>", dfo())
--- <S-F5>: Show and switch tab
-vim.keymap.set("n", "<F13>", "<cmd>tabs<CR>", dfo())
+map("n", "<F5>", "<cmd>Telescope buffers<CR>", kmo())
 
--- <F6>: Prev buffer
--- vim.keymap.set("n", "<F6>", "<cmd>BufferPrevious<CR>", dfo())
--- <S-F6>: Prev tab
--- vim.keymap.set("n", "<F18>", "<cmd>tabprevious<CR>", dfo())
+-- <F6>: Show diagnostics
+map("n", "<F6>", "<cmd>Telescope diagnostics<CR>", kmo())
 
 -- <F7>: Next buffer
--- vim.keymap.set("n", "<F7>", "<cmd>BufferNext<CR>", dfo())
--- <S-F7>: Next tab
--- vim.keymap.set("n", "<F19>", "<cmd>tabnext<CR>", dfo())
+-- vim.keymap.set("n", "<F7>", "<cmd>BufferNext<CR>", kmo())
 
--- <F14>: Close current buffer and switch to previous buffer
-vim.keymap.set("n", "<F14>", "<cmd>BufferDelete<CR>", dfo())
--- <S-F8>: Close current tab
--- vim.keymap.set("n", "<F20>", "<cmd>tabclose<CR>", dfo())
 
 -- <F9>: Remove trailing spaces
--- vim.keymap.set("n", "<F9>", [[<cmd>%s/\s\+$//e<CR>]], dfo())
--- <S-F9>: Clear registers
--- vim.keymap.set("n", "<F21>", "<cmd>ClearAllRegisters<CR>", dfo())
+-- vim.keymap.set("n", "<F9>", [[<cmd>%s/\s\+$//e<CR>]], kmo())
 
 -- <F10>: Run make file
--- vim.keymap.set("n", "<F10>", "<cmd>make<CR>", dfo())
--- <S-F10>: Run make clean
--- vim.keymap.set("n", "<F22>", "<cmd>make clean<CR>", dfo())
+-- vim.keymap.set("n", "<F10>", "<cmd>make<CR>", kmo())
 
 -- <F11>: Toggle zoom the current window (from custom functions)
-vim.keymap.set("n", "<F16>", function() require("snacks").zen.zoom() end, dfo())
--- <S-F11>: Toggle colorizer
--- vim.keymap.set("n", "<F17>", "<cmd>ColorizerToggle<CR>", dfo())
 
 -- <F12>: Toggle relative number
--- vim.keymap.set("n", "<F12>", "<cmd>set nu rnu!<CR>", dfo())
+-- vim.keymap.set("n", "<F12>", "<cmd>set nu rnu!<CR>", kmo())
+
+-- <S-F1>: Show tabs
+-- <S-F1>: <F13>
+map("n", "<F13>", "<cmd>tabs<CR>", kmo())
+-- map("n", "<F13>", ":NvimTreeToggle<cr>", kmo())
+
+-- <S-F2>: <F14>
+-- <S-F2>: Show task list
+-- vim.keymap.set("n", "<F14>", "<cmd>TodoTelescope<CR>", kmo())
+-- <F14>: Close current buffer and switch to previous buffer
+map("n", "<F14>", "<cmd>BufferDelete<CR>", kmo('Close Buffer'))
+
+-- <S-F3>: <F15>
+-- <F15>: 
+-- vim.keymap.set("n", "<F15>", "<cmd>Neotree reveal<CR>", kmo())
+
+-- <S-F4>: <F16>
+-- <F16>: Snacks Zen Mode
+-- <S-F4>: Generate tags
+-- vim.keymap.set("n", "<F16>", ":!ctags -R --links=no . <CR>", default_kmo())
+map("n", "<F16>", function() require("snacks").zen.zoom() end, kmo('Zen Mode'))
+
+-- <S-F5>: <F17>
+-- <F17>: 
+-- <S-F5>: Toggle colorizer
+-- vim.keymap.set("n", "<F17>", "<cmd>ColorizerToggle<CR>", kmo())
+
+
+-- <S-F6>: <F18>
+-- <F18>: 
+-- <S-F6>: Prev tab
+-- vim.keymap.set("n", "<F18>", "<cmd>tabprevious<CR>", kmo())
+
+
+-- <S-F7>: <F19>
+-- <F19>: 
+-- <S-F7>: Next tab
+-- vim.keymap.set("n", "<F19>", "<cmd>tabnext<CR>", kmo())
+
+
+-- <S-F8>: <F20>
+-- <F20>: 
+-- <S-F8>: Close current tab
+-- vim.keymap.set("n", "<F20>", "<cmd>tabclose<CR>", kmo())
+
+
+-- <S-F9>: <F21>
+-- <F21>: 
+-- <S-F9>: Clear registers
+-- vim.keymap.set("n", "<F21>", "<cmd>ClearAllRegisters<CR>", kmo())
+
+
+-- <S-F10>: <F22>
+-- <F22>: 
+-- <S-F10>: Run make clean
+-- vim.keymap.set("n", "<F22>", "<cmd>make clean<CR>", kmo())
+
+
+-- <S-F11>: <F23>
+-- <F23>: 
 -- <S-F11>: Toggle welcome screen
--- vim.keymap.set("n", "<F19>", function() require("snacks").dashboard() end, dfo())
+-- vim.keymap.set("n", "<F19>", function() require("snacks").dashboard() end, kmo())
 
 
-
--- vim.keymap.set('n', '<D-s>', ':w<CR>')        -- Save
--- vim.keymap.set('v', '<D-c>', '"+y')           -- Copy
--- vim.keymap.set('n', '<D-v>', '"+P')           -- Paste normal mode
--- vim.keymap.set('v', '<D-v>', '"+P')           -- Paste visual mode
--- vim.keymap.set('c', '<D-v>', '<C-R>+')        -- Paste command mode
--- vim.keymap.set('i', '<D-v>', '<ESC>l"+Pli')   -- Paste insert mode
-
--- Allow clipboard copy paste in neovim
--- vim.keymap.set('', '<D-v>', '+p<CR>', { noremap = true, silent = true })
--- vim.keymap.set('!', '<D-v>', '<C-R>+', { noremap = true, silent = true })
--- vim.keymap.set('t', '<D-v>', '<C-R>+', { noremap = true, silent = true })
--- vim.keymap.set('v', '<D-v>', '<C-R>+', { noremap = true, silent = true })
+-- <S-F12>: <F24>
+-- <F24>: 
 
 
-
-
-
-
-
+-- <backspace>: Replace indented line
+map("n", "<backspace>", function() require("helpers.user.tools").replace_indented_line() end, kmo())
+-- <S-Backspace> is UNUSED
 
 
