@@ -23,7 +23,7 @@ return {
         for k, v in pairs(opts) do
             leap.opts[k] = v
         end
-        -- require('leap').set_default_mappings()
+        require('leap').set_default_mappings()
         -- vim.keymap.set({ "n" }, "s", "<Plug>(leap)")
         -- -- vim.keymap.set("n", "S", "<Plug>(leap-from-window)")
         -- vim.keymap.set({ "x", "o" }, "s", "<Plug>(leap-forward)")
