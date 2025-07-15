@@ -34,6 +34,15 @@ vim.api.nvim_create_user_command("NewTabTripleVSplit", function()
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<C-w>=', true, false, true), 'n', false)
 end, {})
 
+
+vim.api.nvim_create_user_command("NewTabQuadVSplit", function()
+  vim.cmd.tabnew()
+  vim.cmd.vnew()
+  vim.cmd.vnew()
+  vim.cmd.vnew()
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<C-w>=', true, false, true), 'n', false)
+end, {})
+
 -- tab buffer window list
 -- https://koturn.hatenablog.com/entry/2018/02/13/000000
 vim.api.nvim_create_user_command("TabInfo", function()

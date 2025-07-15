@@ -181,7 +181,7 @@ end, {
   nargs = 0,
 })
 
-vim.api.nvim_create_user_command('WRAP', function()
+vim.api.nvim_create_user_command('ToggleWordWrap', function()
   if vim.wo.wrap then
     vim.cmd("set nowrap")
     vim.cmd("set nolinebreak")
@@ -190,3 +190,14 @@ vim.api.nvim_create_user_command('WRAP', function()
     vim.cmd("set linebreak")
   end
 end, { nargs = 0 })
+
+
+
+vim.api.nvim_create_user_command("GetRunOutput", function(opts)
+  local editing = require('helpers.user.editing')
+  local filepath = opts.fargs[1] or nil
+  local reg = 'o'
+  editing.load_output_to_register(filepath, reg)
+end, { nargs = 1 })
+
+
