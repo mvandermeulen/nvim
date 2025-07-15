@@ -1,8 +1,8 @@
 --[[
--- Mappings: Normal - Modifiers
+-- Mappings: Visual - Modifiers
 --
 -- Author: Mark van der Meulen
--- Updated: 2024-12-25
+-- Updated: 2025-07-15
 --]]
 
 
