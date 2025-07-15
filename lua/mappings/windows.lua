@@ -15,6 +15,8 @@ return {
   { '<leader>wv', '<cmd>:vnew<cr>', desc = 'Empty Vertical Split' },
   { '<leader>w=', '<c-w>=', desc = 'Equally size' },
   { '<leader>wV', '<cmd>:NewTabVSplit<cr>', desc = 'Tab w Vertical Split' },
-  { '<leader>w3', '<cmd>:NewTabTripleVSplit<cr>', desc = 'Tab w Triple Vertical Split' },
+  { '<leader>wz', '<CMD>lua require("helpers.ui.windows").zoom.toggle()<CR>', desc = 'Zoom' },
+  { '<leader>w3', '<cmd>:NewTabTripleVSplit<cr>', desc = 'Tab w Triple VSplit' },
+  { '<leader>w4', '<cmd>:NewTabQuadVSplit<cr>', desc = 'Tab w Quad VSplit' },
   -- { '<leader>ww', "<cmd>lua require('nvim-window').pick()<cr>", desc = 'Choose window to jump' },
 }
