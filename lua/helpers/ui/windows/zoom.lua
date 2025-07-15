@@ -1,7 +1,7 @@
 local M = {}
 M.zoomed = false
 
-function M.toggle_zoom()
+function M.toggle()
   if M.zoomed then
     vim.cmd "wincmd ="
     M.zoomed = false
@@ -12,7 +12,7 @@ function M.toggle_zoom()
   end
 end
 
-vim.keymap.set("n", "<leader>wZ", M.toggle_zoom, { noremap = true, silent = true, desc ='Toggle Zoom' })
-vim.keymap.set("n", "<C-\">", M.toggle_zoom, { noremap = true, silent = true, desc ='Toggle Zoom' })
+-- vim.keymap.set("n", "<leader>wZ", M.toggle_zoom, { noremap = true, silent = true, desc ='Toggle Zoom' })
+-- vim.keymap.set("n", "<C-\">", M.toggle_zoom, { noremap = true, silent = true, desc ='Toggle Zoom' })
 
 return M

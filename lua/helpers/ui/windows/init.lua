@@ -2,7 +2,7 @@
 -- Helpers: window
 --
 -- Author: Mark van der Meulen
--- Updated: 2024-12-20
+-- Updated: 2025-07-15
 --]]
 
 local fn = require('helpers.user.fn')
@@ -11,6 +11,7 @@ local M = {
   state = { prev_win = {} },
   tabpage_wins_normal = {}, -- only normal windows
   tabpage_wins_any = {}, -- all windows
+  zoom = require('helpers.ui.windows.zoom'),
 }
 
 M.is_normal_win = function(winid)
@@ -329,6 +330,34 @@ end
 M.flip_recents_smart = function()
   return M.flip_recents(M.tabpage_get_recents_smart())
 end
+
+
+function M.open_new_tab(opts)
+  vim.cmd.tabnew()
+  if opts then
+    if opts == 'empty' or opts == '' then
+      return
+    elseif opts == 'tiled' then
+      vim.cmd.vnew()
+      vim.cmd.new()
+      vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<C-w>h', true, false, true), 'n', false)
+      vim.cmd.new()
+    elseif opts == 'horizontal' then
+      vim.cmd.new()
+    elseif opts == 'vertical' then
+      vim.cmd.vnew()
+    elseif opts == 'triple' then
+      vim.cmd.vnew()
+      vim.cmd.vnew()
+    elseif opts == 'quad' then
+      vim.cmd.vnew()
+      vim.cmd.vnew()
+      vim.cmd.vnew()
+    end
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<C-w>=', true, false, true), 'n', false)
+  end
+end
+
 
 
 return M
