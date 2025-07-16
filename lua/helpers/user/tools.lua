@@ -495,15 +495,22 @@ end
 --- Go to or create the *`n`*th tab
 ---@param n integer
 function M.tabnm(n)
-  return function()
-    local tabs = vim.api.nvim_list_tabpages()
-    if n > #tabs then
-      vim.cmd("$tabnew")
-    else
-      local tabpage = tabs[n]
-      vim.api.nvim_set_current_tabpage(tabpage)
-    end
+  local tabs = vim.api.nvim_list_tabpages()
+  if n > #tabs then
+    vim.cmd("$tabnew")
+  else
+    local tabpage = tabs[n]
+    vim.api.nvim_set_current_tabpage(tabpage)
   end
+  -- return function()
+  --   local tabs = vim.api.nvim_list_tabpages()
+  --   if n > #tabs then
+  --     vim.cmd("$tabnew")
+  --   else
+  --     local tabpage = tabs[n]
+  --     vim.api.nvim_set_current_tabpage(tabpage)
+  --   end
+  -- end
 end
 
 
