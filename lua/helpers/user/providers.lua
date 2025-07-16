@@ -1,3 +1,10 @@
+--[[
+-- Helpers: Providers
+--
+-- Author: Mark van der Meulen
+-- Updated: 2025-07-16
+--]]
+
 local M = {
   providers = {},
 }

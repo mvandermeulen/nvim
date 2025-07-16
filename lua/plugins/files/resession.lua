@@ -36,9 +36,9 @@ resession.setup({
 vim.api.nvim_create_autocmd("VimLeavePre", {
   callback = function()
     -- Always save a special session named "last"
-    local directory_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
-    local short_date = os.date("%y-%m-%d")
-    resession.save("AUTO_SESSION_" .. string.upper(directory_name) .. "_" .. short_date)
+    -- local directory_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
+    -- local short_date = os.date("%y-%m-%d")
+    -- resession.save("AUTO_SESSION_" .. string.upper(directory_name) .. "_" .. short_date)
     resession.save("LAST_SESSION")
   end,
 })

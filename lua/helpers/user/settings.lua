@@ -111,7 +111,7 @@ function M.toggle_diagnostics()
 end
 
 
-M.my_toggle_line_numbers = function()
+function M.my_toggle_line_numbers()
   if vim.o.number == true then
     vim.o.number = false
     vim.o.relativenumber = false
@@ -121,7 +121,7 @@ M.my_toggle_line_numbers = function()
   end
 end
 
-M.my_fold_mapping = function()
+function M.my_fold_mapping()
   local openers = { ['('] = ')', ['['] = ']', ['{'] = '}', ['<'] = '>' }
   local closers = { [')'] = '(', [']'] = '[', ['}'] = '{', ['>'] = '<' }
   local current_line_number = vim.fn.line('.')
@@ -208,7 +208,7 @@ M.my_fold_mapping = function()
   end
 end
 
-M.my_toggle_paste_mode = function()
+function M.my_toggle_paste_mode()
     if vim.opt.paste:get() then
         vim.opt.paste = false
         print("NO paste mode")
@@ -218,7 +218,7 @@ M.my_toggle_paste_mode = function()
     end
 end
 
-M.my_toggle_wrap_mode = function()
+function M.my_toggle_wrap_mode()
     if vim.opt.wrap:get() then
         vim.opt.wrap = false
     else
@@ -226,7 +226,7 @@ M.my_toggle_wrap_mode = function()
     end
 end
 
-M.my_list_chars_mode = function()
+function M.my_list_chars_mode()
     if vim.opt.list:get() then
         vim.opt.list = false
     else
@@ -234,40 +234,40 @@ M.my_list_chars_mode = function()
     end
 end
 
-M.vcut_to_q = function()
+function M.vcut_to_q()
     local vmapx_reg = vim.fn.getreg('"')  -- save current register ""
     vim.cmd('normal! gv"qx')  -- save cut to register "q
     vim.fn.setreg('"', vmapx_reg) -- restore register ""
 end
 
-M.vcut_to_qq = function()
+function M.vcut_to_qq()
     local vmapx_reg = vim.fn.getreg('"')
     vim.cmd('normal! gv"qX')  -- save cut to register "q
     vim.fn.setreg('"', vmapx_reg)
 end
 
-M.vcut_to_w = function()
+function M.vcut_to_w()
     local vmapc_reg = vim.fn.getreg('"')  -- save current register ""
     vim.cmd('normal! gv"wc')  -- save cut to register "w
     vim.fn.setreg('"', vmapc_reg) -- restore register ""
     vim.cmd('startinsert')
 end
 
-M.vcut_to_ww = function()
+function M.vcut_to_ww()
     local vmapc_reg = vim.fn.getreg('"')
     vim.cmd('normal! gv"wC')  -- save cut to register "w
     vim.fn.setreg('"', vmapc_reg)
     vim.cmd('startinsert')
 end
 
-M.ccut_to_w = function()
+function M.ccut_to_w()
     local nmapc_reg = vim.fn.getreg('"')
     vim.cmd('normal! "wciw')  -- save cut to register "w
     vim.fn.setreg('"', nmapc_reg) 
     vim.cmd('startinsert')
 end
 
-M.ccut_to_ww = function()
+function M.ccut_to_ww()
     local nmapc_reg = vim.fn.getreg('"')
     vim.cmd('normal! "wciW')  -- save cut to register "w
     vim.fn.setreg('"', nmapc_reg)

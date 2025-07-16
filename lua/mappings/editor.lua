@@ -148,8 +148,8 @@ local user_mappings = {
   -- Cursor Position
   { "<leader>eui", vim.show_pos, desc = "Inspect Cursor Position" },
   { '<leader>eur', "<ESC><C-r><ESC>", desc = 'Redo' },
-  { '<leader>euv', "<CMD>lua require('helpers.user.notes').socket_paste()<CR>", desc = 'Socket Paste' },
-  { '<leader>euw', "<CMD>lua require('helpers.user.notes').send_to_snuggle()<CR>", desc = 'Send to Snuggle' },
+  { '<leader>euv', "<CMD>lua require('helpers.user.snuggle').socket_paste()<CR>", desc = 'Socket Paste' },
+  { '<leader>euw', "<CMD>lua require('helpers.user.snuggle').send_to_snuggle()<CR>", desc = 'Send to Snuggle' },
 }
 
 
