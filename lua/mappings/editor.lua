@@ -174,7 +174,7 @@ local command_mappings = {
   { "<leader>ecti", "<CMD>TabInfo<CR>", desc = "Info" },
   { "<leader>ectv", "<CMD>NewTabVSplit<CR>", desc = "Vertical Split" },
   { "<leader>ectt", "<CMD>NewTabTiled<CR>", desc = "Tiled" },
-  { "<leader>ecr", "<CMD><CR>", desc = "" },
+  -- { "<leader>ecr", "<CMD><CR>", desc = "" },
 }
 
 ----- <leader>e

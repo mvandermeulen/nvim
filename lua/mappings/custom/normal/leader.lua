@@ -10,8 +10,6 @@
 local keys = require('helpers.utils.keys')
 local function map(key, action, desc)
   keys:nlmap(key, action, desc)
-  -- if type(action) == 'function' then
-  -- end
 end
 
 
@@ -58,7 +56,7 @@ end
 -- )
 
 -- blackhole delete
-map({ "n", "v" }, "<leader>D", '"_dP', { desc = 'Blackhole Delete'})
+-- map({ "n", "v" }, "<leader>D", '"_dP', { desc = 'Blackhole Delete'})
 
 -- Escape search highlight
 -- vim.keymap.set("n", "<leader>s", "<cmd>set hlsearch!<CR>")
@@ -94,17 +92,17 @@ map({ "n", "v" }, "<leader>D", '"_dP', { desc = 'Blackhole Delete'})
 --map('n', '<leader>j', [[<cmd>m-2|j<cr>]])                                 -- Join line above at end of current
 -- map("n", "<leader><leader>M", ":lua require'telegraph'.telegraph({how='tmux_popup', cmd='man '})<Left><Left><Left>", kmo(''))
 -- Map <leader>mr in normal mode to the ranger_popup_in_tmux function
-map("n", "<leader>mr", "<Cmd>lua require('helpers.user.shell').ranger_popup_in_tmux()<CR>", kmo('Ranger in Tmux'))
+map("mr", "<Cmd>lua require('helpers.user.shell').ranger_popup_in_tmux()<CR>", 'Ranger in Tmux')
 -- map("n", "<leader>mp", "<Cmd>lua require('helpers.precognition').toggle()<CR>", kmo('Toggle Precognition'))
 
-map("n", "<leader>pj[", "<cmd>Portal jumplist backward<cr>", kmo('Portal Jumplist Backward'))
-map("n", "<leader>pj]", "<cmd>Portal jumplist forward<cr>", kmo('Portal Jumplist Forward'))
+map("pj[", "<cmd>Portal jumplist backward<cr>", 'Portal Jumplist Backward')
+map("pj]", "<cmd>Portal jumplist forward<cr>", 'Portal Jumplist Forward')
 
 -- map("n", "<leader>pj[", "<cmd>Portal jumplist backward<cr>", kmo('Portal Jumplist Backward'))
 -- map("n", "<leader>pj]", "<cmd>Portal jumplist forward<cr>", kmo('Portal Jumplist Forward'))
 
-map("n", "<leader><S-Tab>", ":BufferLineCyclePrev<CR>", kmo('Previous Buffer'))
-map("n", "<leader><Tab>", ":BufferLineCycleNext<CR>", kmo('Next Buffer'))
+map("<S-Tab>", ":BufferLineCyclePrev<CR>", 'Previous Buffer')
+map("<Tab>", ":BufferLineCycleNext<CR>", 'Next Buffer')
 
 
 
@@ -116,15 +114,15 @@ map("n", "<leader><Tab>", ":BufferLineCycleNext<CR>", kmo('Next Buffer'))
 ---------- Editor Tools ----------
 ----- <leader>e
 ----- Mappings: k, K, G
-map("n", "<leader>ek", function() require("helpers.user.tools").cursor_lock(true) end, { noremap = true, silent = true, desc = 'Cursor LocK' })
-map("n", "<leader>eK", function() require("helpers.user.tools").cursor_lock(false) end, { noremap = true, silent = true, desc = 'Cursor LocK Disable' })
-map("n", "<leader>eG", function() require("helpers.user.tools").open_log("NvimLog") end, { noremap = true, silent = true, desc = 'Open Neovim Logs' })
+map("ek", function() require("helpers.user.tools").cursor_lock(true) end, 'Cursor LocK')
+map("eK", function() require("helpers.user.tools").cursor_lock(false) end, 'Cursor LocK Disable')
+map("eG", function() require("helpers.user.tools").open_log("NvimLog") end, 'Open Neovim Logs')
 
 ---------- Diagnostic Tools ----------
 ----- <leader>d
 ----- Mappings: c, C
-map("n", "<leader>dc", function() require("helpers.user.tools").cursor_diagnostics() end, { noremap = true, silent = true, desc = 'Copy Diagnostics [Cursor]' })
-map("n", "<leader>dC", function() require("helpers.user.tools").all_diagnostics() end, { noremap = true, silent = true, desc = 'Copy Diagnostics [All]' })
+map("dc", function() require("helpers.user.tools").cursor_diagnostics() end, 'Copy Diagnostics [Cursor]')
+map("dC", function() require("helpers.user.tools").all_diagnostics() end, 'Copy Diagnostics [All]')
 
 -- map('n', '<Space>tw', function()
 -- 	vim.opt.wrap = not vim.o.wrap
@@ -200,8 +198,11 @@ map("n", "<leader>dC", function() require("helpers.user.tools").all_diagnostics(
 --   end
 -- end, { desc = 'LSP: Toggle virtual text of diagnotics' })
 
+
+
+
 -- Set up keymaps
-vim.api.nvim_set_keymap('n', '<leader>we', ':lua add_snippet_normal()<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('v', '<leader>we', ':<C-U>lua add_snippet_visual()<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>wr', ':lua view_snippets()<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>wq', ':lua clear_snippets()<CR>', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('n', '<leader>we', ':lua add_snippet_normal()<CR>', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('v', '<leader>we', ':<C-U>lua add_snippet_visual()<CR>', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('n', '<leader>wr', ':lua view_snippets()<CR>', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('n', '<leader>wq', ':lua clear_snippets()<CR>', { noremap = true, silent = true })

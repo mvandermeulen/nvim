@@ -2,19 +2,16 @@
 -- Mappings: Normal - Overrides
 --
 -- Author: Mark van der Meulen
--- Updated: 2025-06-17
+-- Updated: 2025-07-16
 --]]
 
 
-local map = require('helpers.utils.keys').safe_keymap_set
 
-local function dfo(desc)
-  if desc then
-    return { noremap = true, silent = true, desc = desc }
-  else
-    return { noremap = true, silent = true }
-  end
-end
+---------- Helpers ----------
+local keys = require('helpers.utils.keys')
+local map = keys.safe_keymap_set
+local kmo = keys.kmo
+
 
 -- diagnostic
 local diagnostic_goto = function(next, severity)
@@ -28,8 +25,8 @@ end
 -- map('n', 'K', vim.lsp.buf.hover, {}) -- This will allow us to Shift-K and get the Hover property to show
 
 --- Always center Ctrl+U/D ---
-map("n", "<C-u>", "<C-u>zz", dfo())
-map("n", "<C-d>", "<C-d>zz", dfo())
+map("n", "<C-u>", "<C-u>zz", kmo())
+map("n", "<C-d>", "<C-d>zz", kmo())
 
 -- bufnnoremap("]W", function()
 --   vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR })
@@ -46,16 +43,16 @@ map("n", "<C-d>", "<C-d>zz", dfo())
 -- bufnnoremap("[w", function()
 --   vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.WARN })
 -- end, 'go-to-previous-warning')
-map("n", "[q", vim.cmd.cprev, { desc = "Previous Quickfix" })
-map("n", "]q", vim.cmd.cnext, { desc = "Next Quickfix" })
-map("n", "]d", diagnostic_goto(true), { desc = "Next Diagnostic" })
-map("n", "[d", diagnostic_goto(false), { desc = "Prev Diagnostic" })
-map("n", "]e", diagnostic_goto(true, "ERROR"), { desc = "Next Error" })
-map("n", "[e", diagnostic_goto(false, "ERROR"), { desc = "Prev Error" })
-map("n", "]w", diagnostic_goto(true, "WARN"), { desc = "Next Warning" })
-map("n", "[w", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
-map('n', ']j', '<C-i>zz', { silent = true, noremap = true, desc = 'Next Jump'})
-map('n', '[j', '<C-o>zz', { silent = true, noremap = true, desc = 'Previous Jump'})
+map("n", "[q", vim.cmd.cprev, kmo('Prev Quickfix'))
+map("n", "]q", vim.cmd.cnext, kmo('Next Quickfix'))
+map("n", "]d", diagnostic_goto(true), kmo('Next Diagnostic'))
+map("n", "[d", diagnostic_goto(false), kmo('Prev Diagnostic'))
+map("n", "]e", diagnostic_goto(true, "ERROR"), kmo('Next Error'))
+map("n", "[e", diagnostic_goto(false, "ERROR"), kmo('Prev Error'))
+map("n", "]w", diagnostic_goto(true, "WARN"), kmo('Next Warning'))
+map("n", "[w", diagnostic_goto(false, "WARN"), kmo('Prev Warning'))
+map('n', ']j', '<C-i>zz', kmo('Next Jump'))
+map('n', '[j', '<C-o>zz', kmo('Prev Jump'))
 
 
 -- NOTE: Disabled mapping of <Tab> to switch windows
@@ -68,7 +65,7 @@ map('n', '[j', '<C-o>zz', { silent = true, noremap = true, desc = 'Previous Jump
 -- vim.keymap.map('', 'M', 'm', { noremap = true })
 
 -- vim.keymap.map('n', '<CR>', '<Cmd>noh<CR><Bar><Cmd>echon<CR><CR>', { silent = true, noremap = true })
-map('n', '<c-c><c-q>', ':qa!<cr>', { silent = true, noremap = true })
+map('n', '<c-c><c-q>', ':qa!<cr>', kmo('Quit All'))
 
 
 -- Clear search with <esc>
@@ -101,14 +98,14 @@ map('n', '<c-c><c-q>', ':qa!<cr>', { silent = true, noremap = true })
 -- map('n', 'grl', vim.diagnostic.setloclist, { desc = 'LSP: Set diagnostics into loclist' })
 
 -- Make many of the jump commands also center on search term
-map("n", "n", "nzz", { noremap = true })
-map("n", "N", "Nzz", { noremap = true })
+map("n", "n", "nzz", kmo())
+map("n", "N", "Nzz", kmo())
 -- map("n", "<C-o>", "<C-o>zz", { noremap = true })
 -- map("n", "<C-i>", "<C-i>zz", { noremap = true })
-map("n", "*", "*zz", { noremap = true })
-map("n", "#", "#zz", { noremap = true })
-map("n", "0", "^", { noremap = true })
-map("n", "^", "0", { noremap = true })
+map("n", "*", "*zz", kmo())
+map("n", "#", "#zz", kmo())
+map("n", "0", "^", kmo())
+map("n", "^", "0", kmo())
 
 
 -- map("n", "<leader>gn", "]s")
@@ -125,20 +122,20 @@ map("n", "^", "0", { noremap = true })
 -- map("n", "0", "^", kmo()) -- use 0 to go to first char of line
 map("n", "n", "nzz", kmo()) -- center search results
 map("n", "N", "Nzz", kmo()) -- center search results
-map("n", "k", "v:count == 0 ? 'gk' : 'k'", expr_options) -- Deal with visual line wraps
-map("n", "j", "v:count == 0 ? 'gj' : 'j'", expr_options) -- Deal with visual line wraps
+-- map("n", "k", "v:count == 0 ? 'gk' : 'k'", expr_options) -- Deal with visual line wraps
+-- map("n", "j", "v:count == 0 ? 'gj' : 'j'", expr_options) -- Deal with visual line wraps
 -- map("n", "<ESC>", ":nohlsearch<Bar>:echo<CR>", kmo()) -- Cancel search highlighting with ESC
 map("n", "m/", "<cmd>MarksListAll<CR>", kmo()) -- Marks from all opened buffers
-map("n", "U", "<esc><C-r>", 'Redo')
+map("n", "U", "<esc><C-r>", kmo('Redo'))
 
 
 -------------------------------
 -- Arrow Keys
 -------------------------------
-map("n", "<Left>", ":vertical resize +1<CR>", kmo())
-map("n", "<Right>", ":vertical resize -1<CR>", kmo())
-map("n", "<Up>", ":resize -1<CR>", kmo())
-map("n", "<Down>", ":resize +1<CR>", kmo())
+map("n", "<Left>", ":vertical resize +2<CR>", kmo())
+map("n", "<Right>", ":vertical resize -2<CR>", kmo())
+map("n", "<Up>", ":resize -2<CR>", kmo())
+map("n", "<Down>", ":resize +2<CR>", kmo())
 
 
 
