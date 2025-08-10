@@ -33,9 +33,6 @@ local TMUXKeys = {
   enter = "C-m",
 }
 
-local function tslime_to_target_pane()
-  return vim.g.tslime.session .. ":" .. vim.g.tslime.window .. "." .. vim.g.tslime.pane
-end
 
 local tmux_directions = { h = "L", j = "D", k = "U", l = "R" }
 local tmux_swap_directions = { h = "left", j = "down", k = "up", l = "right" }
@@ -57,7 +54,8 @@ local M = {
 }
 
 function M.execute(arg, pre)
-    local command = string.format("%s tmux -S %s %s", pre or "", get_socket(), arg)
+    -- local command = string.format("%s tmux -S %s %s", pre or "", get_socket(), arg)
+    local command = string.format("tmux %s", arg)
 
     local handle = assert(io.popen(command), string.format("unable to M.execute: [%s]", command))
     local result = handle:read("*a")
@@ -188,6 +186,8 @@ local function get_os_command_output(cmd, cwd)
   return stdout, ret, stderr
 end
 
+
+
 local function tmux_get_panes()
   local cmd = {
     "tmux",
@@ -212,7 +212,9 @@ local function tmux_get_panes()
   return panes
 end
 
-function M.tslime_select_target_pane()
+
+
+function M.select_target_pane()
   -- List of tmux 'named variables'  (#{...})
   -- https://gist.github.com/genki/22cace67e4fc7441222a06facee12b2e
   local cmd = {
@@ -235,6 +237,8 @@ function M.tslime_select_target_pane()
     vim.g.tslime = tmux_get_panes()[i]
   end)
 end
+
+
 
 function M.tslime_auto_select_bottom_pane()
   local panes = tmux_get_panes()
@@ -259,6 +263,8 @@ function M.tslime_auto_select_bottom_pane()
   end
 end
 
+
+
 function M.get_current_window()
   local cmd = { "tmux", "display-message", "-p", "#W" }
   local res, ret = get_os_command_output(cmd, vim.loop.cwd())
@@ -273,6 +279,7 @@ function M.get_current_window()
     return { name = nil }
   end
 end
+
 
 function M.show_session_in_popup(session_name, path)
   vim.fn.system('pueue --config ~/.local/share/pueue/mbp/pueue.yml add -d 1 -p -g tmux -- tmux "display-popup -E -h 80% -w 80% \'tmux new-session -A -s NvimLog\'"')
@@ -289,6 +296,8 @@ function M.show_session_in_popup(session_name, path)
   --   return { name = nil }
   -- end
 end
+
+
 
 function M.new_window(session_name, detach, window_path, window_name)
   window_name = window_name or "nvwin"
@@ -363,6 +372,8 @@ function M.run_in_pane(target, send_return, cmd)
   -- return handle
 end
 
+
+
 function M.get_tmux_working_directory()
   -- local handle = io.popen "tmux display-message -p -F '#{session_path}'"
   local handle = io.popen "tmux display-message -p -F '#{pane_path}'"
@@ -379,12 +390,16 @@ function M.get_tmux_working_directory()
   end
 end
 
+
+
 function M.attach_session(session_name)
   local tmux_session_check = M.execute("has-session -t=" .. session_name .. " 2> /dev/null")
   if tmux_session_check == 0 then
     M.execute("switch-client -t " .. session_name)
   end
 end
+
+
 
 function M.is_running()
   local tmux_running = os.execute("pgrep tmux > /dev/null")
@@ -394,6 +409,8 @@ function M.is_running()
   end
   return false
 end
+
+
 
 function M.last_session()
   M.execute("switch-client -l")
@@ -419,6 +436,8 @@ function M.ranger_popup_in_tmux()
   os.execute(tmux_command)
 end
 
+
+
 function M.add_empty_lines(opts)
   opts = opts or {}
   local count = vim.v.count1
@@ -441,6 +460,8 @@ function M.add_empty_lines(opts)
   end
 end
 
+
+
 function M.execute_file_and_show_output()
   -- Define the command based on filetype
   local cmd
@@ -462,6 +483,8 @@ function M.execute_file_and_show_output()
   require("user_functions.utils").create_floating_scratch(output)
 end
 
+
+
 function M.interrupt_process()
   if _G.job_id then
     vim.fn.jobstop(_G.job_id)
@@ -469,6 +492,8 @@ function M.interrupt_process()
     print "Process interrupted."
   end
 end
+
+
 
 function M.execute_visual_selection()
   vim.cmd "normal! gvy"
@@ -517,5 +542,7 @@ function M.execute_visual_selection()
     { noremap = true, silent = true }
   )
 end
+
+
 
 return M
