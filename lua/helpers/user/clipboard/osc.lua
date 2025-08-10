@@ -12,6 +12,7 @@ local sep = "\n"
 local tmux = vim.env.TMUX
 local ssh = vim.env.SSH_TTY
 
+
 local osc52 = function(data)
   local acc = {}
 
@@ -47,14 +48,18 @@ local osc52 = function(data)
   return table.concat(acc, "")
 end
 
+
 local send = function(stdin, ...)
   vim.system({...}, {stdin = stdin})
 end
+
 
 local recv = function(text, ...)
   local proc = vim.system({...}, {text = text}):wait()
   return vim.split(proc.stdout, sep)
 end
+
+
 
 local copy = function(lines)
   local s = table.concat(lines, sep)
@@ -72,6 +77,7 @@ local copy = function(lines)
     send(s, "wl-copy")
   end
 end
+
 
 local paste = function()
   -- vim.api.nvim_chan_send(2, osc52("?"))
@@ -96,6 +102,8 @@ local paste = function()
   return {}
 end
 
+
+
 vim.o.clipboard = "unnamedplus"
 vim.g.clipboard = {
   name = "OSC 52",
@@ -109,6 +117,8 @@ vim.g.clipboard = {
     ["*"] = paste
   }
 }
+
+
 
 vim.paste = (function(paste)
   return function(lines, phase)

@@ -16,11 +16,31 @@ local M = {}
 
 -- local async = require "plenary.async"
 local function paste()
+  -- return {
+  --   vim.split(vim.fn.getreg '', '\n'),
+  --   vim.fn.getregtype '',
+  -- }
   return {
-    vim.split(vim.fn.getreg '', '\n'),
+    vim.split(vim.fn.getreg '', "\027%[27;5;106~"),
     vim.fn.getregtype '',
   }
 end
+
+
+-- vim.paste = (function(paste)
+--   return function(lines, phase)
+--     local acc = {}
+--     for _, line in ipairs(lines) do
+--       for _, l in ipairs(vim.split(line, "\027%[27;5;106~")) do
+--         table.insert(acc, l)
+--       end
+--     end
+--     return paste(acc, phase)
+--   end
+-- end)(vim.paste)
+
+
+
 
 local function paste_with_osc52()
   -- This function is used to paste with OSC52, which is not recommended due to slowness.
