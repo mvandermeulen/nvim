@@ -1,6 +1,6 @@
 return {
     "ggandor/leap.nvim",
-    enabled = true,
+    enabled = false,
     opts = {
         case_sensitive = true,
         -- equivalence_classes = { " \t\r\n" },
