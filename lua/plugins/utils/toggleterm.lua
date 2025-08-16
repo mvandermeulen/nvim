@@ -53,7 +53,7 @@ toggleterm.setup {
   },
 }
 
-map('n', '<leader>atn', '<cmd>lua _NODE_TOGGLE()<CR>', { noremap = true, silent = true, desc = 'Node' }) -- start node
+map('n', '<leader>aty', '<cmd>lua _YAZI_TOGGLE()<CR>', { noremap = true, silent = true, desc = 'Yazi' }) -- start node
 map('n', '<leader>atp', '<cmd>lua _PYTHON_TOGGLE()<CR>', { noremap = true, silent = true, desc = 'Python' }) -- start python
 map('n', '<leader>ath', '<cmd>lua _HTOP_TOGGLE()<CR>', { noremap = true, silent = true, desc = 'Htop' }) -- start htop
 map('n', '<leader>atu', '<cmd>lua _NCDU_TOGGLE()<CR>', { noremap = true, silent = true, desc = 'NCDU' }) -- start ncdu
@@ -84,10 +84,10 @@ vim.cmd 'autocmd! TermOpen term://* lua set_terminal_keymaps()'
 local Terminal = require('toggleterm.terminal').Terminal
 local gitui = Terminal:new { cmd = 'gitui', direction = 'float', hidden = true }
 local lazygit = Terminal:new { cmd = 'lazygit', direction = 'float', hidden = true }
-local node = Terminal:new { cmd = 'node', hidden = true }
+local yazi = Terminal:new { cmd = 'yazi', hidden = true }
 local ncdu = Terminal:new { cmd = 'ncdu', hidden = true }
 local htop = Terminal:new { cmd = 'htop', hidden = true }
-local python = Terminal:new { cmd = 'python3', hidden = true }
+local python = Terminal:new { cmd = 'uv run python3', hidden = true }
 
 function _GITUI_TOGGLE()
   gitui:toggle()
@@ -97,8 +97,8 @@ function _LAZYGIT_TOGGLE()
   lazygit:toggle()
 end
 
-function _NODE_TOGGLE()
-  node:toggle()
+function _YAZI_TOGGLE()
+  yazi:toggle()
 end
 
 function _NCDU_TOGGLE()
