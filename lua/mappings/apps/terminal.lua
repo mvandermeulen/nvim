@@ -16,5 +16,6 @@ return {
   { '<leader>ats', "<cmd>:ToggleTermSendVisualSelection<cr>", desc = 'Send Selection' },
   { '<leader>att', "<cmd>Telescope toggletasks spawn<cr>", desc = 'Spawn Task' },
   { '<leader>atT', "<cmd>Telescope toggletasks select<cr>", desc = 'Select Task' },
-  { '<leader>atv', "<CMD>ToggleTerm size=80 direction=vertical<CR>", desc = "Vertical" },
+  { '<leader>atv', "<CMD>ToggleTerm size=30 direction=vertical<CR>", desc = "Vertical 3rd" },
+  { '<leader>atV', "<CMD>ToggleTerm size=50 direction=vertical<CR>", desc = "Vertical Half" },
 }
