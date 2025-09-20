@@ -20,10 +20,6 @@ local function paste()
     vim.split(vim.fn.getreg '', '\n'),
     vim.fn.getregtype '',
   }
-  -- return {
-  --   vim.split(vim.fn.getreg '', "\027%[27;5;106~"),
-  --   vim.fn.getregtype '',
-  -- }
 end
 
 

@@ -76,10 +76,17 @@ end)
 ----- Mappings: C-p, C-x, C-, , C-., C-]
 -- vim.keymap.set("n", "<C-P>", function() require('fzf-lua').live_grep_resume() end, kmo("Search"))
 vim.keymap.set("n", "<C-p>", function() require('fzf-lua').live_grep() end, kmo("Search"))
-vim.keymap.set("n", "<C-,>", function() require('fzf-lua').files({ resume = false }) end, kmo("Files"))
-vim.keymap.set("n", "<C-.>", function() require('fzf-lua').oldfiles() end, kmo("Recent Files"))
+-- 2025-09-20: <C-,> will be used by Claude Code going forward.
+-- vim.keymap.set("n", "<C-,>", function() require('fzf-lua').files({ resume = false }) end, kmo("Files"))
+-- vim.keymap.set("n", "<C-.>", function() require('fzf-lua').oldfiles() end, kmo("Recent Files"))
+-- 2025-09-20: removed <C-.> mapping and replace with C-S-F via Cmd-F
+vim.keymap.set("n", "<C-S-F>", function() require('fzf-lua').files({ resume = false }) end, kmo("Files"))
+-- 2025-09-20: removed <C-,> mapping to avoid conflict with Claude Code.
+-- vim.keymap.set("n", "<C-,>", function() require('fzf-lua').oldfiles() end, kmo("Recent Files"))
+
 -- vim.keymap.set("n", "<C-t>", function() require('fzf-lua').tabs() end, kmo("Tabs"))
-vim.keymap.set("n", "<C-]>", function() require('fzf-lua').buffers() end, kmo("Buffers"))
+-- 2025-09-20: removed <C-]> mapping and replace with C-S-B via Cmd-B
+vim.keymap.set("n", "<C-S-B>", function() require('fzf-lua').buffers() end, kmo("Buffers"))
 -- vim.keymap.set("n", "<C-/>", function() require('fzf-lua').lsp_document_symbols() end, kmo("LSP Document Symbols"))
 -- vim.keymap.set("n", "<C-'>", function() require('fzf-lua').lsp_live_workspace_symbols() end, kmo("Live Workspace Symbols"))
 -- vim.keymap.set({ "i" }, "<C-x><C-f>",
@@ -94,13 +101,14 @@ vim.keymap.set({ "n", "v", "i" }, "<C-x><C-f>", function() require("fzf-lua").co
 
 
 ----- Control + Shift Modifier
-vim.keymap.set("n", "<C-S-D>", function() require('fzf-lua').lsp_document_symbols() end, kmo("LSP Document Symbols"))
+vim.keymap.set("n", "<C-S-E>", function() require('fzf-lua').lsp_document_symbols() end, kmo("LSP Document Symbols"))
 vim.keymap.set("n", "<C-S-W>", function() require('fzf-lua').lsp_live_workspace_symbols() end, kmo("Live Workspace Symbols"))
 -- Misc
 vim.keymap.set("n", "<C-S-K>", function() require('fzf-lua').commands() end, kmo("Commands"))
 vim.keymap.set("n", "<C-S-P>", function() require('fzf-lua').resume() end, kmo("Resume"))
 vim.keymap.set("n", "<C-S-G>", function() require('fzf-lua').grep_project() end, kmo("Grep Project"))
 vim.keymap.set("n", "<C-S-T>", function() require('fzf-lua').tabs() end, kmo("Tabs"))
+vim.keymap.set("n", "<C-S-U>", function() require('fzf-lua').grep_cword() end, kmo("Current Word"))
 
 
 ----- Leader
@@ -110,7 +118,6 @@ vim.keymap.set("n", "<leader>ft", function() require('fzf-lua').tabs() end, kmo(
 vim.keymap.set("n", "<leader>fT", function() require('fzf-lua').treesitter() end, kmo("Treesitter"))
 vim.keymap.set("n", "<leader>fL", function() require('fzf-lua').lines() end, kmo("Lines"))
 vim.keymap.set("n", "<leader>fo", function() require('fzf-lua').oldfiles() end, kmo("Recent Files"))
-vim.keymap.set("n", "<leader>fc", function() require('fzf-lua').grep_cword() end, kmo("Current Word"))
 vim.keymap.set("n", "<leader>fG", function() require('fzf-lua').grep() end, kmo("Grep"))
 -- vim.keymap.set("n", "<leader>fp", function() require('fzf-lua').grep_project() end, kmo("Grep Project"))
 vim.keymap.set("n", "<leader>fp", function() require('fzf-lua').profiles() end, kmo("Profiles"))

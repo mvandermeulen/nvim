@@ -186,9 +186,9 @@ M.ui = {
 	Ellipsis = '',
 	EmptyFolder = ' ',
 	EmptyFolderOpen = ' ',
-	File = ' ',
+	File = '  ',
 	FileSymlink = ' ',
-	Files = ' ',
+	Files = '  ',
 	FindFile = '',
 	FindText = '',
 	Folder = ' ',
@@ -215,16 +215,16 @@ M.ui = {
 }
 
 M.diagnostics = {
-	Error = ' ',
-	Hint = ' ',
-	Information = '󰋽 ',
-	Question = ' ',
-	Warning = ' ',
+	Error = '  ',
+	Hint = '  ',
+	Information = ' 󰋽 ',
+	Question = '  ',
+	Warning = '  ',
 
-	ErrorFilled = ' ',
-	HintFilled = ' ',
-	InformationFilled = ' ',
-	WarningFilled = ' ',
+	ErrorFilled = '  ',
+	HintFilled = '  ',
+	InformationFilled = '  ',
+	WarningFilled = '  ',
 }
 
 M.lsp = {

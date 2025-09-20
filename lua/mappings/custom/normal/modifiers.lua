@@ -22,8 +22,12 @@ map("n", "<C-s>", "<CMD>:update<cr><esc>", kmo('Save')) -- write with w
 map("n", "<C-t>", "<CMD>lua require('telescope').extensions.tele_tabby.list()<CR>", kmo()) -- write with w
 
 map("n", "<C-\\>", "<Plug>(comment_toggle_linewise_current)", kmo('Comment Line'))
-map("n", "<C-\">",  function() require("helpers.ui.windows").zoom.toggle() end, kmo('Toggle Zoom'))
-map("n", "<C-CR>", "<CMD>:NvimTreeToggle<CR>", kmo('Explorer'))
+-- 2025-09-20: Changed to <C-S-CR> as Cmd-Return is mapped to that
+map("n", "<C-S-CR>",  function() require("helpers.ui.windows").zoom.toggle() end, kmo('Toggle Zoom'))
+-- map("n", "<C-\">",  function() require("helpers.ui.windows").zoom.toggle() end, kmo('Toggle Zoom'))
+-- 2025-09-20: Changed to <C-S-CR> as Cmd-Return is mapped to that
+-- 2025-09-20: Changed to <C-S-backspace> as Cmd-Backspace is mapped to that
+map("n", "<C-S-backspace>", "<CMD>:NvimTreeToggle<CR>", kmo('Explorer'))
 -- <C-;>: Copilot Chat Toggle
 map({ "i", "x", "n", "s" }, "<C-;>", "<cmd>CopilotChatToggle<cr>", kmo('Copilot Chat: Toggle'))
 
@@ -34,9 +38,11 @@ map({ "i", "x", "n", "s" }, "<C-;>", "<cmd>CopilotChatToggle<cr>", kmo('Copilot 
 -- <C-Esc>: UNUSED
 -- map("n", "<C-Esc>", "<cmd>:YankBank<cr>", kmo('YankBank'))
 
+-- 2025-09-20: <C-/> is UNUSED
 -- <C-/>: FZF Document Symbols
 -- map("n", "<C-/>", "", kmo())
 
+-- 2025-09-20: <C-.> is UNUSED
 -- <C-.>: FZF Oldfiles
 -- map("n", "<C-.>", "", kmo())
 
@@ -48,7 +54,7 @@ map({ "i", "x", "n", "s" }, "<C-;>", "<cmd>CopilotChatToggle<cr>", kmo('Copilot 
 
 -- <C-[> is Copilot Chat Actions -- REMOVED AS MISTAKEN FOR ESCAPE
 
--- <C-]> is FZF Buffers
+-- 2025-09-20: <C-]> is UNUSED
 -- map("n", "<C-_>",'<CMD>lua require("arrow.persist").toggle<CR>', kmo())
 -- vim.api.nvim_set_keymap('n','<C-\\>',"<Plug>(comment_toggle_linewise_current)", kmo())
 -- map("n", "<C-]>", "", kmo())
@@ -79,8 +85,8 @@ map({ "i", "x", "n", "s"}, "<M-.>", "<cmd>AvanteToggle<CR>", kmo('Avante: Toggle
 -- map("n", "<M-CR>", function () require("telescope").extensions.smart_open.smart_open() end, kmo('Smart Open'))
 
 -- tab movement
-map('n', ']<M-t>', vim.cmd.tabnext, kmo('Next Tab'))
-map('n', '[<M-t>', vim.cmd.tabprevious, kmo('Previous Tab'))
+-- map('n', ']<M-t>', vim.cmd.tabnext, kmo('Next Tab'))
+-- map('n', '[<M-t>', vim.cmd.tabprevious, kmo('Previous Tab'))
 
 -- <M-m>: UNUSED
 -- vim.keymap.set("n", "<M-m>", "<C-W>x", kmo('Swap Window')) -- swap window
@@ -108,6 +114,9 @@ map("n", "<S-Down>", ":BufferLineCycleNext<CR>", kmo('Next Buffer'))
 
 map("n", "<S-L>", ":tabnext<CR>", kmo('Next Tab'))
 map("n", "<S-H>", ":tabprev<CR>", kmo('Previous Tab'))
+-- 2025-09-20: Added Ctrl-Shift-L/H to match Cmd-L/H on Mac
+map("n", "<C-S-L>", ":tabnext<CR>", kmo('Next Tab'))
+map("n", "<C-S-H>", ":tabprev<CR>", kmo('Previous Tab'))
 
 map("n", "<S-CR>w'", "<CMD>ReplaceInSingleQuotesWord<CR>", kmo('Wrap in Single Quotes'))
 map("n", "<S-CR>W'", "<CMD>ReplaceInSingleQuotesNonWhitespaceWord<CR>", kmo('Wrap WORD in Single Quotes'))
@@ -120,8 +129,11 @@ map("n", "<S-CR>W(", "<CMD>ReplaceInParenthesesNonWhitespaceWord<CR>", kmo('Wrap
 -- map("n", "<S-CR>wm", "<CMD>MakeWordMarkdownLink<CR>", kmo('Markdown Link'))
 -- map("n", "<S-CR>Wm", "<CMD>MakeNonWhitespaceWordMarkdownLink<CR>", kmo('Markdown Link from Non-Whitespace Word'))
 
+-- 2025-09-20: <S-Space>: UNUSED
 -- <S-Space>: Scratchpad Toggle
-map("n", "<S-Space>", function() require('snacks').scratch() end, kmo('Scratchpad Toggle'))
+-- 2025-09-20: removed <S-Space> mapping and replace with C-S-I via Cmd-I
+-- map("n", "<S-Space>", function() require('snacks').scratch() end, kmo('Scratchpad Toggle'))
+map("n", "<C-S-I>", function() require('snacks').scratch() end, kmo('Scratchpad Toggle'))
 
 -- <S-Esc>: UNUSED
 
