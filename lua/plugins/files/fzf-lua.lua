@@ -104,7 +104,9 @@ vim.keymap.set({ "n", "v", "i" }, "<C-x><C-f>", function() require("fzf-lua").co
 vim.keymap.set("n", "<C-S-E>", function() require('fzf-lua').lsp_document_symbols() end, kmo("LSP Document Symbols"))
 vim.keymap.set("n", "<C-S-W>", function() require('fzf-lua').lsp_live_workspace_symbols() end, kmo("Live Workspace Symbols"))
 -- Misc
-vim.keymap.set("n", "<C-S-K>", function() require('fzf-lua').commands() end, kmo("Commands"))
+vim.keymap.set("n", "<C-S-J>", function() require('fzf-lua').commands() end, kmo("Commands"))
+vim.keymap.set("n", "<C-S-K>", function() require('fzf-lua').keymaps() end, kmo("Keymaps"))
+vim.keymap.set("n", "<C-S-L>", function() require('fzf-lua').lines() end, kmo("Lines"))
 vim.keymap.set("n", "<C-S-P>", function() require('fzf-lua').resume() end, kmo("Resume"))
 vim.keymap.set("n", "<C-S-G>", function() require('fzf-lua').grep_project() end, kmo("Grep Project"))
 vim.keymap.set("n", "<C-S-T>", function() require('fzf-lua').tabs() end, kmo("Tabs"))
@@ -114,6 +116,7 @@ vim.keymap.set("n", "<C-S-U>", function() require('fzf-lua').grep_cword() end, k
 ----- Leader
 -- <leader>f
 vim.keymap.set("n", "<leader>fb", function() require('fzf-lua').buffers() end, kmo("Buffers"))
+-- vim.keymap.set("n", "<leader>fd", function() require('fzf-lua').lsp_document_symbols() end, kmo("LSP Document Symbols"))
 vim.keymap.set("n", "<leader>ft", function() require('fzf-lua').tabs() end, kmo("Tabs"))
 vim.keymap.set("n", "<leader>fT", function() require('fzf-lua').treesitter() end, kmo("Treesitter"))
 vim.keymap.set("n", "<leader>fL", function() require('fzf-lua').lines() end, kmo("Lines"))
