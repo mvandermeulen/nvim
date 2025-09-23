@@ -57,4 +57,5 @@ map("fm", function() require("helpers.plugins.fzf").my_files() end, 'My Files')
 map("fp", function() require("helpers.plugins.fzf").select_project_find_file() end, 'Project: Files')
 map("fP", function() require("helpers.plugins.fzf").select_project_fzf_grep() end, 'Project: Grep')
 map("fr", function() require("helpers.plugins.fzf").lsp_references() end, 'LSP References')
+map("fx", function() require("helpers.plugins.fzf").my_file_ext(true, nil) end, 'Current Filetype')
 

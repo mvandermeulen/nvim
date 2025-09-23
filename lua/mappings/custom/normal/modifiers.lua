@@ -73,6 +73,10 @@ map({ "i", "x", "n", "s" }, "<C-;>", "<cmd>CopilotChatToggle<cr>", kmo('Copilot 
 -- Meta Modifier
 --------------------
 
+map("n", "<M-f>", "<C-f>", kmo())
+map("n", "<M-b>", "<C-b>", kmo())
+map("n", "<M-x>", "<CMD>BufferDelete<CR>", kmo("Close Buffer"))
+map("n", "<M-w>", "<CMD>NvimTreeClose<cr>:q<cr>", kmo("Close Window"))
 
 -- <M-.> is Avante Ask
 map({ "i", "x", "n", "s"}, "<M-.>", "<cmd>AvanteToggle<CR>", kmo('Avante: Toggle'))
@@ -135,5 +139,7 @@ map("n", "<S-CR>W(", "<CMD>ReplaceInParenthesesNonWhitespaceWord<CR>", kmo('Wrap
 -- map("n", "<S-Space>", function() require('snacks').scratch() end, kmo('Scratchpad Toggle'))
 map("n", "<C-S-I>", function() require('snacks').scratch() end, kmo('Scratchpad Toggle'))
 
+map("n", "<C-S-Y>", "<ESC><CMD>YankBank<CR>", kmo('Yankbank'))
 -- <S-Esc>: UNUSED
+map("n", "<C-S-O>", "<cmd>Outline!<CR>", kmo('Toggle Outline'))
 

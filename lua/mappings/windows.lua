@@ -18,5 +18,6 @@ return {
   { '<leader>wz', '<CMD>lua require("helpers.ui.windows").zoom.toggle()<CR>', desc = 'Zoom' },
   { '<leader>w3', '<cmd>:NewTabTripleVSplit<cr>', desc = 'Tab w Triple VSplit' },
   { '<leader>w4', '<cmd>:NewTabQuadVSplit<cr>', desc = 'Tab w Quad VSplit' },
+  { '<leader>w;', '<c-w>w', desc = 'Switch' },
   -- { '<leader>ww', "<cmd>lua require('nvim-window').pick()<cr>", desc = 'Choose window to jump' },
 }
