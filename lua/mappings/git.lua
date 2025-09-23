@@ -44,7 +44,7 @@ return {
   { '<leader>gh', "<CMD>Gitsigns toggle_linehl<CR>", desc = 'Toggle Highlight' },
   { '<leader>gj', "<CMD>lua require 'gitsigns'.next_hunk()<CR>", desc = " Next Hunk" },
   { '<leader>gk', "<CMD>lua require 'gitsigns'.prev_hunk()<CR>", desc = " Prev Hunk" },
-  { '<leader>gL', "<CMD>lua _LAZYGIT_TOGGLE()<CR>i", desc = " Lazygit" },
+  -- { '<leader>gL', "<CMD>lua _LAZYGIT_TOGGLE()<CR>i", desc = " Lazygit" },
   { '<leader>gp', "<CMD>lua require 'gitsigns'.preview_hunk()<CR>", desc = " Preview Hunk" },
   { '<leader>gr', "<CMD>lua require 'gitsigns'.reset_hunk()<CR>", desc = "ﰇ Reset Hunk" },
   { '<leader>gR', "<CMD>lua require 'gitsigns'.reset_buffer()<CR>", desc = " Reset Buffer" },

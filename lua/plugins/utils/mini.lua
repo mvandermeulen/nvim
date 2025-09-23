@@ -7,4 +7,5 @@
 
 
 require('mini.visits').setup()
+require('mini.pick').setup()
 

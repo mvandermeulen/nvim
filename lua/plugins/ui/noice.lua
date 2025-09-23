@@ -96,18 +96,18 @@ function M.config()
         winhighlight = { Normal = "Normal", FloatBorder = "DiagnosticInfo" },
       },
     },
-    notify = {
-      enabled = true,
-      view = "notify",
-    },
-    messages = {
-      enabled = true, -- enables the Noice messages UI
-      -- view = true, -- default view for messages
-      view_error = "mini", -- view for errors
-      view_warn = "mini", -- view for warnings
-      view_history = "messages", -- view for :messages
-      view_search = "virtualtext", -- view for search count messages. Set to `false` to disable
-    },
+    -- notify = {
+    --   enabled = true,
+    --   view = "notify",
+    -- },
+    -- messages = {
+    --   enabled = true, -- enables the Noice messages UI
+    --   -- view = true, -- default view for messages
+    --   view_error = "mini", -- view for errors
+    --   view_warn = "mini", -- view for warnings
+    --   view_history = "messages", -- view for :messages
+    --   view_search = "virtualtext", -- view for search count messages. Set to `false` to disable
+    -- },
     presets = {
       bottom_search = true, -- use a classic bottom cmdline for search
       command_palette = true, -- position the cmdline and popupmenu together

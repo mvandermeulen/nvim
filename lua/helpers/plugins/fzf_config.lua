@@ -128,8 +128,8 @@ local fzf_git_config = {
 ---------- Window Options ----------
 local fzf_window_options = {
   border = "rounded",
-  height = 0.65,
-  width = 0.70,
+  height = 0.80,
+  width = 0.80,
   preview = {
     border = "rounded",
     layout = 'flex',
@@ -202,7 +202,7 @@ local fzf_lsp_document_symbols_config = {
 ---------- OldFiles ----------
 local fzf_oldfiles_config = {
   prompt = "History> ",
-  cwd_only = true,
+  cwd_only = false,
   stat_file = true, -- verify files exist on disk
   include_current_session = true, -- include bufs from current session
 }

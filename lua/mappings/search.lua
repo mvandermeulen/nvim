@@ -46,7 +46,7 @@ return {
   { '<leader>sf', "<cmd>lua require('telescope.builtin').find_files(require('telescope.themes').get_dropdown{previewer = false})<cr>", desc = 'Find files' },
   { '<leader>sh', '<cmd>Telescope help_tags<cr>', desc = 'Find Help' },
   { '<leader>sH', '<cmd>Telescope heading<cr>', desc = 'Find Header' },
-  { '<leader>si', "<cmd>lua require('telescope').extensions.media_files.media_files()<cr>", desc = 'Media' },
+  -- { '<leader>si', "<cmd>lua require('telescope').extensions.media_files.media_files()<cr>", desc = 'Media' },
   { '<leader>sj', '<cmd>Telescope jumplist<cr>', desc = 'Jumplist' },
   { '<leader>sk', '<cmd>Telescope keymaps<cr>', desc = 'Keymaps' },
   { '<leader>sl', '<cmd>Telescope resume<cr>', desc = 'Last Search' },
