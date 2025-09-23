@@ -5,6 +5,7 @@
 -- Updated: 2025-07-15
 --]]
 
+local config = require("fzf-lua.config")
 local actions = require('fzf-lua.actions')
 local icons = require('helpers.ui.icons')
 
@@ -283,7 +284,16 @@ local file_fzf_actions = {
   ["alt-i"]   = actions.toggle_ignore,
   ["alt-h"]   = actions.toggle_hidden,
   ["alt-f"]   = actions.toggle_follow,
+  ["ctrl-r"]  = function(_, ctx)
+    local o = vim.deepcopy(ctx.__call_opts)
+    o.root = o.root == false
+    o.cwd = nil
+    o.buf = ctx.__CTX.bufnr
+    -- Utils.pick.open(ctx.__INFO.cmd, o)
+  end
 }
+config.set_action_helpstr(file_fzf_actions["ctrl-r"], "toggle-root-dir")
+file_fzf_actions["alt-c"] = file_fzf_actions["ctrl-r"]
 local fzf_files_config = {
   prompt = "Files> ",
   multiprocess = true, -- run command in a separate process

@@ -92,6 +92,47 @@ local function fn_selected_multi(selected, opts)
   end
 end
 
+
+
+function pick_open(command, opts)
+  command = command ~= "auto" and command or "files"
+  opts = opts or {}
+  opts = vim.deepcopy(opts)
+  if type(opts.cwd) == "boolean" then
+    opts.cwd = Path.root({ buf = opts.buf })
+  end
+
+  command = M.picker.commands[command] or command
+  M.picker.open(command, opts)
+  local src_path = Path.home():join("projects")
+
+  local projects = vim.tbl_filter(function(path)
+    return path:is_directory()
+  end, src_path:ls())
+
+  projects = vim.tbl_map(function(path)
+    return (path:make_relative(src_path)).path
+  end, projects)
+
+  vim.ui.select(projects, { prompt = "Select project> " }, function(choice, _)
+    vim.cmd("stopinsert")
+    if choice then
+      fn(src_path:join(choice):absolute())
+    end
+  end)
+end
+
+
+
+local function get_current_extension()
+  -- local full_path = vim.fn.expand('%:p') -- Get the absolute path of the current file
+  -- local extension = vim.fn.fnamemodify(full_path, ':e') -- Extract the extension
+  local file = vim.api.nvim_buf_get_name(0)
+  return file:match("^.+(%..+)$")
+end
+
+
+
 --
 ---------- Grep ----------
 --
@@ -133,9 +174,9 @@ function M.rg_files(rg_opts, cwd)
     previewer = "builtin",
     cwd = cwd or make_fzf_dir(),
     actions = fzf_config.files_actions,
-    fn_transform = function(x)
-      return fzf_lua.make_entry.file(x, { file_icons = true, color_icons = true })
-    end,
+    -- fn_transform = function(x)
+    --   return fzf_lua.make_entry.file(x, { file_icons = true, color_icons = true })
+    -- end,
   })
 end
 
@@ -163,11 +204,13 @@ function M.my_files()
     cwd = vim.env.HOME,
     cwd_prompt = false,
     actions = fzf_config.files_actions,
-    fn_transform = function(x)
-      return fzf_lua.make_entry.file(x, { file_icons = true, color_icons = true })
-    end,
+    -- fn_transform = function(x)
+    --   return fzf_lua.make_entry.file(x, { file_icons = true, color_icons = true })
+    -- end,
   })
 end
+
+
 
 -- Alternative implementation using `fzf_lua.files`
 function M.my_files_alt()
@@ -181,6 +224,44 @@ function M.my_files_alt()
     prompt = "My Files > ",
     cmd = mycmd,
     cwd = vim.env.HOME,
+  })
+end
+
+
+
+function M.my_file_ext(search_cwd, excluded_dirs)
+  local current_ext = get_current_extension()
+  if not current_ext or current_ext == "" then
+    print("No file extension found under cursor")
+    return
+  end
+  -- Compile exclude string
+  local exclude_str = ""
+  if not excluded_dirs then
+    excluded_dirs = { ".git", "node_modules", ".venv" }
+  end
+  for _, dir in ipairs(excluded_dirs) do
+    exclude_str = exclude_str .. " -E " .. dir
+  end
+  -- Compile absolute paths
+  -- local home = vim.env.HOME
+  -- local abs_paths = vim.tbl_map(function(path)
+  --   return home .. "/" .. path
+  -- end, fzf_config.fzf_custom_paths.my_files_config)
+  -- Compile command
+  local search_path = vim.env.HOME
+  if search_cwd then
+    search_path = make_fzf_dir()
+  end
+  local cmd = ("fd -t f -HI -e %s %s"):format(current_ext, exclude_str)
+  -- local cmd = ("fd -t f -HI -e %s %s %s"):format(current_ext, exclude_str, search_path)
+  -- local cmd = ("fd -t f -HI -e %s %s %s"):format(current_ext, exclude_str, table.concat(abs_paths, " "))
+  return fzf_lua.fzf_exec(cmd, {
+    prompt = "MyFiles > ",
+    previewer = "builtin",
+    cwd = search_path,
+    cwd_prompt = false,
+    actions = fzf_config.files_actions,
   })
 end
 
@@ -208,6 +289,7 @@ local function pick_project(fn)
     end
   end)
 end
+
 
 function M.select_project_find_file()
   -- if is_monorepo() then
