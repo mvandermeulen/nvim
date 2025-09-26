@@ -25,12 +25,12 @@ end
 ---------- Setup ----------
 ---------------------------
 fzf_lua.setup({
-  "borderless",
+  fzf_config.profile_name,
   keymap = {
     builtin     = fzf_config.keymap_builtin,
     fzf         = fzf_config.keymap_fzf,
   },
-  winopts       = fzf_config.window_options,
+  -- winopts       = fzf_config.window_configs.custom,
   git           = fzf_config.git_config,
   actions = {
     files       = fzf_config.files_actions,
