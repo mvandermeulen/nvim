@@ -10,6 +10,7 @@ local actions = require('fzf-lua.actions')
 local icons = require('helpers.ui.icons')
 
 
+local fzf_custom_profile_name = "ivy"
 
 local fzf_custom_paths_my_files = {
   ".config/nvim/config.lua",
@@ -24,11 +25,19 @@ local fzf_custom_paths_my_files = {
   "resources/tmux",
   "resources/dots",
   "scripts",
+  "projects",
+  "code/100_PROJECTS",
 }
 local fzf_custom_paths_my_projects = {
   "resources/configs/scripts",
-  "projects/devops",
+  "resources/configs/nvim",
+  "resources/configs/shell_config",
+  "resources/configs/zsh_config/zsh.d",
+  "resources/tmux",
+  "resources/dots",
+  "projects",
   "scripts",
+  "code/100_PROJECTS",
 }
 local fzf_custom_paths_all_configs = {
   my_files_config     = fzf_custom_paths_my_files,
@@ -57,7 +66,7 @@ local fzf_grep_fzf_opts = {
 ---------- Previewers Config ----------
 local fzf_previewers_config = {
   builtin = {
-    syntax_limit_b = 1024 * 50, -- 50KB
+    syntax_limit_b = 1024 * 100, -- 100KB
   },
 }
 
@@ -126,19 +135,58 @@ local fzf_git_config = {
 }
 
 ---------- Window Options ----------
-local fzf_window_options = {
-  border = "rounded",
-  height = 0.80,
-  width = 0.80,
-  preview = {
+local fzf_window_configs = {
+  large = {
+    height = 0.9,
+    width = 0.9,
+    row = 0.5,
+    col = 0.5,
+    anchor = 'center',
+    preview = {
+      layout = 'horizontal',
+      horizontal = 'right:50%',
+    },
+  },
+  vertical = {
+    height = 0.9,
+    width = 0.8,
+    row = 0.5,
+    col = 0.5,
+    anchor = 'center',
+    preview = {
+      layout = 'vertical',
+      vertical = 'up:50%',
+    },
+  },
+  fullscreen = {
+    width = 1.0,
+    height = 1.0,
+    row = 0.0,
+    col = 0.0,
+    anchor = 'NW',
+  },
+  cursor = {
+    relative = 'cursor',
+    row = 1.01,
+    col = 0,
+    width = 0.2,
+    height = 0.2,
+  },
+  custom = {
     border = "rounded",
-    layout = 'flex',
-    flip_columns = 180,
-    scrollbar = 'float',
-    scrolloff = "-2",
-    delay = 50,
+    height = 0.80,
+    width = 0.80,
+    preview = {
+      border = "rounded",
+      layout = 'flex',
+      flip_columns = 180,
+      scrollbar = 'float',
+      scrolloff = "-2",
+      delay = 50,
+    },
   },
 }
+
 
 ---------- Keymaps ----------
 local fzf_keymap_builtin = {
@@ -253,6 +301,17 @@ local fzf_grep_config = {
     "--smart-case",
     "--max-columns=4096",
     "--hidden",
+    '--glob=!**/.local/**',
+    '--glob=!**/.rustup/**',
+    '--glob=!**/node_modules/**',
+    '--glob=!**/.cargo/**',
+    '--glob=!**/.continue/**',
+    '--glob=!**/.mozilla/**',
+    '--glob=!**/go/pkg/mod/**',
+    '--glob=!**/Code/User/**',
+    '--glob=!**/.git/**',
+    '--glob=!**/.npm/**',
+    '--glob=!**/.cache/**',
     "-e",
   }, " "),
   -- https://github.com/ibhagwan/fzf-lua/wiki#can-i-use-ripgreps---globiglob-option-with-live_grep
@@ -300,6 +359,21 @@ local fzf_files_config = {
   git_icons = true, -- show git icons?
   file_icons = false, -- show file icons?
   color_icons = false, -- colorize file|git icons
+  -- cmd = table.concat({
+  --   'fd --type f --hidden --follow',
+  --   '--exclude .git',
+  --   '--exclude node_modules',
+  --   '--exclude .cargo',
+  --   '--exclude .mozilla',
+  --   '--exclude .cache',
+  --   '--exclude .npm',
+  --   '--exclude .rustup',
+  --   '--exclude .dotnet',
+  --   '--exclude go/pkg/mod',
+  --   '--exclude Code/User',
+  --   '--exclude .local',
+  --   '--exclude .continue',
+  -- }, ' '),
   fd_opts = '--color=never --type f --hidden --follow --exclude .git --exclude yarn.lock --exclude venv --exclude .venv',
   find_opts = [[-type f -not -path '*/\.git/*' -printf '%P\n']],
   rg_opts = "--color=never --files --hidden --follow --glob '!{.git,.venv,venv}/*'",
@@ -346,6 +420,7 @@ local fzf_global_defaults_config = {
 }
 
 local M = {
+  profile_name         = fzf_custom_profile_name,
   -- LSP Document Symbols
   lsp_document_symbols_actions = fzf_lsp_document_symbols_actions,
   lsp_document_symbols_config = fzf_lsp_document_symbols_config,
@@ -376,7 +451,7 @@ local M = {
   files_fzf_opts        = fzf_files_fzf_opts,
   grep_fzf_opts         = fzf_grep_fzf_opts,
   -- Window Options
-  window_options        = fzf_window_options,
+  window_configs        = fzf_window_configs,
   -- Git Config
   git_config            = fzf_git_config,
   -- Ripgrep Config

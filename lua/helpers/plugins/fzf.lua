@@ -322,6 +322,36 @@ end
 
 
 
+-- Helper function to create file finder with custom options
+function M.files_with_opts(opts)
+  return function()
+    require('fzf-lua').files(opts or {})
+  end
+end
+
+-- Helper function to create grep with custom options
+function M.grep_with_opts(opts)
+  return function()
+    require('fzf-lua').live_grep(opts or {})
+  end
+end
+
+-- { '<A-f>', files_with_opts { winopts = win_configs.large }, desc = 'Fuzzy find files in cwd' },
+-- { '<leader>f/', files_with_opts { cwd = '/', hidden = true }, desc = 'Find files in /root' },
+-- {
+--   '<leader>fh',
+--   files_with_opts { cwd = os.getenv 'HOME', hidden = true, winopts = win_configs.large },
+--   desc = 'Find files in $HOME',
+-- },
+-- -- Git
+-- {
+--   '<leader>gca',
+--   function()
+--     require('fzf-lua').git_commits { winopts = win_configs.fullscreen }
+--   end,
+--   desc = 'Search Git Commits for cwd',
+-- },
+
 
 
 -- return {
