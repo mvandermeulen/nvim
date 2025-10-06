@@ -628,13 +628,14 @@ local M = {
           require('line_notes').setup({})
       end
   },
-  -- {-- 
-  --   '',
+  -- {-- jesseleite/nvim-macroni
+  --   'jesseleite/nvim-macroni',
   --   lazy = false,
   --   config = function()
   --     require('').setup()
   --   end,
   -- },
+  require('plugins.utils.macrothis'),
   {-- roobert/f-string-toggle.nvim
     "roobert/f-string-toggle.nvim",
     config = function()
