@@ -46,7 +46,7 @@ local telescope_depends = {
   { 'scottmckendry/pick-resession.nvim' },
   -- { 'nvim-telescope/telescope-cheat.nvim' },
 }
-local diff_plugin_cmds = { 'DiffviewOpen', 'DiffviewClose', 'DiffviewToggleFiles', 'DiffviewFocusFiles' }
+-- local diff_plugin_cmds = { 'DiffviewOpen', 'DiffviewClose', 'DiffviewToggleFiles', 'DiffviewFocusFiles' }
 
 ---------------------------
 -- Plugins
@@ -194,32 +194,38 @@ local M = {
     lazy = false,
     dependencies = { "nvim-telescope/telescope.nvim" },
   },
-  {-- File Management
-    'kyazdani42/nvim-tree.lua',
-    lazy = false,
-    dependencies = {
-      'b0o/nvim-tree-preview.lua',
-    },
-    config = function()
-      require('plugins.files.nvim-tree')
-    end,
-  },
-  {-- b0o/nvim-tree-preview.lua
-    'b0o/nvim-tree-preview.lua',
-    lazy = false,
-    -- config = function()
-    --   require('plugins.files.nvim-tree-preview')
-    -- end,
-  },
+  -- {-- File Management
+  --   'kyazdani42/nvim-tree.lua',
+  --   lazy = false,
+  --   dependencies = {
+  --     'b0o/nvim-tree-preview.lua',
+  --   },
+  --   config = function()
+  --     require('plugins.files.nvim-tree')
+  --   end,
+  -- },
+  -- {-- b0o/nvim-tree-preview.lua
+  --   'b0o/nvim-tree-preview.lua',
+  --   lazy = false,
+  --   -- config = function()
+  --   --   require('plugins.files.nvim-tree-preview')
+  --   -- end,
+  -- },
+  -- {-- sindrets/diffview.nvim
+  --   'sindrets/diffview.nvim',
+  --   cmd = diff_plugin_cmds,
+  --   lazy = false,
+  --   config = function()
+  --     require('plugins.files.diffview')
+  --   end,
+  -- },
   { 'jghauser/mkdir.nvim', lazy = false }, -- Makes directories on save if required. Not Lua
-  {-- sindrets/diffview.nvim
-    'sindrets/diffview.nvim',
-    cmd = diff_plugin_cmds,
-    lazy = false,
-    config = function()
-      require('plugins.files.diffview')
-    end,
-  },
+  require('plugins.files.neo-tree'), -- Neo-tree
+  require('plugins.files.diffviews'),
+  require('plugins.files.tinygit'),
+  require('plugins.files.advanced-git-search'),
+  require('plugins.files.grug-far'),
+  require('plugins.files.spectre'),
   {-- tanvirtin/vgit.nvim
     'tanvirtin/vgit.nvim',
     lazy = false,
@@ -249,7 +255,7 @@ local M = {
       require('plugins.files.gitsigns')
     end,
   },
-  {
+  {-- SuperBo/fugit2.nvim
     'SuperBo/fugit2.nvim',
     build = false,
     opts = {
@@ -357,12 +363,13 @@ local M = {
       require('plugins.files.persisted')
     end,
   },
-  {-- nosduco/remote-sshfs.nvim
-    "nosduco/remote-sshfs.nvim",
-    dependencies = { "nvim-telescope/telescope.nvim" },
-    opts = {
-    },
-  },
+  -- DOES NOT WORK ON MACOS WITHOUT DISABLING SIP
+  -- {-- nosduco/remote-sshfs.nvim
+  --   "nosduco/remote-sshfs.nvim",
+  --   dependencies = { "nvim-telescope/telescope.nvim" },
+  --   opts = {
+  --   },
+  -- },
   {-- HawkinsT/pathfinder.nvim
     'HawkinsT/pathfinder.nvim',
     lazy = false,

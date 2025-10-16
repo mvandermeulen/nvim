@@ -157,3 +157,10 @@ vim.keymap.set("n", "<leader>flf", function() require('fzf-lua').lsp_finder() en
 vim.keymap.set("n", "<leader>flx", function() require('fzf-lua').diagnostics_document() end, kmo("Document Diagnostics"))
 vim.keymap.set("n", "<leader>flX", function() require('fzf-lua').diagnostics_workspace() end, kmo("Workspace Diagnostics"))
 
+-- Tmux integration pickers
+vim.keymap.set("n", '<leader>tw', function() require('helpers.plugins.fzf-pickers.tmux').tmux_windows() end, kmo('Tmux windows (current session)'))
+vim.keymap.set("n", '<leader>ts', function() require('helpers.plugins.fzf-pickers.tmux').tmux_sessions() end, kmo('Tmux sessions'))
+vim.keymap.set("n", '<leader>tm', function() require('helpers.plugins.fzf-pickers.tmux').code_projects() end, kmo('Code projects (~/code tmux sessions)'))
+vim.keymap.set("n", '<leader>tc', function() require('helpers.plugins.fzf-pickers.tmux').claude_activity_windows() end, kmo('Claude activity windows'))
+
+
