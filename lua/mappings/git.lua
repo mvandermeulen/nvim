@@ -35,23 +35,6 @@
 --]]
 
 return {
-  { '<leader>gb', '<CMD>Telescope git_branches<CR>', desc = '  Checkout branch' },
-  -- { '<leader>gB', "<CMD>lua require 'gitsigns'.blame_line()<CR>", desc = "Show Blame" },
-  { '<leader>gc', '<CMD>Telescope git_commits<CR>', desc = 'Checkout commit' },
-  { '<leader>gC', '<CMD>Telescope git_bcommits<CR>', desc = 'Checkout commit(for current file)' },
-  { '<leader>gd', "<CMD>Gitsigns diffthis HEAD<CR>", desc = " 󰉢 Diff" },
-  { '<leader>gG', "<CMD>lua _GITUI_TOGGLE()<CR>i", desc = "GitUI" },
-  { '<leader>gh', "<CMD>Gitsigns toggle_linehl<CR>", desc = 'Toggle Highlight' },
-  { '<leader>gj', "<CMD>lua require 'gitsigns'.next_hunk()<CR>", desc = " Next Hunk" },
-  { '<leader>gk', "<CMD>lua require 'gitsigns'.prev_hunk()<CR>", desc = " Prev Hunk" },
-  -- { '<leader>gL', "<CMD>lua _LAZYGIT_TOGGLE()<CR>i", desc = " Lazygit" },
-  { '<leader>gp', "<CMD>lua require 'gitsigns'.preview_hunk()<CR>", desc = " Preview Hunk" },
-  { '<leader>gr', "<CMD>lua require 'gitsigns'.reset_hunk()<CR>", desc = "ﰇ Reset Hunk" },
-  { '<leader>gR', "<CMD>lua require 'gitsigns'.reset_buffer()<CR>", desc = " Reset Buffer" },
-  { '<leader>gs', "<CMD>lua require 'gitsigns'.stage_hunk()<CR>", desc = "Stage Hunk" },
-  { '<leader>gS', '<CMD>Telescope git_status<CR>', desc = '  Git Status' },
-  { '<leader>gt', "<CMD>Gitsigns toggle_signs<CR>", desc = 'Toggle Signs' },-- Should this be moved to some kind of UI menu?
-  { '<leader>gu', "<CMD>lua require 'gitsigns'.undo_stage_hunk()<CR>", desc = "Undo Stage Hunk" },
   -- Neogit: <leader>gn
   { '<leader>gna', '<CMD>Neogit branch_config<CR>', desc = 'Branch Config' },
   { '<leader>gnA', '<CMD>Neogit remote_config<CR>', desc = 'Remote Config' },
@@ -80,12 +63,53 @@ return {
   { "<leader>gog", "<CMD>lua require('helpers.plugins.github').open_git_repo()<CR>", desc = "Open Repo" },
   { "<leader>gox", "<CMD>lua require('helpers.plugins.github').close_git_repo()<CR>", desc = "Close Repo Buffers" },
   { "<leader>goc", "<CMD>lua require('helpers.plugins.github').clean_git_repo()<CR>", desc = "Clean Repo" },
+  -- Signs: <leader>gS
+  -- { '<leader>gB', "<CMD>lua require 'gitsigns'.blame_line()<CR>", desc = "Show Blame" },
+  { '<leader>gSd', "<CMD>Gitsigns diffthis HEAD<CR>", desc = " 󰉢 Diff" },
+  { '<leader>gSh', "<CMD>Gitsigns toggle_linehl<CR>", desc = 'Toggle Highlight' },
+  { '<leader>gSj', "<CMD>lua require 'gitsigns'.next_hunk()<CR>", desc = " Next Hunk" },
+  { '<leader>gSk', "<CMD>lua require 'gitsigns'.prev_hunk()<CR>", desc = " Prev Hunk" },
+  -- { '<leader>gL', "<CMD>lua _LAZYGIT_TOGGLE()<CR>i", desc = " Lazygit" },
+  { '<leader>gSp', "<CMD>lua require 'gitsigns'.preview_hunk()<CR>", desc = " Preview Hunk" },
+  { '<leader>gSr', "<CMD>lua require 'gitsigns'.reset_hunk()<CR>", desc = " Reset Hunk" },
+  { '<leader>gSR', "<CMD>lua require 'gitsigns'.reset_buffer()<CR>", desc = " Reset Buffer" },
+  { '<leader>gSs', "<CMD>lua require 'gitsigns'.stage_hunk()<CR>", desc = " Stage Hunk" },
+  { '<leader>gSt', "<CMD>Gitsigns toggle_signs<CR>", desc = 'Toggle Signs' },-- Should this be moved to some kind of UI menu?
+  { '<leader>gSu', "<CMD>lua require 'gitsigns'.undo_stage_hunk()<CR>", desc = "Undo Stage Hunk" },
+  -- Tinygit: <leader>gt
+  { '<leader>gta', function() require('tinygit').amendNoEdit() end, desc = ' Amend (No Edit)' },
+  { '<leader>gtA', function() require('tinygit').amendOnlyMsg() end, desc = ' Amend (Only Message)' },
+  { '<leader>gtb', function() require("tinygit.statusline").branchState() end, desc = ' Branch State' },
+  { '<leader>gtc', function() require('tinygit').smartCommit() end, desc = 'Smart Commit' },
+  { '<leader>gtC', function() require('tinygit').fixupCommit() end, desc = ' Fixup Commit' },
+  { '<leader>gtf', function() require('tinygit').githubUrl("file") end, desc = ' File Permalink' },
+  { '<leader>gtF', function() require("tinygit.statusline").blame() end, desc = ' File Blame' },
+  { '<leader>gth', function() require('tinygit').functionHistory() end, desc = ' Function History' },
+  { '<leader>gtH', function() require('tinygit').fileHistory() end, desc = ' File History' },
+  { '<leader>gtI', function() require('tinygit').openIssueUnderCursor() end, desc = ' Open Issue under Cursor' },
+  { '<leader>gtl', function() require('tinygit').githubUrl("blame") end, desc = ' Blame Permalink' },
+  { '<leader>gtp', function() require('tinygit').push() end, desc = ' Push' },
+  {
+    '<leader>gtP',
+    function()
+      require('tinygit').push(pullBefore = false, forceWithLease = false, createGitHubPr = true)
+    end,
+    desc = ' Push & Create PR'
+  },
+  { '<leader>gtr', function() require('tinygit').githubUrl("repo") end, desc = ' Repo Permalink' },
+  { '<leader>gts', function() require('tinygit').interactiveStaging() end, desc = ' Interactive Staging' },
+  { '<leader>gtu', function() require('tinygit').undoLastCommitOrAmend() end, desc = ' Undo last commmit/amend' },
+  -- Telescope: <leader>gT
+  { '<leader>gTb', '<CMD>Telescope git_branches<CR>', desc = '  Checkout branch' },
+  { '<leader>gTc', '<CMD>Telescope git_commits<CR>', desc = 'Checkout commit' },
+  { '<leader>gTC', '<CMD>Telescope git_bcommits<CR>', desc = 'Checkout commit(for current file)' },
+  { '<leader>gTS', '<CMD>Telescope git_status<CR>', desc = '  Git Status' },
   -- VGit: <leader>gv
   { '<leader>gva', '<CMD>VGit checkout<CR>', desc = 'Project Checkout' },
   { '<leader>gvc', '<CMD>VGit project_commit_preview<CR>', desc = 'Commit Preview' },
   { '<leader>gvd', '<CMD>VGit project_diff_preview<CR>', desc = 'Project Diff Preview' },
   { '<leader>gvh', '<CMD>VGit help<CR>', desc = 'Help' },
-  { '<leader>gvl', '<CMD>VGit project_logs_preview<CR>', desc = 'Logs Preview' },
+  { '<leader>gvl', '<CMD>VGit project_logs_preview<CR>', desc = '󰦪 Logs Preview' },
   { '<leader>gvp', '<CMD>VGit project_commits_preview<CR>', desc = 'Project Commits Preview' },
   { '<leader>gvs', '<CMD>VGit project_stash_preview<CR>', desc = 'Stash Preview' },
   { '<leader>gvbs', '<CMD>VGit buffer_stage<CR>', desc = 'Buffer: Stage' },
@@ -96,12 +120,12 @@ return {
   { '<leader>gvbH', '<CMD>VGit buffer_history_preview<CR>', desc = 'Buffer: History Preview' },
   { '<leader>gvbb', '<CMD>VGit buffer_blame_preview<CR>', desc = 'Buffer: Blame Preview' },
   { '<leader>gvbn', '<CMD>VGit buffer_hunk_stage<CR>', desc = 'Buffer: Stage Hunk' },
-  { '<leader>gvbx', '<CMD>VGit buffer_hunk_reset<CR>', desc = 'Buffer: Hunk Reset' },
+  { '<leader>gvbx', '<CMD>VGit buffer_hunk_reset<CR>', desc = ' Buffer: Hunk Reset' },
   { '<leader>gvba', '<CMD>VGit buffer_conflict_accept_both<CR>', desc = 'Buffer Conflict: Accept Both' },
   { '<leader>gvbC', '<CMD>VGit buffer_conflict_accept_current<CR>', desc = 'Buffer Conflict: Accept Current' },
   { '<leader>gvbi', '<CMD>VGit buffer_conflict_accept_incoming<CR>', desc = 'Buffer Conflict: Accept Incoming' },
   { '<leader>gvtd', '<CMD>VGit toggle_diff_preference<CR>', desc = 'Diff Preference' },
   { '<leader>gvtg', '<CMD>VGit toggle_live_gutter<CR>', desc = 'Live Gutter' },
-  { '<leader>gvtb', '<CMD>VGit toggle_live_blame<CR>', desc = 'Live Blame' },
+  { '<leader>gvtb', '<CMD>VGit toggle_live_blame<CR>', desc = ' Live Blame' },
   { '<leader>gvtt', '<CMD>VGit toggle_tracing<CR>', desc = 'Tracing' },
 }

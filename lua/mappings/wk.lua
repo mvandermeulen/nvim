@@ -55,8 +55,8 @@ wk.add(require('mappings.lsp'))
 wk.add(require('mappings.search'))
 -- Telescope: <leader>t
 wk.add(require('mappings.telescope'))
--- Visits: <leader>v
-wk.add(require('mappings.visits'))
+-- Views: <leader>v
+wk.add(require('mappings.views'))
 -- Windows: <leader>w
 wk.add(require('mappings.windows'))
 -- Workspace: <leader>W
