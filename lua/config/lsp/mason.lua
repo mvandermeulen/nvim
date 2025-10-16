@@ -29,7 +29,7 @@ local mason_null_ls_status, mason_null_ls = pcall(require, 'mason-null-ls')
 local lang_status, lang = pcall(require, 'config.lsp.lang')
 local lsputils_status, lsputils = pcall(require, 'config.lsp.utils')
 local handlers_status, handlers = pcall(require, 'config.lsp.handlers')
-local lspconfig_status, lspconfig = pcall(require, 'lspconfig')
+-- local lspconfig_status, lspconfig = pcall(require, 'lspconfig')
 
 if not mason_status or not mason_lspconfig_status or not mason_null_ls_status then
   mylog('Mason, Mason Tool Installer, Completion, or LSP Format not installed!', 'error')
@@ -41,7 +41,7 @@ if not lang_status then
   return
 end
 
-if not lsputils_status or not handlers_status or not lspconfig_status then
+if not lsputils_status or not handlers_status then
   mylog('LSP Utils, Handlers, Config not found', 'error')
   return
 end
@@ -87,5 +87,6 @@ for _, server in pairs(lang.servers) do
   else
     mylog('Server config not found: ' .. server, 'warn')
   end
-  lspconfig[server].setup(opts)
+  vim.lsp.config(server, opts)
+  vim.lsp.enable(server)
 end

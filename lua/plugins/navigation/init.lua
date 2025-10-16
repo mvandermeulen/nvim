@@ -26,13 +26,14 @@ local M = {
       require('plugins.navigation.marks')
     end,
   },
-  {-- Recall refines the use of Neovim marks by focusing on global marks
-    'fnune/recall.nvim',
-    lazy = false,
-    config = function()
-      require('plugins.navigation.recall')
-    end,
-  },
+  -- { -- fnune/recall.nvim
+  --   -- Recall refines the use of Neovim marks by focusing on global marks
+  --   'fnune/recall.nvim',
+  --   lazy = false,
+  --   config = function()
+  --     require('plugins.navigation.recall')
+  --   end,
+  -- },
   require('plugins.navigation.leap'),
   require('plugins.navigation.flit'),
   require('plugins.navigation.arrow'),

@@ -22,7 +22,8 @@ return {
         },
         config = function()
             require("render-markdown").setup({
-                enabled = false,
+                enabled = true,
+                latex = { enabled = false },
                 heading = {
                     icons = { "󰎥 ", "󰎨 ", "󰎫 ", "󰎲 ", "󰎯 ", "󰎴 " },
                 },

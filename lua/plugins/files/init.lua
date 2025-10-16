@@ -304,16 +304,16 @@ local M = {
   --     require('').setup()
   --   end,
   -- },
-  {-- bxrne/was.nvim
-    'bxrne/was.nvim',
-    lazy = false,
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-    },
-    config = function()
-      require('was').setup()
-    end,
-  },
+  -- {-- bxrne/was.nvim
+  --   'bxrne/was.nvim',
+  --   lazy = false,
+  --   dependencies = {
+  --     "nvim-lua/plenary.nvim",
+  --   },
+  --   config = function()
+  --     require('was').setup()
+  --   end,
+  -- },
   {-- you-fail-me/git-drift.nvim
     'you-fail-me/git-drift.nvim',
     lazy = false,

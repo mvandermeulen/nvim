@@ -116,7 +116,7 @@ require('lazy').setup({ utility_plugins, file_plugins, lang_plugins, ui_plugins,
     missing = true,
     colorscheme = { 'default' },
   },
-  concurrency = 8,
+  concurrency = 10,
   git = {
     clone_timeout = 180,
     url_format = "git@github.com:%s.git",

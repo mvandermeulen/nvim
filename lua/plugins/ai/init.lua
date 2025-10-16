@@ -26,6 +26,23 @@ local M = {
           file_types = { "markdown", "Avante" },
         },
         ft = { "markdown", "Avante" },
+        config = function()
+            require("render-markdown").setup({
+                enabled = true,
+                latex = { enabled = false },
+                heading = {
+                    icons = { "󰎥 ", "󰎨 ", "󰎫 ", "󰎲 ", "󰎯 ", "󰎴 " },
+                },
+                bullet = {
+                    icons = { "", "", "◆", "◇" },
+                },
+                checkbox = {
+                    custom = {
+                        todo = { raw = "[~]", rendered = "󰥔 ", highlight = "@markup.raw" },
+                    },
+                },
+            })
+        end,
       },
     },
   },

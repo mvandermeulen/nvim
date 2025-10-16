@@ -129,6 +129,17 @@ local M = {
     end,
   },
   require('plugins.ui.fold'),
+  {-- s1n7ax/nvim-window-picker
+      's1n7ax/nvim-window-picker',
+      name = 'window-picker',
+      event = 'VeryLazy',
+      version = '2.*',
+      config = function()
+          require'window-picker'.setup({
+            hint = 'statusline-winbar',
+          })
+      end,
+  },
   { 'rhysd/conflict-marker.vim', lazy = false },
   {-- rose-pine/neovim
     'rose-pine/neovim',
@@ -173,7 +184,7 @@ local M = {
   require('plugins.ui.flatten'),
   require('plugins.ui.log-highlight'),
   require('plugins.ui.open-link'),
-  require('plugins.ui.modicator'),
+  -- require('plugins.ui.modicator'),
   { 'rktjmp/lush.nvim' },
   { 'folke/tokyonight.nvim' },
   { 'rebelot/kanagawa.nvim' },

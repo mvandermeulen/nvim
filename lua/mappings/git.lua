@@ -92,7 +92,7 @@ return {
   {
     '<leader>gtP',
     function()
-      require('tinygit').push(pullBefore = false, forceWithLease = false, createGitHubPr = true)
+      require('tinygit').push({ pullBefore = false, forceWithLease = false, createGitHubPr = true })
     end,
     desc = ' Push & Create PR'
   },
