@@ -326,6 +326,7 @@ local M = {
       },
     }
   }
+  require('plugins.lang.uv-integration'),
 }
 
 return M
