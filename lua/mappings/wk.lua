@@ -4,8 +4,9 @@ local wk = require("which-key")
 wk.add({
   { "<leader>C", "<cmd>Cheatsheet<cr>", desc = "Cheatsheet" },
   -- { "<leader>L", "<cmd>:Lazy<cr>", desc = "Lazy" },
-  { "<leader>n", "<cmd>NvimTreeToggle<cr>", desc = "Explorer" },
-  { "<leader>q", "<cmd>NvimTreeClose<cr>:q<cr>", desc = "Close Window" },
+  -- { "<leader>n", "<cmd>NvimTreeToggle<cr>", desc = "Explorer" },
+  -- { "<leader>q", "<cmd>NvimTreeClose<cr>:q<cr>", desc = "Close Window" },
+  { "<leader>q", ":q<cr>", desc = "Close Window" },
   { "<leader>D", '"_dP', desc = "Blackhole Delete" },
   -- { "<leader>q", "<cmd>NvimTreeClose<cr>:q<cr>", desc = "  Close Window" },
   -- { "<leader>Q", "<cmd>NvimTreeClose<cr><cmd>qa<cr>", desc = "  Close Window" },

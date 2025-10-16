@@ -17,7 +17,8 @@ local kmo = keys.kmo
 --------------------
 
 map("n", "<C-c><C-c>", function() require('snacks').bufdelete() end, kmo('Delete Buffer'))
-map("n", "<C-Q>", "<cmd>:NvimTreeClose<cr><cmd>:qa<cr>", kmo('Quit All'))
+-- map("n", "<C-Q>", "<cmd>:NvimTreeClose<cr><cmd>:qa<cr>", kmo('Quit All'))
+map("n", "<C-Q>", "<cmd>:qa<cr>", kmo('Quit All'))
 map("n", "<C-s>", "<CMD>:update<cr><esc>", kmo('Save')) -- write with w
 map("n", "<C-t>", "<CMD>lua require('telescope').extensions.tele_tabby.list()<CR>", kmo()) -- write with w
 
@@ -27,7 +28,8 @@ map("n", "<C-S-CR>",  function() require("helpers.ui.windows").zoom.toggle() end
 -- map("n", "<C-\">",  function() require("helpers.ui.windows").zoom.toggle() end, kmo('Toggle Zoom'))
 -- 2025-09-20: Changed to <C-S-CR> as Cmd-Return is mapped to that
 -- 2025-09-20: Changed to <C-S-backspace> as Cmd-Backspace is mapped to that
-map("n", "<C-S-backspace>", "<CMD>:NvimTreeToggle<CR>", kmo('Explorer'))
+-- map("n", "<C-S-backspace>", "<CMD>:NvimTreeToggle<CR>", kmo('Explorer'))
+map("n", "<C-S-backspace>", "<CMD>:Neotree toggle<CR>", kmo('Explorer'))
 -- <C-;>: Copilot Chat Toggle
 map({ "i", "x", "n", "s" }, "<C-;>", "<cmd>CopilotChatToggle<cr>", kmo('Copilot Chat: Toggle'))
 
