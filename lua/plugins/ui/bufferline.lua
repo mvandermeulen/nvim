@@ -80,6 +80,13 @@ bufferline.setup {
     end,
     offsets = {
       {
+        filetype = 'neo-tree',
+        text = ' File Explorer',
+        highlight = 'Directory',
+        text_align = 'left',
+        padding = 0,
+      },
+      {
         filetype = 'NvimTree',
         text = ' File Explorer',
         highlight = 'Directory',
