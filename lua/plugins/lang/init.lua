@@ -325,8 +325,8 @@ local M = {
         desc = "Panel: Server Logs",
       },
     }
-  }
-  require('plugins.lang.uv-integration'),
+  },
+  require('plugins.lang.uv-integration')
 }
 
 return M
