@@ -25,6 +25,7 @@ M.is_normal_win = function(winid)
   if
     vim.tbl_contains({
       'NvimTree',
+      'neo-tree',
       'Trouble',
       'aerial',
       'Avante',
