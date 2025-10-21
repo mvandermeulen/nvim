@@ -5,15 +5,6 @@ echo "+ Starting neovim configuration setup."
 
 export NEOVIM_CONFIG_DIR="$HOME/.config/nvim";
 
-HOME_LOCAL_DIRS=("bin" "docs" "include" "lib" "log" "man" "pipx" "share" "src" "state" "tmp" "share/marks/config" "share/nvim" "state/nvim")
-
-for item in $HOME_LOCAL_DIRS[@]; do
-  LOCAL_DIR_FP="${HOME}/.local/${item}"
-  if [[ ! -d "${LOCAL_DIR_FP}" ]]; then
-    echo "+ Creating directory: ${LOCAL_DIR_FP}"
-    mkdir -pv "${LOCAL_DIR_FP}"
-  fi
-done
 
 if [[ -d "${NEOVIM_CONFIG_DIR}" ]]; then
     TODAYS_DATE=$(date +"%Y%m%d"); NEOVIM_CONFIG_BACKUP_DIR="${NEOVIM_CONFIG_DIR}_${TODAYS_DATE}";
@@ -47,6 +38,69 @@ echo "+ Using config found at: ${LOCAL_CONFIG_PATH}"
 ln -s "${LOCAL_CONFIG_PATH}" "${NEOVIM_CONFIG_DIR}"
 
 echo "+ Completed linking configuration. Now running neovim."
+
+function check_command_exists() {
+    command -v "$1" >/dev/null 2>&1
+}
+
+
+if ! check_command_exists nvim; then
+    echo "+ Neovim is not installed. Please install Neovim and re-run this script."
+    exit 1
+fi
+
+function get_nvim_version() {
+    nvim --version | head -n 1 | awk '{print $2}'
+}
+
+NVIM_VERSION=$(get_nvim_version)
+REQUIRED_VERSION="0.7.0"
+
+
+function backup_nvim_data() {
+  local backups_dst_dir="${HOME}/.local/backup/nvim";
+  local nvim_data_dir="${HOME}/.local/state/nvim"
+  [[ $# -eq 1  && -n "${1}" ]] && backups_dst_dir="${1}";
+  [[ ! -d "${backups_dst_dir}" ]] && mkdir -p "${backups_dst_dir}" && \
+    echo "+ Created backups destination directory: ${backups_dst_dir}";
+  if [[ -d "${nvim_data_dir}" ]]; then
+    local backup_dir="nvim_data_backup_$(date +%Y%m%d_%H%M%S)"
+    mv -v "${nvim_data_dir}" "${backups_dst_dir}/${backup_dir}" && {
+      echo "+ Backed up existing Neovim data directory to: ${backup_dir}"
+    }
+  fi
+}
+
+
+function relocate_nvim_config() {
+  local backups_dst_dir="${HOME}/.local/backup/nvim";
+  local nvim_config_dir="${HOME}/.config/nvim";
+  [[ $# -eq 1  && -n "${1}" ]] && backups_dst_dir="${1}";
+  [[ ! -d "${backups_dst_dir}" ]] && mkdir -p "${backups_dst_dir}" && \
+    echo "+ Created backups destination directory: ${backups_dst_dir}";
+  if [[ -d "${nvim_config_dir}" ]]; then
+    local backup_dir="nvim_config_backup_$(date +%Y%m%d_%H%M%S)";
+    mv -v "${nvim_config_dir}" "${backups_dst_dir}/${backup_dir}" && {
+      echo "+ Backed up existing Neovim config directory to: ${backup_dir}"
+    }
+  fi
+}
+
+
+function create_local_directories() {
+  local HOME_LOCAL_DIRS=("bin" "docs" "include" "lib" "log" "man" "pipx" "share" "src" "state" "tmp" "share/marks/config" "share/nvim" "state/nvim");
+  for item in ${HOME_LOCAL_DIRS[@]}; do
+    LOCAL_DIR_FP="${HOME}/.local/${item}"
+    [[ -L "${LOCAL_DIR_FP}" ]] && echo "Path ${LOCAL_DIR_FP} exists as symlink" && continue
+    [[ ! -d "${LOCAL_DIR_FP}" ]] && {
+      echo "+ Creating directory: ${LOCAL_DIR_FP}";
+      mkdir -pv "${LOCAL_DIR_FP}";
+    }
+  done
+}
+
+
+
 
 ./install_gotools.sh
 
