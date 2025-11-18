@@ -128,7 +128,7 @@ local M = {
       require('plugins.ui.dropbar')
     end,
   },
-  require('plugins.ui.fold'),
+  -- require('plugins.ui.fold'),
   {-- s1n7ax/nvim-window-picker
       's1n7ax/nvim-window-picker',
       name = 'window-picker',

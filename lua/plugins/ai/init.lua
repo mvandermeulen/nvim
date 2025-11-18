@@ -89,19 +89,19 @@ local M = {
     end,
   },
   { 'AndreM222/copilot-lualine' },
-  {-- olimorris/codecompanion.nvim
-    "olimorris/codecompanion.nvim",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-treesitter/nvim-treesitter",
-      "iguanacucumber/magazine.nvim",
-      "stevearc/dressing.nvim",
-      "nvim-telescope/telescope.nvim",
-    },
-    config = function()
-      require('plugins.ai.codecompanion')
-    end,
-  },
+  -- {-- olimorris/codecompanion.nvim
+  --   "olimorris/codecompanion.nvim",
+  --   dependencies = {
+  --     "nvim-lua/plenary.nvim",
+  --     "nvim-treesitter/nvim-treesitter",
+  --     "iguanacucumber/magazine.nvim",
+  --     "stevearc/dressing.nvim",
+  --     "nvim-telescope/telescope.nvim",
+  --   },
+  --   config = function()
+  --     require('plugins.ai.codecompanion')
+  --   end,
+  -- },
   require('plugins.ai.claudecode'),
   {-- Davidyz/VectorCode
     'Davidyz/VectorCode',

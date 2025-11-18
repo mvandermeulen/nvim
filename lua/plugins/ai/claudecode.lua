@@ -1,5 +1,5 @@
 return {
-  "suryagaddipati/claudecode.nvim",
+  "coder/claudecode.nvim",
   dependencies = {
     "nvim-lua/plenary.nvim",
     "folke/snacks.nvim",
