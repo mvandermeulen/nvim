@@ -1,0 +1,6 @@
+#!/usr/bin/env zsh
+[[ -z "${VENV_ROOT}" ]] && export VENV_ROOT="${0:A:h}";
+VENV_DIR="${VENV_ROOT}/.venv"; VENV_ACTIVATE_SCRIPT="${VENV_DIR}/bin/activate";
+[[ ! -d "${VENV_DIR}" ]] && uv venv "${VENV_ROOT}/${VENV_DIR}";
+[[ -d "${VENV_DIR}" && -e "${VENV_ACTIVATE_SCRIPT}" ]] && source "${VENV_ACTIVATE_SCRIPT}";
+# pip install --upgrade pip setuptools wheel;

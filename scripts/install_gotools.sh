@@ -1,4 +1,19 @@
-#!/opt/homebrew/bin/zsh
+#!/usr/bin/env zsh
+
+PREVIOUS_SCRIPT_NAME="${SCRIPT_NAME:-zsh}"; export SCRIPT_NAME="${0:A:t}";
+SCRIPT_DIRECTORY=${0:a:h}
+OTHER_SCRIPT_DIRECTORY="$(dirname $0:A)"
+
+#######################################
+# Libraries
+#######################################
+[[ -f "${HOME}/.zshenv" ]] && source "${HOME}/.zshenv"
+source "${SHARED_FUNCTIONS_PATH}/log.functions.sh" || {
+  echo "Fatal error loading required log scripts!"; return 1;
+}
+source "${SHARED_FUNCTIONS_PATH}/util.functions.sh" || {
+  mylogp "error" "Fatal error loading required utility scripts!"; return 1;
+}
 
 
 # If one command exits with an error, stop the script immediately.
