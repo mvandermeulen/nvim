@@ -19,4 +19,11 @@ lazy-lock.json
 .nvim
 examples/
 .venv/
-
+.activate
+uv.lock
+venv/
+.python-version
+.tool-versions
+.env
+.envrc
+.DS_Store
