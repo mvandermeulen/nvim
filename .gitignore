@@ -27,3 +27,5 @@ venv/
 .env
 .envrc
 .DS_Store
+mise.toml
+.mise.toml

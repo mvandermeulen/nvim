@@ -35,36 +35,48 @@ function apt_install() {
 
 function uv_init() {
   local python_version="${1}";
-  uv init --python="${python_version}";
-  [[ $? -ne 0 ]] && {
-    mylogp "error" "Initializing uv with python version: ${python_version} failed!";
+  uv init --python="${python_version}" && {
+    mylogp "info" "Initialized uv with python version: ${python_version}";
+    return 0;
+  } || {
+    mylogp "error" "Initializing uv with python version: ${python_version} failed";
     return 1;
   }
 }
 
 function uv_venv_create() {
   local venv_path="${1}";
-  uv venv "${venv_path}";
-  [[ $? -ne 0 ]] && {
-    mylogp "error" "Creating uv virtual environment in: ${venv_path} failed!";
-    return 1;
+  [[ -z "${venv_path}" ]] && {
+    mylogp "error" "Invalid virtual environment path"; return 1;
+  }
+  [[ -d "${venv_path}" ]] && {
+    mylogp "info" "Environment already exists: ${venv_path}"; return 0;
+  }
+  uv venv "${venv_path}" && {
+    mylogp "info" "Created environment: ${venv_path}"; return 0;
+  } || {
+    mylogp "error" "Creating virtual environment in ${venv_path} failed"; return 1;
   }
 }
 
 function install_packages_from_file() {
   local requirements_file="${1}";
-  uv pip sync "${requirements_file}";
-  [[ $? -ne 0 ]] && {
-    mylogp "error" "Installing packages from requirements file: ${requirements_file} failed!";
+  uv pip sync "${requirements_file}" && {
+    mylogp "info" "Installed packages from requirements file: ${requirements_file}";
+    return 0;
+  } || {
+    mylogp "error" "Installing packages from requirements file: ${requirements_file} failed";
     return 1;
   }
 }
 
 function save_current_packages_to_file() {
   local requirements_file="${1}";
-  uv pip freeze > "${requirements_file}";
-  [[ $? -ne 0 ]] && {
-    mylogp "error" "Syncing installed packages to requirements file: ${requirements_file} failed!";
+  uv pip freeze > "${requirements_file}" && {
+    mylogp "info" "Synced installed packages to file: ${requirements_file}";
+    return 0;
+  } || {
+    mylogp "error" "Failed to write installed packages to file: ${requirements_file}";
     return 1;
   }
 }
@@ -72,7 +84,10 @@ function save_current_packages_to_file() {
 function sync_uv_environment() {
   local pyproject_file="pyproject.toml";
   [[ -f "${pyproject_file}" ]] && {
-    uv sync || {
+    uv sync && {
+      mylogp "info" "Synced uv environment";
+      return 0;
+    } || {
       mylogp "error" "Syncing uv environment from ${pyproject_file} failed!";
       return 1;
     }
@@ -143,6 +158,8 @@ function py_setup_upgrade() {
     mylogp "error" "Setting python version to ${desired_python_version} with mise failed!";
     return 1;
   }
+  [[ -f "${uv_lock_file}" ]] && rm -f "${uv_lock_file}" && \
+    mylogp "info" "Removed existing uv lock file: ${uv_lock_file}";
   [[ ! -f "${pyproject_file}" ]] && {
     uv_init "${desired_python_version}" || {
       mylogp "error" "Initializing uv with python version: ${desired_python_version} failed!";
@@ -159,8 +176,10 @@ function py_setup_upgrade() {
       return 1;
     }
   }
-  install_environment_activation_script || {
-    mylogp "error" "Failed to install environment activation script";
+  [[ ! -f ".activate" ]] && {
+    install_environment_activation_script || {
+      mylogp "error" "Failed to install environment activation script";
+    }
   }
   [[ -d "${venv_path}" ]] && {
     [[ -e "${venv_path}/bin/activate" ]] && source "${venv_path}/bin/activate" && \
@@ -170,7 +189,7 @@ function py_setup_upgrade() {
     }
     [[ -f "${requirements_file}" ]] && {
       install_packages_from_file "${requirements_file}" || {
-        mylogp "error" "Installing packages from requirements file: ${requirements_file} failed.";
+        mylogp "error" "Installing packages from file ${requirements_file} failed.";
         return 1;
       }
     }
@@ -197,9 +216,10 @@ main() {
   py_setup_upgrade "${desired_python_version}" "${venv_path}" && {
     mylogp "info" "+ Python environment setup and upgrade completed successfully";
   } || {
-    mylogp "error" "Python environment setup and upgrade failed!";
+    mylogp "error" "Setup failed.";
     return 1;
   }
+  [[ -f "main.py" ]] && rm -f "main.py";
   # [[ -d "${nvim_config_dir}" ]] && {
   #   mylogp "info" "+ Installing Neovim Python packages";
   #   uv pip install pynvim && {
