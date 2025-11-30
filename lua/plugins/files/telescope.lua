@@ -376,7 +376,7 @@ telescope.setup {
 -- Load Extensions
 -----------------------------------------------
 telescope.load_extension('projects')
-telescope.load_extension('fzf')
+-- telescope.load_extension('fzf')
 telescope.load_extension('heading')
 telescope.load_extension('file_browser')
 telescope.load_extension('notify')
