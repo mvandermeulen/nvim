@@ -44,7 +44,7 @@ return {
       return {
         fold_virt_text_handler = handler,
         provider_selector = function(bufnr, filetype, buftype)
-          return { "treesitter", "syntax", "indent" }
+          return { "treesitter", "indent" }
         end,
         open_fold_hl_timeout = 0,
         close_fold_kinds_for_ft = { default = { 'imports', 'comment' } },

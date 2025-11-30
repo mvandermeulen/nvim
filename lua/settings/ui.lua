@@ -34,9 +34,9 @@ vim.opt.numberwidth = 4                             -- Make the gutter wider by 
 
 -- Folding
 vim.o.foldcolumn = '0' -- '0' is not bad
-vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+-- vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 --vim.opt.foldmethod = 'indent'
-vim.opt.foldmethod = "expr"
+-- vim.opt.foldmethod = "expr"
 --vim.opt.foldmethod = 'marker'                     -- Enable folding (default 'foldmarker')
 vim.opt.foldlevel = 3
 vim.opt.foldlevelstart = 3
