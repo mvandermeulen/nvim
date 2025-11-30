@@ -1,4 +1,3 @@
-setuptools
 aiofiles
 aiohttp
 aiosqlite
@@ -17,10 +16,7 @@ jedi-language-server
 pylyzer
 tldr
 gitgud
-mycli
-pgcli
 tomlkit
-iredis
 termcolor
 libtmux
 hiredis
