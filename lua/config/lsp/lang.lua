@@ -7,23 +7,8 @@
 local M = {}
 
 M.parsers = {
-  -- "bash",
-  -- "css",
-  -- "scss",
-  -- "dockerfile",
-  -- "gitignore",
-  -- "html",
-  -- "json",
-  -- "markdown",
-  -- "python",
-  -- "sql",
-  -- "lua",
   "stylua",
   "prettier",
-  -- "javascript",
-  -- "typescript",
-  -- "tsx",
-  -- "yaml",
   "prettier",
   "prettierd",
   "markdownlint",
@@ -36,7 +21,6 @@ M.parsers = {
 
 M.servers = {
   'lua_ls',
-  -- 'pyright',
   'basedpyright',
   'gopls',
   'terraformls',

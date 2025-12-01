@@ -1,7 +1,7 @@
 --[[
 -- LSP Utils
 -- Author: Mark van der Meulen
--- Updated: 13-02-2023
+-- Updated: 2025-12-01
 --]]
 
 local log = require('plenary.log').new({ plugin = 'mason', level = 'debug', use_console = true })

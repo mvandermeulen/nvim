@@ -204,7 +204,7 @@ function py_setup_upgrade() {
 
 
 main() {
-  local desired_python_version="${1:-3.13}"; local venv_path="${2:-.venv}";
+  local desired_python_version="${1:-3.13.9}"; local venv_path="${2:-.venv}";
   local nvim_config_dir="${HOME}/.config/nvim";
   # local current_dir=$(pwd -P); local venv_path="${current_dir}/.venv";
 
