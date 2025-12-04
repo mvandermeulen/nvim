@@ -6,7 +6,7 @@
 --]]
 
 
-local _name = 'LSP Handlers'
+local _name = 'lsp_handlers'
 local _log = require('plenary.log').new({ plugin = _name, level = 'debug', use_console = true })
 local function mlog(msg, level)
   local level = level or 'debug'

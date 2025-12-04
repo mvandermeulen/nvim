@@ -37,7 +37,7 @@ local settings = {
       [vim.fn.expand '$VIMRUNTIME/lua/vim/lsp'] = true,
       [vim.fn.expand '/usr/share/awesome/lib'] = true,
       ['/Users/vandem/.hammerspoon/Spoons/EmmyLua.spoon/annotations'] = true,
-      ['/Applications/Hammerspoon.app/Contents/Resources/extensions/hs/'] = true,,
+      ['/Applications/Hammerspoon.app/Contents/Resources/extensions/hs'] = true,
     },
     -- adjust these two values if your performance is not optimal
     maxPreload = 2000,

@@ -58,7 +58,7 @@ M.root_files = {
   '.python-version',
   'setup.cfg',
   'requirements.txt',
-  'pyroject.toml',
+  'pyproject.toml',
   '.venv',
   'venv',
   'uv.lock',
@@ -66,6 +66,7 @@ M.root_files = {
   'Pipfile',
   'ruff.toml',
   '.ruff.toml',
+  '.activate',
   'package.json',
 }
 
@@ -88,21 +89,27 @@ end
 
 
 function M.get_python_path(workspace)
+  mylog('Getting Python path for workspace: ' .. workspace, 'debug')
   -- Use activated virtualenv.
   if vim.env.VIRTUAL_ENV then
+    mylog('Using activated virtualenv: ' .. vim.env.VIRTUAL_ENV, 'debug')
     return fs.path_join(vim.env.VIRTUAL_ENV, 'bin', 'python3')
   end
   local venv = utils.add_venv_to_path(workspace)
+  mylog('Using venv from workspace: ' .. tostring(venv), 'debug')
   if venv ~= nil then
+    mylog('Using venv: ' .. venv, 'debug')
     return fs.path_join(venv, 'bin', 'python3')
   end
   -- Find and use virtualenv in workspace directory.
   for _, pattern in ipairs { '*', '.*' } do
-    local match = vim.fn.glob(fs.path_join(workspace, pattern, 'pyvenv.cfg'))
+    local match = vim.fn.glob(fs.path_join(workspace, pattern, 'uv.lock'))
     if match ~= '' then
+      mylog('Using found virtualenv: ' .. match, 'debug')
       return fs.path_join(fs.dirname(match), 'bin', 'python3')
     end
   end
+  mylog('Falling back to system Python', 'debug')
   -- Fallback to system Python.
   return vim.fn.exepath 'python3' or vim.fn.exepath 'python' or 'python'
 end

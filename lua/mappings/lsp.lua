@@ -82,6 +82,8 @@ return {
   { '<leader>lci', '<cmd>LspInfo<cr>', desc = 'LSP: Info' },
   { '<leader>lcS', '<cmd>LspStart<cr>', desc = 'LSP: Start' },
   { '<leader>lcl', '<cmd>LspLog<cr>', desc = 'LSP: Logs' },
+  { '<leader>l_', '<cmd>LspInfo<cr>', desc = 'LSP: Info' },
+  { '<leader>l-', '<cmd>LspLog<cr>', desc = 'LSP: Logs' },
   -- LSP Python: <leader>lP
   { "<leader>lPg", function() require("helpers.lang.pyenv").get_current_venv(true) end, desc = "Get Current Venv" },
   { "<leader>lPv", function() require("helpers.lang.pyenv").select_venv() end, desc = "Select Venv" },

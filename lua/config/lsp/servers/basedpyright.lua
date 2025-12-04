@@ -113,11 +113,13 @@ return {
     local new_workspace_name = utils.to_workspace_name(new_workspace)
 
     if python_path == "python" then
-      -- local msg = "LSP python (pyright) - keeping previous python path '%s' for new_root_dir '%s'"
+      local msg = "LSP python (pyright) - keeping previous python path '%s' for new_root_dir '%s'"
+      mylog(msg:format(config.cmd[1], new_workspace), 'debug')
       -- vim.notify(msg:format(config.cmd[1], new_workspace), vim.log.levels.DEBUG)
       return config
     else
-      -- local msg = "LSP python (pyright) - '%s' using path %s"
+      local msg = "LSP python (pyright) - '%s' using path %s"
+      mylog(msg:format(new_workspace_name, python_path), 'debug')
       -- vim.notify(msg:format(new_workspace_name, python_path), vim.log.levels.DEBUG)
       config.settings.python.pythonPath = python_path
       return config

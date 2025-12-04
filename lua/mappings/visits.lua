@@ -11,7 +11,7 @@ return {
   { '<leader>vm', '<cmd>Mason<cr>', desc = '󰆦 Mason' },
   { '<leader>vs', '<cmd>FzfLua<cr>', desc = ' Search' },
   { "<leader>vT", "<cmd>Telescope<cr>", desc = "  Telescope" },
-  { '<leader>vc', , desc = '' },
+  -- { '<leader>vc', , desc = '' },
   { '<leader>vg',  '<CMD>lua _GITUI_TOGGLE()<CR>i', desc = 'GitUI' },
   { '<leader>vG', function()  end, desc = 'LazyGit' },
   { '<leader>vy',  '<ESC><CMD>YankBank<CR>', desc = ' YankBank' },

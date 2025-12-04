@@ -23,7 +23,6 @@ M.servers = {
   'lua_ls',
   'basedpyright',
   'gopls',
-  'terraformls',
   'yamlls',
   'jsonls',
   'bashls',
