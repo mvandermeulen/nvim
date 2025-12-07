@@ -15,7 +15,7 @@ local function mylog(msg, level)
   end
 end
 
-
+mylog('Loading LSP server: basedpyright', 'info')
 local lsputils_status, lsputils = pcall(require, 'config.lsp.utils')
 if not lsputils_status then
   mylog('Error loading helper: lsputils', 'error')
@@ -32,6 +32,7 @@ end
 local root_pattern = require('lspconfig.util').root_pattern
 
 
+mylog('LSP server basedpyright loaded', 'info')
 return {
   enabled = true,
   filetypes = { "python" },

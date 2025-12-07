@@ -55,8 +55,8 @@ return {
   { "<leader>aS", "<cmd>FzfLua<cr>", desc = "Fuzzy Search" },
   { "<leader>aT", "<cmd>Telescope<cr>", desc = "  Telescope Extensions" },
   { "<leader>ay", "<ESC><CMD>YankBank<CR>", desc = " YankBank" },
-  { "<leader>au", "<ESC><CMD>UrlView<CR>", desc = "Buffer URL View" },
-  { "<leader>aL", "<ESC><CMD>UrlView lazy<CR>", desc = "Lazy URL View" },
+  -- { "<leader>au", "<ESC><CMD>UrlView<CR>", desc = "Buffer URL View" },
+  -- { "<leader>aL", "<ESC><CMD>UrlView lazy<CR>", desc = "Lazy URL View" },
   { '<leader>aV', "<cmd>lua _G.my.helpers.server:vdm_start_server()<cr>", desc = 'Start Server' },
   -- Clipboard: <leader>ac
   clip,

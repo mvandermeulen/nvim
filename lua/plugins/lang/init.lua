@@ -326,6 +326,7 @@ local M = {
       },
     }
   },
+  -- require('plugins.lang.python-lsp'),
   require('plugins.lang.uv-integration')
 }
 

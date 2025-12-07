@@ -20,7 +20,7 @@ return {
     config = function()
       local lspconfig = require("lspconfig")
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
-      
+
       -- Setup clean diagnostic display with signs only
       vim.diagnostic.config({
         virtual_text = false,
@@ -36,10 +36,10 @@ return {
         update_in_insert = false,
         severity_sort = true,
       })
-      
+
       -- Set updatetime for faster CursorHold trigger
       vim.opt.updatetime = 500
-      
+
       -- Show diagnostic float when cursor is on error line
       vim.api.nvim_create_autocmd("CursorHold", {
         callback = function()
@@ -58,7 +58,7 @@ return {
           vim.diagnostic.open_float(nil, opts)
         end
       })
-      
+
       -- Configure LSP hover handler
       vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
         border = "rounded",
@@ -66,9 +66,9 @@ return {
         max_height = 20,
         wrap = true,
       })
-      
+
       -- BasedPyright configuration
-      lspconfig.basedpyright.setup({
+      vim.lsp.config['basedpyright'] = {
         capabilities = capabilities,
         filetypes = { "python" },
         settings = {
@@ -82,10 +82,10 @@ return {
             },
           },
         },
-      })
+      }
 
       -- Ruff LSP configuration
-      lspconfig.ruff.setup({
+      vm.lsp.config['ruff'] ={
         capabilities = capabilities,
         filetypes = { "python" },
         init_options = {
@@ -100,13 +100,13 @@ return {
           -- Disable hover in favor of BasedPyright
           client.server_capabilities.hoverProvider = false
         end,
-      })
+      }
 
       -- LSP keybindings
       vim.api.nvim_create_autocmd('LspAttach', {
         callback = function(ev)
           local opts = { buffer = ev.buf, silent = true }
-          
+
           vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
           vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
           vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)

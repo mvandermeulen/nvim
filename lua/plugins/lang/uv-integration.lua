@@ -14,6 +14,10 @@ return {
     opts = {
       auto_activate = true,
       auto_commands = true,
+      picker_integration = true,
+      keymaps = {
+        prefix = "<leader>au",
+      }
     },
     -- keys = {
     --   { "<leader>aur", "<cmd>UVRun<cr>", desc = "UV Run" },
@@ -24,11 +28,7 @@ return {
     --   { "<leader>auv", "<cmd>UVStatus<cr>", desc = "UV Status" },
     -- },
     config = function()
-      require('uv').setup({
-        keymaps = {
-          prefix = "<leader>au",
-        }
-      })
+      require('uv').setup(opts)
     end,
   },
 }

@@ -58,7 +58,7 @@ local settings = {
       package_uninstalled = "✗",
     },
   },
-  log_level = vim.log.levels.INFO,
+  log_level = vim.log.levels.DEBUG,
   max_concurrent_installers = 4,
 }
 
@@ -72,7 +72,8 @@ handlers.setup()
 mylog('LSP Handlers setup complete', 'info')
 
 
--- mylog('Mason LSP Config per handler setup complete', 'info')
+
+mylog('Mason LSP Config per handler setup complete', 'info')
 for _, server in pairs(lang.servers) do
   opts = {
     on_attach = handlers.on_attach,
@@ -81,12 +82,18 @@ for _, server in pairs(lang.servers) do
   mylog('Setting up server: ' .. server, 'info')
 
   server = vim.split(server, "@")[1]
+  mylog('Configuring server: ' .. server, 'info')
   local require_ok, conf_opts = pcall(require, 'config.lsp.servers.' .. server)
   if require_ok then
+    mylog('Server config found: ' .. server, 'info')
     opts = vim.tbl_deep_extend("force", conf_opts, opts)
   else
     mylog('Server config not found: ' .. server, 'warn')
   end
-  vim.lsp.config(server, opts)
+  mylog('Finalizing setup for server: ' .. server, 'info')
+  -- vim.lsp.config(server, opts)
+  vim.lsp.config[server].setup(opts)
+  mylog('Enabling server: ' .. server, 'info')
   vim.lsp.enable(server)
+  mylog('Server enabled: ' .. server, 'info')
 end

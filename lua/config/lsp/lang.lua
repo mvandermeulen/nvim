@@ -20,8 +20,8 @@ M.parsers = {
 }
 
 M.servers = {
-  'lua_ls',
   'basedpyright',
+  'lua_ls',
   'gopls',
   'yamlls',
   'jsonls',
