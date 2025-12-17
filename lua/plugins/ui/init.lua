@@ -179,6 +179,32 @@ local M = {
       },
     },
   },
+  {-- context-menu.nvim
+    'anthoeknee/context-menu.nvim',
+    event = "VeryLazy",
+    config = function()
+      require('context-menu').setup({
+        keymaps = {
+            show_menu = "<leader>eM",
+          },
+      })
+      require("context-menu.modules.text-edit").setup()
+      require("context-menu.modules.lsp").setup()
+    end,
+  },
+  {-- XXiaoA/atone.nvim
+    'XXiaoA/atone.nvim',
+    lazy = false,
+    config = function()
+      -- Modern undo tree
+      require('atone').setup({
+        layout = {
+          direction = "right",
+          width = 0.25,
+        },
+      })
+    end,
+  },
   require('plugins.ui.winsep'),
   require('plugins.ui.emission'),
   require('plugins.ui.flatten'),
