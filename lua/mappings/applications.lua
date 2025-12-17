@@ -70,4 +70,5 @@ return {
   ts,
   -- SOPS: <leader>az
   sops,
+  { '<leader>au', '<cmd>Atone toggle<cr>', desc = 'Undotree' },
 }
