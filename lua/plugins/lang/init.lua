@@ -307,6 +307,27 @@ local M = {
       require('lsp-progress').setup()
     end,
   },
+  {-- WeiTing1991/diagnostic-hover.nvim
+    'WeiTing1991/diagnostic-hover.nvim',
+    lazy = false,
+    config = function()
+      require('diagnostic-hover').setup()
+    end,
+  },
+  -- {-- 
+  --   '',
+  --   lazy = false,
+  --   config = function()
+  --     require('').setup()
+  --   end,
+  -- },
+  -- {-- 
+  --   '',
+  --   lazy = false,
+  --   config = function()
+  --     require('').setup()
+  --   end,
+  -- },
   {-- mhanberg/output-panel.nvim
     "mhanberg/output-panel.nvim",
     version = "*",
