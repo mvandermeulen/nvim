@@ -642,6 +642,15 @@ local M = {
   --     require('').setup()
   --   end,
   -- },
+  {-- kylechui/nvim-surround
+    'kylechui/nvim-surround',
+    version = "^4.0.0", -- Use for stability; omit to use `main` branch for the latest features
+    config = function()
+      require("nvim-surround").setup({
+        -- Configuration here, or leave empty to use defaults
+      })
+    end,
+  },
   require('plugins.utils.macrothis'),
   {-- roobert/f-string-toggle.nvim
     "roobert/f-string-toggle.nvim",
