@@ -132,5 +132,9 @@ map("n", "<backspace>", function() require("helpers.user.tools").replace_indente
 -- <S-Backspace> is UNUSED
 map({ "n", "v" }, "<S-backspace>", '"_dP', kmo('Blackhole Delete'))
 
+map("n", "]h", "<CMD>lua require 'gitsigns'.next_hunk()<CR>", kmo('Next Hunk'))
+map("n", "[h", "<CMD>lua require 'gitsigns'.prev_hunk()<CR>", kmo('Prev Hunk'))
+
+
 
 
