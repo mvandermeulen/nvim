@@ -45,14 +45,14 @@ local M = {
       snippetDir = os.getenv("HOME") .. "/.config/nvim/snippets/vsc",
     },
   },
-  {-- Registers
-    'tversteeg/registers.nvim',
-    lazy = false,
-    config = function()
-      require('plugins.utils.registers')
-    end,
-    name = "registers",
-  },
+  -- {-- Registers REMOVED ON 2026-06-17 due to update error and lack of use
+  --   'tversteeg/registers.nvim',
+  --   lazy = false,
+  --   config = function()
+  --     require('plugins.utils.registers')
+  --   end,
+  --   name = "registers",
+  -- },
   {-- neoclip
     'AckslD/nvim-neoclip.lua',
     lazy = false,
