@@ -4,31 +4,41 @@
 -- Updated: 2025-06-17
 --]]
 
-local treesitter_depends = {
-  { 'nvim-treesitter/nvim-treesitter-textobjects' },
+-- local treesitter_depends = {
+  -- { 'nvim-treesitter/nvim-treesitter-textobjects' },
   -- { 'p00f/nvim-ts-rainbow' },
-  { 'HiPhish/rainbow-delimiters.nvim' },
-  { 'eckon/treesitter-current-functions' },
-}
+  -- { 'HiPhish/rainbow-delimiters.nvim' },
+  -- { 'eckon/treesitter-current-functions' },
+-- }
 
 local M = {
-  {-- nvim-treesitter
-    'nvim-treesitter/nvim-treesitter',
+  -- {-- nvim-treesitter
+  --   'nvim-treesitter/nvim-treesitter',
+  --   lazy = false,
+  --   dependencies = treesitter_depends,
+  --   config = function()
+  --     require('plugins.lang.treesitter')
+  --   end,
+  --   name = "treesitter",
+  --   build = ':TSUpdate',
+  -- },
+  -- {-- nvim-treesitter-context
+  --   'romgrk/nvim-treesitter-context',
+  --   lazy = false,
+  --   config = function()
+  --     require('plugins.lang.treesitter-context')
+  --   end,
+  --   name = "treesitter-context",
+  -- },
+  {-- romus204/tree-sitter-manager.nvim
+    'romus204/tree-sitter-manager.nvim',
     lazy = false,
-    dependencies = treesitter_depends,
+    dependencies = {}, -- tree-sitter CLI must be installed system-wide
     config = function()
-      require('plugins.lang.treesitter')
+      require('tree-sitter-manager').setup({
+        auto_install = true,
+      })
     end,
-    name = "treesitter",
-    build = ':TSUpdate',
-  },
-  {-- nvim-treesitter-context
-    'romgrk/nvim-treesitter-context',
-    lazy = false,
-    config = function()
-      require('plugins.lang.treesitter-context')
-    end,
-    name = "treesitter-context",
   },
   require('plugins.lang.context_vt'),
   {-- windwp/nvim-autopairs: Pair completion ie. parentheses

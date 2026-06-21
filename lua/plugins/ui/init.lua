@@ -225,7 +225,6 @@ local M = {
   { 'andersevenrud/nordic.nvim' },
   { 'kvrohit/substrata.nvim' },
   { 'Domeee/mosel.nvim' },
-  { 'teloe/drip.nvim' },
   { 'sainnhe/gruvbox-material' },
   { 'Mofiqul/dracula.nvim' },
   { 'shaeinst/roshnivim-cs' },

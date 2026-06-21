@@ -14,7 +14,7 @@ local M = {
       require('plugins.ai.avante')
     end,
     dependencies = {
-      "nvim-treesitter/nvim-treesitter",
+      -- "nvim-treesitter/nvim-treesitter",
       "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
       "stevearc/dressing.nvim",
       "nvim-lua/plenary.nvim",
@@ -51,7 +51,7 @@ local M = {
     dependencies = {
       "nvim-lua/plenary.nvim",
       "stevearc/dressing.nvim",
-      "nvim-treesitter/nvim-treesitter",
+      -- "nvim-treesitter/nvim-treesitter",
     },
     config = function()
       require('plugins.ai.nvimai')
