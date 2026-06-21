@@ -13,11 +13,11 @@ local function mylog(msg, level)
   end
 end
 
-local ts_status, ts = pcall(require, 'mappings.apps.treesitter')
-if not ts_status then
-  mylog('Failed to load mappings: Treesitter', 'error')
-  return
-end
+-- local ts_status, ts = pcall(require, 'mappings.apps.treesitter')
+-- if not ts_status then
+--   mylog('Failed to load mappings: Treesitter', 'error')
+--   return
+-- end
 
 local terminal_status, term = pcall(require, 'mappings.apps.terminal')
 if not terminal_status then
@@ -67,7 +67,7 @@ return {
   -- Terminal: <leader>at
   term,
   -- Treesitter: <leader>aT
-  ts,
+  -- ts,
   -- SOPS: <leader>az
   sops,
   { '<leader>au', '<cmd>Atone toggle<cr>', desc = 'Undotree' },

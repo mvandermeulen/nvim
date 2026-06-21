@@ -94,12 +94,12 @@ local flash_mappings = {
   ----- <leader>ef
   ----- Mappings: 
   { '<leader>efr', "<cmd>lua require('flash').remote()<cr>", desc = 'Remote' },
-  { '<leader>eft', "<cmd>lua require('flash').treesitter()<cr>", desc = 'Treesitter' },
+  -- { '<leader>eft', "<cmd>lua require('flash').treesitter()<cr>", desc = 'Treesitter' },
   { '<leader>efb', "<cmd>lua require('flash').jump({search = { forward = false, wrap = false, multi_window = false },})<cr>", desc = 'Search Back' },
   { '<leader>eff', "<cmd>lua require('flash').jump({search = { forward = true, wrap = false, multi_window = false },})<cr>", desc = 'Search Forward' },
   { '<leader>efp', "<cmd>lua require('flash').jump({continue = true})<cr>", desc = 'Previous Jump' },
   { '<leader>efs', "<cmd>lua require('flash').jump()<cr>", desc = 'Search' },
-  { '<leader>efR', "<cmd>lua require('flash').treesitter_search()<cr>", desc = 'Remote Treesitter' },
+  -- { '<leader>efR', "<cmd>lua require('flash').treesitter_search()<cr>", desc = 'Remote Treesitter' },
   { '<leader>efw', '<cmd>lua require("flash").jump({ pattern = vim.fn.expand("<cword>")})<cr>', desc = 'Current Word' },
   { '<leader>efd', "<cmd>FlashDiagnostics<cr>", desc = 'Diagnostics' },
 }

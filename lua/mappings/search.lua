@@ -61,5 +61,5 @@ return {
   { '<leader>ss', '<cmd>Telescope grep_string<cr>', desc = 'Text under cursor' },
   { '<leader>sS', '<cmd>Telescope symbols<cr>', desc = 'Search Symbols' },
   { '<leader>st', '<cmd>Telescope live_grep<cr>', desc = 'Text' },
-  { '<leader>sT', '<cmd>Telescope treesitter<cr>', desc = 'Treesitter' },
+  -- { '<leader>sT', '<cmd>Telescope treesitter<cr>', desc = 'Treesitter' },
 }
