@@ -275,8 +275,8 @@ local M = {
       { '<leader>gF', mode = 'n', '<cmd>Fugit2<cr>' }
     }
   },
-  {-- ahmedkhalf/project.nvim
-    'ahmedkhalf/project.nvim',
+  {-- DrKJeff16/project.nvim
+    'DrKJeff16/project.nvim',
     lazy = false,
     config = function()
       require('plugins.files.project')
