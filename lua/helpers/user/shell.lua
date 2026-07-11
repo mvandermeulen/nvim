@@ -418,6 +418,25 @@ end
 
 
 
+function M.open_path_in_new_window()
+  local Path = require('helpers.utils.path')
+  local current_file = vim.fn.expand('%')
+  local pp = Path:new(current_file):parent()
+  local fname = vim.fn.expand('%:t')
+  M.execute("new-window -c " .. pp.path .. " -n " .. fname)
+end
+
+function M.open_path_in_new_session()
+  local Path = require('helpers.utils.path')
+  local current_file = vim.fn.expand('%')
+  local fp = Path:new(current_file)
+  local pp = Path:new(current_file):parent()
+  local fname = vim.fn.expand('%:t')
+  M.execute("new-session -d -A -c " .. pp.path .. " -s " .. pp:filename() .. " -n " .. fname )
+end
+
+
+
 
 
 
@@ -427,11 +446,11 @@ end
 -- Trigger ranger in neovim inside a tmux popup
 -- Current file path will be the main path
 -- PROJECT: ranger-tmux-setup
-function M.ranger_popup_in_tmux()
+function M.yazi_popup_in_tmux()
   -- Get the directory of the current file in Neovim
   local current_file = vim.fn.expand "%:p:h"
   -- Formulate the tmux command with either the file directory or the pane's current path
-  local tmux_command = "tmux popup -d '" .. current_file .. "' -E -h 95% -w 95% -x 100% 'ranger'"
+  local tmux_command = "tmux popup -d '" .. current_file .. "' -E -h 95% -w 95% -x 100% 'yazi'"
   -- Execute the tmux command
   os.execute(tmux_command)
 end

@@ -92,7 +92,7 @@ end
 --map('n', '<leader>j', [[<cmd>m-2|j<cr>]])                                 -- Join line above at end of current
 -- map("n", "<leader><leader>M", ":lua require'telegraph'.telegraph({how='tmux_popup', cmd='man '})<Left><Left><Left>", kmo(''))
 -- Map <leader>mr in normal mode to the ranger_popup_in_tmux function
-map("mr", "<Cmd>lua require('helpers.user.shell').ranger_popup_in_tmux()<CR>", 'Ranger in Tmux')
+map("my", "<Cmd>lua require('helpers.user.shell').yazi_popup_in_tmux()<CR>", 'Yazi in Tmux')
 -- map("n", "<leader>mp", "<Cmd>lua require('helpers.precognition').toggle()<CR>", kmo('Toggle Precognition'))
 
 map("pj[", "<cmd>Portal jumplist backward<cr>", 'Portal Jumplist Backward')
@@ -114,15 +114,15 @@ map("<Tab>", ":BufferLineCycleNext<CR>", 'Next Buffer')
 ---------- Editor Tools ----------
 ----- <leader>e
 ----- Mappings: k, K, G
-map("ek", function() require("helpers.user.tools").cursor_lock(true) end, 'Cursor LocK')
-map("eK", function() require("helpers.user.tools").cursor_lock(false) end, 'Cursor LocK Disable')
-map("eG", function() require("helpers.user.tools").open_log("NvimLog") end, 'Open Neovim Logs')
+map("ek", function() require("helpers.user.utils").cursor_lock(true) end, 'Cursor LocK')
+map("eK", function() require("helpers.user.utils").cursor_lock(false) end, 'Cursor LocK Disable')
+map("eG", function() require("helpers.user.utils").open_log("NvimLog") end, 'Open Neovim Logs')
 
 ---------- Diagnostic Tools ----------
 ----- <leader>d
 ----- Mappings: c, C
-map("dc", function() require("helpers.user.tools").cursor_diagnostics() end, 'Copy Diagnostics [Cursor]')
-map("dC", function() require("helpers.user.tools").all_diagnostics() end, 'Copy Diagnostics [All]')
+map("dc", function() require("helpers.user.utils").cursor_diagnostics() end, 'Copy Diagnostics [Cursor]')
+map("dC", function() require("helpers.user.utils").all_diagnostics() end, 'Copy Diagnostics [All]')
 
 -- map('n', '<Space>tw', function()
 -- 	vim.opt.wrap = not vim.o.wrap

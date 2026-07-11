@@ -111,6 +111,12 @@ function Path:exists()
   return vim.fn.isdirectory(self.path) == 1 or vim.fn.filereadable(self.path) == 1
 end
 
+---Return file or directory name
+---@return string
+function Path:filename()
+  return vim.fn.fnamemodify(self.path, ":t")
+end
+
 ---Return table of paths matching the pattern
 ---@param pattern string
 ---@return Wax.Path[]

@@ -1,3 +1,10 @@
+--[[
+-- Helpers: User File Info
+--
+-- Author: Mark van der Meulen
+-- Updated: 2026-06-21
+--]]
+
 
 local colors = require 'user.colors'
 

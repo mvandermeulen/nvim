@@ -1,8 +1,8 @@
 --[[
--- Helpers: Utility Functions
+-- Helpers: User Functions
 --
 -- Author: Mark van der Meulen
--- Updated: 2025-06-03
+-- Updated: 2026-06-21
 --]]
 
 ---- user.fn: General utility functions

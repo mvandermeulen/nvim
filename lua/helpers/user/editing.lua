@@ -1,8 +1,8 @@
 --[[
--- Helpers: Editing
+-- Helpers: User Editing
 --
 -- Author: Mark van der Meulen
--- Updated: 2025-07-15
+-- Updated: 2026-06-21
 --]]
 
 

@@ -275,8 +275,17 @@ local M = {
       { '<leader>gF', mode = 'n', '<cmd>Fugit2<cr>' }
     }
   },
-  {-- ahmedkhalf/project.nvim
-    'ahmedkhalf/project.nvim',
+  {-- DrKJeff16/project.nvim
+    'DrKJeff16/project.nvim',
+    dependencies = {
+      {
+        'nvim-telescope/telescope.nvim',
+        dependencies = { 'nvim-lua/plenary.nvim' },
+      },
+      'wsdjeg/picker.nvim',
+      'folke/snacks.nvim',
+      'ibhagwan/fzf-lua',
+    },
     lazy = false,
     config = function()
       require('plugins.files.project')
