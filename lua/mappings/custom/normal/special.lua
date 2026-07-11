@@ -128,7 +128,7 @@ map("n", "<F17>", function () require("telescope").extensions.smart_open.smart_o
 
 
 -- <backspace>: Replace indented line
-map("n", "<backspace>", function() require("helpers.user.tools").replace_indented_line() end, kmo())
+map("n", "<backspace>", function() require("helpers.user.utils").replace_indented_line() end, kmo())
 -- <S-Backspace> is UNUSED
 map({ "n", "v" }, "<S-backspace>", '"_dP', kmo('Blackhole Delete'))
 

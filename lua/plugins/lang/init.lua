@@ -41,6 +41,10 @@ local M = {
     end,
   },
   require('plugins.lang.context_vt'),
+  {-- b0o/schemastore.nvim
+    'b0o/schemastore.nvim',
+    lazy = false,
+  },
   {-- windwp/nvim-autopairs: Pair completion ie. parentheses
     'windwp/nvim-autopairs',
     lazy = false,
@@ -323,6 +327,20 @@ local M = {
     config = function()
       require('diagnostic-hover').setup()
     end,
+  },
+  {-- https://github.com/romus204/referencer.nvim
+    'romus204/referencer.nvim',
+    lazy = false,
+    config = function()
+      require('referencer').setup({
+        enable = true,
+        kinds = { 12, 13, 6, 5, 23, 8, 1, 2, 7 },
+        pattern = {"*.go", "*.py", "*.js", "*.ts", "*.lua", "*.sh", "*.zsh", "*.rs"},
+      })
+    end,
+    -- Commands:
+    -- :ReferencerToggle Toggle reference display on/off
+    -- :ReferencerUpdate Force refresh reference information in current buffer
   },
   -- {-- 
   --   '',

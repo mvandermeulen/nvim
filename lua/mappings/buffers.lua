@@ -28,4 +28,6 @@ return {
   { '<leader>bst', "<CMD>BufferLineSortByTabs<CR>", desc = "Tabs" },
   { '<leader>bse', "<CMD>BufferLineSortByExtension<CR>", desc = "  Extension" },
   { '<leader>bsr', "<CMD>BufferLineSortByRelativeDirectory<CR>", desc = " Relative Directory" },
+  { '<leader>bo', '<CMD>lua require("helpers.user.shell").open_path_in_new_window()<CR>', desc = '󰞷 Open Parent in Tmux Window' },
+  { '<leader>bt', '<CMD>lua require("helpers.user.shell").open_path_in_new_session()<CR>', desc = '󰞷 Open Parent in Tmux Session' },
 }

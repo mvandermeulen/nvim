@@ -68,7 +68,7 @@ return {
       },
       window = {
         position = "left",
-        width = math.floor(vim.fn.winwidth(0) * 0.18), -- Finding 15% of windows width.
+        width = math.floor(vim.fn.winwidth(0) * 0.28), -- Finding 28% of windows width.
         mapping_options = {
           noremap = true,
           nowait = true,
