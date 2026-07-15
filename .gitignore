@@ -1,31 +1,135 @@
-#plugin
-#plugin/
+
+__pycache__
+__pycache__/
+_archive/
+_oldvenv/
+.activate
+.AppleDouble
+.archive/
+.build/
+.cache
+.coverage
+.dmypy.json
+.DS_Store
+.DS_Store?
+.eggs/
+.env
+.env.*.local
+.env.local
+.envrc
+.idea/
+.kato-ports.json
+.local_dots_250620/
+.LSOverride
+.mise.toml
+.mypy_cache/
+.netrc
+.nox/
+.nvim
+.pyre/
+.pytest_cache/
+.python-version
+.pytype/
+.rhino/
+.ruff_cache/
+.swiftpm/
+.tool-versions
+.tox/
+.venv
+.venv/
+.vscode/
+*_backup.py
+*.backup
+*.backup.py
+*.bak
+*.db
+*.egg
+*.egg-info
+*.egg-info/
+*.log
+*.nvprof
+*.nvvptests/tests/unit/test_debug_predictions.py
+*.prof
+*.py[cod]
+*.pyc
+*.qdrep
+*.so
+*.sqlite
+*.sqlite3
+*.swo
+*.swp
+*.tmp
+**/venv/
+*/__pycache__
+*/__pycache__/
+*~
+*$py.class
+/github_repos.db-shm
+/github_repos.db-wal
+# Database files
+# Docker
+# Dynamic port mappings (generated)
+# Environment files
+# GPU development
+# IDE
+# Local tooling
+# Logs
+# OS specific
+# Project specific
+# Python
+# Release build output
+# Temporary files
+# Test artifacts
+# Virtual environments
+#__luasnippets
+#install
 #lua/_plugins
 #lua/_plugins/
+#lua/helpers
+#lua/helpers/
 #lua/lsp
 #lua/lsp/
 #lua/user
 #lua/user/
 #lua/utils
 #lua/utils/
-#lua/helpers
-#lua/helpers/
-#__luasnippets
-#install
+#plugin
+#plugin/
 #snippets
+benchmarks/results/*.csv
+benchmarks/results/*.json
+build/
+debug_*.py
+DerivedData/
+dist/
+dmypy.json
+docker-compose.override.yml
+env/
+ENV/
+examples/
+github.env
+htmlcov/
+kato_venv/
+lazy-lock.json
+local_dots_250620/
+logs/
+logs/*.log
+logs/test-results.log
+mise.toml
 notes/
 old/
-lazy-lock.json
-.nvim
-examples/
-.venv/
-.activate
+temp/
+tests/__pycache__/
+tests/*/__pycache__/
+tests/*/*/__pycache__/
+tests/stress/__pycache__/
+tests/tests/unit/test_storage_validation.py
+tests/tests/venv/
+tests/venv/
+Thumbs.db
+tmp/
+update_container.sh
 uv.lock
+venv-gpu/
 venv/
-.python-version
-.tool-versions
-.env
-.envrc
-.DS_Store
-mise.toml
-.mise.toml
+xcuserdata/
