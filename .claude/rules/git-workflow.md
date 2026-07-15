@@ -1,0 +1,159 @@
+# Git Workflow
+
+## Branch Strategy
+
+**Format**: `{type}/{description}`
+
+**Types**: `feature/*`, `fix/*`, `docs/*`, `refactor/*`, `test/*`
+
+### CRITICAL: Never Push to main Branch
+
+**Before ANY commit or push operation**:
+1. **CHECK current branch**: Run `git branch --show-current`
+2. **IF on main/master branch**: STOP and create a feature branch
+3. **NEVER commit directly to main**: Always work on feature branches
+4. **NEVER push to main**: All changes must go through Pull Requests
+
+**Workflow**:
+```bash
+# 1. Check current branch (REQUIRED before any git operation)
+git branch --show-current
+
+# 2. If on main, create feature branch
+git checkout -b fix/description-of-change
+
+# 3. Make changes, commit, push to feature branch
+git add <files>
+git commit -m "fix: description"
+git push -u origin fix/description-of-change
+
+# 4. Create Pull Request (never push to main)
+gh pr create --title "..." --body "..."
+```
+
+**Exception**: Only push to main when:
+- User explicitly says "push to main" or "merge to main"
+- Even then, confirm: "Are you sure you want to push directly to main? This bypasses PR review."
+
+## Commit Guidelines
+
+**Format**:
+```
+type: brief description
+
+Optional detailed explanation.
+
+Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>
+```
+
+**Types**: `feat:`, `fix:`, `docs:`, `refactor:`, `test:`, `chore:`, `perf:`
+
+**Best Practices**:
+- Write clear, descriptive messages
+- Keep commits atomic (one logical change)
+- Use present tense ("add" not "added")
+- Run tests before committing
+- Never commit broken code or secrets
+
+## Pull Request
+
+**Before PR**:
+1. `mise run test`
+2. `mise run lint`
+3. `mise run validate`
+
+**Requirements**:
+- Clear title and description **in English**
+- All tests passing
+- No lint errors
+- Updated documentation (if applicable)
+
+**Template Rule**:
+- **CRITICAL**: Always use the PR template (`.github/PULL_REQUEST_TEMPLATE.md`)
+- Fill out all sections: Summary, Related Issues, Changes, Checklist, Testing
+- Never skip the checklist - verify each item before submitting
+
+**Language Rule**:
+- **CRITICAL**: PR title and description MUST be written in English
+- This is a hard requirement for GitHub collaboration
+- Never create PRs in Japanese or other languages
+- If user provides Japanese text, translate to English before creating PR
+
+**Merge strategy**: Squash and merge (preferred) for clean history
+
+## Destructive Git Operations
+
+**CRITICAL: These commands permanently delete data. NEVER run without explicit user confirmation.**
+
+### Commands that permanently delete uncommitted work:
+- `git checkout -- <file>` - Discards all uncommitted changes to file (IRREVERSIBLE)
+- `git reset --hard` - Discards all uncommitted changes in working directory
+- `git clean -fd` - Deletes all untracked files and directories
+- `git restore --staged --worktree <file>` - Discards changes (newer alternative to checkout)
+
+### Commands that rewrite history:
+- `git reset --hard <commit>` - Moves HEAD and discards commits
+- `git push --force` - Overwrites remote history
+- `git rebase -i` - Rewrites commit history
+
+### Mandatory confirmation process:
+1. **STOP**: Identify if the command is destructive
+2. **VERIFY**: Run `git status` and `git diff` to see what will be lost
+3. **ASK**: Show user exactly what will be deleted/changed
+4. **WAIT**: Get explicit "yes" or "proceed" from user
+5. **EXECUTE**: Only after confirmation
+
+### Safe alternatives:
+- Instead of `git checkout -- <file>`: Ask user "Do you want to discard changes to <file>?"
+- Instead of `git reset --hard`: Use `git stash` to preserve work
+- Instead of `git clean -fd`: List files first with `git clean -n`, then ask
+
+**Example scenario:**
+```
+User: "unstage the files"
+❌ BAD: git checkout -- file.txt
+✅ GOOD: git status → show changes → ask "Discard these changes?" → wait for confirmation
+```
+
+## Safety Rules
+
+**BEFORE ANY GIT OPERATION (commit, push, PR)**:
+1. **Run `git branch --show-current`** - Check which branch you're on
+2. **IF on main/master**: STOP and create feature branch first
+3. Show changes to user (`git status`, `git diff`)
+4. Wait for explicit confirmation
+
+**NEVER**:
+- **Commit to main/master branch** (use feature branches)
+- **Push to main/master branch** (use Pull Requests)
+- Force push to main/master
+- Rebase shared branches
+- Commit secrets or API keys
+- Create and push files without explicit user instruction
+- Push to GitHub without explicit user confirmation
+
+**ALWAYS**:
+- **Check current branch before every git operation**
+- Create feature branch if on main
+- Review changes before committing (`git diff`)
+- Test before pushing
+- Keep commits focused
+- Update documentation with code
+- Show changes locally first, then ask for push permission
+- Get explicit confirmation before any GitHub operation (commit, push, PR, Issue)
+
+## Critical: GitHub Operations
+
+**Before any push/PR/GitHub operation**:
+1. Show all changes to user (files created, modified, deleted)
+2. Explain what will be pushed and why
+3. Wait for explicit user confirmation: "OK to push?" or "Create PR?"
+4. Never assume permission from implementation requests
+
+**Especially critical for**:
+- Hooks and scripts (pre-commit, setup scripts)
+- Configuration files (.gitignore, CI/CD configs)
+- Documentation changes
+- Any file that wasn't explicitly requested
+
+**Rationale**: Once pushed to GitHub, data cannot be easily removed. Commits remain in object storage even after force-push.

@@ -1,0 +1,12 @@
+[push]
+	autoSetupRemote = true
+[core]
+	quotepath = false
+	editor = nvim
+  pager = delta
+[color]
+	ui = auto
+[init]
+	defaultBranch = main
+[advice]
+	detachedHead = false
