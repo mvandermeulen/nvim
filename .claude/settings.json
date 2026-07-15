@@ -1,0 +1,368 @@
+{
+  "env": {
+    "CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR": "1",
+    "MAX_MCP_OUTPUT_TOKENS": "60000",
+    "BASH_DEFAULT_TIMEOUT_MS": "300000",
+    "BASH_MAX_TIMEOUT_MS": "600000",
+    "MAX_THINKING_TOKENS": "8192",
+    "CLAUDE_CODE_MAX_OUTPUT_TOKENS": "128000",
+    "DISABLE_AUTOUPDATER": "0",
+    "DISABLE_COST_WARNINGS": "0",
+    "DISABLE_ERROR_REPORTING": "1",
+    "DISABLE_TELEMETRY": "1",
+    "MCP_TIMEOUT": "10000",
+    "MCP_TOOL_TIMEOUT": "15000",
+    "USE_BUILTIN_RIPGREP": "1"
+  },
+  "outputStyle": "terse",
+  "permissions": {
+    "allow": [
+      "Glob",
+      "Grep",
+      "LS",
+      "Task",
+      "TodoWrite",
+      "Bash(mise:*)",
+      "Bash(just:*)",
+      "Bash(rg:*)",
+      "Bash(find:*)",
+      "Bash(ls:*)",
+      "Bash(nvim:*)",
+      "Bash(vim:*)",
+      "Bash(git:*)",
+      "Bash(pkill:*)",
+      "Bash(open:*)",
+      "Bash(mkdir:*)",
+      "Bash(cp:*)",
+      "Bash(ln:*)",
+      "Bash(mv:*)",
+      "Bash(tmux:*)",
+      "Bash(uv:*)",
+      "Write",
+      "Edit",
+      "Bash(~/.tmux/plugins/tpm/scripts/install_plugins.sh)",
+      "Bash(grep:*)",
+      "Bash(sed:*)",
+      "Bash(true)",
+      "Bash(source:*)",
+      "Bash(echo:*)",
+      "Bash(fc-list:*)",
+      "Bash(touch:*)",
+      "Bash(fzf:*)",
+      "Bash($FZF_DEFAULT_COMMAND)",
+      "Bash(sh -c \"$FZF_DEFAULT_COMMAND\")",
+      "Bash(fd:*)",
+      "Bash(bash:*)",
+      "Bash(zsh ~/.claude/claude-activity-tracker.sh:*)",
+      "Bash(brew install:*)",
+      "Bash(~/.local/bin/cs:*)",
+      "Bash(chmod:*)",
+      "Bash(pip install:*)",
+      "Bash(npm install:*)",
+      "Bash(~/.local/share/mise/installs/stylua/2.1.0/stylua test_format.lua)",
+      "Bash(acli:*)",
+      "Bash(curl:*)",
+      "Bash(backstagecli:*)",
+      "Bash(gh:*)",
+      "Bash(./git-commands/*)",
+      "Bash(/tmp/*.sh:*)",
+      "Bash([ -d ~/.tmux/plugins/tpm ])",
+      "Bash(~/.claude/local/claude --help)",
+      "Bash(.venv/bin/pip:*)",
+      "Bash(.venv/bin/python:*)",
+      "Bash(awk:*)",
+      "Bash(cat:*)",
+      "Bash(ccusage daily)",
+      "Bash(ccusage daily:*)",
+      "Bash(chmod:*)",
+      "Bash(claude config get)",
+      "Bash(claude mcp:*)",
+      "Bash(cp:*)",
+      "Bash(curl:*)",
+      "Bash(echo:*)",
+      "Bash(env)",
+      "Bash(find:*)",
+      "Bash(gemini:*)",
+      "Bash(grep:*)",
+      "Bash(gtimeout:*)",
+      "Bash(ls:*)",
+      "Bash(mcp:*)",
+      "Bash(mkdir:*)",
+      "Bash(mv:*)",
+      "Bash(pip install:*)",
+      "Bash(python:*)",
+      "Bash(rg:*)",
+      "Bash(sed:*)",
+      "Bash(source:*)",
+      "Bash(timeout:*)",
+      "Bash(tree:*)",
+      "Bash(true)",
+      "Bash(uv pip install:*)",
+      "Bash(uv run:*)",
+      "Bash(uv venv:*)",
+      "Bash(bash .claude/scripts/test-and-log.sh:*)",
+      "Bash(.claude/scripts/test-and-log.sh:*)",
+      "Bash(cat:*)",
+      "Bash(composer:*)",
+      "Bash(fi)",
+      "Bash(find:*)",
+      "Bash(gh:*)",
+      "Bash(npm:*)",
+      "Bash(npx:*)",
+      "Bash(pnpm:*)",
+      "Bash(pytest:*)",
+      "Bash(python:*)",
+      "Bash(dotnet:*)",
+      "Bash(cargo:*)",
+      "Bash(go:*)",
+      "Bash(swift:*)",
+      "Bash(flutter:*)",
+      "Bash(bundle:*)",
+      "Bash(ctest:*)",
+      "Bash(make:*)",
+      "Bash(rm:*)",
+      "Bash(repo_manager:*)",
+      "Bash(./repo_manager --help)",
+      "Bash(./repo_manager clone:*)",
+      "Bash(sqlite3:*)",
+      "Bash(redis-cli ping:*)",
+      "Bash(python3:*)",
+      "Read(//Users/vandem/code/200_CLONE/25_YAZI/**)",
+      "Read(//Users/vandem/code/200_CLONE/27_ZSH/**)",
+      "Read(//Users/vandem/code/200_CLONE/26_FZF/**)",
+      "Read(//Users/vandem/code/100_PROJECTS/200_RHINO/10_APP/rhino/**)",
+      "Bash(~/code/100_PROJECTS/410_WORKFLOW/11_GIT_AUTOMATIONS/.venv/bin/repo_manager:*)",
+      "Read(//Users/vandem/.config/repo_manager/**)",
+      "Bash(readlink:*)",
+      "Bash(greadlink:*)",
+      "Bash(ruff:*)",
+      "List(**)",
+      "mcp__ide__getDiagnostics",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:neovim.io)",
+      "WebFetch(domain:docs.anthropic.com)"
+    ],
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(./secrets/**)",
+      "Bash(sudo rm:*)",
+      "Bash(rm -rf /:*)",
+      "Bash(rm -rf ~:*)",
+      "Bash(dd:*of=/dev/:*)",
+      "Bash(mkfs:*)",
+      "Bash(fdisk:*)",
+      "Bash(curl:*|:*)",
+      "Bash(wget:*|:*)",
+      "Bash(:*eval:*)",
+      "Bash(:*exec:*)",
+      "Write(//etc/passwd)",
+      "Write(//etc/shadow)",
+      "Edit(//etc/passwd)",
+      "Edit(//etc/shadow)",
+      "Read(~/.ssh/id_*)",
+      "Read(**/*.key)",
+      "Read(**/*.pem)",
+      "Read(.env*)",
+      "Read(**/secrets/**)",
+      "Read(~/.aws/credentials)",
+      "Read(./config/credentials.json)"
+    ],
+    "defaultMode": "plan"
+  },
+  "hooks": {
+    "Notification": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "zsh ~/.claude/hooks/claude-activity-tracker.sh notification",
+            "async": true,
+            "timeout": 2
+          },
+          {
+            "type": "command",
+            "command": "zsh .claude/scripts/notify.sh",
+            "async": true,
+            "timeout": 2
+          },
+          {
+            "type": "command",
+            "command": "uv run .claude/hooks/coordinator.py notification",
+            "async": true,
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "zsh ~/.claude/hooks/claude-activity-tracker.sh stop",
+            "async": true,
+            "timeout": 2
+          },
+          {
+            "type": "command",
+            "command": "uv run .claude/hooks/coordinator.py stop",
+            "async": true,
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "zsh ~/.claude/hooks/claude-activity-tracker.sh stop",
+            "async": true,
+            "timeout": 2
+          },
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/session-init.sh",
+            "timeout": 2
+          },
+          {
+            "type": "command",
+            "command": "uv run .claude/hooks/coordinator.py session-start",
+            "async": true,
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "zsh ~/.claude/hooks/claude-activity-tracker.sh stop",
+            "async": true,
+            "timeout": 2
+          },
+          {
+            "type": "command",
+            "command": "uv run .claude/hooks/coordinator.py session-end",
+            "async": true,
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "zsh ~/.claude/hooks/claude-activity-tracker.sh stop",
+            "async": true,
+            "timeout": 2
+          },
+          {
+            "type": "command",
+            "command": "uv run .claude/hooks/coordinator.py pre-tool-use",
+            "async": true,
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "uv run .claude/hooks/coordinator.py post-tool-use",
+            "async": true,
+            "timeout": 5
+          },
+          {
+            "type": "command",
+            "command": "uv run .claude/scripts/when/post/post_tool_use.py",
+            "async": true,
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "zsh ~/.claude/hooks/claude-activity-tracker.sh stop",
+            "async": true,
+            "timeout": 2
+          },
+          {
+            "type": "command",
+            "command": "uv run .claude/hooks/coordinator.py subagent-stop",
+            "async": true,
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "zsh ~/.claude/hooks/claude-activity-tracker.sh stop",
+            "async": true,
+            "timeout": 2
+          },
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/message-counter.sh",
+            "async": true,
+            "timeout": 2
+          },
+          {
+            "type": "command",
+            "command": "uv run .claude/hooks/session-checklist.py",
+            "timeout": 5
+          },
+          {
+            "type": "command",
+            "command": "uv run .claude/hooks/coordinator.py user-prompt-submit",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  },
+  "preferences": {
+    "codeStyle": {
+      "indentation": "2 spaces",
+      "semicolons": true,
+      "quotes": "single",
+      "trailingCommas": true
+    },
+    "git": {
+      "commitStyle": "conventional",
+      "branchNaming": "feature/description",
+      "autoStage": false
+    }
+  },
+  "enableAllProjectMcpServers": false,
+  "forceLoginMethod": "claudeai",
+  "includeCoAuthoredBy": false,
+  "cleanupPeriodDays": 1000,
+  "alwaysThinkingEnabled": true,
+  "autoUpdates": false,
+  "theme": "dark"
+}
