@@ -356,7 +356,8 @@ function M.run_in_pane(target, send_return, cmd)
   end
   local message = string.format("Running %s %s in pane %s", "tmux", table.concat(args, " "), target_pane)
   mlog(message, 'debug')
-  local result = vim.fn.system('pueue --config ~/.local/share/pueue/mbp/pueue.yml add -d 1 -p -g tmux -- ' .. table.concat(cmd, " "))
+  -- local result = vim.fn.system('pueue --config ~/.local/share/pueue/mbp/pueue.yml add -d 1 -p -g tmux -- ' .. table.concat(args, " "))
+  local result = vim.fn.system('tmux ' .. table.concat(args, " "))
   -- local result = vim.fn.system(table.concat(cmd, " "))
   mlog("Result of attempt to send-keys: " .. result, 'debug')
   -- local handle

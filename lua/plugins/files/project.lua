@@ -21,12 +21,16 @@ project.setup({
   manual_mode = false,
   detection_methods = { "pattern" },
   patterns = { ".git", ".venv", ".is_root_directory", "pyrightconfig.json", "pyproject.toml", "Makefile", "package.json" },
-  ignore_lsp = { "null-ls", "copilot" },
+  lsp = {
+    ignore = { "null-ls", "copilot" },
+  },
   exclude_dirs = {},
   show_hidden = false,
   silent_chdir = false,
   scope_chdir = "global",
-  datapath = projects_path,
+  history = {
+    save_dir = projects_path,
+  },
 })
 
 -- project.setup {
