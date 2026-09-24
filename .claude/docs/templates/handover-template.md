@@ -18,7 +18,7 @@
 ## Task Progress
 
 ### Current Task
-- **JIRA ID**: {{JIRA_ID}}
+- **Linear ID**: {{LINEAR_ID}}
 - **Title**: {{TASK_TITLE}}
 - **Phase**: {{CURRENT_PHASE}}
 - **Progress**: {{PROGRESS}}%

@@ -5,13 +5,9 @@ This document outlines the standard structure and formatting for task planning d
 ## Core Principles
 
 1. **Code Executor vs. Task Creator Gap**: Task plans must assume the code executor may have different knowledge or capabilities than the task creator. Therefore, tasks must be extremely detailed, iterative, and well-defined.
-
 2. **Verification First Development**: Each function or feature must be verified to work correctly before moving to the next task. Every function should include a demonstration mechanism (rich table, JSON output, etc.) that allows both humans and agents to easily confirm correct behavior.
-
 3. **Version Control Discipline**: Start each new task with a git commit to enable rollback if needed. Create git tags at the completion of major tasks or phases.
-
 4. **Testing Strategy**: Create tests after functionality is working correctly, not during active development. Initial focus should be on verifying function output via demonstration.
-
 5. **Human-Friendly Documentation**: Always provide a clear usage table for CLI functions that humans can easily understand and try.
 
 ## Task Document Structure
