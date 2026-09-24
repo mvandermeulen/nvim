@@ -242,12 +242,12 @@ M.setup = function()
     },
   }
   vim.diagnostic.config(config)
-  mlog("LSP Handlers setup: Diagnostics", "info")
-  vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
-  mlog("LSP Handlers setup: Hover", "info")
-  vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
-  mlog("LSP Handlers setup: Signature Help", "info")
-  require("lspconfig.ui.windows").default_options.border = "rounded"
+  -- mlog("LSP Handlers setup: Diagnostics", "info")
+  -- vim.lsp.handlers["textDocument/hover"] = vim.lsp.buf.hover({ border = 'rounded' })
+  -- mlog("LSP Handlers setup: Hover", "info")
+  -- vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.handlers.signature_help({ border = "rounded" })
+  -- mlog("LSP Handlers setup: Signature Help", "info")
+  -- require("lspconfig.ui.windows").default_options.border = "rounded"
 end
 
 M.on_attach = function(client, bufnr)

@@ -63,13 +63,13 @@ local settings = {
 }
 
 mason.setup(settings)
-mylog('Mason setup complete', 'info')
+-- mylog('Mason setup complete', 'info')
 mason_lspconfig.setup({ ensure_installed = lang.servers, automatic_installation = true, })
-mylog('Mason LSPConfig setup complete', 'info')
+-- mylog('Mason LSPConfig setup complete', 'info')
 mason_null_ls.setup({ ensure_installed = lang.parsers, automatic_installation = true, })
-mylog('Mason Null LS setup complete', 'info')
+-- mylog('Mason Null LS setup complete', 'info')
 handlers.setup()
-mylog('LSP Handlers setup complete', 'info')
+-- mylog('LSP Handlers setup complete', 'info')
 
 
 
@@ -79,21 +79,21 @@ for _, server in pairs(lang.servers) do
     on_attach = handlers.on_attach,
     capabilities = handlers.capabilities,
   }
-  mylog('Setting up server: ' .. server, 'info')
+  -- mylog('Setting up server: ' .. server, 'info')
 
   server = vim.split(server, "@")[1]
-  mylog('Configuring server: ' .. server, 'info')
+  -- mylog('Configuring server: ' .. server, 'info')
   local require_ok, conf_opts = pcall(require, 'config.lsp.servers.' .. server)
   if require_ok then
-    mylog('Server config found: ' .. server, 'info')
+    -- mylog('Server config found: ' .. server, 'info')
     opts = vim.tbl_deep_extend("force", conf_opts, opts)
   else
     mylog('Server config not found: ' .. server, 'warn')
   end
-  mylog('Finalizing setup for server: ' .. server, 'info')
+  -- mylog('Finalizing setup for server: ' .. server, 'info')
   -- vim.lsp.config(server, opts)
   vim.lsp.config[server].setup(opts)
-  mylog('Enabling server: ' .. server, 'info')
+  -- mylog('Enabling server: ' .. server, 'info')
   vim.lsp.enable(server)
   mylog('Server enabled: ' .. server, 'info')
 end

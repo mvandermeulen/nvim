@@ -95,7 +95,7 @@ local opts = {
   --   }
   -- end,
   handlers = {
-    ["textDocument/publishDiagnostics"] = vim.lsp.with(lsputils.filter_publish_diagnostics, {
+    ["textDocument/publishDiagnostics"] = lsputils.filter_publish_diagnostics({
       ignore_diagnostic_message = lsputils.ignore_diagnostic_message,
     }),
   },

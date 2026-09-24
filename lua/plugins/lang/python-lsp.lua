@@ -60,7 +60,7 @@ return {
       })
 
       -- Configure LSP hover handler
-      vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+      vim.lsp.handlers["textDocument/hover"] = vim.lsp.handlers.hover({
         border = "rounded",
         max_width = 80,
         max_height = 20,

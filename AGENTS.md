@@ -1,6 +1,8 @@
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to AI Agents when working with code in this repository.
+
+## Getting Started
 
 **ALWAYS START BY READING**: 
 - `.claude/docs/SESSION_START_CHECKLIST.md`
@@ -10,7 +12,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `.claude/docs/TASK_MANAGEMENT.md`
 - `.claude/docs/LEARNING.md`
 
-## Task Planning
+### Critical Instructions
+- NEVER EVER WRITE CODE COMMENTS. DON'T EVEN THINK ABOUT IT.
+
+### Task Planning
 All task plans must follow the standard structure defined in the Task Plan Guide:
 
 - **Core Principles**: 
@@ -28,7 +33,7 @@ All task plans must follow the standard structure defined in the Task Plan Guide
 
 Refer to the full [Task Plan Guide](.claude/docs/guides/TASK_PLAN_GUIDE.md) for comprehensive details.
 
-## Memory and Planning
+### Memory and Planning
 
 - Plan in these phases: clarify -> explore -> plan -> document plan in a `.claude/docs/specs/<task>.md`
 - The plan phase should produce a `<task>.md` for me to review and help improve
@@ -51,8 +56,7 @@ Refer to the full [Task Plan Guide](.claude/docs/guides/TASK_PLAN_GUIDE.md) for 
 - Review: `.claude/docs/SESSION_MANAGEMENT.md`
 - Review: `.claude/docs/guides/session-management.md`
 
-
-## First-Time Setup
+### First-Time Setup
 
 On first use in any repository, run:
 
@@ -64,10 +68,17 @@ This script:
 - Verifies Redis is running
 - Applies all pending database migrations to `.rhino/share/hooks.db`
 
-## Managing your context window
+### Managing your context window
 
 - You do best thinking when you have less in your context rather than more
 - Minimize your context usage by delegating tasks that are straight-forward to describe and report back about but may require lots of exploration to complete to ephemeral Task agents you create
 - Ensure any agents you delegate to know exactly what you want them to report back, and what details to include
 - Update the `<task>.md` with any helpful findings
+
+## Shell Scripting
+
+- We use zsh extensively across all repositories.
+- Always write shell scripts to target usage in zsh environments and use zsh syntax, conventions and optimizations where possible.
+- There is a zsh script style guide in @`.claude/docs/guides/zsh-style-guide.md` that you must follow.
+
 
